@@ -1,5 +1,3 @@
-DROP IF EXISTS Category;
-
 CREATE TABLE Category (
   category_id integer NOT NULL,
   name varchar(255) NOT NULL,
@@ -7,8 +5,6 @@ CREATE TABLE Category (
   parent_id integer DEFAULT NULL,
   PRIMARY KEY (category_id)
 );
-
-DROP IF EXISTS Client;
 
 CREATE TABLE Client (
   client_id integer NOT NULL,
@@ -157,3 +153,16 @@ CREATE TABLE OrderReturn (
   CONSTRAINT OrderReturn_OrderProductReturn_foreign
   FOREIGN KEY (order_product_return_id) REFERENCES OrderProductReturn (id)
 );
+
+CREATE SEQUENCE category_id_seq START 1;
+CREATE SEQUENCE client_id_seq START 1;
+CREATE SEQUENCE role_id_seq START 1;
+CREATE SEQUENCE supplier_id_seq START 1;
+CREATE SEQUENCE order_id_seq START 1;
+CREATE SEQUENCE item_id_seq START 1;
+CREATE SEQUENCE user_id_seq START 1;
+CREATE SEQUENCE order_product_id_seq START 1;
+CREATE SEQUENCE supplier_item_id_seq START 1;
+CREATE SEQUENCE order_product_return_id_seq START 1;
+CREATE SEQUENCE order_return_id_seq START 1;
+
