@@ -1,5 +1,27 @@
+import { useNavigate } from 'react-router-dom';
 import './SearchBar.css'
+import {useState} from "react";
+import {useLocation} from "react-router-dom";
+
 export function SearchBar() {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const [search, setSearch] = useState('');
+
+    const keyPressHandler = (e) => {
+        if (e.key === 'Enter') {
+            navigate('/?'+search);
+        }
+    }
+
+    const changeHandler = (event) => {
+        setSearch(event.target.value);
+        if (location.pathname === "/") {
+            navigate('/?'+search);
+        }
+    }
+
     return (
         <>
             <div className="w-full">
@@ -17,7 +39,11 @@ export function SearchBar() {
                         className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 bg-search"
                         type="text"
                         id="search"
-                        placeholder="Search something.."/>
+                        placeholder="Search something.."
+                        onChange={event => setSearch(event.target.value)}
+                        onKeyUp={event => {changeHandler(event)}}
+                        onKeyDown={keyPressHandler}
+                    />
                 </div>
             </div>
         </>

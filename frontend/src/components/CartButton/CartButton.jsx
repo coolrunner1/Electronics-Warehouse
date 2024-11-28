@@ -1,11 +1,10 @@
-
 import { useNavigate } from 'react-router-dom';
 
 export const CartButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/checkout'); // Redirects to the /checkout route
+        navigate('/checkout');
     };
 
     return (

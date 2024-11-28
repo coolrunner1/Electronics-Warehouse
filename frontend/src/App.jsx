@@ -7,6 +7,7 @@ import {
     BrowserRouter
 } from "react-router-dom"
 import {StorePage} from "./views/StorePage.jsx";
+import {AccountPage} from "./views/AccountPage.jsx";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<StorePage/>} />
                     <Route path="/checkout" element={<CheckoutPage/>} />
+                    <Route path="/account" element={<AccountPage/>} />
                 </Routes>
             </BrowserRouter>
         </>

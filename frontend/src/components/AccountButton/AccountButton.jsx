@@ -1,8 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+
 export const AccountButton = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/account');
+    };
     return (
         <>
             <button
-                    className="bg-cart hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow">
+                    className="bg-cart hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow" onClick={handleClick}>
                 <div className="text-gray-600">
                     <svg className="w-6 h-6 fill-black dark:fill-gray-100"
                          viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
