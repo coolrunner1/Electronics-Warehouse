@@ -10,7 +10,7 @@ export const CartButton = () => {
 
     return (
         <>
-            <button onClick={handleClick} className="bg-cart hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow">
+            <button onClick={handleClick} className="bg-cart dark:bg-cart-dark hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow">
                 <div className="text-gray-600">
                     <svg className="w-6 h-6 fill-black dark:fill-gray-100" fill="none" version="1.1" id="Capa_1"
                          xmlns="http://www.w3.org/2000/svg"

@@ -1,3 +1,7 @@
 .bg-search {
-    background-color: light-dark(#ffffff, #2b2a33);
+    background-color: #ffffff;
+}
+
+.bg-search-dark {
+    background-color: #2b2a33;
 }

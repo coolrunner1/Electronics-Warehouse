@@ -1,6 +1,5 @@
 import './App.css'
 import {Header} from "./components/Header/Header.jsx";
-import {ItemsContainer} from "./components/ItemsContainer/ItemsContainer.jsx";
 import {CheckoutPage} from "./views/CheckoutPage.jsx";
 import {
     Route,

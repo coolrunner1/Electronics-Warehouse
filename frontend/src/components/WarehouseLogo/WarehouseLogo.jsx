@@ -9,7 +9,7 @@ export const WarehouseLogo = () => {
 
     return (
         <>
-            <svg onClick={handleClick} className="dark:fill-gray-100 w-11 h-11" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision"
+            <svg onClick={handleClick} className="dark:fill-gray-100 w-11 h-11 min-h-8 min-w-8" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision"
                  textRendering="geometricPrecision" imageRendering="optimizeQuality" fillRule="evenodd"
                  clipRule="evenodd" viewBox="0 0 512 475.32">
                 <path
