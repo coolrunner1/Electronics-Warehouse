@@ -49,7 +49,7 @@ export const Filters = () => {
 
     return (
         <>
-            <div className="flex flex-row w-full gap-2 justify-center">
+            <div className="flex flex-col sm:flex-row pl-4 pr-4 w-full gap-2 justify-center">
                 <CategoryFilter label="Category" onChange={onCategoryChange} options={categories}/>
                 <SelectFilter label="Manufacturer" onChange={onManufacturerChange} options={manufacturers}/>
                 <SelectFilter label="Sort by" onChange={onSortByChange} options={['Price', 'Name']}/>
