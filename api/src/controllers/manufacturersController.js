@@ -1,22 +1,22 @@
 const db = require("../database");
 
-class ItemsController {
-    async getAllItems(req, res) {
-        await db.query("SELECT * FROM Item", (err, result) => {
+class ManufacturerController {
+    async getAllManufacturers(req, res) {
+        await db.query("SELECT DISTINCT(manufacturer) FROM Item", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
+                    return res.status(404).json({NOTFOUND: "No manufacturers found"});
                 }
                 return res.status(200).json(result);
             } catch (err) {
                 console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
+                return res.status(500).json({ status: "error", message: "Error fetching manufacturers." })
             }
         });
     }
 
-    async getItem(req, res) {
+    /*async getItem(req, res) {
         let id = req.params.id;
         await db.query("SELECT * FROM Item WHERE item_id = $1", [id], (err, result) => {
             try {
@@ -80,23 +80,6 @@ class ItemsController {
         });
     }
 
-    async getItemsByCategoryIdAndManufacturer(req, res) {
-        const categoryId = req.params.category;
-        const manufacturer = req.params.manufacturer;
-        await db.query("SELECT * FROM Item WHERE category_id = $1 AND manufacturer = $2", [categoryId, manufacturer], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        });
-    }
-
     async getItemsBySupplierId(req, res) {
         const supplierId = req.params.supplierId;
         await db.query("SELECT * FROM Item JOIN SupplierItem ON SupplierItem.item_id = Item.item_id WHERE supplier_id = $1", [supplierId], (err, result) => {
@@ -111,8 +94,8 @@ class ItemsController {
                 return res.status(500).json({ status: "error", message: "Error fetching items." })
             }
         });
-    }
+    }*/
 }
 
-const itemsController = new ItemsController();
-module.exports = itemsController;
+const manufacturerController = new ManufacturerController();
+module.exports = manufacturerController;

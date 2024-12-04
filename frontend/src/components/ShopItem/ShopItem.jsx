@@ -23,7 +23,7 @@ export const ShopItem = (props) => {
                         <div className="mt-3 flex items-end justify-between">
                             <p className="mb-1.5 text-xl font-bold text-blue-500">${props.item.unit_price}</p>
 
-                            <button className="text-sm text-blue-500" onClick={test}>Add to cart</button>
+                            <button className="text-sm text-blue-500" onClick={test} value={props.item.item_id}>Add to cart</button>
                         </div>
                     </div>
                 </a>
