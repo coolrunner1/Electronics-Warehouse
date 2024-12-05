@@ -9,29 +9,34 @@ const cartSlice = createSlice({
     },
     reducers: {
         addToCart: (state, action) => {
+            let allowIncrement = false;
             const itemIndex = state.items.findIndex(el => el.item_id === action.payload.item_id);
             if (itemIndex === -1) {
                 const newItem=action.payload;
                 newItem.numberInCart=1;
                 state.items.push(newItem);
+                allowIncrement = true;
             } else {
                 if (state.items[itemIndex].numberInCart < state.items[itemIndex].units_in_stock){
                     state.items[itemIndex].numberInCart++;
+                    allowIncrement = true;
                 }
             }
-            state.quantity += 1;
-            state.amount += action.payload.unit_price;
-            state.amount = parseFloat(state.amount.toFixed(2));
+            if (allowIncrement) {
+                state.quantity += 1;
+                state.amount += action.payload.unit_price;
+                state.amount = parseFloat(state.amount.toFixed(2));
+            }
         },
         incrementCartItemNumber: (state, action) => {
             const itemIndex = state.items.findIndex(el => el.item_id === action.payload.item_id);
             if (itemIndex !== -1) {
                 if (state.items[itemIndex].numberInCart < state.items[itemIndex].units_in_stock){
                     state.items[itemIndex].numberInCart++;
+                    state.quantity += 1;
+                    state.amount += action.payload.unit_price;
+                    state.amount = parseFloat(state.amount.toFixed(2));
                 }
-                state.quantity += 1;
-                state.amount += action.payload.unit_price;
-                state.amount = parseFloat(state.amount.toFixed(2));
             }
         },
         decrementCartItemNumber: (state, action) => {
