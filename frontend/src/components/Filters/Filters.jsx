@@ -53,7 +53,6 @@ export const Filters = () => {
                 <CategoryFilter label="Category" onChange={onCategoryChange} options={categories}/>
                 <SelectFilter label="Manufacturer" onChange={onManufacturerChange} options={manufacturers}/>
                 <SelectFilter label="Sort by" onChange={onSortByChange} options={['Price', 'Name']}/>
-
                 <SelectFilter label="Sorting direction" onChange={onSortingDirectionChange} options={['Ascending', 'Descending']} />
             </div>
         </>

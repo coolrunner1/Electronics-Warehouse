@@ -50,7 +50,7 @@ class ItemsController {
 
     async getItemsByCategoryId(req, res) {
         const categoryId = req.params.category;
-        await db.query("SELECT * FROM Item WHERE category_id = $1", [categoryId], (err, result) => {
+        await db.query("SELECT * FROM Item JOIN Category ON Item.category_id = Category.category_id WHERE Item.category_id = $1 OR Category.parent_id = $1", [categoryId], (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {
