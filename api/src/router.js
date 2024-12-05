@@ -2,6 +2,7 @@ const router = require('express').Router();
 const itemsController = require('./controllers/itemsController');
 const categoriesController = require('./controllers/categoriesController');
 const manufacturersController = require('./controllers/manufacturersController');
+const ordersController = require("./controllers/ordersController");
 
 /*items router*/
 router.get("/items", itemsController.getAllItems);
@@ -17,5 +18,8 @@ router.get("/categories", categoriesController.getAllCategories);
 
 /*manufacturers router*/
 router.get("/manufacturers", manufacturersController.getAllManufacturers);
+
+/*orders router*/
+router.get("/orders", ordersController.getAllOrders);
 
 module.exports = router;
