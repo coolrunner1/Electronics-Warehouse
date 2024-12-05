@@ -29,6 +29,8 @@ export const ItemsContainer = () => {
             getAllItems();
         } else {
             makeServerRequest("/items/search/"+location.search.slice(1));
+            /*const regexPattern = new RegExp('.*' + location.search.slice(1) + '.*', 'i');
+            console.log(itemsList.filter(item => regexPattern.test(item.model)));*/
         }
     }, [location]);
 

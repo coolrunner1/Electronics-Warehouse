@@ -1,9 +1,14 @@
 import "./ShopItem.css";
 import PropTypes from 'prop-types';
+import {addToCart} from "../../slices/cartSlice.js";
+import {useDispatch} from "react-redux";
 
 export const ShopItem = (props) => {
-    const test = () => {
-        console.log(props.item);
+    const dispatch = useDispatch();
+
+    const onClickAddToCart = (e) => {
+        dispatch(addToCart(props.item));
+        e.preventDefault();
     }
 
     return (
@@ -23,7 +28,7 @@ export const ShopItem = (props) => {
                         <div className="mt-3 flex items-end justify-between">
                             <p className="mb-1.5 text-xl font-bold text-blue-500">${props.item.unit_price}</p>
 
-                            <button className="text-sm text-blue-500" onClick={test} value={props.item.item_id}>Add to cart</button>
+                            <button className="text-sm text-blue-500" onClick={onClickAddToCart} value={props.item.item_id}>Add to cart</button>
                         </div>
                     </div>
                 </a>
