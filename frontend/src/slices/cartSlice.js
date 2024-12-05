@@ -53,17 +53,12 @@ const cartSlice = createSlice({
             }
         },
         removeCartItem: (state, action) => {
+            console.log(action.payload);
             const itemIndex = state.items.findIndex(el => el.item_id === action.payload.item_id);
             if (itemIndex !== -1) {
-                state.quantity -= action.payload.quantity;
-                state.amount -= action.payload.unit_price * action.payload.quantity;
+                state.quantity -= action.payload.numberInCart;
+                state.amount -= action.payload.unit_price * action.payload.numberInCart;
                 state.amount = parseFloat(state.amount.toFixed(2));
-                if (isNaN(state.quantity)){
-                    state.quantity = 0;
-                }
-                if (isNaN(state.amount)){
-                    state.amount = 0.0;
-                }
                 state.items.splice(itemIndex, 1);
             }
         },

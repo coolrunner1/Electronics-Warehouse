@@ -35,14 +35,18 @@ export const ItemsContainer = () => {
     }, [location]);
 
     useEffect(() => {
-        if (sortingDirection === "Ascending" && sortBy === "Price") {
-            setItemsList(itemsList.sort((a, b) => a.unit_price - b.unit_price));
-        } else if (sortingDirection === "Descending" && sortBy === "Price") {
-            setItemsList(itemsList.sort((a, b) => a.unit_price - b.unit_price).reverse());
-        } else if (sortingDirection === "Ascending" && sortBy === "Name") {
-            setItemsList(itemsList.sort((a, b) => a.model.localeCompare(b.model)));
-        } else if (sortingDirection === "Descending" && sortBy === "Name") {
-            setItemsList(itemsList.sort((a, b) => b.model.localeCompare(a.model)));
+        try {
+            if (sortingDirection === "Ascending" && sortBy === "Price") {
+                setItemsList(itemsList.sort((a, b) => a.unit_price - b.unit_price));
+            } else if (sortingDirection === "Descending" && sortBy === "Price") {
+                setItemsList(itemsList.sort((a, b) => a.unit_price - b.unit_price).reverse());
+            } else if (sortingDirection === "Ascending" && sortBy === "Name") {
+                setItemsList(itemsList.sort((a, b) => a.model.localeCompare(b.model)));
+            } else if (sortingDirection === "Descending" && sortBy === "Name") {
+                setItemsList(itemsList.sort((a, b) => b.model.localeCompare(a.model)));
+            }
+        } catch (error) {
+            console.error('Error sorting items:', error);
         }
         setRenderCount((prev) => prev + 1);
     }, [sortBy, sortingDirection]);
