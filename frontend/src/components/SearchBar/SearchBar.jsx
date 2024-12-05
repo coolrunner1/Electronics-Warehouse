@@ -11,14 +11,14 @@ export function SearchBar() {
 
     const keyPressHandler = (e) => {
         if (e.key === 'Enter') {
-            navigate('/?'+search);
+            navigate('/store?'+search);
         }
     }
 
     const changeHandler = (event) => {
         setSearch(event.target.value);
-        if (location.pathname === "/") {
-            navigate('/?'+search);
+        if (location.pathname === "/store") {
+            navigate('/store?'+search);
         }
     }
 

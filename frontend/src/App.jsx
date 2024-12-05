@@ -9,15 +9,17 @@ import {
 import {StorePage} from "./views/StorePage.jsx";
 import {AccountPage} from "./views/AccountPage.jsx";
 import {PageNotFound} from "./views/PageNotFound.jsx";
+import {LoginPage} from "./views/LoginPage.jsx";
 
 const App = () => {
   return (
     <>
         <>
             <BrowserRouter>
-                <Header />
+                {location.pathname !== '/' && <Header />}
                 <Routes>
-                    <Route path="/" element={<StorePage/>} />
+                    <Route path="/" element={<LoginPage/>} />
+                    <Route path="/store" element={<StorePage/>} />
                     <Route path="/checkout" element={<CheckoutPage/>} />
                     <Route path="/account" element={<AccountPage/>} />
                     <Route path="*" element={<PageNotFound/>} />
