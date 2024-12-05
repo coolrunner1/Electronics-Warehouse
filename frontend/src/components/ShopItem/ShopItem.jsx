@@ -2,20 +2,24 @@ import "./ShopItem.css";
 import PropTypes from 'prop-types';
 import {addToCart} from "../../slices/cartSlice.js";
 import {useDispatch} from "react-redux";
+import {useState} from "react";
 
 export const ShopItem = (props) => {
+    const [clicked, setClicked] = useState(false);
+
     const dispatch = useDispatch();
 
-    const onClickAddToCart = (e) => {
+    const onAddToCartClick = (e) => {
         dispatch(addToCart(props.item));
         e.preventDefault();
+        setClicked(true);
     }
 
     return (
         <>
             <article
                 className="rounded-xl light:bg-white dark:bg-item-dark p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
-                <a href="#">
+                <div>
                     <div className="relative flex items-end overflow-hidden rounded-xl">
                         {props.item.image_path == null ? <img src="/placeholder.png" alt="image is missing" /> : <img src={props.item.image_path} alt={props.item.model} />}
                     </div>
@@ -27,11 +31,16 @@ export const ShopItem = (props) => {
 
                         <div className="mt-3 flex items-end justify-between">
                             <p className="mb-1.5 text-xl font-bold text-blue-500">${props.item.unit_price}</p>
+                            {!clicked
+                                ? <button className="text-sm text-blue-500" onClick={onAddToCartClick}
+                                          value={props.item.item_id}>Add to cart</button>
+                                : <button className="text-sm text-blue-500"
+                                          value={props.item.item_id}>Added to cart</button>
+                            }
 
-                            <button className="text-sm text-blue-500" onClick={onClickAddToCart} value={props.item.item_id}>Add to cart</button>
                         </div>
                     </div>
-                </a>
+                </div>
             </article>
         </>
     )

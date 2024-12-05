@@ -1,7 +1,21 @@
 import {useSelector} from "react-redux";
+import axios from "axios";
 
 export const CheckoutInformationContainer = () => {
-    const {quantity, amount} = useSelector((state) => state.cart);
+    const {items, quantity, amount} = useSelector((state) => state.cart);
+
+    const onCheckOutClick = () => {
+        const postBody = {
+            items: items,
+            userId: 1, //placeholder
+            itemCount: quantity,
+            itemTotal: amount,
+        }
+        axios.post("http://localhost:8000/orders", postBody)
+            .then(response => console.log(response.data))
+            .catch(error => console.error('Error:', error));
+    };
+
     return (
         <>
             {quantity === 0
@@ -20,7 +34,7 @@ export const CheckoutInformationContainer = () => {
                         </div>
                     </div>
                     <button
-                        className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out
+                        className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={onCheckOutClick}>Check out
                     </button>
                 </div>
             }

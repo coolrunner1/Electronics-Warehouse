@@ -1,11 +1,8 @@
-import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {incrementCartItemNumber, decrementCartItemNumber, removeCartItem} from "../../slices/cartSlice.js";
 import {useDispatch} from "react-redux";
 
 export const CheckoutItem = (props) => {
-    const [count, setCount] = useState(1);
-
     const dispatch = useDispatch();
 
     const increment = () => {

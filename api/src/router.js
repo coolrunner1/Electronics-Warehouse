@@ -21,5 +21,6 @@ router.get("/manufacturers", manufacturersController.getAllManufacturers);
 
 /*orders router*/
 router.get("/orders", ordersController.getAllOrders);
+router.post("/orders", ordersController.addOrder);
 
 module.exports = router;
