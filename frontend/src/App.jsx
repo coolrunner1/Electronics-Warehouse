@@ -8,6 +8,7 @@ import {
 } from "react-router-dom"
 import {StorePage} from "./views/StorePage.jsx";
 import {AccountPage} from "./views/AccountPage.jsx";
+import {PageNotFound} from "./views/PageNotFound.jsx";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
                     <Route path="/" element={<StorePage/>} />
                     <Route path="/checkout" element={<CheckoutPage/>} />
                     <Route path="/account" element={<AccountPage/>} />
+                    <Route path="*" element={<PageNotFound/>} />
                 </Routes>
             </BrowserRouter>
         </>

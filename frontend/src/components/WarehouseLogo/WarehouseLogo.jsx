@@ -4,7 +4,7 @@ export const WarehouseLogo = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/'); // Redirects to the /checkout route
+        navigate('/');
     };
 
     return (
