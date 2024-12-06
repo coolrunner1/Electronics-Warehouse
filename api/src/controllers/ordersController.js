@@ -18,8 +18,13 @@ class OrdersController {
     async addOrder(req, res){
         try{
             const {items, userId, itemCount, itemTotal} = req.body;
-            await db.query("INSERT INTO ClientOrder (client_id, status, timestamp, total_items) VALUES\n" +
-                "($1, 'Pending', CURRENT_TIMESTAMP, 5)", [userId])
+            await db.query("INSERT INTO ClientOrder (client_id, status, timestamp, total_items, total_amount) VALUES\n" +
+                "($1, 'Pending', CURRENT_TIMESTAMP, 5, $2)", [userId, itemTotal])
+
+            for (const item of items) {
+                await db.query("INSERT INTO OrderProduct (order_id, item_id, quantity) VALUES\n" +
+                    "(currval('order_id_seq'), $1, $2)", [item.item_id, item.numberInCart])
+            }
             res.json;
             /*const id_genre = await db.query(`SELECT "id_жанра" FROM "Жанр" WHERE "название" = $1`, [genre]);
             const id_director = await db.query(`SELECT "id_режиссера" FROM "Режиссеры" WHERE "имя" = $1 AND "фамилия" = $2;`, [director.split(" ")[0], director.split(" ")[1]]);

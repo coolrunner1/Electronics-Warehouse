@@ -1,7 +1,10 @@
-import {useSelector} from "react-redux";
+import {clearCart} from "../../slices/cartSlice.js";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 
 export const CheckoutInformationContainer = () => {
+    const dispatch = useDispatch();
+
     const {items, quantity, amount} = useSelector((state) => state.cart);
 
     const onCheckOutClick = () => {
@@ -14,6 +17,7 @@ export const CheckoutInformationContainer = () => {
         axios.post("http://localhost:8000/orders", postBody)
             .then(response => console.log(response.data))
             .catch(error => console.error('Error:', error));
+        dispatch(clearCart());
     };
 
     return (

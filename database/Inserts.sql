@@ -17,13 +17,13 @@ INSERT INTO Supplier (name, email, address, city, region, country, postal_code, 
 ('ABC Suppliers', 'abc@example.com', '789 Oak St', 'Chicago', 'IL', 'USA', 60007, 978440307),
 ('XYZ Suppliers', 'xyz@example.com', '321 Pine St', 'Houston', 'TX', 'USA', 77002, 369121518);
 
-INSERT INTO ClientOrder (client_id, status, timestamp, total_items) VALUES
-(1, 'Pending', CURRENT_TIMESTAMP, 5),
-(2, 'Processing', CURRENT_TIMESTAMP, 3);
+INSERT INTO ClientOrder (client_id, status, timestamp, total_items, total_amount) VALUES
+(1, 'Pending', CURRENT_TIMESTAMP, 5, 12.2),
+(2, 'Processing', CURRENT_TIMESTAMP, 3, 32.2);
 
 INSERT INTO Item (category_id, model, image_path, status, manufacturer, unit_price, date_of_arrival, units_in_stock, faulty_units) VALUES
-(1, 'Smartphone X', 'https://www.apple.com/newsroom/2017/09/the-future-is-here-iphone-x/', 'In Stock', 'ABC Electronics', 599.99, 20220101, 100, 2),
-(2, 'Laptop 10', null, 'In Stock', 'Laptops inc.', 19.99, 20220115, 50, 0);
+(3, 'Smartphone X', '/iphone-x.jpg', 'In Stock', 'ABC Electronics', 599.99, 20220101, 100, 2),
+(4, 'Laptop 10', null, 'In Stock', 'Laptops inc.', 19.99, 20220115, 50, 0);
 
 INSERT INTO UserProfile (role_id, client_id, login, password, full_name, email, phone_number, passport) VALUES
 (1, 1, 'admin', 'adminpass', 'Admin User', 'admin@example.com', 978440304, 978440307),
@@ -45,4 +45,5 @@ INSERT INTO OrderReturn (order_product_return_id, quantity, reason, description,
 (1, 1, 'Defective Product', 'Received a damaged item', 'Received', '2022-01-20'),
 (2, 2, 'Wrong Item Sent', 'Received incorrect product', 'Processing', '2022-01-25');
 
-UPDATE Item SET image_path = 'https://www.cnet.com/a/img/resize/c79ffd22bcbdd9f2d24636320a7106fee40716bd/hub/2018/03/06/36c765a0-0766-4cc8-a510-866c06670fbf/iphone-x-web-9073.jpg?auto=webp&fit=crop&height=900&width=1200' WHERE model LIKE '%mar%'
+INSERT INTO Item (category_id, model, image_path, status, manufacturer, unit_price, date_of_arrival, units_in_stock, faulty_units) VALUES
+(4, 'New Expensive Laptop 17', null, 'In Stock', 'Laptops inc.', 5999.99, 20220115, 500, 0);
