@@ -1,4 +1,20 @@
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+
 export const LoginPage = () => {
+    const [email, setEmail] = useState("");
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        if (email === "user") {
+            navigate('/store');
+        }
+    };
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
     return (
         <>
             <div className="min-h-screen flex flex-col justify-center sm:py-12">
@@ -7,10 +23,11 @@ export const LoginPage = () => {
                     <div className="shadow w-full rounded-lg">
                         <div className="px-5 py-7">
                             <label className="font-semibold text-sm pb-1 block">E-mail</label>
-                            <input type="text" className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
+                            <input type="text" onChange={handleEmailChange} className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
                             <label className="font-semibold text-sm pb-1 block">Password</label>
                             <input type="text" className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
                             <button type="button"
+                                    onClick={handleClick}
                                     className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
                                 <span className="inline-block mr-2">Login</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

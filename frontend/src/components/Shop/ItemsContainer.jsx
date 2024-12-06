@@ -26,7 +26,7 @@ export const ItemsContainer = () => {
     }
 
     useEffect(() => {
-        if (location.search === null || location.search === "" || location.search === "?" ) {
+        if (location.search === null || location.search === "" || location.search === "?") {
             getAllItems();
         } else {
             makeServerRequest("/items/search/"+location.search.slice(1));
@@ -77,7 +77,7 @@ export const ItemsContainer = () => {
             <section className="light:bg-gray-200">
                 <div
                     className="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {itemsList != null ? itemsList.map((item) => (
+                    {itemsList.length !== 0 ? itemsList.map((item) => (
                             <ShopItem key={item.item_id} item={item} />
                     )) : <div>Not found</div>}
 
