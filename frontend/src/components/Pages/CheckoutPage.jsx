@@ -1,6 +1,3 @@
-/*
-* Work in progress
-*/
 import {CheckoutItemsContainer} from "../Checkout/CheckoutItemsContainer.jsx";
 import {
     CheckoutInformationContainer

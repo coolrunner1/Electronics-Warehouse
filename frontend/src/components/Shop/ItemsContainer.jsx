@@ -2,6 +2,7 @@ import {ShopItem} from "./ShopItem.jsx";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import { useSelector } from 'react-redux';
+import axios from "axios";
 
 export const ItemsContainer = () => {
     const [itemsList, setItemsList] = useState([]);
@@ -12,7 +13,7 @@ export const ItemsContainer = () => {
     const location = useLocation();
 
     const makeServerRequest = (path) => {
-        fetch("http://localhost:8000" + path)
+        axios.get("http://localhost:8000" + path)
             .then((res) => res.json())
             .then((data) => setItemsList(data.rows))
             .catch((error) => {

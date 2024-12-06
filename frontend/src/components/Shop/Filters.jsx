@@ -3,12 +3,13 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {setCategory, setManufacturer, setSortBy, setSortingDirection} from "../../slices/filtersSlice.js";
 import {CategoryFilter} from "./CategoryFilter.jsx";
+import axios from "axios";
 
 export const Filters = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8000/categories")
+        axios.get("http://localhost:8000/categories")
             .then((res) => res.json())
             .then((data) => setCategories(data.rows))
             .catch((error) => {
@@ -20,7 +21,7 @@ export const Filters = () => {
     const [manufacturers, setManufacturers] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8000/manufacturers")
+        axios.get("http://localhost:8000/manufacturers")
             .then((res) => res.json())
             .then((data) => setManufacturers(["all", ...data.rows.map((manufacturer) => manufacturer = manufacturer.manufacturer)]))
             .catch((error) => {
