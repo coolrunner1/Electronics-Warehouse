@@ -10,8 +10,7 @@ export const Filters = () => {
 
     useEffect(() => {
         axios.get("http://localhost:8000/categories")
-            .then((res) => res.json())
-            .then((data) => setCategories(data.rows))
+            .then((response) => setCategories(response.data.rows))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 alert("Error fetching items: " + error.message);
@@ -22,8 +21,7 @@ export const Filters = () => {
 
     useEffect(() => {
         axios.get("http://localhost:8000/manufacturers")
-            .then((res) => res.json())
-            .then((data) => setManufacturers(["all", ...data.rows.map((manufacturer) => manufacturer = manufacturer.manufacturer)]))
+            .then((response) => setManufacturers(["all", ...response.data.rows.map((manufacturer) => manufacturer = manufacturer.manufacturer)]))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 alert("Error fetching items: " + error.message);

@@ -14,10 +14,10 @@ export const ItemsContainer = () => {
 
     const makeServerRequest = (path) => {
         axios.get("http://localhost:8000" + path)
-            .then((res) => res.json())
-            .then((data) => setItemsList(data.rows))
+            .then((response) => setItemsList(response.data.rows))
             .catch((error) => {
                 console.error('Error fetching items:', error);
+                setItemsList([]);
             });
     }
 
