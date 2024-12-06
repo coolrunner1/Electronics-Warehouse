@@ -1,10 +1,10 @@
 /*
 * Work in progress
 */
-import {CheckoutItemsContainer} from "../components/CheckoutItemsContainer/CheckoutItemsContainer.jsx";
+import {CheckoutItemsContainer} from "../Checkout/CheckoutItemsContainer.jsx";
 import {
     CheckoutInformationContainer
-} from "../components/CheckoutInformationContainer/CheckoutInformationContainer.jsx";
+} from "../Checkout/CheckoutInformationContainer.jsx";
 
 export const CheckoutPage = () => {
     return (

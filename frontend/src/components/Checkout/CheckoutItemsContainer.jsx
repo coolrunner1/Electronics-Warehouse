@@ -1,4 +1,4 @@
-import {CheckoutItem} from "../CheckoutItem/CheckoutItem.jsx";
+import {CheckoutItem} from "./CheckoutItem.jsx";
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
 

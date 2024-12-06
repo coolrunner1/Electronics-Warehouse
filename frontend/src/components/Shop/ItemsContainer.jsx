@@ -1,4 +1,4 @@
-import {ShopItem} from "../ShopItem/ShopItem.jsx";
+import {ShopItem} from "./ShopItem.jsx";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import { useSelector } from 'react-redux';

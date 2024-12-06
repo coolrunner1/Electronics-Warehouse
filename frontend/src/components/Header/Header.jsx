@@ -1,8 +1,8 @@
-import {SearchBar} from "../SearchBar/SearchBar.jsx";
-import {WarehouseLogo} from "../WarehouseLogo/WarehouseLogo.jsx";
-import {CartButton} from "../CartButton/CartButton.jsx";
-import {OrdersButton} from "../OrdersButton/OrdersButton.jsx";
-import {AccountButton} from "../AccountButton/AccountButton.jsx";
+import {SearchBar} from "./SearchBar.jsx";
+import {WarehouseLogo} from "./WarehouseLogo.jsx";
+import {CartButton} from "./CartButton.jsx";
+import {OrdersButton} from "./OrdersButton.jsx";
+import {AccountButton} from "./AccountButton.jsx";
 
 export function Header() {
     return (

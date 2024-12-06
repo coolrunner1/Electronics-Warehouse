@@ -1,8 +1,8 @@
-import {SelectFilter} from "../SelectFilter/SelectFilter";
+import {SelectFilter} from "./SelectFilter.jsx";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {setCategory, setManufacturer, setSortBy, setSortingDirection} from "../../slices/filtersSlice";
-import {CategoryFilter} from "../CategoryFilter/CategoryFilter.jsx";
+import {setCategory, setManufacturer, setSortBy, setSortingDirection} from "../../slices/filtersSlice.js";
+import {CategoryFilter} from "./CategoryFilter.jsx";
 
 export const Filters = () => {
     const [categories, setCategories] = useState([]);

@@ -1,5 +1,5 @@
-import {ItemsContainer} from "../components/ItemsContainer/ItemsContainer.jsx";
-import {Filters} from "../components/Filters/Filters.jsx";
+import {ItemsContainer} from "../Shop/ItemsContainer.jsx";
+import {Filters} from "../Shop/Filters.jsx";
 
 export const StorePage = () => {
     return (
