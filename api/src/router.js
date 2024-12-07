@@ -3,6 +3,8 @@ const itemsController = require('./controllers/itemsController');
 const categoriesController = require('./controllers/categoriesController');
 const manufacturersController = require('./controllers/manufacturersController');
 const ordersController = require("./controllers/ordersController");
+const usersController = require("./controllers/usersController");
+const rolesController = require("./controllers/rolesController");
 
 /*items router*/
 router.get("/items", itemsController.getAllItems);
@@ -22,5 +24,11 @@ router.get("/manufacturers", manufacturersController.getAllManufacturers);
 /*orders router*/
 router.get("/orders", ordersController.getAllOrders);
 router.post("/orders", ordersController.addOrder);
+
+/*users router*/
+router.get("/users", usersController.getAllUsers);
+
+/*roles router*/
+router.get("/roles", rolesController.getAllRoles);
 
 module.exports = router;

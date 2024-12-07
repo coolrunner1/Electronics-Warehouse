@@ -2,18 +2,26 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
 export const LoginPage = () => {
-    const [email, setEmail] = useState("");
+    const [login, setLogin] = useState("");
+
+    const keyPressHandler = (e) => {
+        if (e.key === 'Enter') {
+            if (login === "user") {
+                navigate('/store');
+            }
+        }
+    }
 
     const navigate = useNavigate();
 
     const handleClick = () => {
-        if (email === "user") {
+        if (login === "user") {
             navigate('/store');
         }
     };
 
     const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+        setLogin(e.target.value);
     }
     return (
         <>
@@ -22,10 +30,10 @@ export const LoginPage = () => {
                     <h1 className="font-bold text-center text-2xl mb-5">Electronics Warehouse</h1>
                     <div className="shadow w-full rounded-lg">
                         <div className="px-5 py-7">
-                            <label className="font-semibold text-sm pb-1 block">E-mail</label>
-                            <input type="text" onChange={handleEmailChange} className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
+                            <label className="font-semibold text-sm pb-1 block">Login</label>
+                            <input type="text" onChange={handleEmailChange} onKeyDown={keyPressHandler} className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
                             <label className="font-semibold text-sm pb-1 block">Password</label>
-                            <input type="text" className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
+                            <input type="password" onKeyDown={keyPressHandler} className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
                             <button type="button"
                                     onClick={handleClick}
                                     className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
