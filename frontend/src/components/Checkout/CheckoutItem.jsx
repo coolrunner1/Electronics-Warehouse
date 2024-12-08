@@ -20,7 +20,7 @@ export const CheckoutItem = (props) => {
     return (
         <>
             <div
-                className="justify-between mb-6 rounded-lg  p-6 shadow-md sm:flex sm:justify-start">
+                className="justify-between mb-6 rounded-lg p-6 shadow-md sm:flex sm:justify-start">
                 {props.item.image_path == null
                     ? <img src="/placeholder.png" alt="image is missing" className="w-full rounded-lg sm:w-40" />
                     : <img src={props.item.image_path} alt={props.item.model} className="w-full rounded-lg sm:w-40" />}

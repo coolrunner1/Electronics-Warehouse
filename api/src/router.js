@@ -24,6 +24,8 @@ router.get("/manufacturers", manufacturersController.getAllManufacturers);
 
 /*orders router*/
 router.get("/orders", ordersController.getAllOrders);
+router.get("/orders/client/:clientId", ordersController.getOrdersByClientId);
+router.get("/orders/:orderId/items", ordersController.getItemsByOrderId);
 router.post("/orders", ordersController.addOrder);
 
 /*users router*/

@@ -1,12 +1,9 @@
 import {CheckoutItem} from "./CheckoutItem.jsx";
 import {useSelector} from "react-redux";
-import {useEffect} from "react";
 
 export const CheckoutItemsContainer = () => {
     const {items} = useSelector((state) => state.cart);
-    useEffect(() => {
-        console.log(items)
-    }, [])
+
     return (
         <>
                 {items.length > 0

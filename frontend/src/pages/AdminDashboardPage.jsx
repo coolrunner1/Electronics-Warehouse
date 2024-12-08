@@ -1,10 +1,10 @@
-import {UserEntry} from "../Admin/UserEntry.jsx";
-import {AccountButton} from "../Header/AccountButton.jsx";
+import {UserEntry} from "../components/Admin/UserEntry.jsx";
+import {AccountButton} from "../components/Header/AccountButton.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {UsersTableHeader} from "../Admin/UsersTableHeader.jsx";
+import {UsersTableHeader} from "../components/Admin/UsersTableHeader.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserRefresh} from "../../slices/usersSlice.js";
+import {setUserRefresh} from "../slices/usersSlice.js";
 
 export const AdminDashboardPage = () => {
     const [users, setUsers] = useState([]);

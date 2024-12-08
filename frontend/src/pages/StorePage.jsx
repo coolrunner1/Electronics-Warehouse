@@ -1,5 +1,5 @@
-import {ItemsContainer} from "../Shop/ItemsContainer.jsx";
-import {Filters} from "../Shop/Filters.jsx";
+import {ItemsContainer} from "../components/Shop/ItemsContainer.jsx";
+import {Filters} from "../components/Shop/Filters.jsx";
 import {useLocation} from "react-router-dom";
 
 export const StorePage = () => {

@@ -1,17 +1,17 @@
 import './App.css'
 import {Header} from "./components/Header/Header.jsx";
-import {CheckoutPage} from "./components/Pages/CheckoutPage.jsx";
+import {CheckoutPage} from "./pages/CheckoutPage.jsx";
 import {
     Route,
     Routes,
     BrowserRouter, Navigate
 } from "react-router-dom"
-import {StorePage} from "./components/Pages/StorePage.jsx";
-import {AccountPage} from "./components/Pages/AccountPage.jsx";
-import {PageNotFound} from "./components/Pages/PageNotFound.jsx";
-import {LoginPage} from "./components/Pages/LoginPage.jsx";
-import {OrderUserHistory} from "./components/Pages/OrderUserHistory.jsx";
-import {AdminDashboardPage} from "./components/Pages/AdminDashboardPage.jsx";
+import {StorePage} from "./pages/StorePage.jsx";
+import {AccountPage} from "./pages/AccountPage.jsx";
+import {PageNotFound} from "./pages/PageNotFound.jsx";
+import {LoginPage} from "./pages/LoginPage.jsx";
+import {OrderUserHistory} from "./pages/OrderUserHistory.jsx";
+import {AdminDashboardPage} from "./pages/AdminDashboardPage.jsx";
 
 const App = () => {
   return (

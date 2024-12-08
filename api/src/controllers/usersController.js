@@ -67,23 +67,22 @@ class UsersController {
                         }
                         return res.status(500).json({status: "error", message: "Server error."});
                     }
-                })
+                });
     }
 
     async deleteUserById(req, res){
-        try{
             const id = req.params.userId;
-            console.log(id);
             await db.query(`DELETE FROM UserProfile WHERE user_id = $1`, [id], (err, result) => {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No users found"});
+                try{
+                    if (err) throw err;
+                    if (result.rowCount === 0) {
+                        return res.status(404).json({NOTFOUND: "No users found"});
+                    }
+                    return res.status(202).json(result);
+                } catch (error) {
+                    return res.status(500).json({ status: "error", message: "Server error." })
                 }
-                return res.status(202).json(result);
-            })
-        } catch (error) {
-            return res.status(500).json({ status: "error", message: "Server error." })
-        }
+            });
     }
 }
 
