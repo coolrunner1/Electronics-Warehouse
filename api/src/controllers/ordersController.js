@@ -17,9 +17,9 @@ class OrdersController {
     }
     async addOrder(req, res){
         try{
-            const {items, userId, itemCount, itemTotal} = req.body;
+            const {items, clientId, itemCount, itemTotal} = req.body;
             await db.query("INSERT INTO ClientOrder (client_id, status, timestamp, total_items, total_amount) VALUES\n" +
-                "($1, 'Pending', CURRENT_TIMESTAMP, 5, $2)", [userId, itemTotal])
+                "($1, 'Pending', CURRENT_TIMESTAMP, 5, $2)", [clientId, itemTotal])
 
             for (const item of items) {
                 await db.query("INSERT INTO OrderProduct (order_id, item_id, quantity) VALUES\n" +
@@ -28,7 +28,10 @@ class OrdersController {
             return res.status(201).json({status: "success", message: "Order successfully added"});
         } catch (error) {
             console.log(error);
-            return res.status(500).json({ status: "error", message: "Error adding order." })
+            if (error.code === '23505') {
+                return res.status(409).json({ status: "error", message: "User with this login or email already exists." });
+            }
+            return res.status(500).json({ status: "error", message: error.message });
         }
     }
 }

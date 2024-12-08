@@ -85,6 +85,7 @@ CREATE TABLE UserProfile (
   email varchar(255) NOT NULL,
   phone_number integer NOT NULL,
   passport integer NOT NULL,
+  UNIQUE (login),
   UNIQUE (email),
   UNIQUE (phone_number),
   CONSTRAINT UserProfile_Client_foreign
@@ -201,3 +202,73 @@ INSERT INTO Item (category_id, model, image_path, status, manufacturer, unit_pri
 (4, 'New Expensive Laptop 17', null, 'In Stock', 'Laptops inc.', 5999.99, 20220115, 500, 0);
 
 SELECT * FROM OrderProduct;
+
+CREATE OR REPLACE FUNCTION UpdateItemQuantity()
+RETURNS TRIGGER AS $$
+DECLARE
+  new_quantity float;
+  old_quantity float;
+BEGIN
+  old_quantity := (SELECT units_in_stock FROM Item WHERE Item.item_id = NEW.item_id);
+  IF old_quantity - NEW.quantity < 0 THEN
+  	RAISE EXCEPTION 'Invalid number of items. Number of items in this order exeeds number of available items'
+	  USING ERRCODE = '23505';
+  ELSE
+  	new_quantity := NEW.quantity;
+  END IF;
+
+  UPDATE Item
+   SET units_in_stock = units_in_stock - new_quantity
+   WHERE item_id = NEW.item_id;
+  RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_item_quantity
+BEFORE INSERT OR UPDATE ON OrderProduct
+FOR EACH ROW
+EXECUTE FUNCTION UpdateItemQuantity();
+
+INSERT INTO OrderProduct (order_id, item_id, quantity) VALUES
+(1, 1, 2),
+(2, 2, 1);
+
+CREATE OR REPLACE FUNCTION UpdateItemStatus()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.units_in_stock > 0 THEN
+    NEW.status := 'In Stock';
+  ELSE
+    NEW.status := 'Out Of Stock';
+  END IF;
+
+  RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_item_status
+BEFORE INSERT OR UPDATE ON Item
+FOR EACH ROW
+EXECUTE FUNCTION UpdateItemStatus();
+
+CREATE OR REPLACE FUNCTION handleUniqueUserViolation()
+RETURNS TRIGGER AS $$
+BEGIN
+    RETURN NEW;
+EXCEPTION
+    WHEN unique_violation THEN
+        RAISE EXCEPTION 'A user with this login, email or phone number already exists: login=% email=% phone_number=%', NEW.login, NEW.email, NEW.phone_number
+			USING ERRCODE = '23505';
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER unique_user_violation_trigger
+BEFORE INSERT OR UPDATE ON UserProfile
+FOR EACH ROW
+EXECUTE FUNCTION handleUniqueUserViolation();
+
+UPDATE Item
+	   SET units_in_stock = 0
+	   WHERE item_id = 3;
+
+SELECT * FROM Item

@@ -10,7 +10,7 @@ export const CheckoutInformationContainer = () => {
     const onCheckOutClick = () => {
         const postBody = {
             items: items,
-            userId: 1, //placeholder
+            clientId: 1, //placeholder
             itemCount: quantity,
             itemTotal: amount,
         }

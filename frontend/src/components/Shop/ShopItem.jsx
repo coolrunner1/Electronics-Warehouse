@@ -28,14 +28,17 @@ export const ShopItem = (props) => {
                         <h2>{props.item.model}</h2>
                         <p className="mt-1 text-sm text-slate-400">{props.item.manufacturer}</p>
                         <p className="mt-1 text-sm text-slate-400">{props.item.status}</p>
+                        <p className="mt-1 text-sm text-slate-400">Units in stock: {props.item.units_in_stock}</p>
 
                         <div className="mt-3 flex items-end justify-between">
                             <p className="mb-1.5 text-xl font-bold text-blue-500">${props.item.unit_price}</p>
-                            {!clicked
-                                ? <button className="text-sm text-blue-500" onClick={onAddToCartClick}
-                                          value={props.item.item_id}>Add to cart</button>
-                                : <button className="text-sm text-blue-500"
-                                          value={props.item.item_id}>Added to cart</button>
+                            {props.item.status === 'In Stock' ?
+                                !clicked
+                                    ? <button className="text-sm text-blue-500" onClick={onAddToCartClick}
+                                              value={props.item.item_id}>Add to cart</button>
+                                    : <button className="text-sm text-blue-500"
+                                              value={props.item.item_id}>Added to cart</button>
+                                : null
                             }
 
                         </div>
