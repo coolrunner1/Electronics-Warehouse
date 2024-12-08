@@ -5,6 +5,7 @@ const manufacturersController = require('./controllers/manufacturersController')
 const ordersController = require("./controllers/ordersController");
 const usersController = require("./controllers/usersController");
 const rolesController = require("./controllers/rolesController");
+const clientsController = require("./controllers/clientsController");
 
 /*items router*/
 router.get("/items", itemsController.getAllItems);
@@ -27,8 +28,15 @@ router.post("/orders", ordersController.addOrder);
 
 /*users router*/
 router.get("/users", usersController.getAllUsers);
+router.post("/users", usersController.addUser);
+router.put("/users/:userId", usersController.updateUser);
+router.delete("/users/:userId", usersController.deleteUserById);
+
 
 /*roles router*/
 router.get("/roles", rolesController.getAllRoles);
+
+/*clients router*/
+router.get("/clients", clientsController.getAllClients);
 
 module.exports = router;

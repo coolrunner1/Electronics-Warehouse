@@ -6,9 +6,7 @@ export const LoginPage = () => {
 
     const keyPressHandler = (e) => {
         if (e.key === 'Enter') {
-            if (login === "user") {
-                navigate('/store');
-            }
+            handleClick();
         }
     }
 
@@ -17,6 +15,8 @@ export const LoginPage = () => {
     const handleClick = () => {
         if (login === "user") {
             navigate('/store');
+        } else if (login === "admin") {
+            navigate('/admin');
         }
     };
 
