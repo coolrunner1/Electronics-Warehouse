@@ -2,7 +2,7 @@ const db = require("../database");
 
 class ItemsController {
     async getAllItems(req, res) {
-        await db.query("SELECT * FROM Item", (err, result) => {
+        await db.query("SELECT * FROM Item ORDER BY unit_price", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {
@@ -34,7 +34,7 @@ class ItemsController {
 
     async searchItemsByName(req, res) {
         let name = req.params.name;
-        await db.query("SELECT * FROM Item WHERE model ILIKE $1", ['%'+name+'%'], (err, result) => {
+        await db.query("SELECT * FROM Item WHERE model ILIKE $1 ORDER BY model", ['%'+name+'%'], (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {
