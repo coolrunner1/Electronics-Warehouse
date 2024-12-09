@@ -83,7 +83,7 @@ class ItemsController {
     async getItemsByCategoryIdAndManufacturer(req, res) {
         const categoryId = req.params.category;
         const manufacturer = req.params.manufacturer;
-        await db.query("SELECT * FROM Item WHERE category_id = $1 AND manufacturer = $2", [categoryId, manufacturer], (err, result) => {
+        await db.query("SELECT * FROM Item JOIN Category ON Item.category_id = Category.category_id WHERE (Item.category_id = $1 OR Category.parent_id = $1) AND Item.manufacturer = $2", [categoryId, manufacturer], (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {

@@ -23,7 +23,7 @@ export const OrderHistoryItem = (props) => {
                 <td>{props.item.manufacturer}</td>
                 <td>${props.item.unit_price}</td>
                 <td>{props.item.quantity}</td>
-                <td>${props.item.unit_price * props.item.quantity}</td>
+                <td>${(props.item.unit_price * props.item.quantity).toFixed(2)}</td>
                 {props.status === 'Delivered' && (
                     <td></td>
                 )

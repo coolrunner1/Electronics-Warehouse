@@ -58,3 +58,23 @@ BEFORE INSERT OR UPDATE ON UserProfile
 FOR EACH ROW
 EXECUTE FUNCTION handleUniqueUserViolation();
 
+CREATE OR REPLACE FUNCTION checkUsersClientId()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF NEW.role_id <> 2 AND NEW.client_id IS NOT NULL THEN
+		NEW.client_id := NULL;
+	ELSIF NEW.role_id = 2 AND NEW.client_id IS NULL THEN
+		NEW.client_id := 1;
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_users_clientid_trigger
+BEFORE INSERT OR UPDATE ON UserProfile
+FOR EACH ROW
+EXECUTE FUNCTION checkUsersClientId();
+
+UPDATE Item
+	   SET units_in_stock = 0
+	   WHERE item_id = 4;

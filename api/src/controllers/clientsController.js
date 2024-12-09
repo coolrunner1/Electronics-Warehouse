@@ -2,7 +2,7 @@ const db = require("../database");
 
 class ClientsController {
     async getAllClients(req, res) {
-        await db.query("SELECT * FROM Client", (err, result) => {
+        await db.query("SELECT * FROM Client ORDER BY client_id ASC", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {

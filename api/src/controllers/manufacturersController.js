@@ -2,7 +2,7 @@ const db = require("../database");
 
 class ManufacturerController {
     async getAllManufacturers(req, res) {
-        await db.query("SELECT DISTINCT(manufacturer) FROM Item", (err, result) => {
+        await db.query("SELECT DISTINCT(manufacturer) FROM Item ORDER BY manufacturer", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {

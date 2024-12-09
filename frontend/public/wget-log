@@ -1,0 +1,6 @@
+--2024-12-09 10:10:07--  https://i.guim.co.uk/img/media/30ae6f657de5843fa3dfc463c8ecd317855d905e/167_0_1667_1000/master/1667.jpg?width=1200
+Resolving i.guim.co.uk (i.guim.co.uk)... 146.75.53.111, 2a04:4e42:8e::367
+Connecting to i.guim.co.uk (i.guim.co.uk)|146.75.53.111|:443... connected.
+HTTP request sent, awaiting response... 401 Unauthorized - missing signature
+
+Username/Password Authentication Failed.

@@ -2,7 +2,7 @@ const db = require("../database");
 
 class UsersController {
     async getAllUsers(req, res) {
-        await db.query("SELECT * FROM UserProfile", (err, result) => {
+        await db.query("SELECT * FROM UserProfile ORDER BY user_id", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {

@@ -39,7 +39,7 @@ class OrdersController {
 
     async getOrdersByClientId(req, res){
         const id = req.params.clientId;
-        await db.query("SELECT * FROM ClientOrder WHERE client_id = $1", [id], (err, result) => {
+        await db.query("SELECT * FROM ClientOrder WHERE client_id = $1 ORDER BY timestamp DESC", [id], (err, result) => {
           try {
               if (err) throw err;
               if (result.rowCount === 0) {
