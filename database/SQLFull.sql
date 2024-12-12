@@ -232,8 +232,8 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_item_quantity
-BEFORE INSERT OR UPDATE ON OrderProduct
+CREATE OR REPLACE TRIGGER update_item_quantity
+BEFORE INSERT ON OrderProduct
 FOR EACH ROW
 EXECUTE FUNCTION UpdateItemQuantity();
 
@@ -250,7 +250,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_item_status
+CREATE OR REPLACE TRIGGER update_item_status
 BEFORE INSERT OR UPDATE ON Item
 FOR EACH ROW
 EXECUTE FUNCTION UpdateItemStatus();
@@ -283,7 +283,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_users_clientid_trigger
+CREATE OR REPLACE TRIGGER check_users_clientid_trigger
 BEFORE INSERT OR UPDATE ON UserProfile
 FOR EACH ROW
 EXECUTE FUNCTION checkUsersClientId();
@@ -313,7 +313,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_returned_units_trigger
+CREATE OR REPLACE TRIGGER update_returned_units_trigger
 BEFORE INSERT OR UPDATE ON OrderReturn
 FOR EACH ROW
 EXECUTE FUNCTION updateReturnedUnits();

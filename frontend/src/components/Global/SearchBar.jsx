@@ -2,8 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import './SearchBar.css'
 import {useState} from "react";
 import {useLocation} from "react-router-dom";
+import PropTypes from "prop-types";
 
-export function SearchBar() {
+export function SearchBar(props) {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -11,7 +12,7 @@ export function SearchBar() {
 
     const keyPressHandler = (e) => {
         if (e.key === 'Enter') {
-            navigate('/store?'+search);
+            navigate('/'+props.pathname+'?'+search);
         }
     }
 
@@ -26,8 +27,8 @@ export function SearchBar() {
         <>
             <div className="w-full">
                 <div
-                    className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg overflow-hidden bg-search dark:bg-search-dark">
-                    <div className="grid place-items-center h-full w-12 text-gray-300">
+                    className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg overflow-hidden bg-search">
+                    <div className="grid place-items-center h-full w-12 text-gray-300 bg-search">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -36,7 +37,7 @@ export function SearchBar() {
                     </div>
 
                     <input
-                        className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 bg-search"
+                        className="peer h-full w-full outline-none text-sm light:text-gray-700 pr-2 bg-search"
                         type="text"
                         id="search"
                         placeholder="Search something.."
@@ -48,4 +49,8 @@ export function SearchBar() {
             </div>
         </>
     )
+}
+
+SearchBar.propTypes = {
+    pathname: PropTypes.string,
 }

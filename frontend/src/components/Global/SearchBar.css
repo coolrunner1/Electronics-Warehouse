@@ -1,0 +1,9 @@
+.bg-search {
+    background-color: #2b2a33;
+}
+
+@media (prefers-color-scheme: light) {
+    .bg-search {
+        background-color: #ffffff;
+    }
+}
