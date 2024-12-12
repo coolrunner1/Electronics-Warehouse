@@ -1,4 +1,3 @@
-import "./ShopItem.css";
 import PropTypes from 'prop-types';
 import {addToCart} from "../../slices/cartSlice.js";
 import {useDispatch} from "react-redux";
@@ -18,7 +17,7 @@ export const ShopItem = (props) => {
     return (
         <>
             <article
-                className="rounded-xl light:bg-white dark:bg-item-dark p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
+                className="rounded-xl light:bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
                 <div>
                     <div className="relative flex items-end overflow-hidden rounded-xl">
                         {props.item.image_path == null ? <img className="aspect-square object-scale-down" src="/placeholder.png" alt="image is missing" /> : <img className="aspect-square object-scale-down" src={props.item.image_path} alt={props.item.model} />}

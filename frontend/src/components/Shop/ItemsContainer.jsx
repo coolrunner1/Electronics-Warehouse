@@ -57,10 +57,12 @@ export const ItemsContainer = () => {
             getAllItems();
         } else if (category !== 'all' && manufacturer === 'all') {
             makeServerRequest("/items/search/category/"+category);
+        } else if (category === 'all' && manufacturer !== 'all') {
+            makeServerRequest("/items/search/manufacturer/"+manufacturer);
         } else if (category !== 'all' && manufacturer !== 'all') {
             makeServerRequest("/items/search/category/"+category+"/manufacturer/"+manufacturer);
         }
-    }, [category]);
+    }, [category, manufacturer]);
 
     useEffect(() => {
         if(category === 'all' && manufacturer === 'all') {

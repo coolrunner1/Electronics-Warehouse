@@ -38,27 +38,17 @@ export const LoginPage = () => {
                 })
                 dispatch(setUser(res.data.user));
                 if (res.data.user.role_id === 1) {
-                    navigate("/admin")
+                    navigate("/admin");
+                } else if (res.data.user.role_id === 2) {
+                    navigate("/store");
                 } else {
-                    navigate("/store")
+                    navigate("/items");
                 }
             })
             .catch((err) => {
                 console.log(err);
                 alert(err.response.data.message);
             });
-
-        /*const signed =
-
-        if (signed) {
-            alert(user)
-            navigate('/store');
-        }*/
-        /*if (login === "user") {
-            navigate('/store');
-        } else if (login === "admin") {
-            navigate('/admin');
-        }*/
     };
 
     const handleLoginChange = (e) => {
