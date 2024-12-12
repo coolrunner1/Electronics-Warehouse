@@ -3,7 +3,7 @@ import {AccountButton} from "../components/Global/AccountButton.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserRefresh} from "../slices/usersSlice.js";
+import {setTableRefresh} from "../slices/tableSlice.js";
 import {BlueButton} from "../components/Global/BlueButton.jsx";
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
@@ -12,33 +12,36 @@ export const AdminDashboardPage = () => {
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [clients, setClients] = useState([]);
-    const userRefresh = useSelector((state) => state.users);
+    const tableRefresh = useSelector((state) => state.table);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get("http://localhost:8000/users/")
+        axios.get("http://localhost:8000/users")
             .then((response) => setUsers(response.data.rows))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 setUsers([]);
             });
-        dispatch(setUserRefresh(false));
-        axios.get("http://localhost:8000/roles/")
+        dispatch(setTableRefresh(false));
+        axios.get("http://localhost:8000/roles")
             .then((response) => setRoles(response.data.rows.map((role) => ({value: role.role_id, label: role.name}))))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 setRoles([]);
             });
-        axios.get("http://localhost:8000/clients/")
+        axios.get("http://localhost:8000/clients")
             .then((response) => setClients(response.data.rows.map((client) => ({value: client.client_id, label: client.name}))))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 setClients([]);
             });
-    }, [userRefresh]);
+    }, [tableRefresh]);
 
     const onNewClick = () => {
-        setUsers([...users, {
+        if (users[0].user_id === 99999) {
+            return;
+        }
+        setUsers([{
             user_id: 99999,
             role_id: 1,
             client_id: 1,
@@ -49,7 +52,7 @@ export const AdminDashboardPage = () => {
             email: 'email@example.com',
             phone_number: 777777777,
             passport: 0,
-        }]);
+        }, ...users]);
     }
 
     return (

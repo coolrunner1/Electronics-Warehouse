@@ -17,6 +17,7 @@ router.get("/items/search/category/:category", itemsController.getItemsByCategor
 router.get("/items/search/manufacturer/:manufacturer", itemsController.getItemsByManufacturer);
 router.get("/items/search/category/:category/manufacturer/:manufacturer", itemsController.getItemsByCategoryIdAndManufacturer);
 router.get("/items/search/supplier/:supplierId", itemsController.getItemsBySupplierId);
+router.post("/items", itemsController.addItem);
 
 /*categories router*/
 router.get("/categories", categoriesController.getAllCategories);

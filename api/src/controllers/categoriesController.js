@@ -2,7 +2,7 @@ const db = require("../database");
 
 class CategoriesController {
     async getAllCategories(req, res) {
-        await db.query("SELECT * FROM Category", (err, result) => {
+        await db.query("SELECT * FROM Category ORDER BY category_id", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {

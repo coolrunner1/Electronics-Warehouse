@@ -129,6 +129,11 @@ class ItemsController {
             }
         })
     }
+
+    async addItem(req, res) {
+        const body = req.body;
+        console.log(body);
+    }
 }
 
 const itemsController = new ItemsController();

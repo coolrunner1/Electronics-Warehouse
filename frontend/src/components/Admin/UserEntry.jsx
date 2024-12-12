@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Select from "react-select";
 import axios from "axios";
 import {useDispatch} from "react-redux";
-import {setUserRefresh} from "../../slices/usersSlice.js";
+import {setTableRefresh} from "../../slices/tableSlice.js";
 import {BlueButton} from "../Global/BlueButton.jsx";
 import {RedButton} from "../Global/RedButton.jsx";
 import {customStyles} from "../../utils/customStyles.js";
@@ -93,7 +93,7 @@ export const UserEntry = (props) => {
                 .then((res) => console.log(res))
                 .catch((err) => console.error(err));
         }
-        setTimeout(()=>dispatch(setUserRefresh(true)), 500);
+        setTimeout(()=>dispatch(setTableRefresh(true)), 500);
     }
 
     const onClickEdit = () => {
@@ -102,7 +102,7 @@ export const UserEntry = (props) => {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             )) {
             alert("Email is invalid!");
-            dispatch(setUserRefresh(true));
+            dispatch(setTableRefresh(true));
             return;
         }
 
@@ -127,7 +127,7 @@ export const UserEntry = (props) => {
                         alert(err.response.data.message);
                     }
                 });
-            setTimeout(()=>dispatch(setUserRefresh(true)), 1000);
+            setTimeout(()=>dispatch(setTableRefresh(true)), 1000);
         } else {
             axios.put("http://localhost:8000/users/"+props.user.user_id, requestBody)
                 .then((res) => {
@@ -140,7 +140,7 @@ export const UserEntry = (props) => {
                         alert(err.response.data.message);
                     }
                 });
-            setTimeout(()=>dispatch(setUserRefresh(true)), 1000);
+            setTimeout(()=>dispatch(setTableRefresh(true)), 1000);
         }
     }
 
