@@ -1,10 +1,16 @@
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
+import {useDispatch, useSelector} from "react-redux";
+import {setUser} from "../slices/userSlice.js";
 
 export const LoginPage = () => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
+    const signIn = useSignIn();
 
     const keyPressHandler = (e) => {
         if (e.key === 'Enter') {
@@ -20,11 +26,34 @@ export const LoginPage = () => {
             password: password,
         }
         axios.post("http://localhost:8000/login", requestBody)
-            .then((res) => {console.log(res)})
+            .then((res) => {
+                console.log(res);
+                signIn({
+                    auth: {
+                        token: res.data.token,
+                        type: 'Bearer',
+                        expiresIn: 3600,
+                    },
+                    userState: res.data.user,
+                })
+                dispatch(setUser(res.data.user));
+                if (res.data.user.role_id === 1) {
+                    navigate("/admin")
+                } else {
+                    navigate("/store")
+                }
+            })
             .catch((err) => {
                 console.log(err);
                 alert(err.response.data.message);
-            })
+            });
+
+        /*const signed =
+
+        if (signed) {
+            alert(user)
+            navigate('/store');
+        }*/
         /*if (login === "user") {
             navigate('/store');
         } else if (login === "admin") {

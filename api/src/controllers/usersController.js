@@ -126,7 +126,7 @@ class UsersController {
 
         const jwtToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET)
 
-        return res.json({user: user, jwtToken: jwtToken});
+        return res.json({user: user, token: jwtToken});
     }
 }
 

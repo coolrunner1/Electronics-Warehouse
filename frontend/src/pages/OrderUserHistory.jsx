@@ -1,12 +1,15 @@
 import {OrderHistoryEntry} from "../components/OrderHistory/OrderHistoryEntry.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {useSelector} from "react-redux";
 
 export const OrderUserHistory = () => {
     const [orders, setOrders] = useState([]);
 
+    const user = useSelector((state) => state.user)
+
     useEffect(() => {
-        axios.get("http://localhost:8000/orders/client/1")
+        axios.get("http://localhost:8000/orders/client/"+user.userInfo.client_id)
             .then((response) => setOrders(response.data.rows))
             .catch((error) => {
                 console.error('Error fetching items:', error);

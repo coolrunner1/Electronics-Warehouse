@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {setUserRefresh} from "../../slices/usersSlice.js";
 import {BlueButton} from "../Global/BlueButton.jsx";
 import {RedButton} from "../Global/RedButton.jsx";
-import {customStyles} from "../../global/customStyles.js";
+import {customStyles} from "../../utils/customStyles.js";
 
 export const UserEntry = (props) => {
     const [login, setLogin] = useState("");

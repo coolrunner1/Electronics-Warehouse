@@ -7,7 +7,7 @@ import {RedButton} from "../Global/RedButton.jsx";
 import {setItemReturn} from "../../slices/returnsSlice.js";
 import Select from "react-select";
 import axios from "axios";
-import {customStyles} from "../../global/customStyles.js";
+import {customStyles} from "../../utils/customStyles.js";
 import {setUserRefresh} from "../../slices/usersSlice.js";
 
 export const NewOrderReturn = () => {

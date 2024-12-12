@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 
 export const CheckoutInformationContainer = () => {
+    const user = useSelector((state) => state.user)
+
     const dispatch = useDispatch();
 
     const {items, quantity, amount} = useSelector((state) => state.cart);
@@ -10,7 +12,7 @@ export const CheckoutInformationContainer = () => {
     const onCheckOutClick = () => {
         const postBody = {
             items: items,
-            clientId: 1, //placeholder
+            clientId: user.userInfo.client_id,
             itemCount: quantity,
             itemTotal: amount,
         }
