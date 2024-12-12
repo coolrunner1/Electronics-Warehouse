@@ -10,10 +10,14 @@ export const OrderHistoryItem = (props) => {
 
     const onReturnClick = () => {
         if (itemReturn === null) {
+            if (props.item.quantity <= props.item.returned_units) {
+                alert("You have already returned all items.");
+                return;
+            }
             dispatch(setItemReturn(props.item));
-        } else {
-            alert("Finish filing previous return first!");
+            return;
         }
+        alert("Finish filing previous return first!");
     }
 
     return (
