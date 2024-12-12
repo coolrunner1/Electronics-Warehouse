@@ -6,6 +6,8 @@ const ordersController = require("./controllers/ordersController");
 const usersController = require("./controllers/usersController");
 const rolesController = require("./controllers/rolesController");
 const clientsController = require("./controllers/clientsController");
+const orderReturnsController = require("./controllers/orderReturnsController");
+const enumsController = require("./controllers/enumsController");
 
 /*items router*/
 router.get("/items", itemsController.getAllItems);
@@ -25,8 +27,10 @@ router.get("/manufacturers", manufacturersController.getAllManufacturers);
 /*orders router*/
 router.get("/orders", ordersController.getAllOrders);
 router.get("/orders/client/:clientId", ordersController.getOrdersByClientId);
-router.get("/orders/:orderId/items", ordersController.getItemsByOrderId);
+router.get("/orders/:orderId/items", itemsController.getItemsByOrderId);
+router.get("/orders/:orderId/returns", orderReturnsController.getReturnedItemsByOrderId);
 router.post("/orders", ordersController.addOrder);
+router.post("/orders/:orderId/returns", orderReturnsController.addOrderReturn);
 
 /*users router*/
 router.get("/users", usersController.getAllUsers);
@@ -40,5 +44,9 @@ router.get("/roles", rolesController.getAllRoles);
 
 /*clients router*/
 router.get("/clients", clientsController.getAllClients);
+
+/*enums router*/
+router.get("/enums/returnstatuses", enumsController.getReturnStatuses);
+router.get("/enums/returnreasons", enumsController.getReturnReasons);
 
 module.exports = router;

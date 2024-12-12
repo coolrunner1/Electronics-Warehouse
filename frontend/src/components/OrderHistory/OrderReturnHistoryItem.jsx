@@ -1,21 +1,9 @@
+import {OrderHistoryItem} from "./OrderHistoryItem.jsx";
 import PropTypes from "prop-types";
-import {setItemReturn} from "../../slices/returnsSlice.js";
-import {useDispatch, useSelector} from "react-redux";
-import {BlueButton} from "../Global/BlueButton.jsx";
+import {useState} from "react";
 
-
-export const OrderHistoryItem = (props) => {
-    const dispatch = useDispatch();
-    const itemReturn = useSelector((state) => state.returns.itemReturn);
-
-    const onReturnClick = () => {
-        if (itemReturn === null) {
-            dispatch(setItemReturn(props.item));
-        } else {
-            alert("Finish filing previous return first!");
-        }
-    }
-
+export const OrderReturnHistoryItem = (props) => {
+    const [date, setDate] = useState(new Date(props.item.return_date).toLocaleDateString("en-GB"));
     return (
         <>
             <tr>
@@ -35,22 +23,18 @@ export const OrderHistoryItem = (props) => {
                     </div>
                     <div>{props.item.model}</div>
                 </td>
-                <td>{props.item.manufacturer}</td>
                 <td>${props.item.unit_price}</td>
                 <td>{props.item.quantity}</td>
                 <td>${(props.item.unit_price * props.item.quantity).toFixed(2)}</td>
-                {props.status === 'Delivered' && (
-                    <td>
-                        <BlueButton onButtonClick={onReturnClick} name={"Return"}/>
-                    </td>
-                )
-                }
+                <td>{props.item.status}</td>
+                <td>{props.item.reason}</td>
+                <td>{props.item.description}</td>
+                <td>{date}</td>
             </tr>
         </>
     )
 }
 
-OrderHistoryItem.propTypes = {
+OrderReturnHistoryItem.propTypes = {
     item: PropTypes.object,
-    status: PropTypes.string,
 }

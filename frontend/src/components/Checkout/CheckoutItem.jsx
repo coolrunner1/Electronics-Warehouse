@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import {incrementCartItemNumber, decrementCartItemNumber, removeCartItem} from "../../slices/cartSlice.js";
 import {useDispatch} from "react-redux";
+import {NumberToggle} from "../Global/NumberToggle.jsx";
 
 export const CheckoutItem = (props) => {
     const dispatch = useDispatch();
@@ -30,14 +31,7 @@ export const CheckoutItem = (props) => {
                         <p className="mt-1 text-xs light:text-gray-700">{props.item.manufacturer}</p>
                     </div>
                     <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                        <div className="flex items-center ">
-                                        <span
-                                            className="cursor-pointer rounded-l py-1 px-3.5 duration-100 bg-blue-500 hover:bg-blue-600 hover:text-blue-50" onClick={decrement}> - </span>
-                            <input className="h-8 w-8 text-center text-xs outline-none"
-                                   value={props.item.numberInCart} readOnly={true}/>
-                            <span
-                                className="cursor-pointer rounded-r  py-1 px-3 duration-100 bg-blue-500 hover:bg-blue-600 hover:text-blue-50" onClick={increment}> + </span>
-                        </div>
+                        <NumberToggle increment={increment} decrement={decrement} value={props.item.numberInCart}/>
                         <div className="flex items-center space-x-4">
                             <p className="text-sm">${(props.item.unit_price * props.item.numberInCart).toFixed(2)}</p>
                             <svg onClick={onRemoveClick} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

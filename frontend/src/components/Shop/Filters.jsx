@@ -4,8 +4,12 @@ import {useDispatch} from "react-redux";
 import {setCategory, setManufacturer, setSortBy, setSortingDirection} from "../../slices/filtersSlice.js";
 import {CategoryFilter} from "./CategoryFilter.jsx";
 import axios from "axios";
+import {useLocation} from "react-router-dom";
 
 export const Filters = () => {
+    const location = useLocation();
+    const allowFilters = location.search === null || location.search === "" || location.search === "?"
+
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -49,8 +53,8 @@ export const Filters = () => {
     return (
         <>
             <div className="flex flex-col sm:flex-row pl-4 pr-4 w-full gap-2 justify-center">
-                <CategoryFilter label="Category" onChange={onCategoryChange} options={categories}/>
-                <SelectFilter label="Manufacturer" onChange={onManufacturerChange} options={manufacturers}/>
+                {allowFilters && (<CategoryFilter label="Category" onChange={onCategoryChange} options={categories}/>)}
+                {allowFilters && (<SelectFilter label="Manufacturer" onChange={onManufacturerChange} options={manufacturers}/>)}
                 <SelectFilter label="Sort by" onChange={onSortByChange} options={['Price', 'Name']}/>
                 <SelectFilter label="Sorting direction" onChange={onSortingDirectionChange} options={['Ascending', 'Descending']} />
             </div>

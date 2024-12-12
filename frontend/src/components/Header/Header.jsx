@@ -2,7 +2,7 @@ import {SearchBar} from "./SearchBar.jsx";
 import {WarehouseLogo} from "./WarehouseLogo.jsx";
 import {CartButton} from "./CartButton.jsx";
 import {OrdersButton} from "./OrdersButton.jsx";
-import {AccountButton} from "./AccountButton.jsx";
+import {AccountButton} from "../Global/AccountButton.jsx";
 
 export function Header() {
     return (

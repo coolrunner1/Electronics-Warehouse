@@ -4,6 +4,9 @@ import Select from "react-select";
 import axios from "axios";
 import {useDispatch} from "react-redux";
 import {setUserRefresh} from "../../slices/usersSlice.js";
+import {BlueButton} from "../Global/BlueButton.jsx";
+import {RedButton} from "../Global/RedButton.jsx";
+import {customStyles} from "../../global/customStyles.js";
 
 export const UserEntry = (props) => {
     const [login, setLogin] = useState("");
@@ -137,22 +140,6 @@ export const UserEntry = (props) => {
         }
     }
 
-    const customStyles = {
-        control: (provided) => ({
-            ...provided,
-            display: 'flex',
-            flexWrap: 'nowrap',
-            color: "black",
-            overflowY: scroll,
-            maxWidth: '150px',
-        }),
-        menu: (provided) => ({
-            ...provided,
-            color: "black",
-            overflowY: scroll,
-        }),
-    };
-
     return (
         <>
             <tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
@@ -198,12 +185,8 @@ export const UserEntry = (props) => {
 
                 </td>
                 <td className="p-3 px-5 flex justify-end">
-                    <button type="button" onClick={onClickEdit}
-                            className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Save
-                    </button>
-                    <button type="button" onClick={onClickDelete}
-                            className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete
-                    </button>
+                    <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
+                    <RedButton onButtonClick={onClickDelete} name={"Delete"}/>
                 </td>
             </tr>
         </>

@@ -1,10 +1,11 @@
 import {UserEntry} from "../components/Admin/UserEntry.jsx";
-import {AccountButton} from "../components/Header/AccountButton.jsx";
+import {AccountButton} from "../components/Global/AccountButton.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {UsersTableHeader} from "../components/Admin/UsersTableHeader.jsx";
+import {TableHeader} from "../components/Global/TableHeader.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserRefresh} from "../slices/usersSlice.js";
+import {BlueButton} from "../components/Global/BlueButton.jsx";
 
 export const AdminDashboardPage = () => {
     const [users, setUsers] = useState([]);
@@ -68,12 +69,10 @@ export const AdminDashboardPage = () => {
                             <tr className="border-b">
                                 {
                                     ['Login', 'Password', 'Full Name', 'Email', 'Phone number', 'Passport', 'Role', 'Company']
-                                        .map((item, index) => (<UsersTableHeader name={item} key={index}/>))
+                                        .map((item, index) => (<TableHeader name={item} key={index}/>))
                                 }
                                 <th>
-                                    <button type="button" onClick={onNewClick}
-                                            className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">New
-                                    </button>
+                                    <BlueButton onButtonClick={onNewClick} name={"New"}/>
                                 </th>
                             </tr>
                             {users.map((user) => (

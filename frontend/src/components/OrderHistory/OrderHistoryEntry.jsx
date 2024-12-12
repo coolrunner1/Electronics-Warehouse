@@ -2,10 +2,14 @@ import {OrderHistoryTable} from "./OrderHistoryTable.jsx";
 import * as DataTypes from "prop-types";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {OrderReturnsHistoryTable} from "./OrderReturnsHistoryTable.jsx";
+import {useSelector} from "react-redux";
 
 export const OrderHistoryEntry = (props) => {
     const [date, setDate] = useState("");
     const [items, setItems] = useState([]);
+    const [orderReturns, setOrderReturns] = useState([]);
+    const itemReturn = useSelector((state) => state.returns.itemReturn);
 
     useEffect(() => {
         const dateString = props.order.timestamp;
@@ -16,7 +20,15 @@ export const OrderHistoryEntry = (props) => {
                 console.error('Error fetching items:', error);
                 setItems([]);
             });
-    }, []);
+        if (props.order.status === 'Delivered') {
+            axios.get("http://localhost:8000/orders/"+props.order.order_id+"/returns")
+                .then((response) => setOrderReturns(response.data.rows))
+                .catch((error) => {
+                    console.error('Error fetching items:', error);
+                    setOrderReturns([]);
+                });
+        }
+    }, [itemReturn]);
 
     return (
         <>
@@ -34,7 +46,14 @@ export const OrderHistoryEntry = (props) => {
                         </dl>
                         <OrderHistoryTable items={items} status={props.order.status} />
                         {props.order.status === 'Delivered' && (
-                            <div className="text-center">Returns</div>
+                            <div>
+                                <div className="text-center">Returns</div>
+                                {orderReturns.length === 0 && itemReturn === null
+                                    ? <div className="mt-3 text-center">No returns yet</div>
+                                    : <OrderReturnsHistoryTable items={orderReturns} status={props.order.status} />
+                                }
+
+                            </div>
                             )
                         }
 

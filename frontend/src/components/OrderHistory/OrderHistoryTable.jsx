@@ -7,11 +7,9 @@ export const OrderHistoryTable = (props) => {
             <table className="w-full text-md shadow-md rounded mb-4">
                 <thead className="border-b">
                 <tr>
-                    <th scope="col" className="text-left p-3 px-4">Product</th>
-                    <th scope="col" className="text-left p-3 px-4">Manufacturer</th>
-                    <th scope="col" className="text-left p-3 px-4">Price per unit</th>
-                    <th scope="col" className="text-left p-3 px-4">Quantity</th>
-                    <th scope="col" className="text-left p-3 px-4">Total price</th>
+                    {["Product", "Manufacturer", "Price per unit", "Quantity", "Total price"].map((item, index) => (
+                        <th key={index} scope="col" className="text-left p-3 px-4">{item}</th>
+                    ))}
                     {props.status === 'Delivered' && (
                         <th scope="col" className="text-left p-3 px-4">Return</th>
                     )

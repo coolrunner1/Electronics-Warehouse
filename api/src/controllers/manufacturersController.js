@@ -11,7 +11,7 @@ class ManufacturerController {
                 return res.status(200).json(result);
             } catch (err) {
                 console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching manufacturers." })
+                return res.status(500).json({ status: "error", message: "Error fetching manufacturers." });
             }
         });
     }
