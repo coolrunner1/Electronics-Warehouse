@@ -1,8 +1,10 @@
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import axios from "axios";
 
 export const LoginPage = () => {
     const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
 
     const keyPressHandler = (e) => {
         if (e.key === 'Enter') {
@@ -13,16 +15,31 @@ export const LoginPage = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        if (login === "user") {
+        const requestBody = {
+            login: login,
+            password: password,
+        }
+        axios.post("http://localhost:8000/login", requestBody)
+            .then((res) => {console.log(res)})
+            .catch((err) => {
+                console.log(err);
+                alert(err.response.data.message);
+            })
+        /*if (login === "user") {
             navigate('/store');
         } else if (login === "admin") {
             navigate('/admin');
-        }
+        }*/
     };
 
-    const handleEmailChange = (e) => {
+    const handleLoginChange = (e) => {
         setLogin(e.target.value);
     }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    }
+
     return (
         <>
             <div className="min-h-screen flex flex-col justify-center sm:py-12">
@@ -31,9 +48,9 @@ export const LoginPage = () => {
                     <div className="shadow w-full rounded-lg">
                         <div className="px-5 py-7">
                             <label className="font-semibold text-sm pb-1 block">Login</label>
-                            <input type="text" onChange={handleEmailChange} onKeyDown={keyPressHandler} className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
+                            <input type="text" onChange={handleLoginChange} onKeyDown={keyPressHandler} className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
                             <label className="font-semibold text-sm pb-1 block">Password</label>
-                            <input type="password" onKeyDown={keyPressHandler} className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
+                            <input type="password" onChange={handlePasswordChange} onKeyDown={keyPressHandler} className="border dark:border-gray-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"/>
                             <button type="button"
                                     onClick={handleClick}
                                     className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">

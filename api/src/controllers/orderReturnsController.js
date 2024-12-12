@@ -24,7 +24,6 @@ class OrderReturnsController {
     async addOrderReturn(req, res) {
         try{
             const {orderProductId, quantity, reason, description} = req.body;
-            console.log(orderProductId);
             await db.query("INSERT INTO OrderReturn (order_product_id, quantity, reason, description, status, return_date) VALUES\n" +
                 "($1, $2, $3, $4, 'Sent', CURRENT_TIMESTAMP)", [orderProductId, quantity, reason, description])
             return res.status(201).json({status: "success", message: "Return successfully added"});

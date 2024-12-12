@@ -1,8 +1,12 @@
 const db = require("../database");
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+//const {compare} = bcrypt;
 
 class UsersController {
     async getAllUsers(req, res) {
-        await db.query("SELECT * FROM UserProfile ORDER BY user_id", (err, result) => {
+        await db.query("SELECT user_id, role_id, client_id, login, image_path, full_name, email, phone_number, passport FROM UserProfile ORDER BY user_id", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {
@@ -22,9 +26,12 @@ class UsersController {
                 body.client_id = null;
             }
 
+            const salt = await bcrypt.genSalt(10);
+            const hashPassword = await bcrypt.hash(body.password, salt);
+
             await db.query("INSERT INTO UserProfile (login, password, full_name, email, phone_number, passport, role_id, client_id) VALUES " +
                 "($1, $2, $3, $4, $5, $6, $7, $8)",
-                [body.login, body.password, body.full_name, body.email, body.phone_number, body.passport, body.role_id, body.client_id],
+                [body.login, hashPassword, body.full_name, body.email, body.phone_number, body.passport, body.role_id, body.client_id],
                 (err, result) => {
                 try {
                     if (err) throw err;
@@ -48,8 +55,24 @@ class UsersController {
                 body.client_id = null;
             }
 
-            await db.query("UPDATE UserProfile SET login = $2, password = $3, full_name = $4, email = $5, phone_number = $6, passport = $7, role_id = $8, client_id = $9 WHERE user_id = $1",
-                [id, body.login, body.password, body.full_name, body.email, body.phone_number, body.passport, body.role_id, body.client_id],
+            let queryString;
+            let queryParams;
+
+            const salt = await bcrypt.genSalt(10);
+            const hashPassword = await bcrypt.hash(body.password, salt);
+
+
+        if (body.password !== "") {
+                queryString = "UPDATE UserProfile SET login = $2, password = $3, full_name = $4, email = $5, phone_number = $6, " +
+                    "passport = $7, role_id = $8, client_id = $9 WHERE user_id = $1";
+                queryParams = [id, body.login, hashPassword, body.full_name, body.email, body.phone_number, body.passport, body.role_id, body.client_id];
+            } else {
+                queryString = "UPDATE UserProfile SET login = $2, full_name = $3, email = $4, phone_number = $5, " +
+                    "passport = $6, role_id = $7, client_id = $8 WHERE user_id = $1";
+                queryParams = [id, body.login, body.full_name, body.email, body.phone_number, body.passport, body.role_id, body.client_id]
+            }
+
+            await db.query(queryString, queryParams,
                 (err, result) => {
                     try {
                         if (err) throw err;
@@ -83,6 +106,27 @@ class UsersController {
                     return res.status(500).json({ status: "error", message: "Server error." })
                 }
             });
+    }
+
+    async login(req, res) {
+        const {login, password} = req.body;
+
+        const data = await db.query("SELECT * FROM UserProfile WHERE login = $1", [login])
+            .catch((err) => {console.log(err)});
+
+        if (data.rowCount === 0) {
+            return res.status(400).json({message: "User does not exist!"});
+        }
+
+        const user = data.rows[0];
+
+        if (!bcrypt.compareSync(password, user.password)) {
+            return res.status(400).json({message: "Invalid Password"});
+        }
+
+        const jwtToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET)
+
+        return res.json({user: user, jwtToken: jwtToken});
     }
 }
 

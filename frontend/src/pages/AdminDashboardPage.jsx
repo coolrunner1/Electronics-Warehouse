@@ -68,7 +68,7 @@ export const AdminDashboardPage = () => {
                             <tbody>
                             <tr className="border-b">
                                 {
-                                    ['Login', 'Password', 'Full Name', 'Email', 'Phone number', 'Passport', 'Role', 'Company']
+                                    ['Login', 'New password', 'Full Name', 'Email', 'Phone number', 'Passport', 'Role', 'Company']
                                         .map((item, index) => (<TableHeader name={item} key={index}/>))
                                 }
                                 <th>

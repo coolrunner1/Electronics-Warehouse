@@ -23,7 +23,6 @@ export const UserEntry = (props) => {
 
     useEffect(() => {
         setLogin(props.user.login);
-        setPassword(props.user.password);
         setFullName(props.user.full_name);
         setEmail(props.user.email);
         setNumber('+7' + props.user.phone_number);
@@ -123,17 +122,20 @@ export const UserEntry = (props) => {
                 .catch((err) => {
                     console.error(err);
                     if (err.response.status === 409) {
-                        alert("User with this login, email or phone number already exists!");
+                        alert(err.response.data.message);
                     }
                 });
             setTimeout(()=>dispatch(setUserRefresh(true)), 1000);
         } else {
             axios.put("http://localhost:8000/users/"+props.user.user_id, requestBody)
-                .then((res) => console.log(res))
+                .then((res) => {
+                    console.log(res);
+                    setPassword('');
+                })
                 .catch((err) => {
                     console.error(err);
                     if (err.response.status === 409) {
-                        alert("User with this login, email or phone number already exists!");
+                        alert(err.response.data.message);
                     }
                 });
             setTimeout(()=>dispatch(setUserRefresh(true)), 1000);
@@ -147,7 +149,7 @@ export const UserEntry = (props) => {
                     <input type="text" value={login} onChange={onLoginChange} className="bg-transparent"/>
                 </td>
                 <td className="p-3 px-5">
-                    <input type="text" value={password} onChange={onPasswordChange} className="bg-transparent" readOnly={false}/>
+                    <input type="text" value={password} onChange={onPasswordChange} placeholder="Enter new password" className="bg-transparent" readOnly={false}/>
                 </td>
                 <td className="p-3 px-5">
                     <input type="text" value={fullName} onChange={onNameChange}  className="bg-transparent"/>

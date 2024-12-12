@@ -49,4 +49,7 @@ router.get("/clients", clientsController.getAllClients);
 router.get("/enums/returnstatuses", enumsController.getReturnStatuses);
 router.get("/enums/returnreasons", enumsController.getReturnReasons);
 
+/*login router*/
+router.post("/login", usersController.login);
+
 module.exports = router;
