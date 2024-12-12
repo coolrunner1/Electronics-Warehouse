@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 import {NumberToggle} from "../Global/NumberToggle.jsx";
 import {BlueButton} from "../Global/BlueButton.jsx";
@@ -8,7 +7,8 @@ import {setItemReturn} from "../../slices/returnsSlice.js";
 import Select from "react-select";
 import axios from "axios";
 import {customStyles} from "../../utils/customStyles.js";
-import {setUserRefresh} from "../../slices/usersSlice.js";
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import {Td, Tr} from "react-super-responsive-table";
 
 export const NewOrderReturn = () => {
     const itemReturn = useSelector((state) => state.returns.itemReturn);
@@ -80,8 +80,8 @@ export const NewOrderReturn = () => {
     const [date, setDate] = useState(new Date().toLocaleDateString("en-GB"));
     return (
         <>
-            <tr>
-                <td>
+            <Tr>
+                <Td>
                     <div className="flex justify-center m-3">
                         {itemReturn.image_path === null
                             ? (<img
@@ -96,14 +96,14 @@ export const NewOrderReturn = () => {
 
                     </div>
                     <div>{itemReturn.model}</div>
-                </td>
-                <td>${itemReturn.unit_price}</td>
-                <td>
+                </Td>
+                <Td>${itemReturn.unit_price}</Td>
+                <Td>
                     <NumberToggle increment={increment} decrement={decrement} value={quantity}/>
-                </td>
-                <td>${(itemReturn.unit_price * itemReturn.quantity).toFixed(2)}</td>
-                <td>Pending</td>
-                <td>
+                </Td>
+                <Td>${(itemReturn.unit_price * itemReturn.quantity).toFixed(2)}</Td>
+                <Td>Pending</Td>
+                <Td>
                     <Select
                         options={reasons}
                         defaultValue={1}
@@ -111,18 +111,18 @@ export const NewOrderReturn = () => {
                         styles={customStyles}
                         readOnly={true}
                     />
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <textarea maxLength='255' onChange={onDescriptionChange} value={description}></textarea>
-                </td>
-                <td>{date}</td>
-                <td>
+                </Td>
+                <Td>{date}</Td>
+                <Td>
                     <BlueButton onButtonClick={onSaveClick} name="Save"/>
-                </td>
-                <td>
+                </Td>
+                <Td>
                     <RedButton onButtonClick={onDeleteClick} name="Delete"/>
-                </td>
-            </tr>
+                </Td>
+            </Tr>
         </>
     )
 };

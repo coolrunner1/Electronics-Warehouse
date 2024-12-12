@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import {setItemReturn} from "../../slices/returnsSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 import {BlueButton} from "../Global/BlueButton.jsx";
-
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import {Td, Tr} from "react-super-responsive-table";
 
 export const OrderHistoryItem = (props) => {
     const dispatch = useDispatch();
@@ -22,8 +23,8 @@ export const OrderHistoryItem = (props) => {
 
     return (
         <>
-            <tr>
-                <td>
+            <Tr>
+                <Td>
                     <div className="flex justify-center m-3">
                         {props.item.image_path === null
                             ? (<img
@@ -38,18 +39,16 @@ export const OrderHistoryItem = (props) => {
 
                     </div>
                     <div>{props.item.model}</div>
-                </td>
-                <td>{props.item.manufacturer}</td>
-                <td>${props.item.unit_price}</td>
-                <td>{props.item.quantity}</td>
-                <td>${(props.item.unit_price * props.item.quantity).toFixed(2)}</td>
+                </Td>
+                {[props.item.manufacturer, '$'+props.item.unit_price, props.item.quantity, '$'+(props.item.unit_price * props.item.quantity).toFixed(2)]
+                    .map((item, index) => (<Td className="p-3" key={index}>{item}</Td>))}
                 {props.status === 'Delivered' && (
-                    <td>
+                    <Td className="p-3">
                         <BlueButton onButtonClick={onReturnClick} name={"Return"}/>
-                    </td>
+                    </Td>
                 )
                 }
-            </tr>
+            </Tr>
         </>
     )
 }

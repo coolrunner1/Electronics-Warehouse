@@ -2,10 +2,11 @@ import {UserEntry} from "../components/Admin/UserEntry.jsx";
 import {AccountButton} from "../components/Global/AccountButton.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {TableHeader} from "../components/Global/TableHeader.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserRefresh} from "../slices/usersSlice.js";
 import {BlueButton} from "../components/Global/BlueButton.jsx";
+import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 export const AdminDashboardPage = () => {
     const [users, setUsers] = useState([]);
@@ -60,26 +61,28 @@ export const AdminDashboardPage = () => {
                     </h1>
                     <AccountButton/>
                 </div>
-                <div className="px-4 py-4 flex justify-center overflow-x-auto ">
+                <div className="px-4 py-4 overflow-auto">
                     {users.length === 0
                         ? <div className="text-center text-xl">No users found.</div>
                         :
-                        <table className="w-full text-md shadow-md rounded mb-4">
-                            <tbody>
-                            <tr className="border-b">
-                                {
-                                    ['Login', 'New password', 'Full Name', 'Email', 'Phone number', 'Passport', 'Role', 'Company']
-                                        .map((item, index) => (<TableHeader name={item} key={index}/>))
-                                }
-                                <th>
-                                    <BlueButton onButtonClick={onNewClick} name={"New"}/>
-                                </th>
-                            </tr>
-                            {users.map((user) => (
-                                <UserEntry user={user} key={user.user_id} roles={roles} clients={clients} />
-                            ))}
-                            </tbody>
-                        </table>
+                        <Table className="w-full text-md shadow-md rounded mb-4">
+                            <Thead>
+                                <Tr className="border-b">
+                                    {
+                                        ['Login', 'New password', 'Full Name', 'Email', 'Phone number', 'Passport', 'Role', 'Company']
+                                            .map((item, index) => (<Th key={index}>{item}</Th>))
+                                    }
+                                    <Th>
+                                        <BlueButton onButtonClick={onNewClick} name={"New"}/>
+                                    </Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {users.map((user) => (
+                                    <UserEntry user={user} key={user.user_id} roles={roles} clients={clients} />
+                                ))}
+                            </Tbody>
+                        </Table>
                     }
 
                 </div>

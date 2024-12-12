@@ -7,6 +7,8 @@ import {setUserRefresh} from "../../slices/usersSlice.js";
 import {BlueButton} from "../Global/BlueButton.jsx";
 import {RedButton} from "../Global/RedButton.jsx";
 import {customStyles} from "../../utils/customStyles.js";
+import {Td, Tr} from "react-super-responsive-table";
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 export const UserEntry = (props) => {
     const [login, setLogin] = useState("");
@@ -144,26 +146,26 @@ export const UserEntry = (props) => {
 
     return (
         <>
-            <tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
-                <td className="p-3 px-5">
+            <Tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
+                <Td className="p-3">
                     <input type="text" value={login} onChange={onLoginChange} className="bg-transparent"/>
-                </td>
-                <td className="p-3 px-5">
+                </Td>
+                <Td className="p-3">
                     <input type="text" value={password} onChange={onPasswordChange} placeholder="Enter new password" className="bg-transparent" readOnly={false}/>
-                </td>
-                <td className="p-3 px-5">
+                </Td>
+                <Td className="p-3">
                     <input type="text" value={fullName} onChange={onNameChange}  className="bg-transparent"/>
-                </td>
-                <td className="p-3 px-5">
+                </Td>
+                <Td className="p-3">
                     <input type="text" value={email} onChange={onEmailChange} className="bg-transparent"/>
-                </td>
-                <td className="p-3 px-5">
+                </Td>
+                <Td className="p-3">
                     <input type="text" value={number} onChange={onNumberChange} className="bg-transparent"/>
-                </td>
-                <td className="p-3 px-5">
+                </Td>
+                <Td className="p-3">
                     <input type="text" value={passport} onChange={onPassportChange} className="bg-transparent"/>
-                </td>
-                <td className="p-3 px-5">
+                </Td>
+                <Td className="p-3">
                     { defaultRole === -1 ? null : (
                         <Select
                             options={props.roles}
@@ -173,8 +175,8 @@ export const UserEntry = (props) => {
                             maxMenuHeight={250}
                         />
                     )}
-                </td>
-                <td className="p-3 px-5">
+                </Td>
+                <Td className="p-3 px-5">
                     { role !== 2 ? null : (
                         <Select
                             options={props.clients}
@@ -185,12 +187,12 @@ export const UserEntry = (props) => {
                         />
                     )}
 
-                </td>
-                <td className="p-3 px-5 flex justify-end">
+                </Td>
+                <Td className="p-3 px-5 flex justify-end">
                     <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
                     <RedButton onButtonClick={onClickDelete} name={"Delete"}/>
-                </td>
-            </tr>
+                </Td>
+            </Tr>
         </>
     )
 }

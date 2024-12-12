@@ -3,10 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {setUserRefresh} from "../slices/usersSlice.js";
 import {AccountButton} from "../components/Global/AccountButton.jsx";
-import {TableHeader} from "../components/Global/TableHeader.jsx";
 import {BlueButton} from "../components/Global/BlueButton.jsx";
 import {UserEntry} from "../components/Admin/UserEntry.jsx";
 import {ItemsEntry} from "../components/Items/ItemsEntry.jsx";
+import {Th} from "react-super-responsive-table";
 
 export const ItemsPage = () => {
     const [items, setItems] = useState([]);
@@ -68,7 +68,7 @@ export const ItemsPage = () => {
                             <tr className="border-b">
                                 {
                                     ['Model', 'Image', 'Manufacturer', 'Category', 'Price', 'Status', 'Units in stock', 'Faulty units']
-                                        .map((item, index) => (<TableHeader name={item} key={index}/>))
+                                        .map((item, index) => (<Th key={index}>{item}</Th>))
                                 }
                                 <th>
                                     <BlueButton onButtonClick={onNewClick} name={"New"}/>

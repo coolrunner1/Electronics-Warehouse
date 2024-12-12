@@ -1,28 +1,30 @@
 import {OrderHistoryItem} from "./OrderHistoryItem.jsx";
 import PropTypes from "prop-types";
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 
 export const OrderHistoryTable = (props) => {
     return (
         <>
-            <table className="w-full text-md shadow-md rounded mb-4">
-                <thead className="border-b">
-                <tr>
+            <Table className="w-full text-md shadow-md rounded mb-4">
+                <Thead className="border-b">
+                <Tr>
                     {["Product", "Manufacturer", "Price per unit", "Quantity", "Total price"].map((item, index) => (
-                        <th key={index} scope="col" className="text-left p-3 px-4">{item}</th>
+                        <Th key={index} scope="col" className="text-left p-3 px-4">{item}</Th>
                     ))}
                     {props.status === 'Delivered' && (
-                        <th scope="col" className="text-left p-3 px-4">Return</th>
+                        <Th scope="col" className="text-left p-3 px-4">Return</Th>
                     )
                     }
 
-                </tr>
-                </thead>
-                <tbody>
+                </Tr>
+                </Thead>
+                <Tbody>
                 {props.items.map((item, index) => (
                     <OrderHistoryItem key={index} item={item} status={props.status} />
                 ))}
-                </tbody>
-            </table>
+                </Tbody>
+            </Table>
         </>
     )
 }
