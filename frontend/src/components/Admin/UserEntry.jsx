@@ -22,6 +22,7 @@ export const UserEntry = (props) => {
     const [defaultClient, setDefaultClient] = useState(-1);
     const [role, setRole] = useState(-1);
     const [client, setClient] = useState(0);
+    const [refreshing, setRefreshing] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -50,6 +51,10 @@ export const UserEntry = (props) => {
             })
         }
     }, [props.clients]);
+
+    useEffect(() => {
+        setRefreshing(!refreshing);
+    }, [defaultClient])
 
     const onLoginChange = (e) => {
         setLogin(e.target.value);

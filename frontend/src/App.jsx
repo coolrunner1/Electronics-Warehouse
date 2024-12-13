@@ -19,6 +19,7 @@ import {ItemsPage} from "./pages/ItemsPage.jsx";
 import {ClientsPage} from "./pages/ClientsPage.jsx";
 import {SuppliersPage} from "./pages/SuppliersPage.jsx";
 import {AdminHeader} from "./components/Header/AdminHeader.jsx";
+import {OrdersPage} from "./pages/OrdersPage.jsx";
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -36,11 +37,12 @@ const App = () => {
                     <Route path="/store" element={<StorePage/>} />
                     <Route path="/checkout" element={<CheckoutPage/>} />
                     <Route path="/account" element={<AccountPage/>} />
-                    <Route path="/orders" element={<OrderUserHistory/>} />
+                    <Route path="/orderhistory" element={<OrderUserHistory/>} />
                     <Route path="/admin" element={<AdminDashboardPage/>} />
                     <Route path="/items" element={<ItemsPage/>} />
                     <Route path="/clients" element={<ClientsPage/>} />
                     <Route path="/suppliers" element={<SuppliersPage/>} />
+                    <Route path="/orders" element={<OrdersPage/>} />
                 </Route>
                 <Route path="/404" element={<PageNotFound/>} />
                 <Route path="*" element={<Navigate to="/404" replace />} />

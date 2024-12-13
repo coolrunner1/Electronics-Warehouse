@@ -1,10 +1,11 @@
 import {useNavigate} from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const OrdersButton = () => {
+export const OrdersButton = (props) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/orders');
+        navigate('/'+props.pathname);
     };
     return (
         <>
@@ -21,4 +22,8 @@ export const OrdersButton = () => {
             </button>
         </>
     )
+}
+
+OrdersButton.propTypes = {
+    pathname: PropTypes.string,
 }

@@ -1,10 +1,20 @@
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export const PageNotFound = () => {
     const navigate = useNavigate();
+    const role = useSelector(state => state.user.userInfo.role_id);
 
     const handleClick = (e) => {
-        navigate('/');
+        if (role === 1) {
+            navigate("/store");
+        } else if (role === 2) {
+            navigate("/admin");
+        } else if (role === 3) {
+            navigate("/items");
+        } else {
+            navigate("/login");
+        }
         e.preventDefault();
     };
     return (

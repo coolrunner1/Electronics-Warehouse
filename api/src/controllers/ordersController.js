@@ -2,7 +2,7 @@ const db = require("../database");
 
 class OrdersController {
     async getAllOrders(req, res) {
-        await db.query("SELECT * FROM ClientOrder", (err, result) => {
+        await db.query("SELECT * FROM ClientOrder ORDER BY order_id DESC", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {
@@ -50,6 +50,22 @@ class OrdersController {
               console.error(error);
               return res.status(500).json({ status: "error", message: "Error fetching orders." })
           }
+        });
+    }
+
+    async searchOrdersById(req, res) {
+        const id = req.params.orderId;
+        await db.query("SELECT * FROM ClientOrder WHERE CAST(order_id AS VARCHAR(255)) LIKE $1", ['%'+id+'%'], (err, result) => {
+            try {
+                if (err) throw err;
+                if (result.rowCount === 0) {
+                    return res.status(404).json({NOTFOUND: "No orders found"});
+                }
+                return res.status(200).json(result);
+            } catch(err) {
+                console.error(err);
+                return res.status(500).json({ status: "error", message: "Error fetching orders." });
+            }
         });
     }
 }

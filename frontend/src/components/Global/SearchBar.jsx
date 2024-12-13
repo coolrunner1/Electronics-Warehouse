@@ -18,8 +18,8 @@ export function SearchBar(props) {
 
     const changeHandler = (event) => {
         setSearch(event.target.value);
-        if (location.pathname === "/store") {
-            navigate('/store?'+search);
+        if (location.pathname === "/"+props.pathname) {
+            navigate('/'+props.pathname+'?'+search);
         }
     }
 
@@ -40,7 +40,7 @@ export function SearchBar(props) {
                         className="peer h-full w-full outline-none text-sm light:text-gray-700 pr-2 bg-search"
                         type="text"
                         id="search"
-                        placeholder="Search something.."
+                        placeholder={props.placeholder}
                         onChange={event => setSearch(event.target.value)}
                         onKeyUp={event => {changeHandler(event)}}
                         onKeyDown={keyPressHandler}
@@ -53,4 +53,5 @@ export function SearchBar(props) {
 
 SearchBar.propTypes = {
     pathname: PropTypes.string,
+    placeholder: PropTypes.string,
 }

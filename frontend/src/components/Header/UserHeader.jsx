@@ -9,9 +9,9 @@ export function UserHeader() {
         <>
             <header className="header flex flex-row gap-x-5 p-4 bg-gray-100 dark:bg-gray-950">
                 <WarehouseLogo location={"store"}/>
-                <SearchBar pathname={'store'}/>
+                <SearchBar pathname={'store'} placeholder={"Search items.."} />
                 <CartButton/>
-                <OrdersButton/>
+                <OrdersButton pathname={'orderhistory'}/>
                 <AccountButton/>
             </header>
 

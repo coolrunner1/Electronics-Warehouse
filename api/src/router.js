@@ -30,6 +30,7 @@ router.get("/manufacturers", manufacturersController.getAllManufacturers);
 
 /*orders router*/
 router.get("/orders", ordersController.getAllOrders);
+router.get("/orders/search/:orderId", ordersController.searchOrdersById)
 router.get("/orders/client/:clientId", ordersController.getOrdersByClientId);
 router.get("/orders/:orderId/items", itemsController.getItemsByOrderId);
 router.get("/orders/:orderId/returns", orderReturnsController.getReturnedItemsByOrderId);
