@@ -156,7 +156,7 @@ export const ItemsEntry = (props) => {
                 <Td className="p-3">
                     <div className="flex justify-end items-center">
                         <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
-                        {props.item.model !== '' && <RedButton onButtonClick={onClickArrival} name={"Add to arrival"}/>}
+                        {props.item.model !== '' && <RedButton onButtonClick={onClickArrival} name={ !createArrival ? "Add to arrival" : "Remove arrival"}/>}
                         {createArrival && (
                             <>
                                 <Select

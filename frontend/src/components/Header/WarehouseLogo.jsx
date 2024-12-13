@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import PropTypes from "prop-types";
 
-export const WarehouseLogo = () => {
+export const WarehouseLogo = (props) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/store');
+        navigate('/'+props.location);
     };
 
     return (
@@ -17,4 +18,8 @@ export const WarehouseLogo = () => {
             </svg>
         </>
     )
+}
+
+WarehouseLogo.propTypes = {
+    location: PropTypes.string,
 }
