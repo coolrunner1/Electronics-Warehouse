@@ -115,13 +115,27 @@ export const ClientsEntry = (props) => {
     return (
         <>
             <Tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
-                <TableTextInput value={fullName} onChange={onNameChange}/>
-                <TableTextInput value={email} onChange={onEmailChange}/>
-                <TableTextInput value={number} onChange={onNumberChange}/>
-                <TableTextInput value={address} onChange={onAddressChange}/>
-                <TableTextInput value={city} onChange={onCityChange}/>
-                <TableTextInput value={country} onChange={onCountryChange}/>
-                <TableTextInput value={postalCode.toString()} onChange={onPostalCodeChange}/>
+                <Td className="p-3">
+                    <TableTextInput value={fullName} onChange={onNameChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={email} onChange={onEmailChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={number} onChange={onNumberChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={address} onChange={onAddressChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={city} onChange={onCityChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={country} onChange={onCountryChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={postalCode.toString()} onChange={onPostalCodeChange}/>
+                </Td>
                 <Td className="p-3 px-5 flex justify-end">
                     <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
                     {props.client.client_id === 99999 &&

@@ -124,8 +124,12 @@ export const ItemsEntry = (props) => {
     return (
         <>
             <Tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
-                <TableTextInput value={model} onChange={onModelChange}/>
-                <TableTextInput value={manufacturer} onChange={onManufacturerChange}/>
+                <Td className="p-3">
+                    <TableTextInput value={model} onChange={onModelChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={manufacturer} onChange={onManufacturerChange}/>
+                </Td>
                 <Td className="p-3">
                     {defaultCategory !== -1 &&
                         <Select
@@ -138,7 +142,9 @@ export const ItemsEntry = (props) => {
                     }
 
                 </Td>
-                <TableTextInput value={price} onChange={onPriceChange}/>
+                <Td className="p-3">
+                    <TableTextInput value={price} onChange={onPriceChange}/>
+                </Td>
                 <Td className="p-3">
                     {props.item.status}
                 </Td>
@@ -170,14 +176,14 @@ export const ItemsEntry = (props) => {
                                 <BlueButton onButtonClick={onClickPostArrival} name={"Create"}/>
                             </div>
                         </>
-                        )}
-                        </Td>
-                        </Tr>
-                        </>
-                        )
-                    }
+                    )}
+                </Td>
+            </Tr>
+        </>
+    )
+}
 
-                    ItemsEntry.propTypes = {
+ItemsEntry.propTypes = {
     item: PropTypes.object,
     categories: PropTypes.array,
     suppliers: PropTypes.array,

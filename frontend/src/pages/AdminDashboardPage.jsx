@@ -70,12 +70,12 @@ export const AdminDashboardPage = () => {
                     {users.length === 0
                         ? <div className="text-center text-xl">No users found.</div>
                         :
-                        <Table className="w-full text-md shadow-md rounded mb-4">
+                        <Table className="w-full text-md shadow-md rounded mb-4" role="table">
                             <Thead>
                                 <Tr className="border-b">
                                     {
                                         ['Login', 'New password', 'Full Name', 'Email', 'Phone number', 'Passport', 'Role', 'Company']
-                                            .map((item, index) => (<Th key={index}>{item}</Th>))
+                                            .map((item, index) => (<Th key={index} role="columnheader">{item}</Th>))
                                     }
                                     <Th>
                                         <NewRemoveButtons id={users[0].user_id} onNewClick={onNewClick} />

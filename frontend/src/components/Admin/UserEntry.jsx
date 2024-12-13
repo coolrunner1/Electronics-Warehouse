@@ -148,12 +148,24 @@ export const UserEntry = (props) => {
     return (
         <>
             <Tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
-                <TableTextInput value={login} onChange={onLoginChange}/>
-                <TableTextInput value={password} onChange={onPasswordChange} placeholder={"Enter new password"}/>
-                <TableTextInput value={fullName} onChange={onNameChange}/>
-                <TableTextInput value={email} onChange={onEmailChange}/>
-                <TableTextInput value={number} onChange={onNumberChange}/>
-                <TableTextInput value={passport.toString()} onChange={onPassportChange}/>
+                <Td className="p-3">
+                    <TableTextInput value={login} onChange={onLoginChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={password} onChange={onPasswordChange} placeholder={"Enter new password"}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={fullName} onChange={onNameChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={email} onChange={onEmailChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={number} onChange={onNumberChange}/>
+                </Td>
+                <Td className="p-3">
+                    <TableTextInput value={passport.toString()} onChange={onPassportChange}/>
+                </Td>
                 <Td className="p-3">
                     { defaultRole === -1 ? null : (
                         <Select

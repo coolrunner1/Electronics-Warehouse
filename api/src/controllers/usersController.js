@@ -2,7 +2,6 @@ const db = require("../database");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-//const {compare} = bcrypt;
 
 class UsersController {
     async getAllUsers(req, res) {
