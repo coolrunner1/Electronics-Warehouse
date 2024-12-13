@@ -1,5 +1,4 @@
 import {UserEntry} from "../components/Admin/UserEntry.jsx";
-import {AccountButton} from "../components/Global/AccountButton.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
@@ -59,11 +58,10 @@ export const AdminDashboardPage = () => {
     return (
         <>
             <div>
-                <div className="p-4 flex justify-between">
-                    <h1 className="text-3xl">
-                        Users
-                    </h1>
-                    <AccountButton/>
+                <div className="text-center">
+                    <h6 className="text-blueGray-700 text-xl font-bold">
+                        Items
+                    </h6>
                 </div>
                 <div className="px-4 py-4 overflow-auto">
                     {users.length === 0
@@ -77,13 +75,13 @@ export const AdminDashboardPage = () => {
                                             .map((item, index) => (<Th key={index} role="columnheader">{item}</Th>))
                                     }
                                     <Th>
-                                        <NewRemoveButtons id={users[0].user_id} onNewClick={onNewClick} />
+                                        <NewRemoveButtons id={users[0].user_id} onNewClick={onNewClick}/>
                                     </Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
                                 {users.map((user) => (
-                                    <UserEntry user={user} key={user.user_id} roles={roles} clients={clients} />
+                                    <UserEntry user={user} key={user.user_id} roles={roles} clients={clients}/>
                                 ))}
                             </Tbody>
                         </Table>

@@ -18,6 +18,7 @@ import {EmployeeHeader} from "./components/Header/EmployeeHeader.jsx";
 import {ItemsPage} from "./pages/ItemsPage.jsx";
 import {ClientsPage} from "./pages/ClientsPage.jsx";
 import {SuppliersPage} from "./pages/SuppliersPage.jsx";
+import {AdminHeader} from "./components/Header/AdminHeader.jsx";
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <>
         <BrowserRouter>
+            {(user.userInfo !== null && user.userInfo.role_id === 1) && <AdminHeader />}
             {(user.userInfo !== null && user.userInfo.role_id === 2) && <UserHeader />}
             {(user.userInfo !== null && user.userInfo.role_id === 3) && <EmployeeHeader />}
             <Routes>
