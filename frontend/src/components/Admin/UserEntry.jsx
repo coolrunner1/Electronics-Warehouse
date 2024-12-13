@@ -178,7 +178,7 @@ export const UserEntry = (props) => {
                     )}
                 </Td>
                 <Td className="p-3 px-5">
-                    { role !== 2 ? null : (
+                    { (role !== 2 && defaultClient === -1) ? null : (
                         <Select
                             options={props.clients}
                             onChange={onClientChange}

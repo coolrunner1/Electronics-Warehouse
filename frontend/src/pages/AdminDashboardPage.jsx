@@ -60,7 +60,7 @@ export const AdminDashboardPage = () => {
             <div>
                 <div className="text-center">
                     <h6 className="text-blueGray-700 text-xl font-bold">
-                        Items
+                        Users
                     </h6>
                 </div>
                 <div className="px-4 py-4 overflow-auto">
