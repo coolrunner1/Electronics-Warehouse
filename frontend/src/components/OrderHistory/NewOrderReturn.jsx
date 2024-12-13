@@ -101,7 +101,7 @@ export const NewOrderReturn = () => {
                 <Td>
                     <NumberToggle increment={increment} decrement={decrement} value={quantity}/>
                 </Td>
-                <Td>${(itemReturn.unit_price * itemReturn.quantity).toFixed(2)}</Td>
+                <Td>${(itemReturn.unit_price * quantity).toFixed(2)}</Td>
                 <Td>Pending</Td>
                 <Td>
                     <Select

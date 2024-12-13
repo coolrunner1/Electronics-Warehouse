@@ -25,7 +25,7 @@ export const OrderReturnHistoryItem = (props) => {
                     <div>{props.item.model}</div>
                 </Td>
                 {['$'+props.item.unit_price, props.item.quantity, '$'+(props.item.unit_price * props.item.quantity).toFixed(2),
-                    props.item.status, props.item.reason, props.item.description, props.item.description, date]
+                    props.item.status, props.item.reason, props.item.description, date]
                     .map((item, index) => (
                         <Td className="p-3" key={index}>{item}</Td>
                     ))}
