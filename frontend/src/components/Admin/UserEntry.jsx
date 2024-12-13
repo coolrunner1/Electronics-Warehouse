@@ -9,6 +9,7 @@ import {RedButton} from "../Global/RedButton.jsx";
 import {customStyles} from "../../utils/customStyles.js";
 import {Td, Tr} from "react-super-responsive-table";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import {TableTextInput} from "../Global/TableTextInput.jsx";
 
 export const UserEntry = (props) => {
     const [login, setLogin] = useState("");
@@ -147,24 +148,12 @@ export const UserEntry = (props) => {
     return (
         <>
             <Tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
-                <Td className="p-3">
-                    <input type="text" value={login} onChange={onLoginChange} className="bg-transparent"/>
-                </Td>
-                <Td className="p-3">
-                    <input type="text" value={password} onChange={onPasswordChange} placeholder="Enter new password" className="bg-transparent" readOnly={false}/>
-                </Td>
-                <Td className="p-3">
-                    <input type="text" value={fullName} onChange={onNameChange}  className="bg-transparent"/>
-                </Td>
-                <Td className="p-3">
-                    <input type="text" value={email} onChange={onEmailChange} className="bg-transparent"/>
-                </Td>
-                <Td className="p-3">
-                    <input type="text" value={number} onChange={onNumberChange} className="bg-transparent"/>
-                </Td>
-                <Td className="p-3">
-                    <input type="text" value={passport} onChange={onPassportChange} className="bg-transparent"/>
-                </Td>
+                <TableTextInput value={login} onChange={onLoginChange}/>
+                <TableTextInput value={password} onChange={onPasswordChange} placeholder={"Enter new password"}/>
+                <TableTextInput value={fullName} onChange={onNameChange}/>
+                <TableTextInput value={email} onChange={onEmailChange}/>
+                <TableTextInput value={number} onChange={onNumberChange}/>
+                <TableTextInput value={passport.toString()} onChange={onPassportChange}/>
                 <Td className="p-3">
                     { defaultRole === -1 ? null : (
                         <Select

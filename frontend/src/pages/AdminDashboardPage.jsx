@@ -7,6 +7,7 @@ import {setTableRefresh} from "../slices/tableSlice.js";
 import {BlueButton} from "../components/Global/BlueButton.jsx";
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import {NewRemoveButtons} from "../components/Global/NewRemoveButtons.jsx";
 
 export const AdminDashboardPage = () => {
     const [users, setUsers] = useState([]);
@@ -19,26 +20,27 @@ export const AdminDashboardPage = () => {
         axios.get("http://localhost:8000/users")
             .then((response) => setUsers(response.data.rows))
             .catch((error) => {
-                console.error('Error fetching items:', error);
+                console.error('Error fetching users:', error);
                 setUsers([]);
             });
         dispatch(setTableRefresh(false));
         axios.get("http://localhost:8000/roles")
             .then((response) => setRoles(response.data.rows.map((role) => ({value: role.role_id, label: role.name}))))
             .catch((error) => {
-                console.error('Error fetching items:', error);
+                console.error('Error fetching roles:', error);
                 setRoles([]);
             });
         axios.get("http://localhost:8000/clients")
             .then((response) => setClients(response.data.rows.map((client) => ({value: client.client_id, label: client.name}))))
             .catch((error) => {
-                console.error('Error fetching items:', error);
+                console.error('Error fetching clients:', error);
                 setClients([]);
             });
     }, [tableRefresh]);
 
     const onNewClick = () => {
         if (users[0].user_id === 99999) {
+            setUsers(users.splice(1));
             return;
         }
         setUsers([{
@@ -76,7 +78,7 @@ export const AdminDashboardPage = () => {
                                             .map((item, index) => (<Th key={index}>{item}</Th>))
                                     }
                                     <Th>
-                                        <BlueButton onButtonClick={onNewClick} name={"New"}/>
+                                        <NewRemoveButtons id={users[0].user_id} onNewClick={onNewClick} />
                                     </Th>
                                 </Tr>
                             </Thead>

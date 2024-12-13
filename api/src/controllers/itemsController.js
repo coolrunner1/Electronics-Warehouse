@@ -153,14 +153,14 @@ class ItemsController {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
+                    return res.status(404).json({NOTFOUND: "Item was not found"});
                 }
                 return res.status(201).json(result);
             } catch (err) {
                 console.error(err);
                 return res.status(500).json({ status: "error", message: "Error updating item" });
             }
-            })
+        })
     }
 
     async addNewArrival(req, res) {

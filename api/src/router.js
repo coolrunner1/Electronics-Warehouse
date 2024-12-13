@@ -48,6 +48,8 @@ router.get("/roles", rolesController.getAllRoles);
 
 /*clients router*/
 router.get("/clients", clientsController.getAllClients);
+router.post("/clients", clientsController.addClient);
+router.put("/clients/:clientId", clientsController.updateClient);
 
 /*enums router*/
 router.get("/enums/returnstatuses", enumsController.getReturnStatuses);

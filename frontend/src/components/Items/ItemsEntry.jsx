@@ -9,6 +9,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import PropTypes from "prop-types";
 import {setTableRefresh} from "../../slices/tableSlice.js";
+import {TableTextInput} from "../Global/TableTextInput.jsx";
 
 export const ItemsEntry = (props) => {
     const [model, setModel] = useState("");
@@ -123,12 +124,8 @@ export const ItemsEntry = (props) => {
     return (
         <>
             <Tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
-                <Td className="p-3">
-                    <input type="text" value={model} onChange={onModelChange} className="bg-transparent"/>
-                </Td>
-                <Td className="p-3">
-                    <input type="text" value={manufacturer} onChange={onManufacturerChange} className="bg-transparent"/>
-                </Td>
+                <TableTextInput value={model} onChange={onModelChange}/>
+                <TableTextInput value={manufacturer} onChange={onManufacturerChange}/>
                 <Td className="p-3">
                     {defaultCategory !== -1 &&
                         <Select
@@ -141,9 +138,7 @@ export const ItemsEntry = (props) => {
                     }
 
                 </Td>
-                <Td className="p-3">
-                    <input type="text" value={price} onChange={onPriceChange} className="bg-transparent"/>
-                </Td>
+                <TableTextInput value={price} onChange={onPriceChange}/>
                 <Td className="p-3">
                     {props.item.status}
                 </Td>

@@ -1,14 +1,13 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {AccountButton} from "../components/Global/AccountButton.jsx";
 import {BlueButton} from "../components/Global/BlueButton.jsx";
-import {UserEntry} from "../components/Admin/UserEntry.jsx";
 import {ItemsEntry} from "../components/Items/ItemsEntry.jsx";
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {setTableRefresh} from "../slices/tableSlice.js";
 import {RedButton} from "../components/Global/RedButton.jsx";
+import {NewRemoveButtons} from "../components/Global/NewRemoveButtons.jsx";
 
 export const ItemsPage = () => {
     const [items, setItems] = useState([]);
@@ -72,9 +71,7 @@ export const ItemsPage = () => {
                                             .map((item, index) => (<Th key={index}>{item}</Th>))
                                     }
                                     <Th>
-                                        {items[0].item_id === 99999
-                                            ? <RedButton onButtonClick={onNewClick} name={"Remove"}/>
-                                            : <BlueButton onButtonClick={onNewClick} name={"New"}/>}
+                                        <NewRemoveButtons id={items[0].item_id} onNewClick={onNewClick} />
                                     </Th>
                                     <Th></Th>
                                 </Tr>
