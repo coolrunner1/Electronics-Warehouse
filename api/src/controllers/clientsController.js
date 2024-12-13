@@ -23,7 +23,7 @@ class ClientsController {
             (err, result) => {
             try {
                 if (err) throw err;
-                return res.status(200).json(result);
+                return res.status(201).json(result);
             } catch (e) {
                 console.error(e);
                 return res.status(500).json({ status: "error", message: "Error creating Client" })
@@ -42,7 +42,7 @@ class ClientsController {
                 if (result.rowCount === 0) {
                     return res.status(404).json({NOTFOUND: "Client was not found"});
                 }
-                return res.status(201).json(result);
+                return res.status(200).json(result);
             } catch (err) {
                 console.error(err);
                 return res.status(500).json({ status: "error", message: "Error updating client" });

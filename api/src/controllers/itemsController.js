@@ -137,7 +137,7 @@ class ItemsController {
             "($1, $2, 'Out Of Stock', $3, $4, CURRENT_TIMESTAMP, 0, 0)", [body.category_id, body.model, body.manufacturer, body.unit_price], (err, result) => {
             try {
                 if (err) throw err;
-                return res.status(200).json(result);
+                return res.status(201).json(result);
             } catch (err) {
                 console.error(err);
                 return res.status(500).json({ status: "error", message: "Error adding item" })
@@ -155,7 +155,7 @@ class ItemsController {
                 if (result.rowCount === 0) {
                     return res.status(404).json({NOTFOUND: "Item was not found"});
                 }
-                return res.status(201).json(result);
+                return res.status(200).json(result);
             } catch (err) {
                 console.error(err);
                 return res.status(500).json({ status: "error", message: "Error updating item" });
@@ -171,7 +171,7 @@ class ItemsController {
                 [body.newQuantity, id]).then(await db.query("INSERT INTO SupplierItem (supplier_id, item_id) VALUES ($1, $2)",
                 [body.supplierId, id]));
 
-            return res.status(200).json(result);
+            return res.status(201).json(result);
         } catch (err) {
             console.error(err);
             return res.status(500).json({ status: "error", message: "Error updating item" });
