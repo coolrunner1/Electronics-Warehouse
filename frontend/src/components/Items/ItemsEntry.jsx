@@ -157,8 +157,12 @@ export const ItemsEntry = (props) => {
                     <div className="flex justify-end items-center">
                         <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
                         {props.item.model !== '' && <RedButton onButtonClick={onClickArrival} name={ !createArrival ? "Add to arrival" : "Remove arrival"}/>}
-                        {createArrival && (
-                            <>
+                    </div>
+                </Td>
+                <Td className="p-3">
+                    {createArrival && (
+                        <>
+                            <div className="flex justify-end items-center">
                                 <Select
                                     options={props.suppliers}
                                     onChange={onSupplierChange}
@@ -166,18 +170,19 @@ export const ItemsEntry = (props) => {
                                     styles={customStyles}
                                     maxMenuHeight={250}
                                 />
-                                <input type="number" min={1} value={newQuantity} onChange={onQuantityChange} className="bg-transparent m-3"/>
+                                <input type="number" min={1} value={newQuantity} onChange={onQuantityChange}
+                                       className="bg-transparent m-3"/>
                                 <BlueButton onButtonClick={onClickPostArrival} name={"Create"}/>
-                            </>
+                            </div>
+                        </>
                         )}
-                    </div>
-                </Td>
-            </Tr>
-        </>
-    )
-}
+                        </Td>
+                        </Tr>
+                        </>
+                        )
+                    }
 
-ItemsEntry.propTypes = {
+                    ItemsEntry.propTypes = {
     item: PropTypes.object,
     categories: PropTypes.array,
     suppliers: PropTypes.array,

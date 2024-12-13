@@ -76,6 +76,7 @@ export const ItemsPage = () => {
                                             ? <RedButton onButtonClick={onNewClick} name={"Remove"}/>
                                             : <BlueButton onButtonClick={onNewClick} name={"New"}/>}
                                     </Th>
+                                    <Th></Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
