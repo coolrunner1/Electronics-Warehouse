@@ -8,6 +8,7 @@ const rolesController = require("./controllers/rolesController");
 const clientsController = require("./controllers/clientsController");
 const orderReturnsController = require("./controllers/orderReturnsController");
 const enumsController = require("./controllers/enumsController");
+const suppliersController = require("./controllers/suppliersController");
 
 /*items router*/
 router.get("/items", itemsController.getAllItems);
@@ -18,6 +19,8 @@ router.get("/items/search/manufacturer/:manufacturer", itemsController.getItemsB
 router.get("/items/search/category/:category/manufacturer/:manufacturer", itemsController.getItemsByCategoryIdAndManufacturer);
 router.get("/items/search/supplier/:supplierId", itemsController.getItemsBySupplierId);
 router.post("/items", itemsController.addItem);
+router.put("/items/:id", itemsController.updateItem);
+router.post("/items/:id/suppliers", itemsController.addNewArrival);
 
 /*categories router*/
 router.get("/categories", categoriesController.getAllCategories);
@@ -52,5 +55,8 @@ router.get("/enums/returnreasons", enumsController.getReturnReasons);
 
 /*login router*/
 router.post("/login", usersController.login);
+
+/*suppliers router*/
+router.get("/suppliers", suppliersController.getSuppliers);
 
 module.exports = router;

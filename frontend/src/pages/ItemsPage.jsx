@@ -13,7 +13,8 @@ import {RedButton} from "../components/Global/RedButton.jsx";
 export const ItemsPage = () => {
     const [items, setItems] = useState([]);
     const [categories, setCategories] = useState([]);
-    const tableRefresh = useSelector((state) => state.table);
+    const [suppliers, setSuppliers] = useState([]);
+    const tableRefresh = useSelector((state) => state.table.tableRefresh);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,20 +31,14 @@ export const ItemsPage = () => {
                 console.error('Error fetching items:', error);
                 setCategories([]);
             });
-        /*dispatch(setUserRefresh(false));
-        axios.get("http://localhost:8000/roles/")
-            .then((response) => setRoles(response.data.rows.map((role) => ({value: role.role_id, label: role.name}))))
+
+        axios.get("http://localhost:8000/suppliers")
+            .then((response) => setSuppliers(response.data.rows.map((supplier) => ({value: supplier.supplier_id, label: supplier.name}))))
             .catch((error) => {
                 console.error('Error fetching items:', error);
-                setRoles([]);
-            });
-        axios.get("http://localhost:8000/clients/")
-            .then((response) => setClients(response.data.rows.map((client) => ({value: client.client_id, label: client.name}))))
-            .catch((error) => {
-                console.error('Error fetching items:', error);
-                setClients([]);
-            });*/
-    }, []);
+                setSuppliers([]);
+            })
+    }, [tableRefresh]);
 
     const onNewClick = () => {
         if (items[0].item_id === 99999) {
@@ -85,7 +80,7 @@ export const ItemsPage = () => {
                             </Thead>
                             <Tbody>
                             {items.map((item) => (
-                                <ItemsEntry item={item} categories={categories} key={item.item_id}/>
+                                <ItemsEntry item={item} categories={categories} suppliers={suppliers} key={item.item_id}/>
                             ))}
                             </Tbody>
                         </Table>

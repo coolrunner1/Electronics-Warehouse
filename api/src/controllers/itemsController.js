@@ -133,6 +133,50 @@ class ItemsController {
     async addItem(req, res) {
         const body = req.body;
         console.log(body);
+        await db.query("INSERT INTO Item (category_id, model, status, manufacturer, unit_price, date_of_arrival, units_in_stock, faulty_units) VALUES \n" +
+            "($1, $2, 'Out Of Stock', $3, $4, CURRENT_TIMESTAMP, 0, 0)", [body.category_id, body.model, body.manufacturer, body.unit_price], (err, result) => {
+            try {
+                if (err) throw err;
+                return res.status(200).json(result);
+            } catch (err) {
+                console.error(err);
+                return res.status(500).json({ status: "error", message: "Error adding item" })
+            }
+        });
+    }
+
+    async updateItem(req, res) {
+        const body = req.body;
+        const id = req.params.id;
+        await db.query("UPDATE Item SET category_id = $1, manufacturer = $2, model = $3, unit_price = $4 WHERE item_id = $5",
+            [body.category_id, body.manufacturer, body.model, body.unit_price, id], (err, result) => {
+            try {
+                if (err) throw err;
+                if (result.rowCount === 0) {
+                    return res.status(404).json({NOTFOUND: "No item found"});
+                }
+                return res.status(201).json(result);
+            } catch (err) {
+                console.error(err);
+                return res.status(500).json({ status: "error", message: "Error updating item" });
+            }
+            })
+    }
+
+    async addNewArrival(req, res) {
+        try {
+            const body = req.body;
+            const id = req.params.id;
+            await db.query("UPDATE Item SET units_in_stock = units_in_stock + $1 WHERE item_id = $2",
+                [body.newQuantity, id]).then(await db.query("INSERT INTO SupplierItem (supplier_id, item_id) VALUES ($1, $2)",
+                [body.supplierId, id]));
+
+            return res.status(200).json(result);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ status: "error", message: "Error updating item" });
+        }
+
     }
 }
 

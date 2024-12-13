@@ -8,6 +8,7 @@ import {RedButton} from "../Global/RedButton.jsx";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import PropTypes from "prop-types";
+import {setTableRefresh} from "../../slices/tableSlice.js";
 
 export const ItemsEntry = (props) => {
     const [model, setModel] = useState("");
@@ -15,13 +16,15 @@ export const ItemsEntry = (props) => {
     const [price, setPrice] = useState("");
     const [defaultCategory, setDefaultCategory] = useState(-1);
     const [category, setCategory] = useState(0);
+    const [createArrival, setCreateArrival] = useState(false);
+    const [newQuantity, setNewQuantity] = useState(1);
+    const [supplier, setSupplier] = useState(1);
     const dispatch = useDispatch();
 
     useEffect(() => {
         setModel(props.item.model);
         setManufacturer(props.item.manufacturer);
         setPrice('$'+props.item.unit_price);
-        console.log(props.categories)
     }, [props.item]);
 
     useEffect(() => {
@@ -42,13 +45,14 @@ export const ItemsEntry = (props) => {
     }
 
     const onCategoryChange = (e) => {
-        setCategory(e.target.value);
+        setCategory(e.value);
+    }
+
+    const onSupplierChange = (e) => {
+        setSupplier(e.value);
     }
 
     const onPriceChange = (e) => {
-        /*if (!(/^[+-]?\d+(\.\d+)?$/.test(e.target.value.substring(1, e.target.value.length)))) {
-            return;
-        }*/
         if (price[0] !== '$') {
             setPrice('$'+e.target.value);
             return;
@@ -57,51 +61,63 @@ export const ItemsEntry = (props) => {
     }
 
     const onClickArrival = () => {
-        /*if (props.user.user_id !== 99999) {
-            axios.delete("http://localhost:8000/users/"+props.user.user_id)
-                .then((res) => console.log(res))
-                .catch((err) => console.error(err));
+        setCreateArrival(!createArrival);
+    }
+
+    const onQuantityChange = (e) => {
+        setNewQuantity(e.target.value);
+    }
+
+    const onClickPostArrival = () => {
+        const requestBody = {
+            newQuantity: newQuantity,
+            supplierId: supplier,
         }
-        setTimeout(()=>dispatch(setUserRefresh(true)), 500);*/
+        axios.post("http://localhost:8000/items/"+props.item.item_id+"/suppliers", requestBody)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        setCreateArrival(false);
+        dispatch(setTableRefresh(true));
     }
 
     const onClickEdit = () => {
-        /*const requestBody = {
-            user_id: props.user_id,
-            role_id: role,
-            client_id: client,
-            login: model,
-            password: password,
-            image_path: props.user.image_path,
-            full_name: manufacturer,
-            email: email,
-            phone_number: parseInt(number.slice(2, number.length)),
-            passport: passport,
+        if (manufacturer === "" || model === "") {
+            alert("Fill out manufacturer and model fields first!");
+            return;
         }
-        if (props.user.user_id === 99999) {
-            axios.post("http://localhost:8000/users", requestBody)
+
+        const requestBody = {
+            category_id: category,
+            manufacturer: manufacturer,
+            model: model,
+            unit_price: parseFloat(price.slice(1)),
+        }
+
+        if (props.item.item_id === 99999) {
+            axios.post("http://localhost:8000/items/", requestBody)
                 .then((res) => console.log(res))
                 .catch((err) => {
                     console.error(err);
-                    if (err.response.status === 409) {
+                    if (err.response.status === 500) {
                         alert(err.response.data.message);
                     }
                 });
-            setTimeout(()=>dispatch(setUserRefresh(true)), 1000);
         } else {
-            axios.put("http://localhost:8000/users/"+props.user.user_id, requestBody)
-                .then((res) => {
-                    console.log(res);
-                    setPassword('');
-                })
+            axios.put("http://localhost:8000/items/"+props.item.item_id, requestBody)
+                .then((res) => console.log(res))
                 .catch((err) => {
                     console.error(err);
-                    if (err.response.status === 409) {
+                    if (err.response.status === 500) {
                         alert(err.response.data.message);
                     }
                 });
-            setTimeout(()=>dispatch(setUserRefresh(true)), 1000);
-        }*/
+        }
+
+        setTimeout(() => dispatch(setTableRefresh(true)), 500);
     }
 
     return (
@@ -140,7 +156,20 @@ export const ItemsEntry = (props) => {
                 <Td className="p-3">
                     <div className="flex justify-end items-center">
                         <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
-                        {props.item.model !== '' && <RedButton onButtonClick={onClickArrival} name={"New arrival"}/>}
+                        {props.item.model !== '' && <RedButton onButtonClick={onClickArrival} name={"Add to arrival"}/>}
+                        {createArrival && (
+                            <>
+                                <Select
+                                    options={props.suppliers}
+                                    onChange={onSupplierChange}
+                                    defaultValue={props.suppliers[0]}
+                                    styles={customStyles}
+                                    maxMenuHeight={250}
+                                />
+                                <input type="number" min={1} value={newQuantity} onChange={onQuantityChange} className="bg-transparent m-3"/>
+                                <BlueButton onButtonClick={onClickPostArrival} name={"Create"}/>
+                            </>
+                        )}
                     </div>
                 </Td>
             </Tr>
@@ -151,4 +180,5 @@ export const ItemsEntry = (props) => {
 ItemsEntry.propTypes = {
     item: PropTypes.object,
     categories: PropTypes.array,
+    suppliers: PropTypes.array,
 }
