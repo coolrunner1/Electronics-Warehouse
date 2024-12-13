@@ -18,15 +18,15 @@ class ClientsController {
 
     async addClient(req, res) {
         const body = req.body;
-        await db.query("INSERT INTO Client (name, phone_number, address, email, city, country, postal_code) VALUES " +
-            "($1, $2, $3, $4, $5, $6, $7)", [body.name, body.phone_number, body.address, body.email, body.city, body.country, body.postal_code],
+        await db.query("INSERT INTO Client (name, phone_number, address, email, city, region, country, postal_code) VALUES " +
+            "($1, $2, $3, $4, $5, $6, $7, $8)", [body.name, body.phone_number, body.address, body.email, body.city, body.region, body.country, body.postal_code],
             (err, result) => {
             try {
                 if (err) throw err;
                 return res.status(201).json(result);
             } catch (e) {
                 console.error(e);
-                return res.status(500).json({ status: "error", message: "Error creating Client" })
+                return res.status(500).json({ status: "error", message: "Error creating client" })
             }
         });
     }
@@ -34,8 +34,8 @@ class ClientsController {
     async updateClient(req, res) {
         const body = req.body;
         const id = req.params.clientId;
-        await db.query("UPDATE Client SET name = $1, phone_number = $2, address = $3, email = $4, city = $5, country = $6, postal_code = $7 " +
-            "WHERE client_id = $8", [body.name, body.phone_number, body.address, body.email, body.city, body.country, body.postal_code, id],
+        await db.query("UPDATE Client SET name = $1, phone_number = $2, address = $3, email = $4, city = $5, region = $6, country = $7, postal_code = $8 " +
+            "WHERE client_id = $9", [body.name, body.phone_number, body.address, body.email, body.city, body.region, body.country, body.postal_code, id],
             (err, result) => {
             try {
                 if (err) throw err;

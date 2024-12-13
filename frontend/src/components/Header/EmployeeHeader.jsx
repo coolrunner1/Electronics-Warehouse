@@ -2,6 +2,7 @@ import {WarehouseLogo} from "./WarehouseLogo.jsx";
 import {OrdersButton} from "./OrdersButton.jsx";
 import {AccountButton} from "../Global/AccountButton.jsx";
 import {ClientsButton} from "./ClientsButton.jsx";
+import {SuppliersButton} from "./SuppliersButton.jsx";
 
 export function EmployeeHeader() {
     return (
@@ -10,6 +11,7 @@ export function EmployeeHeader() {
                 <WarehouseLogo location={"items"}/>
                 <div className="w-full"></div>
                 <ClientsButton/>
+                <SuppliersButton/>
                 <OrdersButton/>
                 <AccountButton/>
             </header>

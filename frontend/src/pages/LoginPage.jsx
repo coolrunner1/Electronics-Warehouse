@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setUser} from "../slices/userSlice.js";
 
 export const LoginPage = () => {

@@ -17,6 +17,7 @@ import {useSelector} from "react-redux";
 import {EmployeeHeader} from "./components/Header/EmployeeHeader.jsx";
 import {ItemsPage} from "./pages/ItemsPage.jsx";
 import {ClientsPage} from "./pages/ClientsPage.jsx";
+import {SuppliersPage} from "./pages/SuppliersPage.jsx";
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -37,6 +38,7 @@ const App = () => {
                     <Route path="/admin" element={<AdminDashboardPage/>} />
                     <Route path="/items" element={<ItemsPage/>} />
                     <Route path="/clients" element={<ClientsPage/>} />
+                    <Route path="/suppliers" element={<SuppliersPage/>} />
                 </Route>
                 <Route path="/404" element={<PageNotFound/>} />
                 <Route path="*" element={<Navigate to="/404" replace />} />

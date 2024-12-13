@@ -8,25 +8,27 @@ import {RedButton} from "../Global/RedButton.jsx";
 import PropTypes from "prop-types";
 import {TableTextInput} from "../Global/TableTextInput.jsx";
 
-export const ClientsEntry = (props) => {
+export const OrganizationsEntry = (props) => {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [number, setNumber] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
+    const [region, setRegion] = useState("");
     const [country, setCountry] = useState("");
     const [postalCode, setPostalCode] = useState(0);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        setFullName(props.client.name);
-        setEmail(props.client.email);
-        setNumber('+7' + props.client.phone_number);
-        setAddress(props.client.address);
-        setCity(props.client.city);
-        setCountry(props.client.country);
-        setPostalCode(props.client.postal_code);
-    }, [props.client]);
+        setFullName(props.organization.name);
+        setEmail(props.organization.email);
+        setNumber('+7' + props.organization.phone_number);
+        setAddress(props.organization.address);
+        setCity(props.organization.city);
+        setRegion(props.organization.region);
+        setCountry(props.organization.country);
+        setPostalCode(props.organization.postal_code);
+    }, [props.organization]);
 
     const onNameChange = (e) => {
         setFullName(e.target.value);
@@ -48,6 +50,10 @@ export const ClientsEntry = (props) => {
 
     const onCityChange = (e) => {
         setCity(e.target.value);
+    }
+
+    const onRegionChange = (e) => {
+        setRegion(e.target.value);
     }
 
     const onCountryChange = (e) => {
@@ -85,11 +91,12 @@ export const ClientsEntry = (props) => {
             address: address,
             email: email,
             city: city,
+            region: region,
             country: country,
             postal_code: postalCode
         }
-        if (props.client.client_id === 99999) {
-            axios.post("http://localhost:8000/clients", requestBody)
+        if (props.organization_id === 99999) {
+            axios.post("http://localhost:8000/"+props.organization_type, requestBody)
                 .then((res) => console.log(res))
                 .catch((err) => {
                     console.error(err);
@@ -98,7 +105,7 @@ export const ClientsEntry = (props) => {
                     }
                 });
         } else {
-            axios.put("http://localhost:8000/clients/"+props.client.client_id, requestBody)
+            axios.put("http://localhost:8000/"+props.organization_type+"/"+props.organization_id, requestBody)
                 .then((res) => {
                     console.log(res);
                 })
@@ -131,6 +138,9 @@ export const ClientsEntry = (props) => {
                     <TableTextInput value={city} onChange={onCityChange}/>
                 </Td>
                 <Td className="p-3">
+                    <TableTextInput value={region} onChange={onRegionChange}/>
+                </Td>
+                <Td className="p-3">
                     <TableTextInput value={country} onChange={onCountryChange}/>
                 </Td>
                 <Td className="p-3">
@@ -138,7 +148,7 @@ export const ClientsEntry = (props) => {
                 </Td>
                 <Td className="p-3 px-5 flex justify-end">
                     <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
-                    {props.client.client_id === 99999 &&
+                    {props.organization_id === 99999 &&
                         <RedButton onButtonClick={onClickDelete} name={"Delete"}/>
                     }
                 </Td>
@@ -147,6 +157,8 @@ export const ClientsEntry = (props) => {
     )
 }
 
-ClientsEntry.propTypes = {
-    client: PropTypes.object,
+OrganizationsEntry.propTypes = {
+    organization: PropTypes.object,
+    organization_id: PropTypes.number,
+    organization_type: PropTypes.string,
 };

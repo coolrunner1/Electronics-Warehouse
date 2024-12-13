@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {setTableRefresh} from "../slices/tableSlice.js";
-import {BlueButton} from "../components/Global/BlueButton.jsx";
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {NewRemoveButtons} from "../components/Global/NewRemoveButtons.jsx";

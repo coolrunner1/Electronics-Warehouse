@@ -60,5 +60,7 @@ router.post("/login", usersController.login);
 
 /*suppliers router*/
 router.get("/suppliers", suppliersController.getSuppliers);
+router.post("/suppliers", suppliersController.addSupplier);
+router.put("/suppliers/:supplierId", suppliersController.updateSupplier);
 
 module.exports = router;
