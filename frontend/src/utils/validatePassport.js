@@ -1,3 +1,3 @@
 export const validatePassport = (passport) => {
-    return (/^\d+$/.test(passport) && passport.length < 10);
+    return ((/^\d+$/.test(passport) && passport.length < 10) || passport === '');
 }

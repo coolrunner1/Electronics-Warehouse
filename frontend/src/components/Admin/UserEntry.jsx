@@ -83,6 +83,10 @@ export const UserEntry = (props) => {
 
     const onPassportChange = (event) => {
         if (validatePassport(event.target.value)) {
+            if (isNaN(parseInt(event.target.value))) {
+                setPassport(0);
+                return;
+            }
             setPassport(parseInt(event.target.value));
         }
     }

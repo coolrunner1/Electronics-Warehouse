@@ -65,6 +65,10 @@ export const OrganizationsEntry = (props) => {
 
     const onPostalCodeChange = (event) => {
         if (validatePostalCode(event.target.value)) {
+            if (isNaN(parseInt(event.target.value))) {
+                setPostalCode(0);
+                return;
+            }
             setPostalCode(parseInt(event.target.value));
         }
     }
