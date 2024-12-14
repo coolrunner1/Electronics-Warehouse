@@ -70,20 +70,20 @@ export const ItemsEntry = (props) => {
         setNewQuantity(e.target.value);
     }
 
-    const onClickPostArrival = () => {
+    const onClickPostArrival = async () => {
         const requestBody = {
             newQuantity: newQuantity,
             supplierId: supplier,
         }
-        axios.post("http://localhost:8000/items/"+props.item.item_id+"/suppliers", requestBody)
+        await axios.post("http://localhost:8000/items/"+props.item.item_id+"/suppliers", requestBody)
             .then(res => {
                 console.log(res);
             })
             .catch(err => {
                 console.log(err);
             })
-        setCreateArrival(false);
-        dispatch(setTableRefresh(true));
+        await setCreateArrival(false);
+        await dispatch(setTableRefresh(true));
     }
 
     const onClickEdit = async () => {
