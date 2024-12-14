@@ -50,7 +50,7 @@ export const OrderReturnHistoryItem = (props) => {
                         <Td className="p-3" key={index}>{item}</Td>
                     ))}
                 <Td className="p-3">
-                    {props.userRole !== 2 &&
+                    {(props.userRole !== 2 && currentStatus !== "Refunded" && currentStatus !== "Rejected") &&
                         <div className="flex justify-center m-auto gap-3">
                             <Select
                                 options={props.returnStatuses}
