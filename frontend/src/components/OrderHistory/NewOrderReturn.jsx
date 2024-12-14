@@ -104,7 +104,7 @@ export const NewOrderReturn = () => {
                 <Td>${(itemReturn.unit_price * quantity).toFixed(2)}</Td>
                 <Td>Pending</Td>
                 <Td>
-                    <textarea maxLength='255' onChange={onDescriptionChange} value={description}></textarea>
+                    <textarea className="max-w-44 sm:max-w-full" maxLength='255' onChange={onDescriptionChange} value={description}></textarea>
                 </Td>
                 <Td>{date}</Td>
                 <Td>

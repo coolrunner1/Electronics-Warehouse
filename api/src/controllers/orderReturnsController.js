@@ -4,7 +4,7 @@ class OrderReturnsController {
     async getReturnedItemsByOrderId(req, res) {
         let id = req.params.orderId;
         await db.query("SELECT OrderReturn.order_return_id, OrderReturn.quantity, reason, description, " +
-            "OrderReturn.status, return_date, Item.item_id, model, image_path, manufacturer, unit_price " +
+            "OrderReturn.status, return_date, Item.item_id, model, image_path, manufacturer, unit_price, OrderProduct.order_id " +
             "FROM OrderReturn JOIN OrderProduct ON OrderReturn.order_product_id = OrderProduct.order_product_id " +
             "JOIN Item ON OrderProduct.item_id = Item.item_id WHERE OrderProduct.order_id = $1;",
             [id], (err, result) => {
