@@ -12,8 +12,7 @@ export const OrderReturnsHistoryTable = (props) => {
 
     useEffect(() => {
         if (props.items.length > 0) {
-            setOrderId(props.items[0].order_id)
-            console.log(props.items[0])
+            setOrderId(props.items[0].order_id);
         }
     }, [props.items]);
 

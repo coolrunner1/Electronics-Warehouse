@@ -5,7 +5,8 @@ require("dotenv").config();
 
 class UsersController {
     async getAllUsers(req, res) {
-        await db.query("SELECT user_id, role_id, client_id, login, image_path, full_name, email, phone_number, passport FROM UserProfile ORDER BY user_id", (err, result) => {
+        await db.query("SELECT user_id, role_id, client_id, login, image_path, full_name, email, phone_number, passport FROM UserProfile ORDER BY user_id",
+            (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {

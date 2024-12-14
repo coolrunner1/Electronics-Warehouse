@@ -3,7 +3,7 @@ import * as DataTypes from "prop-types";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {OrderReturnsHistoryTable} from "./OrderReturnsHistoryTable.jsx";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {dateToString} from "../../utils/dateToString.js";
 import PropTypes from "prop-types";
 import {OrderClientInfo} from "./OrderClientInfo.jsx";
@@ -34,7 +34,9 @@ export const OrderHistoryEntry = (props) => {
             axios.get("http://localhost:8000/orders/"+props.order.order_id+"/returns")
                 .then((response) => setOrderReturns(response.data.rows))
                 .catch((error) => {
-                    console.error('Error fetching items:', error);
+                    if (error.status !== 404) {
+                        console.error('Error fetching items:', error);
+                    }
                     setOrderReturns([]);
                 });
         }
