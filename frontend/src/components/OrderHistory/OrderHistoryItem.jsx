@@ -42,7 +42,7 @@ export const OrderHistoryItem = (props) => {
                 </Td>
                 {[props.item.manufacturer, '$'+props.item.unit_price, props.item.quantity, '$'+(props.item.unit_price * props.item.quantity).toFixed(2)]
                     .map((item, index) => (<Td className="p-3" key={index}>{item}</Td>))}
-                {props.status === 'Delivered' && (
+                {(props.status === 'Delivered' && props.userRole === 2) && (
                     <Td className="p-3">
                         <BlueButton onClick={onReturnClick} name={"Return"}/>
                     </Td>
@@ -56,4 +56,5 @@ export const OrderHistoryItem = (props) => {
 OrderHistoryItem.propTypes = {
     item: PropTypes.object,
     status: PropTypes.string,
+    userRole: PropTypes.number,
 }

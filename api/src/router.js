@@ -36,6 +36,7 @@ router.get("/orders/:orderId/items", itemsController.getItemsByOrderId);
 router.get("/orders/:orderId/returns", orderReturnsController.getReturnedItemsByOrderId);
 router.post("/orders", ordersController.addOrder);
 router.post("/orders/:orderId/returns", orderReturnsController.addOrderReturn);
+router.patch("/orders/:orderId", ordersController.updateOrderStatus)
 
 /*users router*/
 router.get("/users", usersController.getAllUsers);

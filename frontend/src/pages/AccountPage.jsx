@@ -130,7 +130,7 @@ export const AccountPage = () => {
                                     <AccountInput name={"Full name"} placeholder={"Enter full name"} value={name} onChange={onNameChange} />
                                     <AccountInput name={"Email address"} placeholder={"Enter email address"} value={email} onChange={onEmailChange} />
                                     <AccountInput name={"Phone number"} placeholder={"Enter phone number"} value={phone} onChange={onPhoneChange} />
-                                    <AccountInput name={"Passport"} placeholder={"Enter passport"} value={passport} onChange={onPassportChange} />
+                                    <AccountInput name={"Passport"} placeholder={"Enter passport"} value={passport.toString()} onChange={onPassportChange} />
                                 </div>
 
                                 {user.client_id !== null &&

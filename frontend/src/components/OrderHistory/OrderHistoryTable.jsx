@@ -12,7 +12,7 @@ export const OrderHistoryTable = (props) => {
                     {["Product", "Manufacturer", "Price per unit", "Quantity", "Total price"].map((item, index) => (
                         <Th key={index} scope="col" className="text-left p-3 px-4">{item}</Th>
                     ))}
-                    {props.status === 'Delivered' && (
+                    {(props.status === 'Delivered' && props.userRole === 2) && (
                         <Th scope="col" className="text-left p-3 px-4">Return</Th>
                     )
                     }
@@ -21,7 +21,7 @@ export const OrderHistoryTable = (props) => {
                 </Thead>
                 <Tbody>
                 {props.items.map((item, index) => (
-                    <OrderHistoryItem key={index} item={item} status={props.status} />
+                    <OrderHistoryItem key={index} item={item} status={props.status} userRole={props.userRole} />
                 ))}
                 </Tbody>
             </Table>
@@ -32,4 +32,5 @@ export const OrderHistoryTable = (props) => {
 OrderHistoryTable.propTypes = {
     items: PropTypes.array,
     status: PropTypes.string,
+    userRole: PropTypes.number,
 }

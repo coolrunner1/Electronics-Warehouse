@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 
 export const OrderUserHistory = () => {
     const [orders, setOrders] = useState([]);
+    const userRole = useSelector((state) => state.user.userInfo.role_id);
 
     const user = useSelector((state) => state.user)
 
@@ -22,7 +23,7 @@ export const OrderUserHistory = () => {
                 <h1 className="mb-10 text-center text-2xl font-bold">Order history</h1>
                 {orders.length === 0
                     ? <div className="text-center text-xl">No orders yet.</div>
-                    : orders.map((order) => (<OrderHistoryEntry key={order.order_id} order={order} />))
+                    : orders.map((order) => (<OrderHistoryEntry key={order.order_id} order={order} userRole={userRole} />))
                 }
 
             </div>
