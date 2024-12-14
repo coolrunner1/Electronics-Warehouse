@@ -50,6 +50,7 @@ router.get("/roles", rolesController.getAllRoles);
 
 /*clients router*/
 router.get("/clients", clientsController.getAllClients);
+router.get("/clients/:clientId", clientsController.getClient);
 router.post("/clients", clientsController.addClient);
 router.put("/clients/:clientId", clientsController.updateClient);
 

@@ -16,6 +16,23 @@ class ClientsController {
         });
     }
 
+    async getClient(req, res) {
+        const id = req.params.clientId;
+        await db.query("SELECT * FROM Client WHERE client_id = $1", [id],
+            (err, result) => {
+            try {
+                if (err) throw err;
+                if (result.rowCount === 0) {
+                    return res.status(404).json({NOTFOUND: "Client was not found"});
+                }
+                return res.status(200).json(result);
+            } catch (err) {
+                console.error(err);
+                return res.status(500).json({ status: "error", message: "Error fetching clients." });
+            }
+        });
+    }
+
     async addClient(req, res) {
         const body = req.body;
         await db.query("INSERT INTO Client (name, phone_number, address, email, city, region, country, postal_code) VALUES " +

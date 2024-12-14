@@ -1,7 +1,20 @@
 import {BlueButton} from "../Global/BlueButton.jsx";
 import {AccountInput} from "./AccountInput.jsx";
+import {useEffect} from "react";
+import axios from "axios";
+import {useSelector} from "react-redux";
 
 export const ClientForm = () => {
+    const user = useSelector((state) => state.user.userInfo);
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/clients/"+user.client_id)
+            .then(res => {
+                console.log(res.data.rows[0]);
+            })
+            .catch(err => console.error(err));
+    }, []);
+
     return (
         <>
             <hr className="mt-6 mb-3 border-b-1 border-blueGray-300"/>

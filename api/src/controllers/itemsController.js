@@ -167,7 +167,7 @@ class ItemsController {
         try {
             const body = req.body;
             const id = req.params.id;
-            await db.query("UPDATE Item SET units_in_stock = units_in_stock + $1 WHERE item_id = $2",
+            await db.query("UPDATE Item SET date_of_arrival = CURRENT_TIMESTAMP, units_in_stock = units_in_stock + $1 WHERE item_id = $2",
                 [body.newQuantity, id]).then(await db.query("INSERT INTO SupplierItem (supplier_id, item_id) VALUES ($1, $2)",
                 [body.supplierId, id]));
 

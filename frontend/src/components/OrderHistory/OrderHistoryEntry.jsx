@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {OrderReturnsHistoryTable} from "./OrderReturnsHistoryTable.jsx";
 import {useSelector} from "react-redux";
+import {dateToString} from "../../utils/dateToString.js";
 
 export const OrderHistoryEntry = (props) => {
     const [date, setDate] = useState("");
@@ -13,7 +14,7 @@ export const OrderHistoryEntry = (props) => {
 
     useEffect(() => {
         const dateString = props.order.timestamp;
-        setDate(new Date(dateString).toLocaleDateString("en-GB") + " " + new Date(dateString).toLocaleTimeString("en-GB"));
+        setDate(dateToString(dateString));
         axios.get("http://localhost:8000/orders/"+props.order.order_id+"/items")
             .then((response) => setItems(response.data.rows))
             .catch((error) => {

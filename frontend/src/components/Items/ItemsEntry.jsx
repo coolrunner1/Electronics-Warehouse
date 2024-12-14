@@ -10,6 +10,7 @@ import {Td, Tr} from "react-super-responsive-table";
 import PropTypes from "prop-types";
 import {setTableRefresh} from "../../slices/tableSlice.js";
 import {TableTextInput} from "../Global/TableTextInput.jsx";
+import {dateToString} from "../../utils/dateToString.js";
 
 export const ItemsEntry = (props) => {
     const [model, setModel] = useState("");
@@ -153,6 +154,9 @@ export const ItemsEntry = (props) => {
                 </Td>
                 <Td className="p-3">
                     {props.item.faulty_units}
+                </Td>
+                <Td className="p-3">
+                    {dateToString(props.item.date_of_arrival)}
                 </Td>
                 <Td className="p-3">
                     <div className="flex justify-end items-center">

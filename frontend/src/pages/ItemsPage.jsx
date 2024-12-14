@@ -65,7 +65,7 @@ export const ItemsPage = () => {
                             <Thead>
                                 <Tr className="border-b">
                                     {
-                                        ['Model', 'Manufacturer', 'Category', 'Price', 'Status', 'Units in stock', 'Faulty units']
+                                        ['Model', 'Manufacturer', 'Category', 'Price', 'Status', 'Units in stock', 'Faulty units', 'Last arrival']
                                             .map((item, index) => (<Th key={index}>{item}</Th>))
                                     }
                                     <Th>
