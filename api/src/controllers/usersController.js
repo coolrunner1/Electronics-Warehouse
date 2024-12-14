@@ -13,7 +13,26 @@ class UsersController {
                 }
                 return res.status(200).json(result);
             } catch (err) {
+                console.error(err);
                 return res.status(500).json({ status: "error", message: "Error fetching users." })
+            }
+        });
+    }
+
+    async getUser(req, res) {
+        const id = req.params.userId;
+        await db.query("SELECT * FROM UserProfile WHERE user_id = $1", [id], (err, result) => {
+            try {
+                if (err) throw err;
+                if (result.rowCount === 0) {
+                    return res.status(404).json({NOTFOUND: "No users found"});
+                }
+                if (result) {
+                    return res.status(200).json(result);
+                }
+            } catch (err) {
+                console.error(err);
+                return res.status(500).json({ status: "error", message: "Error fetching users." });
             }
         });
     }
@@ -102,6 +121,7 @@ class UsersController {
                     }
                     return res.status(202).json(result);
                 } catch (error) {
+                    console.error(error);
                     return res.status(500).json({ status: "error", message: "Server error." })
                 }
             });

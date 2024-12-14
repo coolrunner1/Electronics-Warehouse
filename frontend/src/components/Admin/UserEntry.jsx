@@ -73,7 +73,7 @@ export const UserEntry = (props) => {
     }
 
     const onNumberChange = (event) => {
-        if (/^\d+$/.test(event.target.value.substring(2, event.target.value.length)) && event.target.value.length < 12) {
+        if (/^\d+$/.test(event.target.value.substring(1, event.target.value.length)) && event.target.value.length < 12) {
             setNumber(event.target.value);
         }
     }
@@ -195,8 +195,8 @@ export const UserEntry = (props) => {
 
                 </Td>
                 <Td className="p-3 px-5 flex justify-end">
-                    <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
-                    <RedButton onButtonClick={onClickDelete} name={"Delete"}/>
+                    <BlueButton onClick={onClickEdit} name={"Save"}/>
+                    <RedButton onClick={onClickDelete} name={"Delete"}/>
                 </Td>
             </Tr>
         </>

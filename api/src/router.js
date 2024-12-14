@@ -39,6 +39,7 @@ router.post("/orders/:orderId/returns", orderReturnsController.addOrderReturn);
 
 /*users router*/
 router.get("/users", usersController.getAllUsers);
+router.get("/users/:userId", usersController.getUser);
 router.post("/users", usersController.addUser);
 router.put("/users/:userId", usersController.updateUser);
 router.delete("/users/:userId", usersController.deleteUserById);
@@ -55,6 +56,7 @@ router.put("/clients/:clientId", clientsController.updateClient);
 /*enums router*/
 router.get("/enums/returnstatuses", enumsController.getReturnStatuses);
 router.get("/enums/returnreasons", enumsController.getReturnReasons);
+router.get("/enums/orderstatuses", enumsController.getOrderStatuses)
 
 /*login router*/
 router.post("/login", usersController.login);

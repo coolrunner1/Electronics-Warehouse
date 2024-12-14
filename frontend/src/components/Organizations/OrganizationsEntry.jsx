@@ -39,7 +39,7 @@ export const OrganizationsEntry = (props) => {
     }
 
     const onNumberChange = (event) => {
-        if (/^\d+$/.test(event.target.value.substring(2, event.target.value.length)) && event.target.value.length < 12) {
+        if (/^\d+$/.test(event.target.value.substring(1, event.target.value.length)) && event.target.value.length < 12) {
             setNumber(event.target.value);
         }
     }
@@ -147,9 +147,9 @@ export const OrganizationsEntry = (props) => {
                     <TableTextInput value={postalCode.toString()} onChange={onPostalCodeChange}/>
                 </Td>
                 <Td className="p-3 px-5 flex justify-end">
-                    <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
+                    <BlueButton onClick={onClickEdit} name={"Save"}/>
                     {props.organization_id === 99999 &&
-                        <RedButton onButtonClick={onClickDelete} name={"Delete"}/>
+                        <RedButton onClick={onClickDelete} name={"Delete"}/>
                     }
                 </Td>
             </Tr>

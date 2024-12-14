@@ -6,8 +6,8 @@ export const NewRemoveButtons = (props) => {
     return (
         <>
             {props.id === 99999
-                ? <RedButton onButtonClick={props.onNewClick} name={"Remove"}/>
-                : <BlueButton onButtonClick={props.onNewClick} name={"New"}/>}
+                ? <RedButton onClick={props.onNewClick} name={"Remove"}/>
+                : <BlueButton onClick={props.onNewClick} name={"New"}/>}
         </>
     )
 }

@@ -44,7 +44,7 @@ export const OrderHistoryItem = (props) => {
                     .map((item, index) => (<Td className="p-3" key={index}>{item}</Td>))}
                 {props.status === 'Delivered' && (
                     <Td className="p-3">
-                        <BlueButton onButtonClick={onReturnClick} name={"Return"}/>
+                        <BlueButton onClick={onReturnClick} name={"Return"}/>
                     </Td>
                 )
                 }

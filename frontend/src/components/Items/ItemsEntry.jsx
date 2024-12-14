@@ -156,8 +156,8 @@ export const ItemsEntry = (props) => {
                 </Td>
                 <Td className="p-3">
                     <div className="flex justify-end items-center">
-                        <BlueButton onButtonClick={onClickEdit} name={"Save"}/>
-                        {props.item.model !== '' && <RedButton onButtonClick={onClickArrival} name={ !createArrival ? "Add to arrival" : "Remove arrival"}/>}
+                        <BlueButton onClick={onClickEdit} name={"Save"}/>
+                        {props.item.model !== '' && <RedButton onClick={onClickArrival} name={ !createArrival ? "Add to arrival" : "Remove arrival"}/>}
                     </div>
                 </Td>
                 <Td className="p-3">
@@ -173,7 +173,7 @@ export const ItemsEntry = (props) => {
                                 />
                                 <input type="number" min={1} value={newQuantity} onChange={onQuantityChange}
                                        className="bg-transparent m-3"/>
-                                <BlueButton onButtonClick={onClickPostArrival} name={"Create"}/>
+                                <BlueButton onClick={onClickPostArrival} name={"Create"}/>
                             </div>
                         </>
                     )}

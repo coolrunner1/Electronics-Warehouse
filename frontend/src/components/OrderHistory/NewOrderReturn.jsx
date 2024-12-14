@@ -117,10 +117,10 @@ export const NewOrderReturn = () => {
                 </Td>
                 <Td>{date}</Td>
                 <Td>
-                    <BlueButton onButtonClick={onSaveClick} name="Save"/>
+                    <BlueButton onClick={onSaveClick} name="Save"/>
                 </Td>
                 <Td>
-                    <RedButton onButtonClick={onDeleteClick} name="Delete"/>
+                    <RedButton onClick={onDeleteClick} name="Delete"/>
                 </Td>
             </Tr>
         </>
