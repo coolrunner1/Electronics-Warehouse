@@ -3,9 +3,14 @@ import {useSelector} from "react-redux";
 
 export const PageNotFound = () => {
     const navigate = useNavigate();
-    const role = useSelector(state => state.user.userInfo.role_id);
+    const user = useSelector(state => state.user.userInfo);
 
     const handleClick = (e) => {
+        if (user === null) {
+            navigate("/login");
+            return;
+        }
+        const role = user.role;
         if (role === 1) {
             navigate("/store");
         } else if (role === 2) {
