@@ -72,7 +72,6 @@ class OrdersController {
     async updateOrderStatus(req, res) {
         const id = req.params.orderId;
         const status = req.body.status;
-        console.log(id, status);
         await db.query("UPDATE ClientOrder SET status = $1 WHERE order_id = $2", [status, id], (err, result) => {
             try {
                 if (err) throw err;

@@ -40,7 +40,8 @@ export const OrderHistoryItem = (props) => {
                     </div>
                     <div>{props.item.model}</div>
                 </Td>
-                {[props.item.manufacturer, '$'+props.item.unit_price, props.item.quantity, '$'+(props.item.unit_price * props.item.quantity).toFixed(2)]
+                {[props.item.manufacturer, '$'+props.item.unit_price, props.item.quantity,
+                    '$'+(props.item.unit_price * props.item.quantity).toFixed(2)]
                     .map((item, index) => (<Td className="p-3" key={index}>{item}</Td>))}
                 {(props.status === 'Delivered' && props.userRole === 2) && (
                     <Td className="p-3">

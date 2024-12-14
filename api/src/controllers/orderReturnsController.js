@@ -32,6 +32,20 @@ class OrderReturnsController {
             return res.status(500).json({ status: "error", message: error.message });
         }
     }
+
+    async updateReturnStatus(req, res) {
+        const id = req.params.returnId;
+        const status = req.body.status;
+        await db.query("UPDATE OrderReturn SET status = $1 WHERE order_return_id = $2", [status, id], (err, result) => {
+            try {
+                if (err) throw err;
+                return res.status(200).json(result);
+            } catch (err) {
+                console.error(err);
+                return res.status(500).json({ status: "error", message: "Error patching order return." });
+            }
+        })
+    }
 }
 
 const orderReturnsController = new OrderReturnsController();

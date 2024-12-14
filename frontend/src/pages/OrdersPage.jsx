@@ -7,6 +7,7 @@ import {useLocation} from "react-router-dom";
 export const OrdersPage = () => {
     const [orders, setOrders] = useState([]);
     const [orderStatuses, setOrderStatuses] = useState([]);
+    const [returnStatuses, setReturnStatuses] = useState([]);
     const userRole = useSelector((state) => state.user.userInfo.role_id);
 
     const location = useLocation();
@@ -25,6 +26,15 @@ export const OrdersPage = () => {
         axios.get("http://localhost:8000/enums/orderstatuses")
             .then((response) => setOrderStatuses(response.data.rows
                 .map((item, index) => ({value: index+1, label: item.unnest}))))
+            .catch((error) => {
+            console.error('Error fetching items:', error);
+            });
+        axios.get("http://localhost:8000/enums/returnstatuses")
+            .then((response) => setReturnStatuses(response.data.rows
+                .map((item, index) => ({value: index+1, label: item.unnest}))))
+            .catch((error) => {
+                console.error('Error fetching items:', error);
+            });
     }, [])
 
     useEffect(() => {
@@ -46,7 +56,10 @@ export const OrdersPage = () => {
                 <h1 className="mb-10 text-center text-2xl font-bold">Orders</h1>
                 {orders.length === 0
                     ? <div className="text-center text-xl">No orders found.</div>
-                    : orders.map((order) => (<OrderHistoryEntry key={order.order_id} order={order} userRole={userRole} orderStatuses={orderStatuses} />))
+                    : orders.map((order) => (
+                        <OrderHistoryEntry key={order.order_id} order={order} userRole={userRole}
+                                                                orderStatuses={orderStatuses} returnStatuses={returnStatuses} />
+                    ))
                 }
 
             </div>

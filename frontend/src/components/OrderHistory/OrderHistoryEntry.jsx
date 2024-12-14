@@ -105,7 +105,8 @@ export const OrderHistoryEntry = (props) => {
                                 <div className="text-center">Returns</div>
                                 {orderReturns.length === 0 && itemReturn === null
                                     ? <div className="mt-3 text-center">No returns yet</div>
-                                    : <OrderReturnsHistoryTable items={orderReturns} status={props.order.status} userRole={props.userRole} />
+                                    : <OrderReturnsHistoryTable items={orderReturns} status={props.order.status}
+                                                                userRole={props.userRole} returnStatuses={props.returnStatuses}/>
                                 }
 
                             </div>
@@ -123,4 +124,5 @@ OrderHistoryEntry.propTypes = {
     order: DataTypes.object,
     userRole: PropTypes.number,
     orderStatuses: PropTypes.array,
+    returnStatuses: PropTypes.array,
 }
