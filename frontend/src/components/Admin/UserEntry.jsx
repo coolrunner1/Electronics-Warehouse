@@ -93,16 +93,16 @@ export const UserEntry = (props) => {
         setClient(e.value);
     }
 
-    const onClickDelete = () => {
+    const onClickDelete = async () => {
         if (props.user.user_id !== 99999) {
-            axios.delete("http://localhost:8000/users/"+props.user.user_id)
+            await axios.delete("http://localhost:8000/users/"+props.user.user_id)
                 .then((res) => console.log(res))
                 .catch((err) => console.error(err));
         }
-        setTimeout(()=>dispatch(setTableRefresh(true)), 500);
+        await dispatch(setTableRefresh(true));
     }
 
-    const onClickEdit = () => {
+    const onClickEdit = async () => {
         if (!email.toLowerCase()
             .match(
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -125,7 +125,7 @@ export const UserEntry = (props) => {
             passport: passport,
         }
         if (props.user.user_id === 99999) {
-            axios.post("http://localhost:8000/users", requestBody)
+            await axios.post("http://localhost:8000/users", requestBody)
                 .then((res) => console.log(res))
                 .catch((err) => {
                     console.error(err);
@@ -133,9 +133,9 @@ export const UserEntry = (props) => {
                         alert(err.response.data.message);
                     }
                 });
-            setTimeout(()=>dispatch(setTableRefresh(true)), 1000);
+            await dispatch(setTableRefresh(true))
         } else {
-            axios.put("http://localhost:8000/users/"+props.user.user_id, requestBody)
+            await axios.put("http://localhost:8000/users/"+props.user.user_id, requestBody)
                 .then((res) => {
                     console.log(res);
                     setPassword('');
@@ -146,7 +146,7 @@ export const UserEntry = (props) => {
                         alert(err.response.data.message);
                     }
                 });
-            setTimeout(()=>dispatch(setTableRefresh(true)), 1000);
+            await dispatch(setTableRefresh(true));
         }
     }
 

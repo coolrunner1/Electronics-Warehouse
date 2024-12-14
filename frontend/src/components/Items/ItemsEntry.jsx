@@ -85,7 +85,7 @@ export const ItemsEntry = (props) => {
         dispatch(setTableRefresh(true));
     }
 
-    const onClickEdit = () => {
+    const onClickEdit = async () => {
         if (manufacturer === "" || model === "") {
             alert("Fill out manufacturer and model fields first!");
             return;
@@ -99,7 +99,7 @@ export const ItemsEntry = (props) => {
         }
 
         if (props.item.item_id === 99999) {
-            axios.post("http://localhost:8000/items/", requestBody)
+            await axios.post("http://localhost:8000/items/", requestBody)
                 .then((res) => console.log(res))
                 .catch((err) => {
                     console.error(err);
@@ -108,7 +108,7 @@ export const ItemsEntry = (props) => {
                     }
                 });
         } else {
-            axios.put("http://localhost:8000/items/"+props.item.item_id, requestBody)
+            await axios.put("http://localhost:8000/items/"+props.item.item_id, requestBody)
                 .then((res) => console.log(res))
                 .catch((err) => {
                     console.error(err);
@@ -118,7 +118,7 @@ export const ItemsEntry = (props) => {
                 });
         }
 
-        setTimeout(() => dispatch(setTableRefresh(true)), 500);
+        await dispatch(setTableRefresh(true));
     }
 
     return (

@@ -39,7 +39,7 @@ export const NewOrderReturn = () => {
         }
     }
 
-    const onSaveClick = () => {
+    const onSaveClick = async () => {
         if (description === "" && reason === "") {
             alert("Select a reason for return and write a description!");
             return;
@@ -57,12 +57,12 @@ export const NewOrderReturn = () => {
             reason: reason,
             description: description,
         }
-        axios.post("http://localhost:8000/orders/"+itemReturn.order_id+"/returns", requestBody)
+        await axios.post("http://localhost:8000/orders/"+itemReturn.order_id+"/returns", requestBody)
             .then((response) => console.log(response))
             .catch((error) => {
                 console.error(error);
             });
-        setTimeout(()=>dispatch(setItemReturn(null)), 500);
+        await dispatch(setItemReturn(null));
     }
 
     const onDeleteClick = () => {

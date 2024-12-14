@@ -70,7 +70,7 @@ export const OrganizationsEntry = (props) => {
         dispatch(setTableRefresh(true));
     }
 
-    const onClickEdit = () => {
+    const onClickEdit = async () => {
         if (!fullName || !address || !city || !country || !postalCode) {
             alert("Not all fields are filled!");
             return;
@@ -96,7 +96,7 @@ export const OrganizationsEntry = (props) => {
             postal_code: postalCode
         }
         if (props.organization_id === 99999) {
-            axios.post("http://localhost:8000/"+props.organization_type, requestBody)
+            await axios.post("http://localhost:8000/"+props.organization_type, requestBody)
                 .then((res) => console.log(res))
                 .catch((err) => {
                     console.error(err);
@@ -105,7 +105,7 @@ export const OrganizationsEntry = (props) => {
                     }
                 });
         } else {
-            axios.put("http://localhost:8000/"+props.organization_type+"/"+props.organization_id, requestBody)
+            await axios.put("http://localhost:8000/"+props.organization_type+"/"+props.organization_id, requestBody)
                 .then((res) => {
                     console.log(res);
                 })
@@ -116,7 +116,7 @@ export const OrganizationsEntry = (props) => {
                     }
                 });
         }
-        setTimeout(()=>dispatch(setTableRefresh(true)), 500);
+        await dispatch(setTableRefresh(true));
     }
 
     return (
