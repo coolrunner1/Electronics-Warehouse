@@ -97,7 +97,7 @@ class UsersController {
                         if (result.rowCount === 0) {
                             return res.status(404).json({NOTFOUND: "No users found"});
                         }
-                        return res.status(201).json(result);
+                        return res.status(200).json(result);
                     } catch (error) {
                         console.error(error);
                         if (error.code === '23505') {

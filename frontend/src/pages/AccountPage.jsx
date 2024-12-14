@@ -53,7 +53,12 @@ export const AccountPage = () => {
             });
 
         await axios.get("http://localhost:8000/users/"+user.user_id)
-            .then((res) => {dispatch(setUser(res.data.rows[0]));})
+            .then((res) => {
+                dispatch(setUser(res.data.rows[0]));
+                if (res.status === 200) {
+                    alert("User has been updated successfully.");
+                }
+            })
             .catch((err) => {console.log(err)});
     }
 

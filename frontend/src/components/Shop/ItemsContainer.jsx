@@ -79,7 +79,7 @@ export const ItemsContainer = () => {
                     className="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {itemsList.length !== 0 ? itemsList.map((item) => (
                             <ShopItem key={item.item_id} item={item} />
-                    )) : <div>Not found</div>}
+                    )) : <div className="text-2xl">Not found</div>}
 
                 </div>
             </section>

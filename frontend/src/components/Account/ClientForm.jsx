@@ -13,7 +13,14 @@ export const ClientForm = () => {
             </div>
 
             <div className="flex flex-wrap mt-6">
-                <AccountInput/>
+                <AccountInput name={"Name"} placeholder={"Enter name"} /*value={name} onChange={onNameChange} *//>
+                <AccountInput name={"Email address"} placeholder={"Enter email address"} /*value={email} onChange={onEmailChange}*/ />
+                <AccountInput name={"Phone number"} placeholder={"Enter phone number"} /*value={phone} onChange={onPhoneChange}*/ />
+                <AccountInput name={"Address"} placeholder={"Enter address"} /*value={address} onChange={onAddressChange}*/ />
+                <AccountInput name={"City"} placeholder={"Enter city"} /*value={city} onChange={onCityChange}*/ />
+                <AccountInput name={"Region"} placeholder={"Enter region"} /*value={region} onChange={onRegionChange}*/ />
+                <AccountInput name={"Country"} placeholder={"Enter country"} /*value={country} onChange={onCountryChange}*/ />
+                <AccountInput name={"Postal code"} placeholder={"Enter postal code"} /*value={postalCode} onChange={onPostalCodeChange}*/ />
             </div>
         </>
     )
