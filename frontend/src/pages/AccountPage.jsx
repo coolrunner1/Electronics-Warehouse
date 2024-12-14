@@ -9,6 +9,7 @@ import axios from "axios";
 import {validateEmail} from "../utils/validateEmail.js";
 import {validatePhoneNumber} from "../utils/validatePhoneNumber.js";
 import {validatePassport} from "../utils/validatePassport.js";
+import {RedButton} from "../components/Global/RedButton.jsx";
 
 export const AccountPage = () => {
     const dispatch = useDispatch();
@@ -109,13 +110,9 @@ export const AccountPage = () => {
                                 <h6 className="text-blueGray-700 text-xl font-bold">
                                     My account
                                 </h6>
-                                <div className="flex">
+                                <div>
                                     <BlueButton name={"Save"} onClick={onSubmit} />
-                                    <button
-                                        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                        type="button" onClick={() => {dispatch(setUser(null)); navigate("/login")}}>
-                                        Sign Out
-                                    </button>
+                                    <RedButton name={"Sign out"} onClick={() => {dispatch(setUser(null)); navigate("/login")}} />
                                 </div>
                             </div>
                         </div>
