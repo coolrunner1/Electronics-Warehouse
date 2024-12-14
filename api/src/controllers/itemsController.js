@@ -2,7 +2,7 @@ const db = require("../database");
 
 class ItemsController {
     async getAllItems(req, res) {
-        await db.query("SELECT * FROM Item ORDER BY unit_price", (err, result) => {
+        await db.query("SELECT * FROM Item ORDER BY model", (err, result) => {
             try {
                 if (err) throw err;
                 if (result.rowCount === 0) {

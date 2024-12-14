@@ -55,7 +55,7 @@ export const Filters = () => {
             <div className="flex flex-col sm:flex-row pl-4 pr-4 w-full gap-2 justify-center">
                 {allowFilters && (<CategoryFilter label="Category" onChange={onCategoryChange} options={categories}/>)}
                 {allowFilters && (<SelectFilter label="Manufacturer" onChange={onManufacturerChange} options={manufacturers}/>)}
-                <SelectFilter label="Sort by" onChange={onSortByChange} options={['Price', 'Name']}/>
+                <SelectFilter label="Sort by" onChange={onSortByChange} options={['Name', 'Price']}/>
                 <SelectFilter label="Sorting direction" onChange={onSortingDirectionChange} options={['Ascending', 'Descending']} />
             </div>
         </>
