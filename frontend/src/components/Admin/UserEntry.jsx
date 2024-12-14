@@ -10,6 +10,9 @@ import {customStyles} from "../../utils/customStyles.js";
 import {Td, Tr} from "react-super-responsive-table";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {TableTextInput} from "../Global/TableTextInput.jsx";
+import {validateEmail} from "../../utils/validateEmail.js";
+import {validatePhoneNumber} from "../../utils/validatePhoneNumber.js";
+import {validatePassport} from "../../utils/validatePassport.js";
 
 export const UserEntry = (props) => {
     const [login, setLogin] = useState("");
@@ -73,14 +76,13 @@ export const UserEntry = (props) => {
     }
 
     const onNumberChange = (event) => {
-        if (/^\d+$/.test(event.target.value.substring(1, event.target.value.length)) && event.target.value.length < 12) {
+        if (validatePhoneNumber(event.target.value)) {
             setNumber(event.target.value);
         }
     }
 
     const onPassportChange = (event) => {
-        if (/^\d+$/.test(event.target.value)
-            && event.target.value.length < 10) {
+        if (validatePassport(event.target.value)) {
             setPassport(parseInt(event.target.value));
         }
     }
@@ -103,10 +105,7 @@ export const UserEntry = (props) => {
     }
 
     const onClickEdit = async () => {
-        if (!email.toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            )) {
+        if (!validateEmail(email)) {
             alert("Email is invalid!");
             dispatch(setTableRefresh(true));
             return;

@@ -7,6 +7,9 @@ import {BlueButton} from "../Global/BlueButton.jsx";
 import {RedButton} from "../Global/RedButton.jsx";
 import PropTypes from "prop-types";
 import {TableTextInput} from "../Global/TableTextInput.jsx";
+import {validateEmail} from "../../utils/validateEmail.js";
+import {validatePhoneNumber} from "../../utils/validatePhoneNumber.js";
+import {validatePostalCode} from "../../utils/validatePostalCode.js";
 
 export const OrganizationsEntry = (props) => {
     const [fullName, setFullName] = useState("");
@@ -39,7 +42,7 @@ export const OrganizationsEntry = (props) => {
     }
 
     const onNumberChange = (event) => {
-        if (/^\d+$/.test(event.target.value.substring(1, event.target.value.length)) && event.target.value.length < 12) {
+        if (validatePhoneNumber(event.target.value)) {
             setNumber(event.target.value);
         }
     }
@@ -61,7 +64,7 @@ export const OrganizationsEntry = (props) => {
     }
 
     const onPostalCodeChange = (event) => {
-        if ((/^\d+$/.test(event.target.value) && event.target.value.length < 8) || event.target.value === '') {
+        if (validatePostalCode(event.target.value)) {
             setPostalCode(parseInt(event.target.value));
         }
     }
@@ -76,10 +79,7 @@ export const OrganizationsEntry = (props) => {
             return;
         }
 
-        if (!email.toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            )) {
+        if (!validateEmail(email)) {
             alert("Email is invalid!");
             dispatch(setTableRefresh(true));
             return;

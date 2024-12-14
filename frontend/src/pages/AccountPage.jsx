@@ -6,6 +6,9 @@ import {BlueButton} from "../components/Global/BlueButton.jsx";
 import {AccountInput} from "../components/Account/AccountInput.jsx";
 import {ClientForm} from "../components/Account/ClientForm.jsx";
 import axios from "axios";
+import {validateEmail} from "../utils/validateEmail.js";
+import {validatePhoneNumber} from "../utils/validatePhoneNumber.js";
+import {validatePassport} from "../utils/validatePassport.js";
 
 export const AccountPage = () => {
     const dispatch = useDispatch();
@@ -27,6 +30,11 @@ export const AccountPage = () => {
     }, [user]);
 
     const onSubmit = async () => {
+        if (!validateEmail(email)) {
+            alert("Please enter a valid email");
+            return;
+        }
+
         const requestBody = {
             user_id: user.user_id,
             role_id: user.role_id,
@@ -79,14 +87,13 @@ export const AccountPage = () => {
     }
 
     const onPhoneChange = (e) => {
-        if (/^\d+$/.test(e.target.value.substring(1, e.target.value.length)) && e.target.value.length < 12) {
+        if (validatePhoneNumber(e.target.value)) {
             setPhone(e.target.value);
         }
     }
 
     const onPassportChange = (e) => {
-        if (/^\d+$/.test(e.target.value)
-            && e.target.value.length < 10) {
+        if (validatePassport(e.target.value)) {
             setPassport(parseInt(e.target.value));
         }
     }
