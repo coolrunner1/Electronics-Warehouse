@@ -50,15 +50,17 @@ export const OrderReturnHistoryItem = (props) => {
                         <Td className="p-3" key={index}>{item}</Td>
                     ))}
                 <Td className="p-3">
-                    <div className="flex justify-center m-auto gap-3">
-                        <Select
-                            options={props.returnStatuses}
-                            onChange={onStatusChange}
-                            styles={customStyles}
-                            maxMenuHeight={250}
-                        />
-                        <BlueButton name={'Set'} onClick={onSetClick} />
-                    </div>
+                    {props.userRole !== 2 &&
+                        <div className="flex justify-center m-auto gap-3">
+                            <Select
+                                options={props.returnStatuses}
+                                onChange={onStatusChange}
+                                styles={customStyles}
+                                maxMenuHeight={250}
+                            />
+                            <BlueButton name={'Set'} onClick={onSetClick}/>
+                        </div>
+                    }
                 </Td>
             </Tr>
         </>
