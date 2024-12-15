@@ -44,7 +44,7 @@ export const AdminDashboardPage = () => {
         setUsers([{
             user_id: 99999,
             role_id: 1,
-            client_id: 1,
+            client_id: null,
             login: 'login',
             password: 'password',
             image_path: null,
