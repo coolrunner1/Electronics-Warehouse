@@ -11,8 +11,8 @@ export const OrderReturnsHistoryTable = (props) => {
     const [orderId, setOrderId] = useState(0);
 
     useEffect(() => {
-        if (props.items.length > 0) {
-            setOrderId(props.items[0].order_id);
+        if (itemReturn) {
+            setOrderId(itemReturn.order_id);
         }
     }, [props.items]);
 
@@ -36,7 +36,7 @@ export const OrderReturnsHistoryTable = (props) => {
                     <OrderReturnHistoryItem key={index} item={item} userRole={props.userRole}
                                             returnStatuses={props.returnStatuses}/>
                 ))}
-                {(itemReturn !== null && props.userRole === 2 && props.items && itemReturn.order_id === orderId) && (
+                {(itemReturn !== null && props.userRole === 2 && props.items && props.orderId === orderId) && (
                     <NewOrderReturn/>
                 )}
                 </Tbody>
@@ -49,4 +49,5 @@ OrderReturnsHistoryTable.propTypes = {
     items: PropTypes.array,
     userRole: PropTypes.number,
     returnStatuses: PropTypes.array,
+    orderId: PropTypes.number,
 }

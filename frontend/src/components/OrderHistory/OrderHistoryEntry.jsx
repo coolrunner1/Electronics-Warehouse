@@ -108,7 +108,8 @@ export const OrderHistoryEntry = (props) => {
                                 {orderReturns.length === 0 && itemReturn === null
                                     ? <div className="mt-3 text-center">No returns yet</div>
                                     : <OrderReturnsHistoryTable items={orderReturns} status={props.order.status}
-                                                                userRole={props.userRole} returnStatuses={props.returnStatuses}/>
+                                                                userRole={props.userRole} orderId={props.order.order_id}
+                                                                returnStatuses={props.returnStatuses}/>
                                 }
 
                             </div>
