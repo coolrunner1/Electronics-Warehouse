@@ -102,11 +102,6 @@ export const NewOrderReturn = () => {
                     <NumberToggle increment={increment} decrement={decrement} value={quantity}/>
                 </Td>
                 <Td>${(itemReturn.unit_price * quantity).toFixed(2)}</Td>
-                <Td>Pending</Td>
-                <Td>
-                    <textarea className="max-w-44 sm:max-w-full" maxLength='255' onChange={onDescriptionChange} value={description}></textarea>
-                </Td>
-                <Td>{date}</Td>
                 <Td>
                     <Select
                         options={reasons}
@@ -116,6 +111,11 @@ export const NewOrderReturn = () => {
                         readOnly={true}
                     />
                 </Td>
+                <Td>
+                    <textarea className="max-w-44 sm:max-w-full" maxLength='255' onChange={onDescriptionChange} value={description}></textarea>
+                </Td>
+                <Td>{date}</Td>
+                <Td>Pending</Td>
                 <Td>
                     <BlueButton onClick={onSaveClick} name="Save"/>
                 </Td>
