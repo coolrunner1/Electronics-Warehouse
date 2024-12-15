@@ -147,8 +147,6 @@ CREATE TABLE OrderReturn (
   FOREIGN KEY (order_product_id) REFERENCES OrderProduct (order_product_id)
 );
 
-SELECT * FROM OrderProduct;
-
 CREATE OR REPLACE FUNCTION UpdateItemQuantity()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -189,7 +187,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_item_status
+CREATE OR REPLACE TRIGGER update_item_status
 BEFORE INSERT OR UPDATE ON Item
 FOR EACH ROW
 EXECUTE FUNCTION UpdateItemStatus();
@@ -205,7 +203,7 @@ EXCEPTION
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER unique_user_violation_trigger
+CREATE OR REPLACE TRIGGER unique_user_violation_trigger
 BEFORE INSERT OR UPDATE ON UserProfile
 FOR EACH ROW
 EXECUTE FUNCTION handleUniqueUserViolation();
@@ -222,38 +220,24 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_users_clientid_trigger
+CREATE OR REPLACE TRIGGER check_users_clientid_trigger
 BEFORE INSERT OR UPDATE ON UserProfile
 FOR EACH ROW
 EXECUTE FUNCTION checkUsersClientId();
-
-UPDATE Item
-	   SET units_in_stock = 0
-	   WHERE item_id = 4;
-
-SELECT * FROM Item;
-SELECT last_value FROM order_id_seq;
-UPDATE ClientOrder SET status = 'Delivered' WHERE order_id = 3;
-
-UPDATE ClientOrder SET status = 'Delivered' WHERE order_id = 1;
-SELECT OrderReturn.order_return_id, OrderReturn.quantity, reason, description, OrderReturn.status, return_date, Item.item_id, model, image_path, manufacturer, unit_price FROM OrderReturn JOIN OrderProduct ON OrderReturn.order_product_id = OrderProduct.order_product_id JOIN Item ON OrderProduct.item_id = Item.item_id WHERE OrderProduct.order_id = 1;
-SELECT UNNEST(enum_range(null, null::return_status));
-
-UPDATE OrderProduct SET quantity = 5 WHERE order_id = 1;
-
 
 CREATE OR REPLACE FUNCTION updateReturnedUnits()
 RETURNS TRIGGER AS $$
 BEGIN
 	UPDATE OrderProduct SET returned_units = returned_units + NEW.quantity
 		WHERE OrderProduct.order_product_id = NEW.order_product_id;
+    UPDATE Item SET faulty_units = NEW.quantity
+      WHERE item_id = (SELECT item_id FROM OrderProduct
+        WHERE OrderProduct.order_product_id = NEW.order_product_id);
 	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-UPDATE ClientOrder SET status = 'Delivered';
-
-CREATE TRIGGER update_returned_units_trigger
+CREATE OR REPLACE TRIGGER update_returned_units_trigger
 BEFORE INSERT OR UPDATE ON OrderReturn
 FOR EACH ROW
 EXECUTE FUNCTION updateReturnedUnits();
@@ -282,6 +266,7 @@ INSERT INTO Role (name, description) VALUES
 ('Employee', 'Has access to the information about available items');
 
 INSERT INTO Supplier (name, email, address, city, region, country, postal_code, phone_number) VALUES
+('Returned item', 'returned@example.com', 'Returned', 'Returned', 'Returned', 'Returned', 0, 0),
 ('ABC Suppliers', 'abc@example.com', '789 Oak St', 'Chicago', 'IL', 'USA', 60007, 978440307),
 ('XYZ Suppliers', 'xyz@example.com', '321 Pine St', 'Houston', 'TX', 'USA', 77002, 369121518);
 
@@ -319,9 +304,28 @@ INSERT INTO OrderReturn (order_product_id, quantity, reason, description, status
 (1, 1, 'Defective Product', 'Received a damaged item', 'Received', '2022-01-20'),
 (2, 2, 'Wrong Item Sent', 'Received incorrect product', 'Processing', '2022-01-25');
 
+SELECT * FROM OrderProduct;
 
+UPDATE Item
+	   SET units_in_stock = 0
+	   WHERE item_id = 4;
 
+SELECT * FROM Item;
+SELECT last_value FROM order_id_seq;
+UPDATE ClientOrder SET status = 'Delivered' WHERE order_id = 3;
+
+UPDATE ClientOrder SET status = 'Delivered' WHERE order_id = 1;
+SELECT OrderReturn.order_return_id, OrderReturn.quantity, reason, description, OrderReturn.status, return_date, Item.item_id, model, image_path, manufacturer, unit_price FROM OrderReturn JOIN OrderProduct ON OrderReturn.order_product_id = OrderProduct.order_product_id JOIN Item ON OrderProduct.item_id = Item.item_id WHERE OrderProduct.order_id = 1;
+SELECT UNNEST(enum_range(null, null::return_status));
+
+UPDATE OrderProduct SET quantity = 5 WHERE order_id = 1;
+
+UPDATE ClientOrder SET status = 'Delivered';
 
 SELECT Item.item_id, Item.model, Item.image_path, Item.manufacturer, Item.unit_price, OrderProduct.quantity, OrderProduct.returned_units
 FROM Item JOIN OrderProduct ON Item.item_id = OrderProduct.item_id WHERE OrderProduct.order_id = 3;
 SELECT * FROM UserProfile;
+
+SELECT CAST(order_id AS VARCHAR(255)) FROM ClientOrder;
+
+UPDATE ClientOrder SET status = 'Delivered';

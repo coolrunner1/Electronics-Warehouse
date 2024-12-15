@@ -19,8 +19,9 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_item_quantity
-BEFORE INSERT OR UPDATE ON OrderProduct
+
+CREATE OR REPLACE TRIGGER update_item_quantity
+BEFORE INSERT ON OrderProduct
 FOR EACH ROW
 EXECUTE FUNCTION UpdateItemQuantity();
 
@@ -37,7 +38,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_item_status
+CREATE OR REPLACE TRIGGER update_item_status
 BEFORE INSERT OR UPDATE ON Item
 FOR EACH ROW
 EXECUTE FUNCTION UpdateItemStatus();
@@ -53,7 +54,7 @@ EXCEPTION
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER unique_user_violation_trigger
+CREATE OR REPLACE TRIGGER unique_user_violation_trigger
 BEFORE INSERT OR UPDATE ON UserProfile
 FOR EACH ROW
 EXECUTE FUNCTION handleUniqueUserViolation();
@@ -70,11 +71,24 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_users_clientid_trigger
+CREATE OR REPLACE TRIGGER check_users_clientid_trigger
 BEFORE INSERT OR UPDATE ON UserProfile
 FOR EACH ROW
 EXECUTE FUNCTION checkUsersClientId();
 
-UPDATE Item
-	   SET units_in_stock = 0
-	   WHERE item_id = 4;
+CREATE OR REPLACE FUNCTION updateReturnedUnits()
+RETURNS TRIGGER AS $$
+BEGIN
+	UPDATE OrderProduct SET returned_units = returned_units + NEW.quantity
+		WHERE OrderProduct.order_product_id = NEW.order_product_id;
+    UPDATE Item SET faulty_units = NEW.quantity
+      WHERE item_id = (SELECT item_id FROM OrderProduct
+        WHERE OrderProduct.order_product_id = NEW.order_product_id);
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER update_returned_units_trigger
+BEFORE INSERT OR UPDATE ON OrderReturn
+FOR EACH ROW
+EXECUTE FUNCTION updateReturnedUnits();
