@@ -230,7 +230,7 @@ RETURNS TRIGGER AS $$
 BEGIN
 	UPDATE OrderProduct SET returned_units = returned_units + NEW.quantity
 		WHERE OrderProduct.order_product_id = NEW.order_product_id;
-    UPDATE Item SET faulty_units = NEW.quantity
+    UPDATE Item SET faulty_units = faulty_units + NEW.quantity
       WHERE item_id = (SELECT item_id FROM OrderProduct
         WHERE OrderProduct.order_product_id = NEW.order_product_id);
 	RETURN NEW;
