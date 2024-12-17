@@ -67,6 +67,9 @@ export const ItemsEntry = (props) => {
     }
 
     const onQuantityChange = (e) => {
+        if (e.target.value < 1 || e.target.value > 1000000000) {
+            return;
+        }
         setNewQuantity(e.target.value);
     }
 
