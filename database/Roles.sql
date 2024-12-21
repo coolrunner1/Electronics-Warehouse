@@ -20,7 +20,6 @@ GRANT SELECT, INSERT, UPDATE ON OrderReturn TO admin;
 
 GRANT SELECT ON Category TO client;
 GRANT SELECT, UPDATE ON Client TO client;
-GRANT SELECT ON Role TO client;
 GRANT SELECT, INSERT, UPDATE ON ClientOrder TO client;
 GRANT SELECT ON Item TO client;
 GRANT SELECT, UPDATE ON UserProfile TO client;
