@@ -1,4 +1,3 @@
-import './App.css'
 import {UserHeader} from "./components/Header/UserHeader.jsx";
 import {CheckoutPage} from "./pages/CheckoutPage.jsx";
 import {
