@@ -1,6 +1,6 @@
-const router = require('express').Router();
 import itemsController from '../controllers/itemsController';
-import categoriesController from '../controllers/categoriesController';
+import categoriesRouter from "./categoriesRouter";
+import {Router} from "express";
 const manufacturersController = require('../controllers/manufacturersController');
 const ordersController = require("../controllers/ordersController");
 const usersController = require("../controllers/usersController");
@@ -9,6 +9,8 @@ const clientsController = require("../controllers/clientsController");
 const orderReturnsController = require("../controllers/orderReturnsController");
 const enumsController = require("../controllers/enumsController");
 const suppliersController = require("../controllers/suppliersController");
+
+const router = Router();
 
 /*items router*/
 router.get("/items", itemsController.getAllItems);
@@ -22,8 +24,7 @@ router.post("/items", itemsController.addItem);
 router.put("/items/:id", itemsController.updateItem);
 router.post("/items/:id/suppliers", itemsController.addNewArrival);
 
-/*categories router*/
-router.get("/categories", categoriesController.getAllCategories);
+router.use('/categories', categoriesRouter);
 
 /*manufacturers router*/
 router.get("/manufacturers", manufacturersController.getAllManufacturers);
@@ -69,4 +70,4 @@ router.get("/suppliers", suppliersController.getSuppliers);
 router.post("/suppliers", suppliersController.addSupplier);
 router.put("/suppliers/:supplierId", suppliersController.updateSupplier);
 
-module.exports = router;
+export default router;
