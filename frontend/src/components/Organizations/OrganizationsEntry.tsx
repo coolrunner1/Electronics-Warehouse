@@ -18,26 +18,15 @@ export const OrganizationsEntry = (
         organization_type: string,
     }
 ) => {
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [number, setNumber] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [region, setRegion] = useState("");
-    const [country, setCountry] = useState("");
-    const [postalCode, setPostalCode] = useState(0);
+    const [fullName, setFullName] = useState(props.organization.name);
+    const [email, setEmail] = useState(props.organization.email);
+    const [number, setNumber] = useState('+7' + props.organization.phone_number);
+    const [address, setAddress] = useState(props.organization.address);
+    const [city, setCity] = useState(props.organization.city);
+    const [region, setRegion] = useState(props.organization.region);
+    const [country, setCountry] = useState(props.organization.country);
+    const [postalCode, setPostalCode] = useState(props.organization.postal_code);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        setFullName(props.organization.name);
-        setEmail(props.organization.email);
-        setNumber('+7' + props.organization.phone_number);
-        setAddress(props.organization.address);
-        setCity(props.organization.city);
-        setRegion(props.organization.region);
-        setCountry(props.organization.country);
-        setPostalCode(props.organization.postal_code);
-    }, [props.organization]);
 
     const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFullName(e.target.value);

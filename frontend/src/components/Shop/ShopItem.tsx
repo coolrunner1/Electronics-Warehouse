@@ -37,9 +37,9 @@ export const ShopItem = (
                             <p className="mb-1.5 text-xl font-bold text-blue-500">${props.item.unit_price}</p>
                             {props.item.status === 'In Stock' &&
                                 !clicked
-                                    ? <button className="text-sm text-blue-500" onClick={onAddToCartClick}
+                                    ? <button className="text-sm text-blue-500 p-2" onClick={onAddToCartClick}
                                               value={props.item.item_id}>Add to cart</button>
-                                    : <button className="text-sm text-blue-500"
+                                    : <button className="text-sm text-blue-500 p-2"
                                               value={props.item.item_id}>Added to cart</button>
                             }
 
