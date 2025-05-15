@@ -15,7 +15,7 @@ export const Filters = () => {
 
     useEffect(() => {
         axios.get("http://localhost:8000/categories")
-            .then((response) => setCategories(response.data.rows))
+            .then((response) => setCategories(response.data))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 alert("Error fetching items: " + error.message);

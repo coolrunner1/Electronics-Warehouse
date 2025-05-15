@@ -2,23 +2,29 @@
   "name": "api",
   "version": "1.0.0",
   "description": "Api for Electronics Warehouse",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js"
+    "dev": "npx tsx src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "@prisma/client": "^6.7.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
-    "express": "^4.21.1",
+    "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.13.1",
-    "pg-pool": "^3.7.0"
+    "pg": "^8.16.0",
+    "pg-pool": "^3.10.0"
   },
   "devDependencies": {
-    "dotenv": "^16.4.5",
-    "nodemon": "^3.1.7"
+    "@types/node": "^22.15.18",
+    "dotenv": "^16.5.0",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.7.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "zod": "^3.24.4"
   }
 }

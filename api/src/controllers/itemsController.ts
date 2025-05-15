@@ -189,4 +189,4 @@ class ItemsController {
 }
 
 const itemsController = new ItemsController();
-module.exports = itemsController;
+export default itemsController;

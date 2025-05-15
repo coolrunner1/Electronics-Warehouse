@@ -1,21 +1,19 @@
-const db = require("../database");
+import prisma from "../../prisma/prisma-client";
+import { NextFunction, Request, Response, Router } from 'express';
 
 class CategoriesController {
-    async getAllCategories(req, res) {
-        await db.query("SELECT * FROM Category ORDER BY category_id", (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No categories found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching categories." })
+    async getAllCategories(req: Request, res: Response, next: NextFunction) {
+        try {
+            const categories = await prisma.category.findMany();
+            if (!categories.length) {
+                return res.status(404).json({ status: "error", message: "No categories found" });
             }
-        });
+            res.status(200).json(categories);
+        } catch (error) {
+            next(error);
+        }
     }
 }
 
 const categoriesController = new CategoriesController();
-module.exports = categoriesController;
+export default categoriesController;

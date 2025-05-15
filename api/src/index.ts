@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const pg = require("pg")
-const router = require("./router");
+const router = require("./router/router");
 
 const app = express();
 
