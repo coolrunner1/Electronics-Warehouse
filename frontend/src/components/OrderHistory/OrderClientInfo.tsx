@@ -1,26 +1,26 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useQuery} from "@tanstack/react-query";
+import {getClient} from "../../api/clients.ts";
 
 export const OrderClientInfo = (
     props: {
         clientId: number;
     }
 ) => {
-    const [client, setClient] = useState(null);
+    const {
+        data,
+    } = useQuery({
+        queryFn: getClient,
+        queryKey: ['client', props.clientId],
+    })
 
-    useEffect(() => {
-        axios.get('http://localhost:8000/clients/' + props.clientId)
-            .then(res => setClient(res.data.rows[0]))
-            .catch(err => console.error(err));
-    }, []);
     return (
         <>
-            {client &&
+            {data &&
                 <>
-                    <div className="text-center">Client: {client.name}</div>
-                    <div className="text-center">Email: {client.email}</div>
-                    <div className="text-center">Phone number: +7{client.phone_number}</div>
-                    <div className="text-center">Address: {client.postal_code+" "+client.address+" "+client.city+" "+client.region+" "+client.country}</div>
+                    <div className="text-center">Client: {data.name}</div>
+                    <div className="text-center">Email: {data.email}</div>
+                    <div className="text-center">Phone number: +7{data.phone_number}</div>
+                    <div className="text-center">Address: {data.postal_code+" "+data.address+" "+data.city+" "+data.region+" "+data.country}</div>
                 </>
             }
         </>

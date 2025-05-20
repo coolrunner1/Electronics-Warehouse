@@ -3,14 +3,15 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {ItemsEntry} from "../components/Items/ItemsEntry";
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
+// @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {setTableRefresh} from "../slices/tableSlice";
 import {NewRemoveButtons} from "../components/Global/NewRemoveButtons";
 import {RootState} from "../state/store";
-import {Organization} from "../types/Organization";
 import {Category} from "../types/Category";
 import {Item} from "../types/Item";
 import {ValueLabel} from "../types/ValueLabel";
+import {Supplier} from "../types/Supplier.ts";
 
 export const ItemsPage = () => {
     const [items, setItems] = useState<Item[]>([]);
@@ -35,7 +36,7 @@ export const ItemsPage = () => {
             });
 
         axios.get("http://localhost:8000/suppliers")
-            .then((response) => setSuppliers(response.data.rows.map((supplier: Organization) => ({value: supplier.supplier_id, label: supplier.name}))))
+            .then((response) => setSuppliers(response.data.rows.map((supplier: Supplier) => ({value: supplier.supplier_id, label: supplier.name}))))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 setSuppliers([]);

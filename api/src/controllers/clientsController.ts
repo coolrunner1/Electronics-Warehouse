@@ -1,72 +1,62 @@
-const db = require("../database");
+import { NextFunction, Request, Response } from 'express';
+import clientsService from "../services/clientsService";
 
 class ClientsController {
-    async getAllClients(req, res) {
-        await db.query("SELECT * FROM Client ORDER BY client_id ASC", (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No clients found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching clients." })
+    async getAllClients(req: Request, res: Response, next: NextFunction) {
+        try {
+            let page = parseInt(req.query.page);
+            if (page <= 0) {
+                page = 1;
             }
-        });
+            const clients = await clientsService.getAllClients(page, req.query.ignorePagination === 'true');
+            if (!clients.data.length) {
+                return res.status(404).json({ status: "error", message: "No clients found" });
+            }
+            res.status(200).json(clients);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    async getClient(req, res) {
-        const id = req.params.clientId;
-        await db.query("SELECT * FROM Client WHERE client_id = $1", [id],
-            (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "Client was not found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching clients." });
+    async getClient(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = parseInt(req.params.id);
+            if (!id) {
+                return res.status(400).json({ status: "error", message: "Invalid client id" });
             }
-        });
+            const client = await clientsService.getClient(id);
+            if (!client) {
+                return res.status(404).json({status: "error", message: "Client was not found"});
+            }
+            res.status(200).json(client);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    async addClient(req, res) {
-        const body = req.body;
-        await db.query("INSERT INTO Client (name, phone_number, address, email, city, region, country, postal_code) VALUES " +
-            "($1, $2, $3, $4, $5, $6, $7, $8)", [body.name, body.phone_number, body.address, body.email, body.city, body.region, body.country, body.postal_code],
-            (err, result) => {
-            try {
-                if (err) throw err;
-                return res.status(201).json(result);
-            } catch (e) {
-                console.error(e);
-                return res.status(500).json({ status: "error", message: "Error creating client" })
-            }
-        });
+    async addClient(req: Request, res: Response, next: NextFunction) {
+        try {
+            const result = await clientsService.addClient(req.body);
+            if (!result) throw new Error('Error adding client');
+            return res.status(201).json(result);
+        } catch (error) {
+            console.error(error);
+            next(error);
+        }
     }
 
-    async updateClient(req, res) {
-        const body = req.body;
-        const id = req.params.clientId;
-        await db.query("UPDATE Client SET name = $1, phone_number = $2, address = $3, email = $4, city = $5, region = $6, country = $7, postal_code = $8 " +
-            "WHERE client_id = $9", [body.name, body.phone_number, body.address, body.email, body.city, body.region, body.country, body.postal_code, id],
-            (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "Client was not found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error updating client" });
+    async updateClient(req: Request, res: Response, next: NextFunction) {
+        try {
+            const result = await clientsService.updateClient(req.body, parseInt(req.params.id));
+            if (!result) {
+                return res.status(404).json({NOTFOUND: "Client was not found"});
             }
-        });
+            return res.status(200).json(result);
+        } catch (error) {
+            console.error(error);
+            next(error);
+        }
     }
 }
 
-const clientsController = new ClientsController();
-module.exports = clientsController;
+export default new ClientsController();

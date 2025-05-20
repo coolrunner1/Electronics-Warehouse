@@ -1,6 +1,5 @@
 export type Organization = {
-    client_id?: number,
-    supplier_id?: number,
+    organization_id: number;
     name: string,
     phone_number: number,
     address: string,

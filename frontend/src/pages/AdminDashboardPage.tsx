@@ -4,14 +4,16 @@ import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {setTableRefresh} from "../slices/tableSlice";
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
+// @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {NewRemoveButtons} from "../components/Global/NewRemoveButtons";
 import {RootState} from "../state/store";
 import {Role} from "../types/Role";
-import {Organization} from "../types/Organization";
+import {User} from "../types/User.ts";
+import {Client} from "../types/Client.ts";
 
 export const AdminDashboardPage = () => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [roles, setRoles] = useState([]);
     const [clients, setClients] = useState([]);
     const tableRefresh = useSelector((state: RootState) => state.table);
@@ -31,8 +33,8 @@ export const AdminDashboardPage = () => {
                 console.error('Error fetching roles:', error);
                 setRoles([]);
             });
-        axios.get("http://localhost:8000/clients")
-            .then((response) => setClients(response.data.rows.map((client: Organization) => ({value: client.client_id, label: client.name}))))
+        axios.get("http://localhost:8000/api/v1/clients?ignorePagination=true")
+            .then((response) => setClients(response.data.data.map((client: Client) => ({value: client.client_id, label: client.name}))))
             .catch((error) => {
                 console.error('Error fetching clients:', error);
                 setClients([]);

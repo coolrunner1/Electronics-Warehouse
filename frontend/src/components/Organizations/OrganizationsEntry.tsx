@@ -1,6 +1,5 @@
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, useState} from "react";
 import {useDispatch} from "react-redux";
-import axios from "axios";
 import {setTableRefresh} from "../../slices/tableSlice";
 import {Td, Tr} from "react-super-responsive-table";
 import {BlueButton} from "../Global/BlueButton";
@@ -10,6 +9,8 @@ import {validateEmail} from "../../utils/validateEmail";
 import {validatePhoneNumber} from "../../utils/validatePhoneNumber";
 import {validatePostalCode} from "../../utils/validatePostalCode";
 import {Organization} from "../../types/Organization";
+import {createClient, updateClient} from "../../api/clients.ts";
+import {createSupplier, updateSupplier} from "../../api/suppliers.ts";
 
 export const OrganizationsEntry = (
     props: {
@@ -95,25 +96,17 @@ export const OrganizationsEntry = (
             postal_code: postalCode
         }
         if (props.organization_id === 99999) {
-            await axios.post("http://localhost:8000/"+props.organization_type, requestBody)
-                .then((res) => console.log(res))
-                .catch((err) => {
-                    console.error(err);
-                    if (err.response.status === 409) {
-                        alert(err.response.data.message);
-                    }
-                });
+            if (props.organization_type === 'clients') {
+                await createClient(requestBody);
+            } else {
+                await createSupplier(requestBody);
+            }
         } else {
-            await axios.put("http://localhost:8000/"+props.organization_type+"/"+props.organization_id, requestBody)
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.error(err);
-                    if (err.response.status === 409) {
-                        alert(err.response.data.message);
-                    }
-                });
+            if (props.organization_type === 'clients') {
+                await updateClient(requestBody, props.organization_id);
+            } else {
+                await updateSupplier(requestBody, props.organization_id);
+            }
         }
         await dispatch(setTableRefresh(true));
     }

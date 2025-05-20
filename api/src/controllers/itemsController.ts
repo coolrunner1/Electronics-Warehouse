@@ -80,6 +80,9 @@ class ItemsController {
         });
     }
 
+    /*
+    ToDo: Remove this fucking shit
+    */
     async getItemsByCategoryIdAndManufacturer(req, res) {
         const categoryId = req.params.category;
         const manufacturer = req.params.manufacturer;
@@ -113,6 +116,9 @@ class ItemsController {
         });
     }
 
+    /*
+    ToDo: move to orders controller
+    */
     async getItemsByOrderId(req, res){
         const id = req.params.orderId;
         await db.query("SELECT Item.item_id, Item.model, Item.image_path, Item.manufacturer, Item.unit_price, OrderProduct.quantity, OrderProduct.returned_units, order_id, order_product_id " +

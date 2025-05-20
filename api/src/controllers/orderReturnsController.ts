@@ -10,9 +10,9 @@ class OrderReturnsController {
             [id], (err, result) => {
                 try {
                     if (err) throw err;
-                    if (result.rowCount === 0) {
+                    /*if (result.rowCount === 0) {
                         return res.status(404).json({ NOTFOUND: "No order returns found." });
-                    }
+                    }*/
                     return res.status(200).json(result)
                 } catch (e) {
                     console.error(err);

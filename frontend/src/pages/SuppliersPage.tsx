@@ -1,51 +1,55 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import axios from "axios";
 import {setTableRefresh} from "../slices/tableSlice";
 import {OrganizationsTable} from "../components/Organizations/OrganizationsTable";
 import {RootState} from "../state/store";
-import {Organization} from "../types/Organization";
+import {useQuery} from "@tanstack/react-query";
+import {queryClient} from "../api/queryClient.ts";
+import {fetchSuppliers} from "../api/suppliers.ts";
+import {LoadingIndicator} from "../components/Global/LoadingIndicator.tsx";
+import {Pagination} from "../components/Pagination/Pagination.tsx";
 
 export const SuppliersPage = () => {
-    const [suppliers, setSuppliers] = useState<Organization[]>([]);
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
     const dispatch = useDispatch();
+    const [page, setPage] = useState(1);
+
+    const {
+        data,
+        isLoading,
+        refetch
+    } = useQuery({
+        queryFn: fetchSuppliers,
+        queryKey: ['suppliers', page]
+    });
 
     useEffect(() => {
-        axios.get("http://localhost:8000/suppliers")
-            .then((response) => setSuppliers(response.data.rows
-                .map((supplier: Organization) => ({
-                    organization_id: supplier.supplier_id,
-                    name: supplier.name,
-                    phone_number: supplier.phone_number,
-                    address: supplier.address,
-                    email: supplier.email,
-                    city: supplier.city,
-                    region: supplier.region,
-                    country: supplier.country,
-                    postal_code: supplier.postal_code,
-                }))))
-            .catch((error) => {
-                console.error('Error fetching suppliers:', error);
-                setSuppliers([]);
-            });
+        queryClient.removeQueries({queryKey: ['suppliers', page]});
+        refetch()
         dispatch(setTableRefresh(false));
     }, [tableRefresh]);
 
     return (
-        <>
-            <div>
-                <h1 className="text-3xl text-center p-4">
-                    Suppliers
-                </h1>
-                <div className="px-4 py-4 flex overflow-auto ">
-                    {suppliers.length === 0
-                        ? <div className="text-center text-xl">No suppliers found.</div>
-                        : <OrganizationsTable organizations={suppliers} organizations_type={"suppliers"} />
-                    }
-
-                </div>
+        <div>
+            <h1 className="text-3xl text-center p-4">
+                Suppliers
+            </h1>
+            <div className="px-4 py-4 flex flex-col overflow-auto items-center">
+                {isLoading &&
+                    <LoadingIndicator/>
+                }
+                {!isLoading &&
+                data
+                    ? <OrganizationsTable organizations={data.suppliers} organizations_type="suppliers" />
+                    : <div className="text-center text-xl">No clients were found.</div>
+                }
+                {data &&
+                    <Pagination
+                        currentPage={page}
+                        setCurrentPage={setPage}
+                        pageCount={data.pagination}
+                    />}
             </div>
-        </>
+        </div>
     )
 }

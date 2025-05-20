@@ -10,7 +10,7 @@ export const OrganizationsTable = (
         organizations_type: string,
     }
 ) => {
-    const [organizations, setOrganizations] = useState([]);
+    const [organizations, setOrganizations] = useState<Organization[]>([]);
 
     useEffect(() => {
         setOrganizations(props.organizations);

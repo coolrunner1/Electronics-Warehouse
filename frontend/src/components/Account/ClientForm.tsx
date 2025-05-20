@@ -1,5 +1,4 @@
 import {ChangeEvent, useEffect, useState} from "react";
-import axios from "axios";
 import {useSelector} from "react-redux";
 import {RootState} from "../../state/store";
 import {AccountInput} from "./AccountInput";
@@ -7,10 +6,13 @@ import {BlueButton} from "../Global/BlueButton";
 import {validateEmail} from "../../utils/validateEmail";
 import {validatePhoneNumber} from "../../utils/validatePhoneNumber";
 import {validatePostalCode} from "../../utils/validatePostalCode";
+import {User} from "../../types/User.ts";
+import {getClient, updateClient} from "../../api/clients.ts";
+import {useQuery} from "@tanstack/react-query";
+import {queryClient} from "../../api/queryClient.ts";
 
 export const ClientForm = () => {
-    const user = useSelector((state: RootState) => state.user.userInfo);
-    const [client, setClient] = useState(null);
+    const user = useSelector((state: RootState): User => state.user.userInfo);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -21,29 +23,35 @@ export const ClientForm = () => {
     const [postalCode, setPostalCode] = useState(0);
     const [refresh, setRefresh] = useState(false);
 
+    const {data, refetch} = useQuery({
+        queryFn: getClient,
+        queryKey: ['client', user.client_id]
+    })
+
     useEffect(() => {
-        axios.get("http://localhost:8000/clients/" + user.client_id)
-            .then(res => {
-                setClient(res.data.rows[0]);
-            })
-            .catch(err => console.error(err));
+        if (!user) return;
+        queryClient.removeQueries({queryKey: ['client', user.client_id]});
+        refetch();
     }, [refresh]);
 
     useEffect(() => {
-        if (!client) {
+        if (!data) {
             return;
         }
-        setName(client.name);
-        setEmail(client.email);
-        setPhone('+7' + client.phone_number);
-        setAddress(client.address);
-        setCity(client.city);
-        setRegion(client.region);
-        setCountry(client.country);
-        setPostalCode(client.postal_code);
-    }, [client]);
+        setName(data.name);
+        setEmail(data.email);
+        setPhone('+7' + data.phone_number);
+        setAddress(data.address);
+        setCity(data.city);
+        setRegion(data.region);
+        setCountry(data.country);
+        setPostalCode(data.postal_code);
+    }, [data]);
 
     const onSaveClick = async () => {
+        if (!data) return;
+        if (!user.client_id) return;
+
         if (!name || !address || !city || !country || !postalCode) {
             alert("Not all fields are filled!");
             return;
@@ -65,17 +73,10 @@ export const ClientForm = () => {
             postal_code: postalCode
         }
 
-        await axios.put("http://localhost:8000/clients/" + client.client_id, requestBody)
-            .then((res) => {
-                console.log(res);
-                alert("Client was successfully updated");
-            })
-            .catch((err) => {
-                console.error(err);
-                if (err.response.status === 409) {
-                    alert(err.response.data.message);
-                }
-            });
+        const res = await updateClient(requestBody, user.client_id);
+        if (res.status === 200) {
+            alert("Client updated successfully!");
+        }
 
         await setRefresh(!refresh);
     }

@@ -7,6 +7,7 @@ import {setItemReturn} from "../../slices/returnsSlice";
 import Select from "react-select";
 import axios from "axios";
 import {customStyles} from "../../utils/customStyles";
+// @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import {RootState} from "../../state/store";

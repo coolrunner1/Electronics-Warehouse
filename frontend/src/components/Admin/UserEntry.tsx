@@ -1,5 +1,5 @@
 import {ChangeEvent, useEffect, useState} from "react";
-import Select from "react-select";
+import Select, {SingleValue} from "react-select";
 import axios from "axios";
 import {useDispatch} from "react-redux";
 import {setTableRefresh} from "../../slices/tableSlice";
@@ -7,6 +7,7 @@ import {BlueButton} from "../Global/BlueButton";
 import {RedButton} from "../Global/RedButton";
 import {customStyles} from "../../utils/customStyles";
 import {Td, Tr} from "react-super-responsive-table";
+// @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {TableTextInput} from "../Global/TableTextInput";
 import {validateEmail} from "../../utils/validateEmail";
@@ -46,7 +47,7 @@ export const UserEntry = (
     useEffect(() => {
         props.roles.forEach(role => {
             if (role.value === props.user.role_id) {
-                setDefaultRole(role.value-1);
+                setDefaultRole(role.value - 1);
                 setRole(role.value);
             }
         });
@@ -56,7 +57,7 @@ export const UserEntry = (
         if (props.user.client_id !== null) {
             props.clients.forEach(client => {
                 if (client.value === props.user.client_id) {
-                    setDefaultClient(client.value-1);
+                    setDefaultClient(client.value - 1);
                 }
             })
         }
@@ -98,11 +99,13 @@ export const UserEntry = (
         }
     }
 
-    const onRoleChange = (e) => {
+    const onRoleChange = (e: SingleValue<ValueLabel> ) => {
+        if (!e) return;
         setRole(e.value);
     }
 
-    const onClientChange = (e) => {
+    const onClientChange = (e: SingleValue<ValueLabel>) => {
+        if (!e) return;
         setClient(e.value);
     }
 
