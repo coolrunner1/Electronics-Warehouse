@@ -3,6 +3,7 @@ import {NewRemoveButtons} from "../Global/NewRemoveButtons";
 import {OrganizationsEntry} from "./OrganizationsEntry";
 import {useEffect, useState} from "react";
 import {Organization} from "../../types/Organization";
+import {useTranslation} from "react-i18next";
 
 export const OrganizationsTable = (
     props: {
@@ -11,6 +12,7 @@ export const OrganizationsTable = (
     }
 ) => {
     const [organizations, setOrganizations] = useState<Organization[]>([]);
+    const {t} = useTranslation();
 
     useEffect(() => {
         setOrganizations(props.organizations);
@@ -40,7 +42,7 @@ export const OrganizationsTable = (
                 <Thead>
                     <Tr className="border-b">
                         {
-                            ['Name', 'Email', 'Phone Number', 'Address', 'City', 'Region', 'Country', 'Postal Code']
+                            [t('organization-name'), 'Email', t('phone-number'), t('address'), t('city'), t('region'), t('country'), t('postal-code')]
                                 .map((item, index) => (<Th key={index}>{item}</Th>))
                         }
                         <Th>

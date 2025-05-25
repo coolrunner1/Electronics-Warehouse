@@ -6,15 +6,17 @@ import {CategoryFilter} from "./CategoryFilter";
 import axios from "axios";
 import {useLocation} from "react-router-dom";
 import {Item} from "../../types/Item";
+import {useTranslation} from "react-i18next";
 
 export const Filters = () => {
     const location = useLocation();
-    const allowFilters = location.search === null || location.search === "" || location.search === "?"
+    const allowFilters = location.search === null || location.search === "" || location.search === "?";
+    const {t} = useTranslation();
 
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8000/categories")
+        axios.get("http://localhost:8000/api/v1/categories")
             .then((response) => setCategories(response.data))
             .catch((error) => {
                 console.error('Error fetching items:', error);
@@ -26,7 +28,7 @@ export const Filters = () => {
 
     useEffect(() => {
         axios.get("http://localhost:8000/manufacturers")
-            .then((response) => setManufacturers(["all", ...response.data.rows.map((item: Item) => item.manufacturer)]))
+            .then((response) => setManufacturers([t('all'), ...response.data.rows.map((item: Item) => item.manufacturer)]))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 alert("Error fetching items: " + error.message);
@@ -54,10 +56,10 @@ export const Filters = () => {
     return (
         <>
             <div className="flex flex-col sm:flex-row pl-4 pr-4 w-full gap-2 justify-center">
-                {allowFilters && (<CategoryFilter label="Category" onChange={onCategoryChange} options={categories}/>)}
-                {allowFilters && (<SelectFilter label="Manufacturer" onChange={onManufacturerChange} options={manufacturers}/>)}
-                <SelectFilter label="Sort by" onChange={onSortByChange} options={['Name', 'Price']}/>
-                <SelectFilter label="Sorting direction" onChange={onSortingDirectionChange} options={['Ascending', 'Descending']} />
+                {allowFilters && (<CategoryFilter label={t('category')} onChange={onCategoryChange} options={categories}/>)}
+                {allowFilters && (<SelectFilter label={t('manufacturer')} onChange={onManufacturerChange} options={manufacturers}/>)}
+                <SelectFilter label={t('sort-by')} onChange={onSortByChange} options={['Name', 'Price']}/>
+                <SelectFilter label={t('sort-order')} onChange={onSortingDirectionChange} options={['Ascending', 'Descending']} />
             </div>
         </>
     )

@@ -5,6 +5,7 @@ import Select from "react-select";
 import {customStyles} from "../../utils/customStyles";
 import {BlueButton} from "../Global/BlueButton";
 import {RedButton} from "../Global/RedButton";
+// @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import {setTableRefresh} from "../../slices/tableSlice";
@@ -12,6 +13,7 @@ import {TableTextInput} from "../Global/TableTextInput";
 import {dateToString} from "../../utils/dateToString";
 import {Item} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
+import {useTranslation} from "react-i18next";
 
 export const ItemsEntry = (
     props: {
@@ -29,6 +31,7 @@ export const ItemsEntry = (
     const [newQuantity, setNewQuantity] = useState(1);
     const [supplier, setSupplier] = useState(1);
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     useEffect(() => {
         setModel(props.item.model);
@@ -53,11 +56,11 @@ export const ItemsEntry = (
         setManufacturer(e.target.value);
     }
 
-    const onCategoryChange = (e) => {
+    const onCategoryChange = (e: any) => {
         setCategory(e.value);
     }
 
-    const onSupplierChange = (e) => {
+    const onSupplierChange = (e: any) => {
         setSupplier(e.value);
     }
 
@@ -158,7 +161,7 @@ export const ItemsEntry = (
                     <TableTextInput value={price} onChange={onPriceChange}/>
                 </Td>
                 <Td className="p-3">
-                    {props.item.status}
+                    {props.item.status === 'In Stock' ? t('in-stock') : t('out-of-stock')}
                 </Td>
                 <Td className="p-3">
                     {props.item.units_in_stock}
@@ -167,12 +170,12 @@ export const ItemsEntry = (
                     {props.item.faulty_units}
                 </Td>
                 <Td className="p-3">
-                    {dateToString(props.item.date_of_arrival)}
+                    {props.item.date_of_arrival && dateToString(props.item.date_of_arrival)}
                 </Td>
                 <Td className="p-3">
                     <div className="flex justify-end items-center">
-                        <BlueButton onClick={onClickEdit} name={"Save"}/>
-                        {props.item.model !== '' && <RedButton onClick={onClickArrival} name={ !createArrival ? "Add to arrival" : "Remove arrival"}/>}
+                        <BlueButton onClick={onClickEdit} name={t('save')}/>
+                        {props.item.model !== '' && <RedButton onClick={onClickArrival} name={ !createArrival ? t('add-arrival') : t('remove-arrival')}/>}
                     </div>
                 </Td>
                 <Td className="p-3">
@@ -188,7 +191,7 @@ export const ItemsEntry = (
                                 />
                                 <input type="number" min={1} value={newQuantity} onChange={onQuantityChange}
                                        className="bg-transparent m-3"/>
-                                <BlueButton onClick={onClickPostArrival} name={"Create"}/>
+                                <BlueButton onClick={onClickPostArrival} name={t('create')}/>
                             </div>
                         </>
                     )}

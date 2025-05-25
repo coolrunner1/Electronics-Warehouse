@@ -11,10 +11,12 @@ import {validatePhoneNumber} from "../utils/validatePhoneNumber";
 import {validatePassport} from "../utils/validatePassport";
 import {RedButton} from "../components/Global/RedButton";
 import {RootState} from "../state/store";
+import {useTranslation} from "react-i18next";
 
 export const AccountPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {t} = useTranslation();
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -109,26 +111,26 @@ export const AccountPage = () => {
                         <div className="rounded-t mb-0 px-6 py-6">
                             <div className="text-center flex justify-between">
                                 <h6 className="text-blueGray-700 text-xl font-bold">
-                                    My account
+                                    {t('my-account')}
                                 </h6>
                                 <div>
-                                    <BlueButton name={"Save"} onClick={onSubmit} />
-                                    <RedButton name={"Sign out"} onClick={() => {dispatch(setUser(null)); navigate("/login")}} />
+                                    <BlueButton name={t('save')} onClick={onSubmit} />
+                                    <RedButton name={t('log-out')} onClick={() => {dispatch(setUser(null)); navigate("/login")}} />
                                 </div>
                             </div>
                         </div>
                         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                             <form>
                                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                                    User Information
+                                    {t('user-info')}
                                 </h6>
                                 <div className="flex flex-wrap">
-                                    <AccountInput name={"Login"} placeholder={"Enter new login"} value={login} onChange={onLoginChange} />
-                                    <AccountInput name={"New password"} placeholder={"Enter new password"} value={password} onChange={onPasswordChange} />
-                                    <AccountInput name={"Full name"} placeholder={"Enter full name"} value={name} onChange={onNameChange} />
-                                    <AccountInput name={"Email address"} placeholder={"Enter email address"} value={email} onChange={onEmailChange} />
-                                    <AccountInput name={"Phone number"} placeholder={"Enter phone number"} value={phone} onChange={onPhoneChange} />
-                                    <AccountInput name={"Passport"} placeholder={"Enter passport"} value={passport.toString()} onChange={onPassportChange} />
+                                    <AccountInput name={t('login')} placeholder={t('enter-new-login')} value={login} onChange={onLoginChange} />
+                                    <AccountInput name={t('new-password')} placeholder={t('enter-new-password')} value={password} onChange={onPasswordChange} />
+                                    <AccountInput name={t('full-name')} placeholder={t('enter-full-name')} value={name} onChange={onNameChange} />
+                                    <AccountInput name={"Email"} placeholder={t('enter-email')} value={email} onChange={onEmailChange} />
+                                    <AccountInput name={t('phone-number')} placeholder={t('enter-number')} value={phone} onChange={onPhoneChange} />
+                                    <AccountInput name={t('passport')} placeholder={t('enter-passport')} value={passport.toString()} onChange={onPassportChange} />
                                 </div>
 
                                 {user.client_id !== null &&

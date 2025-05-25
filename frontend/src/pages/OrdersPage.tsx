@@ -5,12 +5,15 @@ import {OrderHistoryEntry} from "../components/OrderHistory/OrderHistoryEntry";
 import {useLocation} from "react-router-dom";
 import {RootState} from "../state/store";
 import {EnumFromDB} from "../types/EnumFromDB";
+import {Order} from "../types/Order.ts";
+import {useTranslation} from "react-i18next";
 
 export const OrdersPage = () => {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState<Order[]>([]);
     const [orderStatuses, setOrderStatuses] = useState([]);
     const [returnStatuses, setReturnStatuses] = useState([]);
     const userRole = useSelector((state: RootState) => state.user.userInfo.role_id);
+    const {t} = useTranslation();
 
     const location = useLocation();
 
@@ -55,9 +58,9 @@ export const OrdersPage = () => {
     return (
         <>
             <div className="flex flex-col px-4 py-4">
-                <h1 className="mb-10 text-center text-2xl font-bold">Orders</h1>
+                <h1 className="text-3xl text-center p-4">{t('orders')}</h1>
                 {orders.length === 0
-                    ? <div className="text-center text-xl">No orders found.</div>
+                    ? <div className="text-center text-xl">{t('no-orders')}</div>
                     : orders.map((order) => (
                         <OrderHistoryEntry
                             key={order.order_id}

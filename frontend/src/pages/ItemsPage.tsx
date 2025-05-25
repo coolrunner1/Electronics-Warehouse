@@ -12,6 +12,7 @@ import {Category} from "../types/Category";
 import {Item} from "../types/Item";
 import {ValueLabel} from "../types/ValueLabel";
 import {Supplier} from "../types/Supplier.ts";
+import {useTranslation} from "react-i18next";
 
 export const ItemsPage = () => {
     const [items, setItems] = useState<Item[]>([]);
@@ -19,6 +20,7 @@ export const ItemsPage = () => {
     const [suppliers, setSuppliers] = useState<ValueLabel[]>([]);
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     useEffect(() => {
         axios.get("http://localhost:8000/items")
@@ -28,8 +30,8 @@ export const ItemsPage = () => {
                 setItems([]);
             });
         dispatch(setTableRefresh(false));
-        axios.get("http://localhost:8000/categories")
-            .then((response) => setCategories(response.data.rows.map((category: Category) => ({value: category.category_id, label: category.name}))))
+        axios.get("http://localhost:8000/api/v1/categories")
+            .then((response) => setCategories(response.data.map((category: Category) => ({value: category.category_id, label: category.name}))))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 setCategories([]);
@@ -61,17 +63,17 @@ export const ItemsPage = () => {
         <>
             <div>
                 <h1 className="text-3xl text-center p-4">
-                    Items
+                    {t('items')}
                 </h1>
                 <div className="px-4 py-4 flex overflow-auto ">
                     {items.length === 0
-                        ? <div className="text-center text-xl">No items found.</div>
+                        ? <div className="text-center text-xl">{t('no-items')}</div>
                         :
                         <Table className="w-full text-md shadow-md rounded mb-4">
                             <Thead>
                                 <Tr className="border-b">
                                     {
-                                        ['Model', 'Manufacturer', 'Category', 'Price', 'Status', 'Units in stock', 'Faulty units', 'Last arrival']
+                                        [t('model'), t('manufacturer'), t('category'), t('price'), t('status'), t('units-in-stock'), t('faulty-units'), t('last-arrival')]
                                             .map((item, index) => (<Th key={index}>{item}</Th>))
                                     }
                                     <Th>

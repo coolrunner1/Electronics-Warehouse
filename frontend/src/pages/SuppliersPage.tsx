@@ -8,11 +8,13 @@ import {queryClient} from "../api/queryClient.ts";
 import {fetchSuppliers} from "../api/suppliers.ts";
 import {LoadingIndicator} from "../components/Global/LoadingIndicator.tsx";
 import {Pagination} from "../components/Pagination/Pagination.tsx";
+import {useTranslation} from "react-i18next";
 
 export const SuppliersPage = () => {
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
+    const {t} = useTranslation();
 
     const {
         data,
@@ -31,9 +33,7 @@ export const SuppliersPage = () => {
 
     return (
         <div>
-            <h1 className="text-3xl text-center p-4">
-                Suppliers
-            </h1>
+            <h1 className="text-3xl text-center p-4">{t('suppliers')}</h1>
             <div className="px-4 py-4 flex flex-col overflow-auto items-center">
                 {isLoading &&
                     <LoadingIndicator/>

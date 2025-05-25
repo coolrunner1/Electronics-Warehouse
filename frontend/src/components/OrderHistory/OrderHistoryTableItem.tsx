@@ -5,8 +5,9 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import {RootState} from "../../state/store";
 import {Item} from "../../types/Item";
+import {useTranslation} from "react-i18next";
 
-export const OrderHistoryItem = (
+export const OrderHistoryTableItem = (
     props: {
         item: Item,
         status: string,
@@ -15,11 +16,12 @@ export const OrderHistoryItem = (
 ) => {
     const dispatch = useDispatch();
     const itemReturn = useSelector((state: RootState) => state.returns.itemReturn);
+    const {t} = useTranslation();
 
     const onReturnClick = () => {
         if (itemReturn === null) {
             if (props.item.quantity <= props.item.returned_units) {
-                alert("You have already returned all items.");
+                alert(t('all-return-error'));
                 return;
             }
             dispatch(setItemReturn(props.item));
@@ -52,7 +54,7 @@ export const OrderHistoryItem = (
                     .map((item, index) => (<Td className="p-3" key={index}>{item}</Td>))}
                 {(props.status === 'Delivered' && props.userRole === 2) && (
                     <Td className="p-3">
-                        <BlueButton onClick={onReturnClick} name={"Return"}/>
+                        <BlueButton onClick={onReturnClick} name={t('return-button')}/>
                     </Td>
                 )
                 }

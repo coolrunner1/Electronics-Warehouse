@@ -12,6 +12,7 @@ import {RedButton} from "../Global/RedButton";
 import {RootState} from "../../state/store";
 import {ValueLabel} from "../../types/ValueLabel";
 import {Order} from "../../types/Order";
+import {useTranslation} from "react-i18next";
 
 export const OrderHistoryEntry = (
     props: {
@@ -27,6 +28,7 @@ export const OrderHistoryEntry = (
     const [status, setStatus] = useState("");
     const [currentStatus, setCurrentStatus] = useState("");
     const itemReturn = useSelector((state: RootState) => state.returns.itemReturn);
+    const {t} = useTranslation();
 
     useEffect(() => {
         const dateString = props.order.timestamp;
@@ -79,21 +81,21 @@ export const OrderHistoryEntry = (
                     className="px-4 py-4 sm:m-6 flex flex-col justify-center overflow-x-auto font-bold text-xl text-center">
                     <div className="justify-between sm:mb-6 rounded-lg sm:p-6 shadow-md ">
                         <dl className="flex flex-col gap-4 justify-center text-center">
-                            <h3 className="i">Order placed on {date}
+                            <h3 className="i">{t('order-placed-on')} {date}
                             </h3>
-                            <div className="text-center">Order number: {props.order.order_id}</div>
-                            <div className="text-center">Number of items: {props.order.total_items}</div>
-                            <div className="text-center">Total amount: ${props.order.total_amount}</div>
-                            <div className="text-center">Status: {currentStatus}</div>
+                            <div className="text-center">{t('order-number')}: {props.order.order_id}</div>
+                            <div className="text-center">{t('number-of-items')}: {props.order.total_items}</div>
+                            <div className="text-center">{t('total-amount')}: ${props.order.total_amount}</div>
+                            <div className="text-center">{t('status')}: {currentStatus}</div>
                             {(props.userRole === 3 && currentStatus !== "Delivered" && currentStatus !== "Canceled") &&
-                                <div className="text-center flex align-center justify-center gap-4">New status:
+                                <div className="text-center flex align-center justify-center gap-4">{t('new-status')}:
                                     <Select
                                         options={props.orderStatuses}
                                         onChange={onStatusChange}
                                         styles={customStyles}
                                         maxMenuHeight={250}
                                     />
-                                    <BlueButton name={"Set"} onClick={onSetClick} />
+                                    <BlueButton name={t('set')} onClick={onSetClick} />
                                 </div>
                             }
 
@@ -103,7 +105,7 @@ export const OrderHistoryEntry = (
 
                             {(props.userRole === 2 && currentStatus !== "Canceled" && currentStatus !== "Delivered") &&
                                 <div className={"max-w-44 m-auto"}>
-                                    <RedButton name={"Cancel"} onClick={onCancelClick}/>
+                                    <RedButton name={t('cancel')} onClick={onCancelClick}/>
                                 </div>
 
                             }
@@ -112,9 +114,9 @@ export const OrderHistoryEntry = (
                         <OrderHistoryTable items={items} status={props.order.status} userRole={props.userRole}/>
                         {props.order.status === 'Delivered' && (
                             <div>
-                                <div className="text-center">Returns</div>
+                                <div className="text-center">{t('returns')}</div>
                                 {orderReturns.length === 0 && itemReturn === null
-                                    ? <div className="mt-3 text-center">No returns yet</div>
+                                    ? <div className="mt-3 text-center">{t('no-returns')}</div>
                                     : <OrderReturnsHistoryTable
                                         items={orderReturns}
                                         userRole={props.userRole}

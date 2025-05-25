@@ -2,9 +2,11 @@ import {clearCart} from "../../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {RootState} from "../../state/store";
+import {useTranslation} from "react-i18next";
 
 export const CheckoutInformationContainer = () => {
-    const user = useSelector((state: RootState) => state.user)
+    const user = useSelector((state: RootState) => state.user);
+    const {t} = useTranslation();
 
     const dispatch = useDispatch();
 
@@ -31,19 +33,19 @@ export const CheckoutInformationContainer = () => {
             {quantity !== 0 &&
                 <div className="mt-6 h-full rounded-lg p-6 shadow-md md:mt-0 md:w-1/3">
                     <div className="flex justify-between">
-                        <p className="text-lg font-bold">Items in cart</p>
+                        <p className="text-lg font-bold">{t('items-in-cart')}</p>
                         <div className="">
                             <p className="mb-1 text-lg font-bold">{quantity}</p>
                         </div>
                     </div>
                     <div className="flex justify-between">
-                        <p className="text-lg font-bold">Total</p>
+                        <p className="text-lg font-bold">{t('total')}</p>
                         <div className="">
                             <p className="mb-1 text-lg font-bold">${amount}</p>
                         </div>
                     </div>
                     <button
-                        className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={onCheckOutClick}>Check out
+                        className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={onCheckOutClick}>{t('checkout')}
                     </button>
                 </div>
             }

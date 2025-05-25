@@ -15,6 +15,7 @@ import {validatePhoneNumber} from "../../utils/validatePhoneNumber";
 import {validatePassport} from "../../utils/validatePassport";
 import {User} from "../../types/User";
 import {ValueLabel} from "../../types/ValueLabel";
+import {useTranslation} from "react-i18next";
 
 export const UserEntry = (
     props: {
@@ -35,6 +36,7 @@ export const UserEntry = (
     const [client, setClient] = useState(0);
     const [refreshing, setRefreshing] = useState(false);
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     useEffect(() => {
         setLogin(props.user.login);
@@ -170,7 +172,7 @@ export const UserEntry = (
                     <TableTextInput value={login} onChange={onLoginChange}/>
                 </Td>
                 <Td className="p-3">
-                    <TableTextInput value={password} onChange={onPasswordChange} placeholder={"Enter new password"}/>
+                    <TableTextInput value={password} onChange={onPasswordChange} placeholder={t('enter-new-password')}/>
                 </Td>
                 <Td className="p-3">
                     <TableTextInput value={fullName} onChange={onNameChange}/>
@@ -207,8 +209,8 @@ export const UserEntry = (
 
                 </Td>
                 <Td className="p-3 px-5 flex justify-end">
-                    <BlueButton onClick={onClickEdit} name={"Save"}/>
-                    <RedButton onClick={onClickDelete} name={"Delete"}/>
+                    <BlueButton onClick={onClickEdit} name={t('save')}/>
+                    <RedButton onClick={onClickDelete} name={t('delete')}/>
                 </Td>
             </Tr>
         </>

@@ -11,6 +11,7 @@ import {RootState} from "../state/store";
 import {Role} from "../types/Role";
 import {User} from "../types/User.ts";
 import {Client} from "../types/Client.ts";
+import {useTranslation} from "react-i18next";
 
 export const AdminDashboardPage = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -18,6 +19,7 @@ export const AdminDashboardPage = () => {
     const [clients, setClients] = useState([]);
     const tableRefresh = useSelector((state: RootState) => state.table);
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     useEffect(() => {
         axios.get("http://localhost:8000/users")
@@ -65,7 +67,7 @@ export const AdminDashboardPage = () => {
             <div>
                 <div className="text-center">
                     <h6 className="text-blueGray-700 text-xl font-bold">
-                        Users
+                        {t('users')}
                     </h6>
                 </div>
                 <div className="px-4 py-4 overflow-auto">
@@ -76,7 +78,7 @@ export const AdminDashboardPage = () => {
                             <Thead>
                                 <Tr className="border-b">
                                     {
-                                        ['Login', 'New password', 'Full Name', 'Email', 'Phone number', 'Passport', 'Role', 'Company']
+                                        [t('login'), t('new-password'), t('full-name'), 'Email', t('phone-number'), t('passport'), t('role'), t('company')]
                                             .map((item, index) => (<Th key={index} role="columnheader">{item}</Th>))
                                     }
                                     <Th>

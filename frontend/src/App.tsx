@@ -22,6 +22,7 @@ import {OrdersPage} from "./pages/OrdersPage";
 import {RootState} from "./state/store";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./api/queryClient";
+import "./i18n";
 
 const App = () => {
   const user = useSelector((state: RootState) => state.user);

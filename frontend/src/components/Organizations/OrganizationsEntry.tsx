@@ -11,6 +11,7 @@ import {validatePostalCode} from "../../utils/validatePostalCode";
 import {Organization} from "../../types/Organization";
 import {createClient, updateClient} from "../../api/clients.ts";
 import {createSupplier, updateSupplier} from "../../api/suppliers.ts";
+import {useTranslation} from "react-i18next";
 
 export const OrganizationsEntry = (
     props: {
@@ -28,6 +29,7 @@ export const OrganizationsEntry = (
     const [country, setCountry] = useState(props.organization.country);
     const [postalCode, setPostalCode] = useState(props.organization.postal_code);
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFullName(e.target.value);
@@ -139,9 +141,9 @@ export const OrganizationsEntry = (
                     <TableTextInput value={postalCode.toString()} onChange={onPostalCodeChange}/>
                 </Td>
                 <Td className="p-3 px-5 flex justify-end">
-                    <BlueButton onClick={onClickEdit} name={"Save"}/>
+                    <BlueButton onClick={onClickEdit} name={t('save')}/>
                     {props.organization_id === 99999 &&
-                        <RedButton onClick={onClickDelete} name={"Delete"}/>
+                        <RedButton onClick={onClickDelete} name={t('delete')}/>
                     }
                 </Td>
             </Tr>

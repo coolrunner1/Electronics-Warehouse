@@ -1,4 +1,5 @@
 import {useRef, useState} from "react";
+// @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import Select from "react-select";
@@ -7,8 +8,9 @@ import {customStyles} from "../../utils/customStyles";
 import axios from "axios";
 import {Item} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
+import {useTranslation} from "react-i18next";
 
-export const OrderReturnHistoryItem = (
+export const OrderReturnHistoryTableItem = (
     props: {
         item: Item,
         userRole: number,
@@ -18,6 +20,7 @@ export const OrderReturnHistoryItem = (
     const date = useRef(new Date(props.item.return_date).toLocaleDateString("en-GB"));
     const [status, setStatus] = useState("");
     const [currentStatus, setCurrentStatus] = useState(props.item.status);
+    const {t} = useTranslation();
 
     const onStatusChange = (e) => {
         setStatus(e.label);
@@ -65,7 +68,7 @@ export const OrderReturnHistoryItem = (
                                 styles={customStyles}
                                 maxMenuHeight={250}
                             />
-                            <BlueButton name={'Set'} onClick={onSetClick}/>
+                            <BlueButton name={t('set')} onClick={onSetClick}/>
                         </div>
                     }
                 </Td>

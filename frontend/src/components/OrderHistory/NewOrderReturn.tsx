@@ -12,6 +12,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import {RootState} from "../../state/store";
 import {EnumFromDB} from "../../types/EnumFromDB";
+import {useTranslation} from "react-i18next";
 
 export const NewOrderReturn = () => {
     const itemReturn = useSelector((state: RootState) => state.returns.itemReturn);
@@ -20,6 +21,8 @@ export const NewOrderReturn = () => {
     const [reason, setReason] = useState("");
     const [description, setDescription] = useState("");
     const [quantity, setQuantity] = useState(1);
+
+    const {t} = useTranslation();
 
     useEffect(() => {
         axios.get("http://localhost:8000/enums/returnreasons")
@@ -83,48 +86,50 @@ export const NewOrderReturn = () => {
     const date = useRef(new Date().toLocaleDateString("en-GB"));
     return (
         <>
-            <Tr>
-                <Td>
-                    <div className="flex justify-center m-3">
-                        {itemReturn.image_path === null
-                            ? (<img
-                                alt={itemReturn.model.toLowerCase()}
-                                src="/placeholder.png"
-                                className="w-full rounded-lg sm:w-40"/>)
-                            : (<img
-                                alt={itemReturn.model.toLowerCase()}
-                                src={itemReturn.image_path}
-                                className="w-full rounded-lg sm:w-40"/>)
-                        }
+            {itemReturn &&
+                <Tr>
+                    <Td>
+                        <div className="flex justify-center m-3">
+                            {itemReturn.image_path === null
+                                ? (<img
+                                    alt={itemReturn.model.toLowerCase()}
+                                    src="/placeholder.png"
+                                    className="w-full rounded-lg sm:w-40"/>)
+                                : (<img
+                                    alt={itemReturn.model.toLowerCase()}
+                                    src={itemReturn.image_path}
+                                    className="w-full rounded-lg sm:w-40"/>)
+                            }
 
-                    </div>
-                    <div>{itemReturn.model}</div>
-                </Td>
-                <Td>${itemReturn.unit_price}</Td>
-                <Td>
-                    <NumberToggle increment={increment} decrement={decrement} value={quantity}/>
-                </Td>
-                <Td>${(itemReturn.unit_price * quantity).toFixed(2)}</Td>
-                <Td>
-                    <Select
-                        options={reasons}
-                        defaultValue={1}
-                        onChange={onReasonChange}
-                        styles={customStyles}
-                    />
-                </Td>
-                <Td>
-                    <textarea className="max-w-44 sm:max-w-full" maxLength={255} onChange={onDescriptionChange} value={description}></textarea>
-                </Td>
-                <Td>{date.current}</Td>
-                <Td>Pending</Td>
-                <Td>
-                    <BlueButton onClick={onSaveClick} name="Save"/>
-                </Td>
-                <Td>
-                    <RedButton onClick={onDeleteClick} name="Delete"/>
-                </Td>
-            </Tr>
+                        </div>
+                        <div>{itemReturn.model}</div>
+                    </Td>
+                    <Td>${itemReturn.unit_price}</Td>
+                    <Td>
+                        <NumberToggle increment={increment} decrement={decrement} value={quantity}/>
+                    </Td>
+                    <Td>${(itemReturn.unit_price * quantity).toFixed(2)}</Td>
+                    <Td>
+                        <Select
+                            options={reasons}
+                            defaultValue={1}
+                            onChange={onReasonChange}
+                            styles={customStyles}
+                        />
+                    </Td>
+                    <Td>
+                        <textarea className="max-w-44 sm:max-w-full" maxLength={255} onChange={onDescriptionChange} value={description}></textarea>
+                    </Td>
+                    <Td>{date.current}</Td>
+                    <Td>{t('pending')}</Td>
+                    <Td>
+                        <BlueButton onClick={onSaveClick} name={t('add')}/>
+                    </Td>
+                    <Td>
+                        <RedButton onClick={onDeleteClick} name={t('delete')}/>
+                    </Td>
+                </Tr>
+            }
         </>
     )
 };

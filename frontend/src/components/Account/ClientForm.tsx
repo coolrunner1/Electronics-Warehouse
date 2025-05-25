@@ -10,8 +10,10 @@ import {User} from "../../types/User.ts";
 import {getClient, updateClient} from "../../api/clients.ts";
 import {useQuery} from "@tanstack/react-query";
 import {queryClient} from "../../api/queryClient.ts";
+import {useTranslation} from "react-i18next";
 
 export const ClientForm = () => {
+    const {t} = useTranslation();
     const user = useSelector((state: RootState): User => state.user.userInfo);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -126,20 +128,20 @@ export const ClientForm = () => {
             <hr className="mt-6 mb-3 border-b-1 border-blueGray-300"/>
             <div className="flex justify-between">
                 <h6 className="text-blueGray-400 text-sm mt-3 font-bold uppercase">
-                    Client Information
+                    {t('client-info')}
                 </h6>
-                <BlueButton name={"Save"} onClick={onSaveClick}/>
+                <BlueButton name={t('save')} onClick={onSaveClick}/>
             </div>
 
             <div className="flex flex-wrap mt-6">
-                <AccountInput name={"Name"} placeholder={"Enter name"} value={name} onChange={onNameChange} />
-                <AccountInput name={"Email address"} placeholder={"Enter email address"} value={email} onChange={onEmailChange} />
-                <AccountInput name={"Phone number"} placeholder={"Enter phone number"} value={phone} onChange={onPhoneChange} />
-                <AccountInput name={"Address"} placeholder={"Enter address"} value={address} onChange={onAddressChange} />
-                <AccountInput name={"City"} placeholder={"Enter city"} value={city} onChange={onCityChange} />
-                <AccountInput name={"Region"} placeholder={"Enter region"} value={region} onChange={onRegionChange} />
-                <AccountInput name={"Country"} placeholder={"Enter country"} value={country} onChange={onCountryChange} />
-                <AccountInput name={"Postal code"} placeholder={"Enter postal code"} value={postalCode.toString()} onChange={onPostalCodeChange} />
+                <AccountInput name={t('organization-name')} placeholder={t('enter-name')} value={name} onChange={onNameChange} />
+                <AccountInput name={"Email"} placeholder={t('enter-email')} value={email} onChange={onEmailChange} />
+                <AccountInput name={t('phone-number')} placeholder={t('enter-phone')} value={phone} onChange={onPhoneChange} />
+                <AccountInput name={t('address')} placeholder={t('enter-address')} value={address} onChange={onAddressChange} />
+                <AccountInput name={t('city')} placeholder={t('enter-city')} value={city} onChange={onCityChange} />
+                <AccountInput name={t('region')} placeholder={t('enter-region')} value={region} onChange={onRegionChange} />
+                <AccountInput name={t('country')} placeholder={t('enter-country')} value={country} onChange={onCountryChange} />
+                <AccountInput name={t('postal-code')} placeholder={t('enter-zipcode')} value={postalCode.toString()} onChange={onPostalCodeChange} />
             </div>
         </>
     )
