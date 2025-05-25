@@ -4,6 +4,7 @@ import {CartButton} from "./CartButton";
 import {OrdersButton} from "./OrdersButton";
 import {AccountButton} from "../Global/AccountButton";
 import { useTranslation } from "react-i18next";
+import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 
 export function UserHeader() {
     const {t} = useTranslation();
@@ -15,6 +16,7 @@ export function UserHeader() {
             <CartButton/>
             <OrdersButton pathname={'orderhistory'}/>
             <AccountButton/>
+            <LanguageSelector/>
         </header>
     )
 }

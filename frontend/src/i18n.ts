@@ -4,7 +4,7 @@ import enTranslation from './locales/en.ts'
 import ruTranslation from './locales/ru.ts'
 
 i18n.use(initReactI18next).init({
-    lng: "ru",
+    lng: "en",
     fallbackLng: "en",
     interpolation: {
         escapeValue: false,

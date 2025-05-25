@@ -5,6 +5,7 @@ import {ClientsButton} from "./ClientsButton";
 import {SuppliersButton} from "./SuppliersButton";
 import {SearchBar} from "../Global/SearchBar";
 import { useTranslation } from "react-i18next";
+import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 
 export function EmployeeHeader() {
     const {t} = useTranslation();
@@ -17,6 +18,7 @@ export function EmployeeHeader() {
             <SuppliersButton/>
             <OrdersButton pathname={"orders"}/>
             <AccountButton/>
+            <LanguageSelector/>
         </header>
     )
 }
