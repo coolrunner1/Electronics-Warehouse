@@ -4,10 +4,11 @@ import {useLocation} from "react-router-dom";
 import { useSelector } from 'react-redux';
 import axios from "axios";
 import {RootState} from "../../state/store";
+import {Item} from "../../types/Item.ts";
 
 export const ItemsContainer = () => {
-    const [itemsList, setItemsList] = useState([]);
-    const [renderCount, setRenderCount] = useState(0);
+    const [itemsList, setItemsList] = useState<Item[]>([]);
+    const [, setRenderCount] = useState(0);
 
     const {category, manufacturer, sortBy, sortingDirection} = useSelector((state: RootState) => state.filters);
 
@@ -37,13 +38,13 @@ export const ItemsContainer = () => {
     useEffect(() => {
         try {
             if (sortingDirection === "Ascending" && sortBy === "Price") {
-                setItemsList(itemsList.sort((a, b) => a.unit_price - b.unit_price));
+                setItemsList(itemsList.sort((a: Item, b: Item) => a.unit_price - b.unit_price));
             } else if (sortingDirection === "Descending" && sortBy === "Price") {
-                setItemsList(itemsList.sort((a, b) => a.unit_price - b.unit_price).reverse());
+                setItemsList(itemsList.sort((a: Item, b: Item) => a.unit_price - b.unit_price).reverse());
             } else if (sortingDirection === "Ascending" && sortBy === "Name") {
-                setItemsList(itemsList.sort((a, b) => a.model.localeCompare(b.model)));
+                setItemsList(itemsList.sort((a: Item, b: Item) => a.model.localeCompare(b.model)));
             } else if (sortingDirection === "Descending" && sortBy === "Name") {
-                setItemsList(itemsList.sort((a, b) => b.model.localeCompare(a.model)));
+                setItemsList(itemsList.sort((a: Item, b: Item) => b.model.localeCompare(a.model)));
             }
         } catch (error) {
             console.error('Error sorting items:', error);
@@ -51,14 +52,18 @@ export const ItemsContainer = () => {
         setRenderCount((prev) => prev + 1);
     }, [sortBy, sortingDirection]);
 
+    /*
+    ToDo: Refactor using react-query
+    this shit does not work anymore
+    */
     useEffect(() => {
-        if (category === 'all' && manufacturer === 'all') {
+        if ((category === 'All' || category === 'Все') && (manufacturer === 'All' || manufacturer === 'Все')) {
             getAllItems();
-        } else if (category !== 'all' && manufacturer === 'all') {
+        } else if (!(category === 'All' || category === 'Все') && (manufacturer === 'All' || manufacturer === 'Все')) {
             makeServerRequest("/items/search/category/"+category);
-        } else if (category === 'all' && manufacturer !== 'all') {
+        } else if ((category === 'All' || category === 'Все') && !(manufacturer === 'All' || manufacturer === 'Все')) {
             makeServerRequest("/items/search/manufacturer/"+manufacturer);
-        } else if (category !== 'all' && manufacturer !== 'all') {
+        } else if (!(category === 'All' || category === 'Все') && !(manufacturer === 'All' || manufacturer === 'Все')) {
             makeServerRequest("/items/search/category/"+category+"/manufacturer/"+manufacturer);
         }
     }, [category, manufacturer]);

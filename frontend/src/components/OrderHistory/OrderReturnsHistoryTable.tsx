@@ -33,7 +33,7 @@ export const OrderReturnsHistoryTable = (
             <Table className="w-full text-md shadow-md rounded mb-4">
                 <Thead className="border-b">
                 <Tr>
-                    {[t('product'), t('price-per-unit'), t('quantity'), t('total-price'), t('reason'), t('description'), t('date'), t('status')]
+                    {[t('product'), t('price-per-unit'), t('quantity'), t('total-price'), t('description'), t('date'), t('reason'), t('status')]
                         .map((item, index) => (
                             <Th key={index} className="text-left p-3 px-4">{item}</Th>
                         ))}

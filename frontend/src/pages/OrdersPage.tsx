@@ -13,7 +13,7 @@ export const OrdersPage = () => {
     const [orderStatuses, setOrderStatuses] = useState([]);
     const [returnStatuses, setReturnStatuses] = useState([]);
     const userRole = useSelector((state: RootState) => state.user.userInfo.role_id);
-    const {t} = useTranslation();
+    const {i18n, t} = useTranslation();
 
     const location = useLocation();
 
@@ -30,17 +30,17 @@ export const OrdersPage = () => {
         getAllOrders();
         axios.get("http://localhost:8000/enums/orderstatuses")
             .then((response) => setOrderStatuses(response.data.rows
-                .map((item: EnumFromDB, index: number) => ({value: index+1, label: item.unnest}))))
+                .map((item: EnumFromDB) => ({value: item.unnest, label: t(item.unnest)}))))
             .catch((error) => {
             console.error('Error fetching items:', error);
             });
         axios.get("http://localhost:8000/enums/returnstatuses")
             .then((response) => setReturnStatuses(response.data.rows
-                .map((item: EnumFromDB, index: number) => ({value: index+1, label: item.unnest}))))
+                .map((item: EnumFromDB) => ({value: item.unnest, label: t(item.unnest)}))))
             .catch((error) => {
                 console.error('Error fetching items:', error);
             });
-    }, [])
+    }, [i18n.language])
 
     useEffect(() => {
         if (location.search === null || location.search === "" || location.search === "?") {

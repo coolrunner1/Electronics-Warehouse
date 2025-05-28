@@ -1,3 +1,6 @@
+/*
+ToDo: create ReturnItem type
+*/
 export type Item = {
     item_id: number;
     category_id: number;
@@ -16,4 +19,6 @@ export type Item = {
     order_return_id?: number,
     reason?: string,
     description?: string,
+    order_product_id?: number
+    order_id?: number
 }

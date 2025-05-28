@@ -24,7 +24,7 @@ export const ShopItem = (
             className="rounded-xl light:bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
             <div>
                 <div className="relative flex items-end overflow-hidden rounded-xl">
-                    {props.item.image_path == null ? <img className="aspect-square object-scale-down" src="/placeholder.png" alt="image is missing" /> : <img className="aspect-square object-scale-down" src={props.item.image_path} alt={props.item.model} />}
+                    {props.item.image_path == null ? <img className="aspect-square object-scale-down" src="/placeholder.png" alt="image is missing" /> : <img className="aspect-square object-scale-down" src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`} alt={props.item.model} />}
                 </div>
 
                 <div className="mt-1 p-2">

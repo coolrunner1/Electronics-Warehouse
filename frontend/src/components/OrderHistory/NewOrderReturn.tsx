@@ -13,9 +13,14 @@ import {Td, Tr} from "react-super-responsive-table";
 import {RootState} from "../../state/store";
 import {EnumFromDB} from "../../types/EnumFromDB";
 import {useTranslation} from "react-i18next";
+import {Item} from "../../types/Item.ts";
 
+
+/*
+ToDo: Refactor
+*/
 export const NewOrderReturn = () => {
-    const itemReturn = useSelector((state: RootState) => state.returns.itemReturn);
+    const itemReturn = useSelector((state: RootState): Item | null => state.returns.itemReturn);
     const dispatch = useDispatch();
     const [reasons, setReasons] = useState([]);
     const [reason, setReason] = useState("");
@@ -27,13 +32,15 @@ export const NewOrderReturn = () => {
     useEffect(() => {
         axios.get("http://localhost:8000/enums/returnreasons")
             .then((response) => setReasons(response.data.rows
-                .map((item: EnumFromDB, index: number) => ({value: index+1, label: item.unnest}))))
+                .map((item: EnumFromDB) => ({value: item.unnest, label: t(item.unnest)}))))
             .catch((error) => {
                 console.error(error);
             })
     }, []);
 
     const increment = () => {
+        if (!(itemReturn?.quantity && itemReturn?.returned_units)) return;
+
         if (quantity < itemReturn.quantity - itemReturn.returned_units) {
             setQuantity(quantity+1);
         }
@@ -56,6 +63,7 @@ export const NewOrderReturn = () => {
             alert("Please write a description");
             return;
         }
+        if (!(itemReturn?.order_product_id && itemReturn?.order_id)) return
 
         const requestBody = {
             orderProductId: itemReturn.order_product_id,
@@ -75,8 +83,8 @@ export const NewOrderReturn = () => {
         dispatch(setItemReturn(null))
     }
 
-    const onReasonChange = (e) => {
-        setReason(e.label);
+    const onReasonChange = (e: any) => {
+        setReason(e.value);
     }
 
     const onDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -110,6 +118,10 @@ export const NewOrderReturn = () => {
                     </Td>
                     <Td>${(itemReturn.unit_price * quantity).toFixed(2)}</Td>
                     <Td>
+                        <textarea className="max-w-44 sm:max-w-full" maxLength={255} onChange={onDescriptionChange} value={description}></textarea>
+                    </Td>
+                    <Td>{date.current}</Td>
+                    <Td>
                         <Select
                             options={reasons}
                             defaultValue={1}
@@ -117,10 +129,6 @@ export const NewOrderReturn = () => {
                             styles={customStyles}
                         />
                     </Td>
-                    <Td>
-                        <textarea className="max-w-44 sm:max-w-full" maxLength={255} onChange={onDescriptionChange} value={description}></textarea>
-                    </Td>
-                    <Td>{date.current}</Td>
                     <Td>{t('pending')}</Td>
                     <Td>
                         <BlueButton onClick={onSaveClick} name={t('add')}/>

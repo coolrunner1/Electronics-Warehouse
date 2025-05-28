@@ -22,8 +22,8 @@ export const OrderReturnHistoryTableItem = (
     const [currentStatus, setCurrentStatus] = useState(props.item.status);
     const {t} = useTranslation();
 
-    const onStatusChange = (e) => {
-        setStatus(e.label);
+    const onStatusChange = (e: any) => {
+        setStatus(e.value);
     }
 
     const onSetClick = async () => {
@@ -47,18 +47,19 @@ export const OrderReturnHistoryTableItem = (
                                 className="w-full rounded-lg sm:w-40"/>)
                             : (<img
                                 alt={props.item.model.toLowerCase()}
-                                src={props.item.image_path}
+                                src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`}
                                 className="w-full rounded-lg sm:w-40"/>)
                         }
 
                     </div>
                     <div>{props.item.model}</div>
                 </Td>
-                {['$'+props.item.unit_price, props.item.quantity, '$'+(props.item.unit_price * props.item.quantity).toFixed(2),
-                    props.item.reason, props.item.description, date.current, currentStatus]
+                {['$'+props.item.unit_price, props.item.quantity, '$'+(props.item.unit_price * props.item.quantity).toFixed(2), props.item.description, date.current]
                     .map((item, index) => (
                         <Td className="p-3" key={index}>{item}</Td>
                     ))}
+                {props.item.reason && <Td>{t(props.item.reason)}</Td>}
+                {currentStatus && <Td>{t(currentStatus)}</Td>}
                 <Td className="p-3">
                     {(props.userRole !== 2 && currentStatus !== "Refunded" && currentStatus !== "Rejected") &&
                         <div className="flex justify-center m-auto gap-3">

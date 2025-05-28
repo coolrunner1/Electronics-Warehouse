@@ -42,7 +42,7 @@ export const OrderHistoryTableItem = (
                                 className="w-full rounded-lg sm:w-40"/>)
                             : (<img
                                 alt={props.item.model.toLowerCase()}
-                                src={props.item.image_path}
+                                src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`}
                                 className="w-full rounded-lg sm:w-40"/>)
                         }
 

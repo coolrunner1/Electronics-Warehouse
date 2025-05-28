@@ -8,15 +8,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model category {
-  category_id Int    @id @default(autoincrement())
-  name        String @db.VarChar(255)
-  description String @db.VarChar(255)
-  parent_id   Int?
-  item        item[]
+model Category {
+  category_id     Int        @id @default(autoincrement())
+  nameEN          String     @unique @db.VarChar(255)
+  nameRU          String     @unique @db.VarChar(255)
+  parent          Category?  @relation("categoryChildren", fields: [parent_id], references: [category_id], onDelete: Cascade, onUpdate: Cascade)
+  parent_id       Int?
+  item            Item[]     @relation("itemCategory")
+  subcategories   Category[] @relation("categoryChildren")
+
+  @@map("category")
 }
 
-model client {
+model Client {
   client_id    Int           @id @default(autoincrement())
   name         String        @db.VarChar(255)
   phone_number Int
@@ -26,25 +30,31 @@ model client {
   region       String        @db.VarChar(255)
   country      String        @db.VarChar(255)
   postal_code  Int
-  clientorder  clientorder[]
-  userprofile  userprofile[]
+  clientOrder  ClientOrder[] @relation("clientClientOrder")
+  userProfile  UserProfile[] @relation("userProfileClient")
+  reviews      Review[]      @relation("clientReview")
+
+  @@map("client")
 }
 
-model clientorder {
+model ClientOrder {
   order_id     Int            @id @default(autoincrement())
   client_id    Int
   status       order_status
   timestamp    DateTime       @db.Timestamp(6)
   total_items  Int
   total_amount Float
-  client       client         @relation(fields: [client_id], references: [client_id], onDelete: NoAction, onUpdate: NoAction, map: "clientorder_client_foreign")
-  orderproduct orderproduct[]
+  client       Client         @relation("clientClientOrder", fields: [client_id], references: [client_id], onDelete: NoAction, onUpdate: NoAction)
+  orderProduct OrderProduct[] @relation("clientOrderOrderProduct")
+
+  @@map("clientorder")
 }
 
-model item {
+model Item {
   item_id         Int            @id @default(autoincrement())
   category_id     Int
-  model           String         @db.VarChar(255)
+  modelEN         String         @db.VarChar(255)
+  modelRU         String         @db.VarChar(255)
   image_path      String?        @db.VarChar(255)
   status          item_status
   manufacturer    String         @db.VarChar(255)
@@ -52,23 +62,41 @@ model item {
   date_of_arrival DateTime       @db.Timestamp(6)
   units_in_stock  Int
   faulty_units    Int
-  category        category       @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "item_category_foreign")
-  orderproduct    orderproduct[]
-  supplieritem    supplieritem[]
+  category        Category       @relation("itemCategory", fields: [category_id], references: [category_id], onDelete: Cascade, onUpdate: Cascade)
+  orderProduct    OrderProduct[] @relation("orderProductItem")
+  supplierItem    SupplierItem[] @relation("itemSupplierItem")
+  reviews         Review[]       @relation("itemReview")
+
+  @@map("item")
 }
 
-model orderproduct {
+model Review {
+  id        Int    @id @default(autoincrement())
+  item_id   Int
+  client_id Int
+  title     String @db.VarChar(255)
+  content   String
+  score     Int
+  item      Item   @relation("itemReview", fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: Cascade)
+  client    Client @relation("clientReview", fields: [client_id], references: [client_id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("review")
+}
+
+model OrderProduct {
   order_product_id Int           @id @default(autoincrement())
   order_id         Int
   item_id          Int
   quantity         Int
   returned_units   Int           @default(0)
-  clientorder      clientorder   @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction, map: "orderproduct_clientorder_foreign")
-  item             item          @relation(fields: [item_id], references: [item_id], onDelete: NoAction, onUpdate: NoAction, map: "orderproduct_item_foreign")
-  orderreturn      orderreturn[]
+  clientorder      ClientOrder   @relation("clientOrderOrderProduct", fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction)
+  item             Item          @relation("orderProductItem", fields: [item_id], references: [item_id], onDelete: NoAction, onUpdate: NoAction)
+  orderReturn      OrderReturn[] @relation("orderReturnOrderProduct")
+
+  @@map("orderproduct")
 }
 
-model orderreturn {
+model OrderReturn {
   order_return_id  Int           @id @default(autoincrement())
   order_product_id Int
   quantity         Int
@@ -76,17 +104,21 @@ model orderreturn {
   description      String        @db.VarChar(255)
   status           return_status
   return_date      DateTime      @db.Date
-  orderproduct     orderproduct  @relation(fields: [order_product_id], references: [order_product_id], onDelete: NoAction, onUpdate: NoAction, map: "orderreturn_orderproduct_foreign")
+  orderProduct     OrderProduct  @relation("orderReturnOrderProduct", fields: [order_product_id], references: [order_product_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("orderreturn")
 }
 
-model role {
+model Role {
   role_id     Int           @id @default(autoincrement())
   name        String        @unique @db.VarChar(255)
   description String        @db.VarChar(255)
-  userprofile userprofile[]
+  userprofile UserProfile[] @relation("userProfileRole")
+
+  @@map("role")
 }
 
-model supplier {
+model Supplier {
   supplier_id  Int            @id @default(autoincrement())
   name         String         @db.VarChar(255)
   email        String         @db.VarChar(255)
@@ -96,18 +128,22 @@ model supplier {
   country      String         @db.VarChar(255)
   postal_code  Int
   phone_number Int
-  supplieritem supplieritem[]
+  supplierItem SupplierItem[] @relation("supplierSupplierItem")
+
+  @@map("supplier")
 }
 
-model supplieritem {
+model SupplierItem {
   id          Int      @id @default(autoincrement())
   supplier_id Int
   item_id     Int
-  item        item     @relation(fields: [item_id], references: [item_id], onDelete: NoAction, onUpdate: NoAction, map: "supplieritem_item_foreign")
-  supplier    supplier @relation(fields: [supplier_id], references: [supplier_id], onDelete: NoAction, onUpdate: NoAction, map: "supplieritem_supplier_foreign")
+  item        Item     @relation("itemSupplierItem", fields: [item_id], references: [item_id], onDelete: NoAction, onUpdate: NoAction)
+  supplier    Supplier @relation("supplierSupplierItem", fields: [supplier_id], references: [supplier_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("supplieritem")
 }
 
-model userprofile {
+model UserProfile {
   user_id      Int     @id @default(autoincrement())
   role_id      Int
   client_id    Int?
@@ -118,8 +154,10 @@ model userprofile {
   email        String  @unique @db.VarChar(255)
   phone_number Int     @unique
   passport     Int
-  client       client? @relation(fields: [client_id], references: [client_id], onDelete: Cascade, map: "userprofile_client_foreign")
-  role         role    @relation(fields: [role_id], references: [role_id], onDelete: Cascade, map: "userprofile_role_foreign")
+  client       Client? @relation("userProfileClient", fields: [client_id], references: [client_id], onDelete: Cascade)
+  role         Role    @relation("userProfileRole", fields: [role_id], references: [role_id], onDelete: Cascade)
+
+  @@map("userprofile")
 }
 
 enum item_status {

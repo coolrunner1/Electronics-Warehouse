@@ -11,7 +11,7 @@ import {useTranslation} from "react-i18next";
 export const Filters = () => {
     const location = useLocation();
     const allowFilters = location.search === null || location.search === "" || location.search === "?";
-    const {t} = useTranslation();
+    const {i18n, t} = useTranslation();
 
     const [categories, setCategories] = useState([]);
 
@@ -24,7 +24,7 @@ export const Filters = () => {
             });
     }, []);
 
-    const [manufacturers, setManufacturers] = useState([]);
+    const [manufacturers, setManufacturers] = useState<string[]>([]);
 
     useEffect(() => {
         axios.get("http://localhost:8000/manufacturers")
@@ -33,7 +33,12 @@ export const Filters = () => {
                 console.error('Error fetching items:', error);
                 alert("Error fetching items: " + error.message);
             });
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        manufacturers.shift();
+        setManufacturers([t('all'),  ...manufacturers]);
+    }, [i18n.language]);
 
     const dispatch = useDispatch();
 

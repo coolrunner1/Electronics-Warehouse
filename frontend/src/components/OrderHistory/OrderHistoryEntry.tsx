@@ -86,7 +86,7 @@ export const OrderHistoryEntry = (
                             <div className="text-center">{t('order-number')}: {props.order.order_id}</div>
                             <div className="text-center">{t('number-of-items')}: {props.order.total_items}</div>
                             <div className="text-center">{t('total-amount')}: ${props.order.total_amount}</div>
-                            <div className="text-center">{t('status')}: {currentStatus}</div>
+                            <div className="text-center">{t('status')}: {t(currentStatus)}</div>
                             {(props.userRole === 3 && currentStatus !== "Delivered" && currentStatus !== "Canceled") &&
                                 <div className="text-center flex align-center justify-center gap-4">{t('new-status')}:
                                     <Select
