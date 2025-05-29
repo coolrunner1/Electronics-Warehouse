@@ -4,12 +4,12 @@ import {BlueButton} from "../Global/BlueButton";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import {RootState} from "../../state/store";
-import {Item} from "../../types/Item";
+import {ItemInOrder} from "../../types/Item";
 import {useTranslation} from "react-i18next";
 
 export const OrderHistoryTableItem = (
     props: {
-        item: Item,
+        item: ItemInOrder,
         status: string,
         userRole: number,
     }

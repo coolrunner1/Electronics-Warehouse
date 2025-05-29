@@ -2,12 +2,12 @@ import {OrderHistoryTableItem} from "./OrderHistoryTableItem.tsx";
 // @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
-import {Item} from "../../types/Item";
+import {ItemInOrder} from "../../types/Item";
 import {useTranslation} from "react-i18next";
 
 export const OrderHistoryTable = (
     props: {
-        items: Item[],
+        items: ItemInOrder[],
         status: string,
         userRole: number,
     }
@@ -30,7 +30,7 @@ export const OrderHistoryTable = (
                 </Tr>
                 </Thead>
                 <Tbody>
-                {props.items.map((item: Item, index: number) => (
+                {props.items.map((item: ItemInOrder, index: number) => (
                     <OrderHistoryTableItem key={index} item={item} status={props.status} userRole={props.userRole} />
                 ))}
                 </Tbody>

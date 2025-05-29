@@ -13,14 +13,14 @@ import {Td, Tr} from "react-super-responsive-table";
 import {RootState} from "../../state/store";
 import {EnumFromDB} from "../../types/EnumFromDB";
 import {useTranslation} from "react-i18next";
-import {Item} from "../../types/Item.ts";
+import {ItemInOrder} from "../../types/Item.ts";
 
 
 /*
 ToDo: Refactor
 */
 export const NewOrderReturn = () => {
-    const itemReturn = useSelector((state: RootState): Item | null => state.returns.itemReturn);
+    const itemReturn = useSelector((state: RootState): ItemInOrder | null => state.returns.itemReturn);
     const dispatch = useDispatch();
     const [reasons, setReasons] = useState([]);
     const [reason, setReason] = useState("");
@@ -39,8 +39,7 @@ export const NewOrderReturn = () => {
     }, []);
 
     const increment = () => {
-        if (!(itemReturn?.quantity && itemReturn?.returned_units)) return;
-
+        if (!itemReturn) return;
         if (quantity < itemReturn.quantity - itemReturn.returned_units) {
             setQuantity(quantity+1);
         }
@@ -63,7 +62,8 @@ export const NewOrderReturn = () => {
             alert("Please write a description");
             return;
         }
-        if (!(itemReturn?.order_product_id && itemReturn?.order_id)) return
+
+        if (!itemReturn) return;
 
         const requestBody = {
             orderProductId: itemReturn.order_product_id,

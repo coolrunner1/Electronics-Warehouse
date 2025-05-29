@@ -1,11 +1,11 @@
 import {incrementCartItemNumber, decrementCartItemNumber, removeCartItem} from "../../slices/cartSlice";
 import {useDispatch} from "react-redux";
 import {NumberToggle} from "../Global/NumberToggle";
-import {Item} from "../../types/Item";
+import {ItemInCart} from "../../types/Item";
 
 export const CheckoutItem = (
     props: {
-        item: Item
+        item: ItemInCart,
     }
 ) => {
     const dispatch = useDispatch();

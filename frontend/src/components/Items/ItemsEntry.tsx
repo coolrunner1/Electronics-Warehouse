@@ -11,13 +11,13 @@ import {Td, Tr} from "react-super-responsive-table";
 import {setTableRefresh} from "../../slices/tableSlice";
 import {TableTextInput} from "../Global/TableTextInput";
 import {dateToString} from "../../utils/dateToString";
-import {Item} from "../../types/Item";
+import {ItemInShop} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 
 export const ItemsEntry = (
     props: {
-        item: Item,
+        item: ItemInShop,
         categories: ValueLabel[],
         suppliers: ValueLabel[],
     }

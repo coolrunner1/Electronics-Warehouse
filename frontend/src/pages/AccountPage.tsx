@@ -13,6 +13,9 @@ import {RedButton} from "../components/Global/RedButton";
 import {RootState} from "../state/store";
 import {useTranslation} from "react-i18next";
 
+/*
+ToDo: Refactor
+*/
 export const AccountPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

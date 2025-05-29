@@ -1,12 +1,12 @@
 import {addToCart} from "../../slices/cartSlice";
 import {useDispatch} from "react-redux";
 import {useState, MouseEvent} from "react";
-import {Item} from "../../types/Item";
+import {ItemInShop} from "../../types/Item";
 import {useTranslation} from "react-i18next";
 
 export const ShopItem = (
     props: {
-        item: Item,
+        item: ItemInShop,
     }
 ) => {
     const [clicked, setClicked] = useState(false);

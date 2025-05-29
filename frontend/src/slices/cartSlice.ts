@@ -1,10 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Item} from "../types/Item";
+import {ItemInCart} from "../types/Item";
 
 const cartSlice = createSlice({
     name: "cart",
     initialState: {
-        items: <Item[]> [],
+        items: <ItemInCart[]> [],
         quantity: 0,
         amount: 0.0,
     },

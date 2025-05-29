@@ -52,7 +52,7 @@ export const OrderHistoryEntry = (
         }
     }, [itemReturn]);
 
-    const onStatusChange = (e) => {
+    const onStatusChange = (e: any) => {
         setStatus(e.label);
     }
 

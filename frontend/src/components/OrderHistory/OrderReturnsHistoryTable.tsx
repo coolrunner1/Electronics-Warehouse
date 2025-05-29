@@ -6,19 +6,19 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 import {useEffect, useState} from "react";
 import {RootState} from "../../state/store";
-import {Item} from "../../types/Item";
+import {ItemInReturn} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 
 export const OrderReturnsHistoryTable = (
     props: {
-        items: Item[],
+        items: ItemInReturn[],
         userRole: number,
-        returnStatuses: ValueLabel[],
+        returnStatuses?: ValueLabel[],
         orderId: number,
     }
 ) => {
-    const itemReturn = useSelector((state: RootState) => state.returns.itemReturn);
+    const itemReturn = useSelector((state: RootState): ItemInReturn | null => state.returns.itemReturn);
     const [orderId, setOrderId] = useState(0);
     const {t} = useTranslation();
 
@@ -44,7 +44,7 @@ export const OrderReturnsHistoryTable = (
                 </Tr>
                 </Thead>
                 <Tbody>
-                {props.items.map((item: Item, index: number) => (
+                {props.items.map((item: ItemInReturn, index: number) => (
                     <OrderReturnHistoryTableItem key={index} item={item} userRole={props.userRole}
                                                  returnStatuses={props.returnStatuses}/>
                 ))}

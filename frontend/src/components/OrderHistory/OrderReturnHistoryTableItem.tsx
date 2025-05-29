@@ -6,15 +6,15 @@ import Select from "react-select";
 import {BlueButton} from "../Global/BlueButton";
 import {customStyles} from "../../utils/customStyles";
 import axios from "axios";
-import {Item} from "../../types/Item";
+import {ItemInReturn} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 
 export const OrderReturnHistoryTableItem = (
     props: {
-        item: Item,
+        item: ItemInReturn,
         userRole: number,
-        returnStatuses: ValueLabel[],
+        returnStatuses?: ValueLabel[],
     }
 ) => {
     const date = useRef(new Date(props.item.return_date).toLocaleDateString("en-GB"));

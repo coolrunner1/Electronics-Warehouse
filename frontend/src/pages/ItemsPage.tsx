@@ -9,18 +9,18 @@ import {setTableRefresh} from "../slices/tableSlice";
 import {NewRemoveButtons} from "../components/Global/NewRemoveButtons";
 import {RootState} from "../state/store";
 import {Category} from "../types/Category";
-import {Item} from "../types/Item";
+import {ItemInShop} from "../types/Item";
 import {ValueLabel} from "../types/ValueLabel";
 import {Supplier} from "../types/Supplier.ts";
 import {useTranslation} from "react-i18next";
 
 export const ItemsPage = () => {
-    const [items, setItems] = useState<Item[]>([]);
+    const [items, setItems] = useState<ItemInShop[]>([]);
     const [categories, setCategories] = useState<ValueLabel[]>([]);
     const [suppliers, setSuppliers] = useState<ValueLabel[]>([]);
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
     const dispatch = useDispatch();
-    const {t} = useTranslation();
+    const {i18n, t} = useTranslation();
 
     useEffect(() => {
         axios.get("http://localhost:8000/items")
@@ -31,7 +31,7 @@ export const ItemsPage = () => {
             });
         dispatch(setTableRefresh(false));
         axios.get("http://localhost:8000/api/v1/categories")
-            .then((response) => setCategories(response.data.map((category: Category) => ({value: category.category_id, label: category.name}))))
+            .then((response) => setCategories(response.data.map((category: Category) => ({value: category.category_id, label: i18n.language === 'ru' ? category.nameRU : category.nameEN}))))
             .catch((error) => {
                 console.error('Error fetching items:', error);
                 setCategories([]);
@@ -56,6 +56,10 @@ export const ItemsPage = () => {
             manufacturer: '',
             category_id: 1,
             unit_price: 0.0,
+            status: "",
+            date_of_arrival: "",
+            units_in_stock: 0,
+            faulty_units: 0
         }, ...items]);
     }
 

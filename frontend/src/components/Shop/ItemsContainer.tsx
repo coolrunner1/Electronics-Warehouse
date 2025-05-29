@@ -6,6 +6,10 @@ import axios from "axios";
 import {RootState} from "../../state/store";
 import {Item} from "../../types/Item.ts";
 
+
+/*
+ToDo: Refactor
+*/
 export const ItemsContainer = () => {
     const [itemsList, setItemsList] = useState<Item[]>([]);
     const [, setRenderCount] = useState(0);

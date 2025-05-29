@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './SearchBar.css'
-import {useState} from "react";
+import {ChangeEvent, KeyboardEvent, useState} from "react";
 import {useLocation} from "react-router-dom";
 
 export function SearchBar(
@@ -14,14 +14,13 @@ export function SearchBar(
 
     const [search, setSearch] = useState('');
 
-    const keyPressHandler = (e) => {
+    const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             navigate('/'+props.pathname+'?'+search);
         }
     }
 
-    const changeHandler = (event) => {
-        setSearch(event.target.value);
+    const keyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (location.pathname === "/"+props.pathname) {
             navigate('/'+props.pathname+'?'+search);
         }
@@ -46,8 +45,8 @@ export function SearchBar(
                         id="search"
                         placeholder={props.placeholder}
                         onChange={event => setSearch(event.target.value)}
-                        onKeyUp={event => {changeHandler(event)}}
-                        onKeyDown={keyPressHandler}
+                        onKeyUp={keyUpHandler}
+                        onKeyDown={keyDownHandler}
                     />
                 </div>
             </div>
