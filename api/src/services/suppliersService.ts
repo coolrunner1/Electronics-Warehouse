@@ -1,22 +1,24 @@
 import prisma from "../../prisma/prisma-client";
 import {Organization} from "../types/Organizaton";
+import {calculateNumberOfPages, pagination} from "../utils/pagination";
 
 class SuppliersService {
-    async getAllSuppliers(page: number) {
+    async getAllSuppliers(page: number, limit: number) {
+        const {skip, take} = pagination(page, limit);
         const [suppliers, count] = await prisma.$transaction([
             prisma.supplier.findMany({
                 orderBy: {
                     supplier_id: 'desc'
                 },
-                skip: page > 1 ? (page-1) * 10 : 0,
-                take: 10
+                skip,
+                take
             }),
             prisma.supplier.count()
         ]);
 
         return {
             pagination: {
-                total: Math.ceil(count/10),
+                total: calculateNumberOfPages(count, limit),
             },
             data: suppliers
         };

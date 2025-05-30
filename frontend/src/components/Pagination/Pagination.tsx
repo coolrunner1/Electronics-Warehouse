@@ -1,12 +1,16 @@
 import {PageButton} from "./PageButton.tsx";
 import {useCallback, useEffect, useState} from "react";
 
+export type PaginationProps = {
+    currentPage: number;
+    setCurrentPage: (page: number) => void;
+    pageCount: number;
+    itemsPerPage: number;
+    setItemsPerPage: (page: number) => void;
+}
+
 export const Pagination = (
-    props: {
-        currentPage: number;
-        setCurrentPage: (page: number) => void;
-        pageCount: number;
-    }
+    props: PaginationProps
 ) => {
     const [pageArray, setPageArray] = useState<string[]>([]);
 
@@ -43,7 +47,17 @@ export const Pagination = (
     }, [props.currentPage, props.pageCount]);
 
     return (
-        <>
+        <div className="flex flex-row">
+            <select
+                onChange={e => props.setItemsPerPage(parseInt(e.target.value))}
+                defaultValue={props.itemsPerPage}
+            >
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+                <option>30</option>
+                <option>50</option>
+            </select>
             {props.pageCount > 1 &&
                 <div className="flex items-center justify-between bg-white dark:bg-[#242424] px-4 py-3 sm:px-6">
                     <div className="flex flex-1 justify-center items-center text-center sm:hidden gap-3">
@@ -108,6 +122,6 @@ export const Pagination = (
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 };

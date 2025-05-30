@@ -1,8 +1,9 @@
 import prisma from "../../prisma/prisma-client";
 import {Organization} from "../types/Organizaton";
+import {calculateNumberOfPages, pagination} from "../utils/pagination";
 
 class ClientsService {
-    async getAllClients(page: number, ignorePagination: boolean) {
+    async getAllClients(page: number, limit: number, ignorePagination: boolean) {
         if (ignorePagination) {
             const data = await prisma.client.findMany({
                 orderBy: {
@@ -18,20 +19,22 @@ class ClientsService {
             }
         }
 
+        const {skip, take} = pagination(page, limit);
+
         const [clients, count] = await prisma.$transaction([
             prisma.client.findMany({
                 orderBy: {
                     client_id: 'desc'
                 },
-                skip: page > 1 ? (page-1) * 10 : 0,
-                take: 10
+                skip,
+                take
             }),
             prisma.client.count()
         ]);
 
         return {
             pagination: {
-                total: Math.ceil(count/10),
+                total: calculateNumberOfPages(count, take),
             },
             data: clients
         };

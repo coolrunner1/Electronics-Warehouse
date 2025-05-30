@@ -10,8 +10,8 @@ datasource db {
 
 model Category {
   category_id     Int        @id @default(autoincrement())
-  nameEN          String     @unique @db.VarChar(255)
-  nameRU          String     @unique @db.VarChar(255)
+  nameEN          String     @unique @db.VarChar(255) @map("name_en")
+  nameRU          String     @unique @db.VarChar(255) @map("name_ru")
   parent          Category?  @relation("categoryChildren", fields: [parent_id], references: [category_id], onDelete: Cascade, onUpdate: Cascade)
   parent_id       Int?
   item            Item[]     @relation("itemCategory")
@@ -53,8 +53,8 @@ model ClientOrder {
 model Item {
   item_id         Int            @id @default(autoincrement())
   category_id     Int
-  modelEN         String         @db.VarChar(255)
-  modelRU         String         @db.VarChar(255)
+  modelEN         String         @db.VarChar(255) @map("model_en")
+  modelRU         String         @db.VarChar(255) @map("model_ru")
   image_path      String?        @db.VarChar(255)
   status          item_status
   manufacturer    String         @db.VarChar(255)

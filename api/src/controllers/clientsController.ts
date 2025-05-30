@@ -4,11 +4,8 @@ import clientsService from "../services/clientsService";
 class ClientsController {
     async getAllClients(req: Request, res: Response, next: NextFunction) {
         try {
-            let page = parseInt(req.query.page);
-            if (page <= 0) {
-                page = 1;
-            }
-            const clients = await clientsService.getAllClients(page, req.query.ignorePagination === 'true');
+            const {page, limit} = req.query;
+            const clients = await clientsService.getAllClients(parseInt(page), parseInt(limit), req.query.ignorePagination === 'true');
             if (!clients.data.length) {
                 return res.status(404).json({ status: "error", message: "No clients found" });
             }

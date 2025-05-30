@@ -15,6 +15,7 @@ export const SuppliersPage = () => {
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
     const {t} = useTranslation();
 
     const {
@@ -59,6 +60,8 @@ export const SuppliersPage = () => {
                                     currentPage={page}
                                     setCurrentPage={setPage}
                                     pageCount={data.pagination}
+                                    itemsPerPage={itemsPerPage}
+                                    setItemsPerPage={setItemsPerPage}
                                 />
                             </>
                         }
