@@ -61,6 +61,7 @@ export default {
     clients: 'Clients',
     suppliers: 'Suppliers',
     'no-clients': 'No clients were found',
+    'no-suppliers': 'No suppliers were found',
     'phone-number': 'Phone number',
     address: 'Address',
     'organization-name': 'Name',

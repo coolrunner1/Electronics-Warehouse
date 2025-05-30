@@ -61,6 +61,7 @@ export default {
     clients: 'Клиенты',
     suppliers: 'Поставщики',
     'no-clients': 'Клиенты отсутствуют',
+    'no-suppliers': 'Поставщики отсутствуют',
     'phone-number': 'Номер телефона',
     address: 'Адрес',
     'organization-name': 'ФИО/Название организации',

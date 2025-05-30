@@ -9,6 +9,7 @@ import {fetchSuppliers} from "../api/suppliers.ts";
 import {LoadingIndicator} from "../components/Global/LoadingIndicator.tsx";
 import {Pagination} from "../components/Pagination/Pagination.tsx";
 import {useTranslation} from "react-i18next";
+import {AxiosError} from "axios";
 
 export const SuppliersPage = () => {
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
@@ -19,6 +20,8 @@ export const SuppliersPage = () => {
     const {
         data,
         isLoading,
+        isError,
+        error,
         refetch
     } = useQuery({
         queryFn: fetchSuppliers,
@@ -38,17 +41,29 @@ export const SuppliersPage = () => {
                 {isLoading &&
                     <LoadingIndicator/>
                 }
-                {!isLoading &&
-                data
-                    ? <OrganizationsTable organizations={data.suppliers} organizations_type="suppliers" />
-                    : <div className="text-center text-xl">No clients were found.</div>
+                {!data && error && (error as AxiosError).status === 404 &&
+                    <>
+                        <div className="text-center text-xl">{t('no-suppliers')}</div>
+                        <OrganizationsTable organizations={[]} organizations_type="suppliers" />
+                    </>
                 }
-                {data &&
-                    <Pagination
-                        currentPage={page}
-                        setCurrentPage={setPage}
-                        pageCount={data.pagination}
-                    />}
+                {error && (error as AxiosError).status !== 404 &&
+                    <div className="text-center text-xl">{error.message}</div>
+                }
+                {!isLoading && !isError &&
+                    <>
+                        {data &&
+                            <>
+                                <OrganizationsTable organizations={data.suppliers} organizations_type="suppliers" />
+                                <Pagination
+                                    currentPage={page}
+                                    setCurrentPage={setPage}
+                                    pageCount={data.pagination}
+                                />
+                            </>
+                        }
+                    </>
+                }
             </div>
         </div>
     )

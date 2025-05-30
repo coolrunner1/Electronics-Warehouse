@@ -9,6 +9,7 @@ import {LoadingIndicator} from "../components/Global/LoadingIndicator";
 import {Pagination} from "../components/Pagination/Pagination.tsx";
 import {queryClient} from "../api/queryClient.ts";
 import {useTranslation} from "react-i18next";
+import {AxiosError} from "axios";
 
 export const ClientsPage = () => {
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
@@ -19,10 +20,13 @@ export const ClientsPage = () => {
     const {
         data,
         isLoading,
+        isError,
+        error,
         refetch
     } = useQuery({
         queryFn: fetchClients,
-        queryKey: ['clients', page]
+        queryKey: ['clients', page],
+
     });
 
     useEffect(() => {
@@ -38,17 +42,29 @@ export const ClientsPage = () => {
                 {isLoading &&
                     <LoadingIndicator/>
                 }
-                {!isLoading &&
-                    data
-                        ? <OrganizationsTable organizations={data.clients} organizations_type="clients" />
-                        : <div className="text-center text-xl">{t('no-clients')}</div>
+                {!data && error && (error as AxiosError).status === 404 &&
+                    <>
+                        <div className="text-center text-xl">{t('no-clients')}</div>
+                        <OrganizationsTable organizations={[]} organizations_type="clients" />
+                    </>
                 }
-                {data &&
-                    <Pagination
-                        currentPage={page}
-                        setCurrentPage={setPage}
-                        pageCount={data.pagination}
-                    />}
+                {error && (error as AxiosError).status !== 404 &&
+                    <div className="text-center text-xl">{error.message}</div>
+                }
+                {!isLoading && !isError &&
+                    <>
+                    {data &&
+                        <>
+                            <OrganizationsTable organizations={data.clients} organizations_type="clients" />
+                            <Pagination
+                                currentPage={page}
+                                setCurrentPage={setPage}
+                                pageCount={data.pagination}
+                            />
+                        </>
+                    }
+                    </>
+                }
             </div>
         </div>
     )

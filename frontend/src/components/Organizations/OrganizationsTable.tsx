@@ -11,10 +11,23 @@ export const OrganizationsTable = (
         organizations_type: string,
     }
 ) => {
-    const [organizations, setOrganizations] = useState<Organization[]>([]);
+    const [organizations, setOrganizations] = useState<Organization[]>([
+        {
+            organization_id: 99999,
+            name: "New organization name",
+            phone_number: 777777777,
+            address: "123 Example St",
+            email: "example@example.com",
+            city: "Example City",
+            region: "Example Region",
+            country: "Example Country",
+            postal_code: 999999
+        }
+        ]);
     const {t} = useTranslation();
 
     useEffect(() => {
+        if (!props.organizations.length) return;
         setOrganizations(props.organizations);
     }, [props.organizations]);
 
@@ -25,7 +38,7 @@ export const OrganizationsTable = (
         }
         setOrganizations([{
             organization_id: 99999,
-            name: "Example Name",
+            name: "New organization name",
             phone_number: 777777777,
             address: "123 Example St",
             email: "example@example.com",
