@@ -4,7 +4,7 @@ export const CartButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/checkout');
+        navigate('/cart');
     };
 
     return (

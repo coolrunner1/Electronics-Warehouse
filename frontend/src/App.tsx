@@ -1,5 +1,5 @@
 import {UserHeader} from "./components/Header/UserHeader";
-import {CheckoutPage} from "./pages/CheckoutPage";
+import {CartPage} from "./pages/CartPage.tsx";
 import {
     Route,
     Routes,
@@ -23,6 +23,7 @@ import {RootState} from "./state/store";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./api/queryClient";
 import "./i18n";
+import {CheckoutPage} from "./pages/CheckoutPage.tsx";
 
 const App = () => {
   const user = useSelector((state: RootState) => state.user);
@@ -38,7 +39,8 @@ const App = () => {
                   <Route path="/login" element={<LoginPage/>} />
                   <Route element={<ProtectedRoutes/>}>
                       <Route path="/store" element={<StorePage/>} />
-                      <Route path="/checkout" element={<CheckoutPage/>} />
+                      <Route path="/cart" element={<CartPage/>} />
+                      <Route path="/checkout" element={<CheckoutPage/>}/>
                       <Route path="/account" element={<AccountPage/>} />
                       <Route path="/orderhistory" element={<OrderUserHistory/>} />
                       <Route path="/admin" element={<AdminDashboardPage/>} />

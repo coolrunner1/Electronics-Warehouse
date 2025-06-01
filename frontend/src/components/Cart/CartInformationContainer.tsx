@@ -3,17 +3,20 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {RootState} from "../../state/store";
 import {useTranslation} from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-export const CheckoutInformationContainer = () => {
+export const CartInformationContainer = () => {
     const user = useSelector((state: RootState) => state.user);
     const {t} = useTranslation();
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
     const {items, quantity, amount} = useSelector((state: RootState) => state.cart);
 
     const onCheckOutClick = () => {
-        const postBody = {
+        navigate("/checkout");
+        /*const postBody = {
             items: items,
             clientId: user.userInfo.client_id,
             itemCount: quantity,
@@ -25,7 +28,7 @@ export const CheckoutInformationContainer = () => {
             .catch(error => {
                 console.error('Error:', error);
                 alert(error.message);
-            });
+            });*/
     };
 
     return (

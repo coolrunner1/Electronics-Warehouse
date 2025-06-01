@@ -27,10 +27,12 @@ body {
 }
 
 button:hover {
+  transition: background-color .50s ease-in-out, border-color .50s ease-in-out, box-shadow .50s ease-in-out;
   border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
+  transition: background-color .50s ease-in-out, border-color .50s ease-in-out, box-shadow .50s ease-in-out;
   outline: 4px auto -webkit-focus-ring-color;
 }
 
