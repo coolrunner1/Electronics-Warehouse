@@ -13,7 +13,7 @@ export const CategoryFilter = (
 
     return (
         <>
-            <label htmlFor="category" className="m-1 flex flex-col gap-2 text-center text-lg font-bold">
+            <label htmlFor="category" className="m-1 flex flex-col gap-2 text-center items-center text-lg font-bold">
                 {props.label}
                 <select
                     id={props.label.toLowerCase().replace(" ", '_')}
