@@ -42,7 +42,7 @@ export const ShopItem = (
                         {props.item.units_in_stock > 0 &&
                         <>
                             <button
-                                className="text-sm font-bold py-2 px-3 bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-900 rounded-md"
+                                className="text-sm font-bold py-2 px-3 bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-900 rounded-md transition-all duration-300 ease-in-out"
                                 onClick={!clicked ? onAddToCartClick : undefined}
                                 value={props.item.item_id}
                             >

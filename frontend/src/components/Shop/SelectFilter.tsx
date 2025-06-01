@@ -18,7 +18,7 @@ export const SelectFilter = (
                 {props.label}
                 <select
                     id={props.label.toLowerCase().replace(" ", '_')}
-                    className="p-1 rounded-md text-base font-medium border border-gray-100 dark:border-gray-600 hover:bg-gray-50 hover:dark:bg-gray-600 focus:outline-none focus:bg-gray-100 focus:dark:bg-gray-900"
+                    className="p-1 rounded-md text-base font-medium border border-gray-100 dark:border-gray-600 hover:bg-gray-50 hover:dark:bg-gray-600 focus:outline-none focus:bg-gray-100 focus:dark:bg-gray-900 transition-all duration-300 ease-in-out"
                     onChange={props.onChange}
                 >
                     {props.options.map((option) => (<option key={option} value={option}>{t(option)}</option>))}

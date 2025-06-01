@@ -1,6 +1,5 @@
 import {ChangeEvent, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import axios from "axios";
 import Select from "react-select";
 import {customStyles} from "../../utils/customStyles";
 import {BlueButton} from "../Global/BlueButton";
