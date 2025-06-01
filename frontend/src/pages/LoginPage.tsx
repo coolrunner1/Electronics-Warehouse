@@ -62,7 +62,7 @@ export const LoginPage = () => {
 
     return (
         <>
-            <div className="min-h-screen flex flex-col justify-center sm:py-12" style={{backgroundImage: `url('login-bg.png')`}}>
+            <div className="text-white min-h-screen flex flex-col justify-center sm:py-12" style={{backgroundImage: `url('login-bg.png')`}}>
                 <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md rounded-lg shadow backdrop-blur-xl bg-[#0000001f]">
                     <h1 className="font-bold text-center text-2xl mb-5">{t('shop-title')}</h1>
                     <div className="w-full">

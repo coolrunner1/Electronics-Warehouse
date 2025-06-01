@@ -14,13 +14,15 @@ import {ValueLabel} from "../../types/ValueLabel";
 import {Order} from "../../types/Order";
 import {useTranslation} from "react-i18next";
 
+export type OrderHistoryEntryProps = {
+    order: Order,
+    userRole: number,
+    orderStatuses?: ValueLabel[],
+    returnStatuses?: ValueLabel[],
+};
+
 export const OrderHistoryEntry = (
-    props: {
-        order: Order,
-        userRole: number,
-        orderStatuses?: ValueLabel[],
-        returnStatuses?: ValueLabel[],
-    }
+    props: OrderHistoryEntryProps
 ) => {
     const [date, setDate] = useState("");
     const [items, setItems] = useState([]);
@@ -79,7 +81,7 @@ export const OrderHistoryEntry = (
             <section>
                 <div
                     className="px-4 py-4 sm:m-6 flex flex-col justify-center overflow-x-auto font-bold text-xl text-center">
-                    <div className="justify-between sm:mb-6 rounded-lg sm:p-6 shadow-md ">
+                    <div className="bg-white dark:bg-[#242424] justify-between sm:mb-6 rounded-lg sm:p-6 shadow-md ">
                         <dl className="flex flex-col gap-4 justify-center text-center">
                             <h3 className="i">{t('order-placed-on')} {date}
                             </h3>

@@ -67,7 +67,7 @@ export const Pagination = (
                 <option>30</option>
                 <option>50</option>
             </select>
-            <div className="flex items-center justify-between bg-white dark:bg-[#242424] px-4 py-3 sm:px-6">
+            <div className="flex items-center justify-between px-4 py-3 sm:px-6">
                 <div className="flex flex-1 justify-center items-center text-center sm:hidden gap-3">
                     <button
                         disabled={props.currentPage === 1}
@@ -87,7 +87,7 @@ export const Pagination = (
                 </div>
                 <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                     <div>
-                        <nav aria-label="Pagination" className="isolate inline-flex -space-x-px rounded-md shadow-xs">
+                        <nav aria-label="Pagination" className="isolate inline-flex -space-x-px rounded-md shadow-xs bg-white dark:bg-[#3d3c42]">
                             <button
                                 disabled={props.currentPage === 1}
                                 onClick={() => props.currentPage > 1 && props.setCurrentPage(props.currentPage-1)}

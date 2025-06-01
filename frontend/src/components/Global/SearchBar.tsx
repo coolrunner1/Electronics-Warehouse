@@ -40,7 +40,7 @@ export function SearchBar(
                     </div>
 
                     <input
-                        className="peer h-full w-full outline-none text-sm light:text-gray-700 pr-2 bg-search"
+                        className="peer h-full w-full outline-none text-sm pr-2 bg-search"
                         type="text"
                         id="search"
                         placeholder={props.placeholder}

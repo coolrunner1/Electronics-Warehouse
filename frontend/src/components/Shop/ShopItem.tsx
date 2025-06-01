@@ -21,7 +21,7 @@ export const ShopItem = (
 
     return (
         <article
-            className="rounded-xl light:bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
+            className="bg-white dark:bg-[#242424] rounded-xl p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
             <div>
                 <div className="relative flex items-end overflow-hidden rounded-xl">
                     {props.item.image_path == null ? <img className="aspect-square object-scale-down" src="/placeholder.png" alt="image is missing" /> : <img className="aspect-square object-scale-down" src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`} alt={props.item.modelEN} />}
@@ -42,7 +42,7 @@ export const ShopItem = (
                         {props.item.units_in_stock > 0 &&
                         <>
                             <button
-                                className="text-sm font-bold py-2 px-3 bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-900 rounded-md transition-all duration-300 ease-in-out"
+                                className="text-sm text-white font-bold py-2 px-3 bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-900 rounded-md transition-all duration-300 ease-in-out"
                                 onClick={!clicked ? onAddToCartClick : undefined}
                                 value={props.item.item_id}
                             >

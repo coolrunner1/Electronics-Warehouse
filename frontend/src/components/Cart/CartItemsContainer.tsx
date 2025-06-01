@@ -11,7 +11,7 @@ export const CartItemsContainer = () => {
     return (
         <>
                 {items.length > 0
-                    ? <div className="rounded-lg md:w-2/3">
+                    ? <div className="bg-white dark:bg-[#242424] rounded-lg md:w-2/3">
                         {items.map((item: ItemInCart) => <CartItem key={item.item_id} item={item} />)}
                     </div>
                     : <div className="flex text-center items-center pr-36 pl-36 text-2xl">{t('cart-empty')}</div>

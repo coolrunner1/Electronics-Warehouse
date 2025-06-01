@@ -10,7 +10,7 @@ export function UserHeader() {
     const {t} = useTranslation();
 
     return (
-        <header className="header flex flex-row gap-x-5 p-4 bg-gray-100 dark:bg-gray-950">
+        <header className="header flex flex-row gap-x-5 p-4 bg-[#ebe9e5] dark:bg-gray-950">
             <WarehouseLogo location={"store"}/>
             <SearchBar pathname={'store'} placeholder={t('search-items')} />
             <CartButton/>

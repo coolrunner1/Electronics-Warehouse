@@ -74,7 +74,7 @@ export const AdminDashboardPage = () => {
                     {users.length === 0
                         ? <div className="text-center text-xl">No users found.</div>
                         :
-                        <Table className="w-full text-md shadow-md rounded mb-4" role="table">
+                        <Table className="bg-white dark:bg-[#242424] w-full text-md shadow-md rounded mb-4" role="table">
                             <Thead>
                                 <Tr className="border-b">
                                     {
