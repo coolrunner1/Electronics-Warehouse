@@ -1,9 +1,8 @@
-import itemsController from '../controllers/itemsController';
 import categoriesRouter from "./categoriesRouter";
 import {Router} from "express";
 import clientsRouter from "./clientsRouter";
 import suppliersRouter from "./suppliersRouter";
-const manufacturersController = require('../controllers/manufacturersController');
+import itemsRouter from "./itemsRouter";
 const ordersController = require("../controllers/ordersController");
 const usersController = require("../controllers/usersController");
 const rolesController = require("../controllers/rolesController");
@@ -12,28 +11,15 @@ const enumsController = require("../controllers/enumsController");
 
 const router = Router();
 
-/*items router*/
-router.get("/items", itemsController.getAllItems);
-router.get("/items/:id", itemsController.getItem);
-router.get("/items/search/:name", itemsController.searchItemsByName);
-router.get("/items/search/category/:category", itemsController.getItemsByCategoryId);
-router.get("/items/search/manufacturer/:manufacturer", itemsController.getItemsByManufacturer);
-router.get("/items/search/category/:category/manufacturer/:manufacturer", itemsController.getItemsByCategoryIdAndManufacturer);
-router.get("/items/search/supplier/:supplierId", itemsController.getItemsBySupplierId);
-router.post("/items", itemsController.addItem);
-router.put("/items/:id", itemsController.updateItem);
-router.post("/items/:id/suppliers", itemsController.addNewArrival);
+router.use('/api/v1/items', itemsRouter);
 
 router.use('/api/v1/categories', categoriesRouter);
-
-/*manufacturers router*/
-router.get("/manufacturers", manufacturersController.getAllManufacturers);
 
 /*orders router*/
 router.get("/orders", ordersController.getAllOrders);
 router.get("/orders/search/:orderId", ordersController.searchOrdersById)
 router.get("/orders/client/:clientId", ordersController.getOrdersByClientId);
-router.get("/orders/:orderId/items", itemsController.getItemsByOrderId);
+router.get("/orders/:orderId/items", ordersController.getItemsByOrderId);
 router.get("/orders/:orderId/returns", orderReturnsController.getReturnedItemsByOrderId);
 router.post("/orders", ordersController.addOrder);
 router.post("/orders/:orderId/returns", orderReturnsController.addOrderReturn);
@@ -51,7 +37,6 @@ router.delete("/users/:userId", usersController.deleteUserById);
 /*roles router*/
 router.get("/roles", rolesController.getAllRoles);
 
-/*clients router*/
 router.use("/api/v1/clients", clientsRouter);
 
 router.use("/api/v1/suppliers", suppliersRouter);

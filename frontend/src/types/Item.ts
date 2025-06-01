@@ -1,14 +1,14 @@
 export type Item = {
     item_id: number;
     category_id: number;
-    model: string;
+    modelEN: string;
+    modelRU: string;
     image_path?: string;
     manufacturer: string;
     unit_price: number;
 }
 
 export type ItemInShop = Item & {
-    status: string;
     date_of_arrival: string;
     units_in_stock: number;
     faulty_units: number;

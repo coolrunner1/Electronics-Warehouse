@@ -35,7 +35,7 @@ export const AdminDashboardPage = () => {
                 console.error('Error fetching roles:', error);
                 setRoles([]);
             });
-        axios.get("http://localhost:8000/api/v1/clients?ignorePagination=true")
+        axios.get("http://localhost:8000/api/v1/clients?limit=none")
             .then((response) => setClients(response.data.data.map((client: Client) => ({value: client.client_id, label: client.name}))))
             .catch((error) => {
                 console.error('Error fetching clients:', error);

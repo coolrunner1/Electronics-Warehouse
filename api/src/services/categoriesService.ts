@@ -11,6 +11,14 @@ class CategoriesService {
             }
         });
     }
+
+    async getCategoryById(categoryId: number) {
+        return prisma.category.findFirst({
+            where: {
+                category_id: categoryId,
+            }
+        })
+    }
 }
 
 export default new CategoriesService();

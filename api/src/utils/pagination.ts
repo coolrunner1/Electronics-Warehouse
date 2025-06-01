@@ -4,7 +4,7 @@ export type Pagination = {
 }
 
 export const pagination = (page: number, limit: number): {skip: number, take: number} => {
-    if (!page || page <= 0) {
+    if (!page || page < 0) {
         page = 1;
     }
     if (!limit || limit <= 0) {

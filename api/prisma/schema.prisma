@@ -56,12 +56,11 @@ model Item {
   modelEN         String         @db.VarChar(255) @map("model_en")
   modelRU         String         @db.VarChar(255) @map("model_ru")
   image_path      String?        @db.VarChar(255)
-  status          item_status
   manufacturer    String         @db.VarChar(255)
-  unit_price      Float
+  unit_price      Float          @default(0)
   date_of_arrival DateTime       @db.Timestamp(6)
-  units_in_stock  Int
-  faulty_units    Int
+  units_in_stock  Int            @default(0)
+  faulty_units    Int            @default(0)
   category        Category       @relation("itemCategory", fields: [category_id], references: [category_id], onDelete: Cascade, onUpdate: Cascade)
   orderProduct    OrderProduct[] @relation("orderProductItem")
   supplierItem    SupplierItem[] @relation("itemSupplierItem")
@@ -158,11 +157,6 @@ model UserProfile {
   role         Role    @relation("userProfileRole", fields: [role_id], references: [role_id], onDelete: Cascade)
 
   @@map("userprofile")
-}
-
-enum item_status {
-  In_Stock     @map("In Stock")
-  Out_Of_Stock @map("Out Of Stock")
 }
 
 enum order_status {

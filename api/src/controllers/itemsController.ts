@@ -1,176 +1,88 @@
-const db = require("../database");
+import { NextFunction, Request, Response } from 'express';
+import itemsService from "../services/itemsService";
+import categoriesService from "../services/categoriesService";
 
 class ItemsController {
-    async getAllItems(req, res) {
-        await db.query("SELECT * FROM Item ORDER BY model", (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        });
-    }
-
-    async getItem(req, res) {
-        let id = req.params.id;
-        await db.query("SELECT * FROM Item WHERE item_id = $1", [id], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        });
-    }
-
-    async searchItemsByName(req, res) {
-        let name = req.params.name;
-        await db.query("SELECT * FROM Item WHERE model ILIKE $1 ORDER BY model", ['%'+name+'%'], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        });
-    }
-
-    async getItemsByCategoryId(req, res) {
-        const categoryId = req.params.category;
-        await db.query("SELECT * FROM Item JOIN Category ON Item.category_id = Category.category_id WHERE Item.category_id = $1 OR Category.parent_id = $1", [categoryId], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        });
-    }
-
-    async getItemsByManufacturer(req, res) {
-        const manufacturer = req.params.manufacturer;
-        await db.query("SELECT * FROM Item WHERE manufacturer = $1", [manufacturer], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        });
-    }
-
-    /*
-    ToDo: Remove this fucking shit
-    */
-    async getItemsByCategoryIdAndManufacturer(req, res) {
-        const categoryId = req.params.category;
-        const manufacturer = req.params.manufacturer;
-        await db.query("SELECT * FROM Item JOIN Category ON Item.category_id = Category.category_id WHERE (Item.category_id = $1 OR Category.parent_id = $1) AND Item.manufacturer = $2", [categoryId, manufacturer], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        });
-    }
-
-    async getItemsBySupplierId(req, res) {
-        const supplierId = req.params.supplierId;
-        await db.query("SELECT * FROM Item JOIN SupplierItem ON SupplierItem.item_id = Item.item_id WHERE supplier_id = $1", [supplierId], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No item found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        });
-    }
-
-    /*
-    ToDo: move to orders controller
-    */
-    async getItemsByOrderId(req, res){
-        const id = req.params.orderId;
-        await db.query("SELECT Item.item_id, Item.model, Item.image_path, Item.manufacturer, Item.unit_price, OrderProduct.quantity, OrderProduct.returned_units, order_id, order_product_id " +
-            "FROM Item JOIN OrderProduct ON Item.item_id = OrderProduct.item_id WHERE OrderProduct.order_id = $1", [id], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No items found"});
-                }
-                return res.status(200).json(result);
-            } catch (error) {
-                console.error(error);
-                return res.status(500).json({ status: "error", message: "Error fetching items." })
-            }
-        })
-    }
-
-    async addItem(req, res) {
-        const body = req.body;
-        console.log(body);
-        await db.query("INSERT INTO Item (category_id, model, status, manufacturer, unit_price, date_of_arrival, units_in_stock, faulty_units) VALUES \n" +
-            "($1, $2, 'Out Of Stock', $3, $4, CURRENT_TIMESTAMP, 0, 0)", [body.category_id, body.model, body.manufacturer, body.unit_price], (err, result) => {
-            try {
-                if (err) throw err;
-                return res.status(201).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error adding item" })
-            }
-        });
-    }
-
-    async updateItem(req, res) {
-        const body = req.body;
-        const id = req.params.id;
-        await db.query("UPDATE Item SET category_id = $1, manufacturer = $2, model = $3, unit_price = $4 WHERE item_id = $5",
-            [body.category_id, body.manufacturer, body.model, body.unit_price, id], (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "Item was not found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error updating item" });
-            }
-        })
-    }
-
-    async addNewArrival(req, res) {
+    async getAllItems(req: Request, res: Response, next: NextFunction) {
         try {
+            const items = await itemsService.getAllItems(req.query);
+            if (!items) {
+                return res.status(404).json({ status: "error", message: "No items found" });
+            }
+            return res.status(200).json(items);
+        } catch (error) {
+            console.error(error);
+            return next(error);
+        }
+    }
+
+    async getItem(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = parseInt(req.params.id);
+            if (!id) {
+                return res.status(400).json({ status: "error", message: "Bad request" });
+            }
+            const item = await itemsService.getItemById(id);
+            if (!item) {
+                return res.status(404).json({ status: "error", message: `No item with id ${id} found` });
+            }
+            return res.status(200).json(item);
+        } catch (error) {
+            console.error(error);
+            return next(error);
+        }
+    }
+
+    async getItemManufacturers(req: Request, res: Response, next: NextFunction) {
+        try {
+            const manufacturers = await itemsService.getItemManufacturers();
+            if (!manufacturers) {
+                return res.status(404).json({ status: "error", message: "No manufacturers found" });
+            }
+            return res.status(200).json(manufacturers);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async addItem(req: Request, res: Response, next: NextFunction) {
+        try {
+            if (!await categoriesService.getCategoryById(parseInt(req.body.category_id))) {
+                return res.status(400).json({ status: "error", message: "Bad request. Category by id "+req.body.category_id+" does not exist" });
+            }
+            const result = await itemsService.createItem(req.body);
+            if (!result) throw new Error('Error adding item');
+            return res.status(201).json(result);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async updateItem(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = parseInt(req.params.id);
+
+            if (!await itemsService.getItemById(id)) {
+                return res.status(404).json({ status: "error", message: "Item was not found" });
+            }
+
+            if (!await categoriesService.getCategoryById(parseInt(req.body.category_id))) {
+                return res.status(400).json({ status: "error", message: "Bad request. Category by id "+req.body.category_id+" does not exist" });
+            }
+
+            const result = await itemsService.updateItem(req.body, id);
+            if (!result) throw new Error('Error updating item');
+
+            return res.status(200).json(result);
+        } catch (error) {
+            console.error(error);
+            next(error);
+        }
+    }
+
+    async addNewArrival(req: Request, res: Response, next: NextFunction) {
+        return res.status(501).json({NOT_IMPLEMENTED: 'not implemented'});
+        /*try {
             const body = req.body;
             const id = req.params.id;
             await db.query("UPDATE Item SET date_of_arrival = CURRENT_TIMESTAMP, units_in_stock = units_in_stock + $1 WHERE item_id = $2",
@@ -189,7 +101,7 @@ class ItemsController {
         } catch (err) {
             console.error(err);
             return res.status(500).json({ status: "error", message: "Error updating item" });
-        }
+        }*/
 
     }
 }

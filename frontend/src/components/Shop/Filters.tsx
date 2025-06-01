@@ -1,44 +1,25 @@
 import {SelectFilter} from "./SelectFilter";
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent} from "react";
 import {useDispatch} from "react-redux";
 import {setCategory, setManufacturer, setSortBy, setSortingDirection} from "../../slices/filtersSlice";
 import {CategoryFilter} from "./CategoryFilter";
-import axios from "axios";
-import {useLocation} from "react-router-dom";
-import {Item} from "../../types/Item";
 import {useTranslation} from "react-i18next";
+import {useQuery} from "@tanstack/react-query";
+import {getCategories} from "../../api/categories.ts";
+import {getItemManufacturers} from "../../api/items.ts";
 
 export const Filters = () => {
-    const location = useLocation();
-    const allowFilters = location.search === null || location.search === "" || location.search === "?";
-    const {i18n, t} = useTranslation();
+    const {t} = useTranslation();
 
-    const [categories, setCategories] = useState([]);
+    const {data: categories} = useQuery({
+        queryKey: ['categories'],
+        queryFn: getCategories
+    })
 
-    useEffect(() => {
-        axios.get("http://localhost:8000/api/v1/categories")
-            .then((response) => setCategories(response.data))
-            .catch((error) => {
-                console.error('Error fetching items:', error);
-                alert("Error fetching items: " + error.message);
-            });
-    }, []);
-
-    const [manufacturers, setManufacturers] = useState<string[]>([]);
-
-    useEffect(() => {
-        axios.get("http://localhost:8000/manufacturers")
-            .then((response) => setManufacturers([t('all'), ...response.data.rows.map((item: Item) => item.manufacturer)]))
-            .catch((error) => {
-                console.error('Error fetching items:', error);
-                alert("Error fetching items: " + error.message);
-            });
-    }, []);
-
-    useEffect(() => {
-        manufacturers.shift();
-        setManufacturers([t('all'),  ...manufacturers]);
-    }, [i18n.language]);
+    const {data: manufacturers} = useQuery({
+        queryKey: ['manufacturers'],
+        queryFn: getItemManufacturers
+    });
 
     const dispatch = useDispatch();
 
@@ -61,10 +42,10 @@ export const Filters = () => {
     return (
         <>
             <div className="flex flex-col sm:flex-row pl-4 pr-4 w-full gap-2 justify-center">
-                {allowFilters && (<CategoryFilter label={t('category')} onChange={onCategoryChange} options={categories}/>)}
-                {allowFilters && (<SelectFilter label={t('manufacturer')} onChange={onManufacturerChange} options={manufacturers}/>)}
-                <SelectFilter label={t('sort-by')} onChange={onSortByChange} options={['Name', 'Price']}/>
-                <SelectFilter label={t('sort-order')} onChange={onSortingDirectionChange} options={['Ascending', 'Descending']} />
+                {categories && <CategoryFilter label={t('category')} onChange={onCategoryChange} options={categories}/>}
+                {manufacturers && <SelectFilter label={t('manufacturer')} onChange={onManufacturerChange} options={['all', ...manufacturers]}/>}
+                <SelectFilter label={t('sort-by')} onChange={onSortByChange} options={['name', 'price']}/>
+                <SelectFilter label={t('sort-order')} onChange={onSortingDirectionChange} options={['asc', 'desc']} />
             </div>
         </>
     )

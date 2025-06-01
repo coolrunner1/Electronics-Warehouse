@@ -2,8 +2,8 @@ import axiosClient from "./axiosClient";
 import {suppliersToOrganizations} from "../utils/suppliersToOrganizations.ts";
 
 export const fetchSuppliers = async({queryKey}: any) => {
-    const [_key, page] = queryKey;
-    const res = await axiosClient.get(`/suppliers?page=${page}`);
+    const [_key, page, itemsPerPage] = queryKey;
+    const res = await axiosClient.get(`/suppliers?page=${page}&limit=${itemsPerPage}`);
     return {
         pagination: parseInt(res.data.pagination.total),
         suppliers: suppliersToOrganizations(res.data.data)

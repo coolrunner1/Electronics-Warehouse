@@ -3,7 +3,22 @@ import {Organization} from "../types/Organizaton";
 import {calculateNumberOfPages, pagination} from "../utils/pagination";
 
 class SuppliersService {
-    async getAllSuppliers(page: number, limit: number) {
+    async getAllSuppliers(page: number, limit: number, ignorePagination: boolean) {
+        if (ignorePagination) {
+            const data = await prisma.supplier.findMany({
+                orderBy: {
+                    supplier_id: 'desc'
+                },
+            });
+
+            return {
+                data,
+                pagination: {
+                    total: 1
+                }
+            }
+        }
+
         const {skip, take} = pagination(page, limit);
         const [suppliers, count] = await prisma.$transaction([
             prisma.supplier.findMany({

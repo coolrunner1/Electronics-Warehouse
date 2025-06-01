@@ -17,8 +17,22 @@ axiosClient.interceptors.response.use(
         /*if (res.status === 401) {
             window.location.href = “/login”;
         }*/
+        if (res.status === 400) {
+            let errorMsg = "";
+            if (res.data.details) {
+                res.data.details.forEach((item: any) => {
+                    errorMsg += item.message+"\n";
+                })
+            } else {
+                errorMsg = res.data.message;
+            }
+            alert(errorMsg);
+        }
         if (res.status === 409) {
             alert(res.data.message);
+        }
+        if (res.status === 501) {
+            alert('Not implemented');
         }
         console.error("Looks like there was a problem. Status Code: " + res.status);
         console.error(error);

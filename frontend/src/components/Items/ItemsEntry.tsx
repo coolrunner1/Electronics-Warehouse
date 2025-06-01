@@ -14,18 +14,21 @@ import {dateToString} from "../../utils/dateToString";
 import {ItemInShop} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
+import {addNewArrival, createItem, updateItem} from "../../api/items.ts";
+
+export type ItemsEntryProps = {
+    item: ItemInShop,
+    categories: ValueLabel[],
+    suppliers: ValueLabel[],
+}
 
 export const ItemsEntry = (
-    props: {
-        item: ItemInShop,
-        categories: ValueLabel[],
-        suppliers: ValueLabel[],
-    }
+    props: ItemsEntryProps
 ) => {
-    const [model, setModel] = useState("");
+    const [modelEN, setModelEN] = useState("");
+    const [modelRU, setModelRU] = useState("");
     const [manufacturer, setManufacturer] = useState("");
     const [price, setPrice] = useState("");
-    const [defaultCategory, setDefaultCategory] = useState(-1);
     const [category, setCategory] = useState(0);
     const [createArrival, setCreateArrival] = useState(false);
     const [newQuantity, setNewQuantity] = useState(1);
@@ -34,27 +37,11 @@ export const ItemsEntry = (
     const {t} = useTranslation();
 
     useEffect(() => {
-        setModel(props.item.model);
+        setModelEN(props.item.modelEN);
+        setModelRU(props.item.modelRU);
         setManufacturer(props.item.manufacturer);
         setPrice('$'+props.item.unit_price);
     }, [props.item]);
-
-    useEffect(() => {
-        props.categories.forEach(category => {
-            if (category.value === props.item.category_id) {
-                setDefaultCategory(category.value-1);
-                setCategory(category.value);
-            }
-        })
-    }, [props.categories])
-
-    const onModelChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setModel(e.target.value);
-    }
-
-    const onManufacturerChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setManufacturer(e.target.value);
-    }
 
     const onCategoryChange = (e: any) => {
         setCategory(e.value);
@@ -73,6 +60,10 @@ export const ItemsEntry = (
     }
 
     const onClickArrival = () => {
+        if (!props.suppliers) {
+            alert(t('no-suppliers'));
+            return;
+        }
         setCreateArrival(!createArrival);
     }
 
@@ -89,48 +80,37 @@ export const ItemsEntry = (
             newQuantity: newQuantity,
             supplierId: supplier,
         }
-        await axios.post("http://localhost:8000/items/"+props.item.item_id+"/suppliers", requestBody)
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        await addNewArrival(requestBody, props.item.item_id)
+            .then(() => alert(t('arrival-success')))
         await setCreateArrival(false);
         await dispatch(setTableRefresh(true));
     }
 
     const onClickEdit = async () => {
-        if (manufacturer === "" || model === "") {
-            alert("Fill out manufacturer and model fields first!");
+        if (manufacturer === "" || modelEN === "" || modelRU === "") {
+            alert(t('fill-manufacturer-model'));
             return;
         }
 
         const requestBody = {
             category_id: category,
             manufacturer: manufacturer,
-            model: model,
+            modelEN: modelEN,
+            modelRU: modelRU,
             unit_price: parseFloat(price.slice(1)),
         }
 
         if (props.item.item_id === 99999) {
-            await axios.post("http://localhost:8000/items/", requestBody)
-                .then((res) => console.log(res))
-                .catch((err) => {
-                    console.error(err);
-                    if (err.response.status === 500) {
-                        alert(err.response.data.message);
-                    }
-                });
+            await createItem(requestBody)
+                .then(() => alert(t('item-create-success')));
         } else {
-            await axios.put("http://localhost:8000/items/"+props.item.item_id, requestBody)
-                .then((res) => console.log(res))
-                .catch((err) => {
-                    console.error(err);
-                    if (err.response.status === 500) {
-                        alert(err.response.data.message);
+            await updateItem(requestBody, props.item.item_id)
+                .then(() => alert(t('item-update-success')))
+                .catch(err => {
+                    if (err.response.status === 404) {
+                        alert(t('item-not-found'));
                     }
-                });
+                })
         }
 
         await dispatch(setTableRefresh(true));
@@ -140,28 +120,27 @@ export const ItemsEntry = (
         <>
             <Tr className="border-b hover:bg-orange-100 dark:hover:bg-blue-600">
                 <Td className="p-3">
-                    <TableTextInput value={model} onChange={onModelChange}/>
+                    <TableTextInput value={modelEN} onChange={(e) => setModelEN(e.target.value)}/>
                 </Td>
                 <Td className="p-3">
-                    <TableTextInput value={manufacturer} onChange={onManufacturerChange}/>
+                    <TableTextInput value={modelRU} onChange={(e) => setModelRU(e.target.value)}/>
                 </Td>
                 <Td className="p-3">
-                    {defaultCategory !== -1 &&
+                    <TableTextInput value={manufacturer} onChange={e =>  setManufacturer(e.target.value)}/>
+                </Td>
+                <Td className="p-3">
+                    {props.categories &&
                         <Select
                             options={props.categories}
                             onChange={onCategoryChange}
-                            defaultValue={props.categories[defaultCategory]}
+                            defaultValue={props.categories.find(category => category.value === props.item.category_id)}
                             styles={customStyles}
                             maxMenuHeight={250}
                         />
                     }
-
                 </Td>
                 <Td className="p-3">
                     <TableTextInput value={price} onChange={onPriceChange}/>
-                </Td>
-                <Td className="p-3">
-                    {props.item.status === 'In Stock' ? t('in-stock') : t('out-of-stock')}
                 </Td>
                 <Td className="p-3">
                     {props.item.units_in_stock}
@@ -175,7 +154,7 @@ export const ItemsEntry = (
                 <Td className="p-3">
                     <div className="flex justify-end items-center">
                         <BlueButton onClick={onClickEdit} name={t('save')}/>
-                        {props.item.model !== '' && <RedButton onClick={onClickArrival} name={ !createArrival ? t('add-arrival') : t('remove-arrival')}/>}
+                        {props.item.modelEN && props.item.modelRU && <RedButton onClick={onClickArrival} name={ !createArrival ? t('add-arrival') : t('remove-arrival')}/>}
                     </div>
                 </Td>
                 <Td className="p-3">

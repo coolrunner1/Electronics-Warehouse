@@ -5,7 +5,7 @@ class ClientsController {
     async getAllClients(req: Request, res: Response, next: NextFunction) {
         try {
             const {page, limit} = req.query;
-            const clients = await clientsService.getAllClients(parseInt(page), parseInt(limit), req.query.ignorePagination === 'true');
+            const clients = await clientsService.getAllClients(parseInt(page), parseInt(limit), limit === 'none');
             if (!clients.data.length) {
                 return res.status(404).json({ status: "error", message: "No clients found" });
             }

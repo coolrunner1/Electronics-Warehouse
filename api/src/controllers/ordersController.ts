@@ -82,6 +82,24 @@ class OrdersController {
             }
         })
     }
+
+
+    async getItemsByOrderId(req, res){
+        const id = req.params.orderId;
+        await db.query("SELECT Item.item_id, Item.model, Item.image_path, Item.manufacturer, Item.unit_price, OrderProduct.quantity, OrderProduct.returned_units, order_id, order_product_id " +
+            "FROM Item JOIN OrderProduct ON Item.item_id = OrderProduct.item_id WHERE OrderProduct.order_id = $1", [id], (err, result) => {
+            try {
+                if (err) throw err;
+                if (result.rowCount === 0) {
+                    return res.status(404).json({NOTFOUND: "No items found"});
+                }
+                return res.status(200).json(result);
+            } catch (error) {
+                console.error(error);
+                return res.status(500).json({ status: "error", message: "Error fetching items." })
+            }
+        })
+    }
 }
 
 const ordersController = new OrdersController();

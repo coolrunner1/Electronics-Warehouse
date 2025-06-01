@@ -5,7 +5,7 @@ class SuppliersController {
     async getSuppliers(req: Request, res: Response, next: NextFunction) {
         try {
             const {page, limit} = req.query;
-            const clients = await suppliersService.getAllSuppliers(parseInt(page), parseInt(limit));
+            const clients = await suppliersService.getAllSuppliers(parseInt(page), parseInt(limit), limit === 'none');
             if (!clients.data.length) {
                 return res.status(404).json({ status: "error", message: "No suppliers found" });
             }
