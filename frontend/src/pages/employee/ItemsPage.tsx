@@ -1,21 +1,21 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {ItemsEntry} from "../components/Items/ItemsEntry";
+import {ItemsEntry} from "../../components/Items/ItemsEntry.tsx";
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 // @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import {setTableRefresh} from "../slices/tableSlice";
-import {NewRemoveButtons} from "../components/Global/NewRemoveButtons";
-import {RootState} from "../state/store";
-import {ItemInShop} from "../types/Item";
+import {setTableRefresh} from "../../slices/tableSlice.ts";
+import {NewRemoveButtons} from "../../components/Global/NewRemoveButtons.tsx";
+import {RootState} from "../../state/store.ts";
+import {ItemInShop} from "../../types/Item.ts";
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@tanstack/react-query";
-import {useGetMappedCategories} from "../hooks/useGetMappedCategories.ts";
-import {fetchItems} from "../api/items.ts";
-import {useGetMappedSuppliers} from "../hooks/useGetMappedSuppliers.ts";
-import {LoadingIndicator} from "../components/Global/LoadingIndicator.tsx";
+import {useGetMappedCategories} from "../../hooks/useGetMappedCategories.ts";
+import {fetchItems} from "../../api/items.ts";
+import {useGetMappedSuppliers} from "../../hooks/useGetMappedSuppliers.ts";
+import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {AxiosError} from "axios";
-import {Pagination} from "../components/Pagination/Pagination.tsx";
+import {Pagination} from "../../components/Pagination/Pagination.tsx";
 
 export const ItemsPage = () => {
     const [page, setPage] = useState(1);

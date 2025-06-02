@@ -3,9 +3,9 @@ import {Router} from "express";
 import clientsRouter from "./clientsRouter";
 import suppliersRouter from "./suppliersRouter";
 import itemsRouter from "./itemsRouter";
+import rolesRouter from "./rolesRouter";
 const ordersController = require("../controllers/ordersController");
 const usersController = require("../controllers/usersController");
-const rolesController = require("../controllers/rolesController");
 const orderReturnsController = require("../controllers/orderReturnsController");
 const enumsController = require("../controllers/enumsController");
 
@@ -33,9 +33,7 @@ router.post("/users", usersController.addUser);
 router.put("/users/:userId", usersController.updateUser);
 router.delete("/users/:userId", usersController.deleteUserById);
 
-
-/*roles router*/
-router.get("/roles", rolesController.getAllRoles);
+router.use("/api/v1/roles", rolesRouter);
 
 router.use("/api/v1/clients", clientsRouter);
 

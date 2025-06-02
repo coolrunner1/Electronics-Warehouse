@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import axios from "axios";
-import {OrderHistoryEntry} from "../components/OrderHistory/OrderHistoryEntry";
+import {OrderHistoryEntry} from "../../components/OrderHistory/OrderHistoryEntry.tsx";
 import {useLocation} from "react-router-dom";
-import {RootState} from "../state/store";
-import {EnumFromDB} from "../types/EnumFromDB";
-import {Order} from "../types/Order.ts";
+import {RootState} from "../../state/store.ts";
+import {EnumFromDB} from "../../types/EnumFromDB.ts";
+import {Order} from "../../types/Order.ts";
 import {useTranslation} from "react-i18next";
 
 export const OrdersPage = () => {

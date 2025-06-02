@@ -1,21 +1,18 @@
-const db = require("../database");
+import rolesService from "../services/rolesService";
+import {NextFunction, Request, Response} from "express";
 
 class RolesController {
-    async getAllRoles(req, res) {
-        await db.query("SELECT * FROM Role", (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No roles found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching roles." })
+    async getAllRoles(req: Request, res: Response, next: NextFunction) {
+        try {
+            const roles = await rolesService.getAllRoles();
+            if (!roles) {
+                return res.status(404).json({NOTFOUND: "No roles found"});
             }
-        });
+            return res.status(200).json(roles);
+        } catch (err) {
+            next(err);
+        }
     }
 }
 
-const rolesController = new RolesController();
-module.exports = rolesController;
+export default new RolesController();

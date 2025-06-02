@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setTableRefresh} from "../slices/tableSlice";
-import {OrganizationsTable} from "../components/Organizations/OrganizationsTable";
-import {RootState} from "../state/store";
+import {setTableRefresh} from "../../slices/tableSlice.ts";
+import {OrganizationsTable} from "../../components/Organizations/OrganizationsTable.tsx";
+import {RootState} from "../../state/store.ts";
 import {useQuery} from "@tanstack/react-query";
-import {fetchClients} from "../api/clients";
-import {LoadingIndicator} from "../components/Global/LoadingIndicator";
-import {Pagination} from "../components/Pagination/Pagination.tsx";
-import {queryClient} from "../api/queryClient.ts";
+import {fetchClients} from "../../api/clients.ts";
+import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
+import {Pagination} from "../../components/Pagination/Pagination.tsx";
+import {queryClient} from "../../api/queryClient.ts";
 import {useTranslation} from "react-i18next";
 import {AxiosError} from "axios";
 

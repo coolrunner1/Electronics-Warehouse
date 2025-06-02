@@ -1,16 +1,16 @@
-import {UserEntry} from "../components/Admin/UserEntry";
+import {UserEntry} from "../../components/Admin/UserEntry.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {setTableRefresh} from "../slices/tableSlice";
+import {setTableRefresh} from "../../slices/tableSlice.ts";
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 // @ts-ignore
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import {NewRemoveButtons} from "../components/Global/NewRemoveButtons";
-import {RootState} from "../state/store";
-import {Role} from "../types/Role";
-import {User} from "../types/User.ts";
-import {Client} from "../types/Client.ts";
+import {NewRemoveButtons} from "../../components/Global/NewRemoveButtons.tsx";
+import {RootState} from "../../state/store.ts";
+import {Role} from "../../types/Role.ts";
+import {User} from "../../types/User.ts";
+import {Client} from "../../types/Client.ts";
 import {useTranslation} from "react-i18next";
 
 export const AdminDashboardPage = () => {
@@ -29,7 +29,7 @@ export const AdminDashboardPage = () => {
                 setUsers([]);
             });
         dispatch(setTableRefresh(false));
-        axios.get("http://localhost:8000/roles")
+        axios.get("http://localhost:8000/api/v1/roles")
             .then((response) => setRoles(response.data.rows.map((role: Role) => ({value: role.role_id, label: role.name}))))
             .catch((error) => {
                 console.error('Error fetching roles:', error);
