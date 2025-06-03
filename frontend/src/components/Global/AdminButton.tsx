@@ -4,7 +4,7 @@ export const AdminButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/admin');
+        navigate('/admin/users');
     };
     return (
         <>

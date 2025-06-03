@@ -12,11 +12,11 @@ export function EmployeeHeader() {
 
     return (
         <header className="header flex flex-row gap-x-5 p-4 bg-[#ebe9e5] dark:bg-gray-950">
-            <WarehouseLogo location={"items"}/>
-            <SearchBar pathname={"orders"} placeholder={t('search-orders')} />
+            <WarehouseLogo location={"employee/items"}/>
+            <SearchBar pathname={"employee/orders"} placeholder={t('search-orders')} />
             <ClientsButton/>
             <SuppliersButton/>
-            <OrdersButton pathname={"orders"}/>
+            <OrdersButton pathname={"employee/orders"}/>
             <AccountButton/>
             <LanguageSelector/>
         </header>

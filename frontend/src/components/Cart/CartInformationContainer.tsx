@@ -34,7 +34,7 @@ export const CartInformationContainer = () => {
     return (
         <>
             {quantity !== 0 &&
-                <div className="bg-white dark:bg-[#242424] mt-6 h-full rounded-lg p-6 shadow-md md:mt-0 md:w-1/3">
+                <div className="bg-light-default dark:bg-dark-default mt-6 h-full rounded-lg p-6 shadow-md md:mt-0 md:w-1/3">
                     <div className="flex justify-between">
                         <p className="text-lg font-bold">{t('items-in-cart')}</p>
                         <div className="">

@@ -39,11 +39,11 @@ export const LoginPage = () => {
                 })
                 dispatch(setUser(res.data.user));
                 if (res.data.user.role_id === 1) {
-                    navigate("/admin");
+                    navigate("/admin/users");
                 } else if (res.data.user.role_id === 2) {
                     navigate("/store");
                 } else {
-                    navigate("/items");
+                    navigate("/employee/items");
                 }
             })
             .catch((err) => {

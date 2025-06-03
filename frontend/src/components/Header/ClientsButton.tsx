@@ -4,7 +4,7 @@ export const ClientsButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/clients');
+        navigate('/employee/clients');
     };
 
     return (

@@ -118,7 +118,7 @@ export const ItemsPage = () => {
                         <>
                             {data &&
                                 <>
-                                    <Table className="bg-white dark:bg-[#242424] w-full text-md shadow-md rounded mb-4">
+                                    <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4">
                                         <Thead>
                                             <Tr className="border-b">
                                                 {

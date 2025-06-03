@@ -10,15 +10,15 @@ import {AccountPage} from "./pages/AccountPage";
 import {PageNotFound} from "./pages/PageNotFound";
 import {LoginPage} from "./pages/LoginPage";
 import {OrderUserHistory} from "./pages/OrderUserHistory";
-import {AdminDashboardPage} from "./pages/admin/AdminDashboardPage.tsx";
+import {UsersPage} from "./pages/Admin/UsersPage.tsx";
 import {ProtectedRoutes} from "./utils/ProtectedRoutes";
 import {useSelector} from "react-redux";
 import {EmployeeHeader} from "./components/Header/EmployeeHeader";
-import {ItemsPage} from "./pages/employee/ItemsPage.tsx";
-import {ClientsPage} from "./pages/employee/ClientsPage.tsx";
-import {SuppliersPage} from "./pages/employee/SuppliersPage.tsx";
+import {ItemsPage} from "./pages/Employee/ItemsPage.tsx";
+import {ClientsPage} from "./pages/Employee/ClientsPage.tsx";
+import {SuppliersPage} from "./pages/Employee/SuppliersPage.tsx";
 import {AdminHeader} from "./components/Header/AdminHeader";
-import {OrdersPage} from "./pages/employee/OrdersPage.tsx";
+import {OrdersPage} from "./pages/Employee/OrdersPage.tsx";
 import {RootState} from "./state/store";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./api/queryClient";
@@ -43,11 +43,11 @@ const App = () => {
                       <Route path="/checkout" element={<CheckoutPage/>}/>
                       <Route path="/account" element={<AccountPage/>} />
                       <Route path="/orderhistory" element={<OrderUserHistory/>} />
-                      <Route path="/admin" element={<AdminDashboardPage/>} />
-                      <Route path="/items" element={<ItemsPage/>} />
-                      <Route path="/clients" element={<ClientsPage/>} />
-                      <Route path="/suppliers" element={<SuppliersPage/>} />
-                      <Route path="/orders" element={<OrdersPage/>} />
+                      <Route path="/admin/users" element={<UsersPage/>} />
+                      <Route path="/employee/items" element={<ItemsPage/>} />
+                      <Route path="/employee/clients" element={<ClientsPage/>} />
+                      <Route path="/employee/suppliers" element={<SuppliersPage/>} />
+                      <Route path="/employee/orders" element={<OrdersPage/>} />
                   </Route>
                   <Route path="/404" element={<PageNotFound/>} />
                   <Route path="*" element={<Navigate to="/404" replace />} />

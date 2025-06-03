@@ -20,6 +20,11 @@ Todo: remove all vanilla css styles
   -moz-osx-font-smoothing: grayscale;
 }
 
+@theme {
+  --color-light-default: #ffffff;
+  --color-dark-default: #242424;
+}
+
 body {
   margin: 0;
   min-width: 320px;

@@ -13,7 +13,7 @@ import {User} from "../../types/User.ts";
 import {Client} from "../../types/Client.ts";
 import {useTranslation} from "react-i18next";
 
-export const AdminDashboardPage = () => {
+export const UsersPage = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [roles, setRoles] = useState([]);
     const [clients, setClients] = useState([]);
@@ -74,7 +74,7 @@ export const AdminDashboardPage = () => {
                     {users.length === 0
                         ? <div className="text-center text-xl">No users found.</div>
                         :
-                        <Table className="bg-white dark:bg-[#242424] w-full text-md shadow-md rounded mb-4" role="table">
+                        <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4" role="table">
                             <Thead>
                                 <Tr className="border-b">
                                     {

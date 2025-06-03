@@ -4,7 +4,7 @@ export const SuppliersButton = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/suppliers');
+        navigate('/employee/suppliers');
     };
     return (
         <>
