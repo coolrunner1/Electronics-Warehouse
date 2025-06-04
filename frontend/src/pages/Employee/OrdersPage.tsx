@@ -64,8 +64,8 @@ export const OrdersPage = () => {
                             key={order.order_id}
                             order={order}
                             userRole={userRole}
-                            orderStatuses={orderStatuses.length ? orderStatuses : undefined}
-                            returnStatuses={returnStatuses.length ? returnStatuses : undefined}
+                            orderStatuses={orderStatuses}
+                            returnStatuses={returnStatuses}
                         />
                     ))
                 }

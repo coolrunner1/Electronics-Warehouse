@@ -1,5 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+/*
+ToDo: Replace with AuthContext and RoleContext
+*/
 const userSlice = createSlice({
     name: "user",
     initialState: {
