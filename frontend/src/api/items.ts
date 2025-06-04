@@ -30,7 +30,7 @@ export const updateItem = async(body: any, id: number) => {
 }
 
 export const addNewArrival = async(body: any, id: number) => {
-    return await axiosClient.post(`/items/${id}/newArrival`, body)
+    return await axiosClient.post(`/items/${id}/new-arrival`, body)
 }
 
 export const getItemManufacturers = async() => {

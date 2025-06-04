@@ -11,6 +11,6 @@ itemsRouter.get("/", itemsController.getAllItems.bind(itemsController));
 itemsRouter.get("/:id", itemsController.getItem.bind(itemsController));
 itemsRouter.post("/", validateData(itemSchema), itemsController.addItem.bind(itemsController));
 itemsRouter.put("/:id", validateData(itemSchema), itemsController.updateItem.bind(itemsController));
-itemsRouter.post("/:id/newArrival", itemsController.addNewArrival.bind(itemsController));
+itemsRouter.post("/:id/new-arrival", itemsController.addNewArrival.bind(itemsController));
 
 export default itemsRouter;

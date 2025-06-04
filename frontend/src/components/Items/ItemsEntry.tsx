@@ -17,8 +17,8 @@ import {addNewArrival, createItem, updateItem} from "../../api/items.ts";
 
 export type ItemsEntryProps = {
     item: ItemInShop,
-    categories: ValueLabel[],
-    suppliers: ValueLabel[],
+    categories: ValueLabel<number>[],
+    suppliers: ValueLabel<number>[],
 }
 
 export const ItemsEntry = (

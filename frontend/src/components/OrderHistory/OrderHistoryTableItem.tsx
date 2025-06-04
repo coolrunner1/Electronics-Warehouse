@@ -7,12 +7,14 @@ import {RootState} from "../../state/store";
 import {ItemInOrder} from "../../types/Item";
 import {useTranslation} from "react-i18next";
 
+export type OrderHistoryTableItemProps = {
+    item: ItemInOrder,
+    status: string,
+    userRole: number,
+}
+
 export const OrderHistoryTableItem = (
-    props: {
-        item: ItemInOrder,
-        status: string,
-        userRole: number,
-    }
+    props: OrderHistoryTableItemProps
 ) => {
     const dispatch = useDispatch();
     const itemReturn = useSelector((state: RootState) => state.returns.itemReturn);

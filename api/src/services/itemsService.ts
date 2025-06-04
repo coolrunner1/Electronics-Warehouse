@@ -1,6 +1,6 @@
 import prisma from "../../prisma/prisma-client";
 import {calculateNumberOfPages, pagination} from "../utils/pagination";
-import {Item} from "../types/Item";
+import {Item} from "../generated/prisma";
 
 class ItemsService {
     async getAllItems(query: any) {

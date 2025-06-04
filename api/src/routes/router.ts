@@ -4,10 +4,10 @@ import clientsRouter from "./clientsRouter";
 import suppliersRouter from "./suppliersRouter";
 import itemsRouter from "./itemsRouter";
 import rolesRouter from "./rolesRouter";
+import enumsRouter from "./enumsRouter";
 const ordersController = require("../controllers/ordersController");
 const usersController = require("../controllers/usersController");
 const orderReturnsController = require("../controllers/orderReturnsController");
-const enumsController = require("../controllers/enumsController");
 
 const router = Router();
 
@@ -39,10 +39,7 @@ router.use("/api/v1/clients", clientsRouter);
 
 router.use("/api/v1/suppliers", suppliersRouter);
 
-/*enums router*/
-router.get("/enums/returnstatuses", enumsController.getReturnStatuses);
-router.get("/enums/returnreasons", enumsController.getReturnReasons);
-router.get("/enums/orderstatuses", enumsController.getOrderStatuses)
+router.use("/api/v1/enums", enumsRouter);
 
 /*login router*/
 router.post("/login", usersController.login);

@@ -2,10 +2,12 @@ import {useQuery} from "@tanstack/react-query";
 import {getClient} from "../../api/clients.ts";
 import {useTranslation} from "react-i18next";
 
+export type OrderClientInfoProps = {
+    clientId: number;
+}
+
 export const OrderClientInfo = (
-    props: {
-        clientId: number;
-    }
+    props: OrderClientInfoProps
 ) => {
     const {
         data,

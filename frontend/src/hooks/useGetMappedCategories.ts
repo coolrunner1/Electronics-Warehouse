@@ -13,12 +13,12 @@ export const useGetMappedCategories = () => {
         queryFn: getCategories,
     });
 
-    const mappedCategories: ValueLabel[] = data?.map((category) => ({
+    const mappedCategories: ValueLabel<number>[] = data?.map((category) => ({
         value: category.category_id,
         label: i18n.language === 'ru' ? category.nameRU : category.nameEN,
     })) ?? [];
 
-    const mappedSubcategories: ValueLabel[] = data?.flatMap((category) =>
+    const mappedSubcategories: ValueLabel<number>[] = data?.flatMap((category) =>
         category.subcategories?.map((sub) => ({
             value: sub.category_id,
             label: i18n.language === 'ru' ? sub.nameRU : sub.nameEN,

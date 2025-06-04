@@ -9,7 +9,7 @@ export const useGetMappedSuppliers = () => {
         queryFn: fetchSuppliers,
     });
 
-    const mapped: ValueLabel[] = data?.suppliers?.map((supplier) => ({
+    const mapped: ValueLabel<number>[] = data?.suppliers?.map((supplier) => ({
         value: supplier.organization_id,
         label: supplier.name,
     })) ?? [];

@@ -1,4 +1,4 @@
-export type ValueLabel = {
-    value: number;
+export type ValueLabel<T> = {
+    value: T;
     label: string;
 }

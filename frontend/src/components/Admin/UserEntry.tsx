@@ -20,8 +20,8 @@ import {useTranslation} from "react-i18next";
 export const UserEntry = (
     props: {
         user: User,
-        roles: ValueLabel[],
-        clients: ValueLabel[],
+        roles: ValueLabel<number>[],
+        clients: ValueLabel<number>[],
     }
 ) => {
     const [login, setLogin] = useState("");
@@ -101,12 +101,12 @@ export const UserEntry = (
         }
     }
 
-    const onRoleChange = (e: SingleValue<ValueLabel> ) => {
+    const onRoleChange = (e: SingleValue<ValueLabel<number>> ) => {
         if (!e) return;
         setRole(e.value);
     }
 
-    const onClientChange = (e: SingleValue<ValueLabel>) => {
+    const onClientChange = (e: SingleValue<ValueLabel<number>>) => {
         if (!e) return;
         setClient(e.value);
     }

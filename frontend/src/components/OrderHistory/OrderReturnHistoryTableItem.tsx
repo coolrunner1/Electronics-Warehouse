@@ -10,12 +10,14 @@ import {ItemInReturn} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 
+export type OrderReturnHistoryTableItemProps = {
+    item: ItemInReturn,
+    userRole: number,
+    returnStatuses?: ValueLabel<string>[],
+}
+
 export const OrderReturnHistoryTableItem = (
-    props: {
-        item: ItemInReturn,
-        userRole: number,
-        returnStatuses?: ValueLabel[],
-    }
+    props: OrderReturnHistoryTableItemProps
 ) => {
     const date = useRef(new Date(props.item.return_date).toLocaleDateString("en-GB"));
     const [status, setStatus] = useState("");

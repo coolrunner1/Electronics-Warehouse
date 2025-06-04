@@ -1,51 +1,42 @@
-const db = require("../database");
+import {NextFunction, Request, Response} from "express";
+import enumsService from "../services/enumsService";
 
 class EnumsController {
-    async getReturnStatuses(req, res) {
-        await db.query("SELECT UNNEST(enum_range(null, null::return_status))", (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No statuses found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching statuses." });
+    async getReturnStatuses(req: Request, res: Response, next: NextFunction) {
+        try {
+            const statuses = await enumsService.getReturnStatuses();
+            if (!statuses) {
+                return res.status(404).json({ status: "error", message: "Error fetching statuses." });
             }
-        });
+            res.status(200).json(statuses);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    async getReturnReasons(req, res) {
-        await db.query("SELECT UNNEST(enum_range(null, null::return_reason))", (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No reasons found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching reasons." });
+    async getReturnReasons(req: Request, res: Response, next: NextFunction) {
+        try {
+            const reasons = await enumsService.getReturnReasons();
+            if (!reasons) {
+                return res.status(404).json({ status: "error", message: "Error fetching reasons." });
             }
-        });
+            res.status(200).json(reasons);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    async getOrderStatuses(req, res) {
-        await db.query("SELECT UNNEST(enum_range(null, null::order_status))", (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No statuses found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching statuses." });
+    async getOrderStatuses(req: Request, res: Response, next: NextFunction) {
+        try {
+            const statuses = await enumsService.getOrderStatuses();
+            if (!statuses) {
+                return res.status(404).json({ status: "error", message: "Error fetching statuses." });
             }
-        });
+            res.status(200).json(statuses);
+        } catch (error) {
+            next(error);
+        }
     }
 }
 
-const enumsController = new EnumsController();
-module.exports = enumsController;
+export default new EnumsController();

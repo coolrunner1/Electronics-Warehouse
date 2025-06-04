@@ -10,13 +10,15 @@ import {ItemInReturn} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 
+export type OrderReturnHistoryTableItemProps = {
+    items: ItemInReturn[],
+    userRole: number,
+    returnStatuses?: ValueLabel<string>[],
+    orderId: number,
+}
+
 export const OrderReturnsHistoryTable = (
-    props: {
-        items: ItemInReturn[],
-        userRole: number,
-        returnStatuses?: ValueLabel[],
-        orderId: number,
-    }
+    props: OrderReturnHistoryTableItemProps
 ) => {
     const itemReturn = useSelector((state: RootState): ItemInReturn | null => state.returns.itemReturn);
     const [orderId, setOrderId] = useState(0);

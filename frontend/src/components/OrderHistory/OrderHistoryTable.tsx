@@ -5,12 +5,14 @@ import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 import {ItemInOrder} from "../../types/Item";
 import {useTranslation} from "react-i18next";
 
+export type OrderHistoryTableProps = {
+    items: ItemInOrder[],
+    status: string,
+    userRole: number,
+}
+
 export const OrderHistoryTable = (
-    props: {
-        items: ItemInOrder[],
-        status: string,
-        userRole: number,
-    }
+    props: OrderHistoryTableProps
 ) => {
     const {t} = useTranslation();
 

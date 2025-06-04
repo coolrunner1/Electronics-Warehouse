@@ -17,8 +17,8 @@ import {useTranslation} from "react-i18next";
 export type OrderHistoryEntryProps = {
     order: Order,
     userRole: number,
-    orderStatuses?: ValueLabel[],
-    returnStatuses?: ValueLabel[],
+    orderStatuses?: ValueLabel<string>[],
+    returnStatuses?: ValueLabel<string>[],
 };
 
 export const OrderHistoryEntry = (

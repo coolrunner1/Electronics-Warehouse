@@ -4,14 +4,13 @@ import axios from "axios";
 import {OrderHistoryEntry} from "../../components/OrderHistory/OrderHistoryEntry.tsx";
 import {useLocation} from "react-router-dom";
 import {RootState} from "../../state/store.ts";
-import {EnumFromDB} from "../../types/EnumFromDB.ts";
 import {Order} from "../../types/Order.ts";
 import {useTranslation} from "react-i18next";
+import {useGetMappedEnums} from "../../hooks/useGetMappedEnums.ts";
+import {getOrderStatuses, getReturnStatuses} from "../../api/enums.ts";
 
 export const OrdersPage = () => {
     const [orders, setOrders] = useState<Order[]>([]);
-    const [orderStatuses, setOrderStatuses] = useState([]);
-    const [returnStatuses, setReturnStatuses] = useState([]);
     const userRole = useSelector((state: RootState) => state.user.userInfo.role_id);
     const {i18n, t} = useTranslation();
 
@@ -26,20 +25,19 @@ export const OrdersPage = () => {
             });
     }
 
+    const {mappedEnum: returnStatuses} = useGetMappedEnums(getReturnStatuses, ['return-statuses']);
+    const {mappedEnum: orderStatuses} = useGetMappedEnums(getOrderStatuses, ['order-statuses']);
+
+    useEffect(() => {
+        console.log(returnStatuses);
+    }, [returnStatuses]);
+
+    useEffect(() => {
+        console.log(orderStatuses);
+    }, [orderStatuses]);
+
     useEffect(() => {
         getAllOrders();
-        axios.get("http://localhost:8000/enums/orderstatuses")
-            .then((response) => setOrderStatuses(response.data.rows
-                .map((item: EnumFromDB) => ({value: item.unnest, label: t(item.unnest)}))))
-            .catch((error) => {
-            console.error('Error fetching items:', error);
-            });
-        axios.get("http://localhost:8000/enums/returnstatuses")
-            .then((response) => setReturnStatuses(response.data.rows
-                .map((item: EnumFromDB) => ({value: item.unnest, label: t(item.unnest)}))))
-            .catch((error) => {
-                console.error('Error fetching items:', error);
-            });
     }, [i18n.language])
 
     useEffect(() => {
@@ -66,8 +64,8 @@ export const OrdersPage = () => {
                             key={order.order_id}
                             order={order}
                             userRole={userRole}
-                            orderStatuses={orderStatuses}
-                            returnStatuses={returnStatuses}
+                            orderStatuses={orderStatuses.length ? orderStatuses : undefined}
+                            returnStatuses={returnStatuses.length ? returnStatuses : undefined}
                         />
                     ))
                 }

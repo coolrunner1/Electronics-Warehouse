@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect, useRef, useState} from "react";
+import {ChangeEvent, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NumberToggle} from "../Global/NumberToggle";
 import {BlueButton} from "../Global/BlueButton";
@@ -11,9 +11,10 @@ import {customStyles} from "../../utils/customStyles";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Td, Tr} from "react-super-responsive-table";
 import {RootState} from "../../state/store";
-import {EnumFromDB} from "../../types/EnumFromDB";
 import {useTranslation} from "react-i18next";
 import {ItemInOrder} from "../../types/Item.ts";
+import {useGetMappedEnums} from "../../hooks/useGetMappedEnums.ts";
+import {getReturnStatuses} from "../../api/enums.ts";
 
 
 /*
@@ -22,21 +23,13 @@ ToDo: Refactor
 export const NewOrderReturn = () => {
     const itemReturn = useSelector((state: RootState): ItemInOrder | null => state.returns.itemReturn);
     const dispatch = useDispatch();
-    const [reasons, setReasons] = useState([]);
     const [reason, setReason] = useState("");
     const [description, setDescription] = useState("");
     const [quantity, setQuantity] = useState(1);
 
     const {t} = useTranslation();
 
-    useEffect(() => {
-        axios.get("http://localhost:8000/enums/returnreasons")
-            .then((response) => setReasons(response.data.rows
-                .map((item: EnumFromDB) => ({value: item.unnest, label: t(item.unnest)}))))
-            .catch((error) => {
-                console.error(error);
-            })
-    }, []);
+    const {mappedEnum: reasons} = useGetMappedEnums(getReturnStatuses, ['return-statuses'])
 
     const increment = () => {
         if (!itemReturn) return;
@@ -122,12 +115,13 @@ export const NewOrderReturn = () => {
                     </Td>
                     <Td>{date.current}</Td>
                     <Td>
-                        <Select
-                            options={reasons}
-                            defaultValue={1}
-                            onChange={onReasonChange}
-                            styles={customStyles}
-                        />
+                        {reasons &&
+                            <Select
+                                options={reasons}
+                                onChange={onReasonChange}
+                                styles={customStyles}
+                            />
+                        }
                     </Td>
                     <Td>{t('pending')}</Td>
                     <Td>
