@@ -1,5 +1,5 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import {StrictMode} from 'react'
+import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App'
 import {store} from './state/store'
@@ -8,20 +8,20 @@ import AuthProvider from "react-auth-kit";
 import createStore from 'react-auth-kit/createStore';
 
 const authStore = createStore({
-    authType: "cookie",
-    authName: "_auth",
+    authName: '_auth',
+    authType: 'cookie',
     cookieDomain: window.location.hostname,
-    cookieSecure: false
+    cookieSecure: window.location.protocol === 'https:',
 });
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-      <AuthProvider
-          store={authStore}
-      >
-          <Provider store={store}>
-              <App />
-          </Provider>
-      </AuthProvider>
-  </StrictMode>,
+createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+        <AuthProvider
+            store={authStore}
+        >
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </AuthProvider>
+    </StrictMode>,
 )

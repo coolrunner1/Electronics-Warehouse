@@ -1,17 +1,14 @@
 import {useNavigate} from "react-router-dom";
 import {useState, KeyboardEvent, ChangeEvent} from "react";
-import axios from "axios";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
-import {useDispatch} from "react-redux";
-import {setUser} from "../slices/userSlice";
 import {useTranslation} from "react-i18next";
+import {login} from "../api/auth"
 
 export const LoginPage = () => {
-    const [login, setLogin] = useState("");
+    const [loginInput, setLoginInput] = useState("");
     const [password, setPassword] = useState("");
     const { t } = useTranslation();
 
-    const dispatch = useDispatch();
     const signIn = useSignIn();
 
     const keyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -24,20 +21,23 @@ export const LoginPage = () => {
 
     const handleClick = () => {
         const requestBody = {
-            login: login,
+            login: loginInput,
             password: password,
         }
-        axios.post("http://localhost:8000/login", requestBody)
+        login(requestBody)
             .then((res) => {
                 console.log(res);
-                signIn({
+                const success = signIn({
                     auth: {
                         token: res.data.token,
                         type: 'Bearer',
                     },
+                    refresh: null,
                     userState: res.data.user,
                 })
-                dispatch(setUser(res.data.user));
+                if (!success) {
+                    return;
+                }
                 if (res.data.user.role_id === 1) {
                     navigate("/admin/users");
                 } else if (res.data.user.role_id === 2) {
@@ -46,14 +46,10 @@ export const LoginPage = () => {
                     navigate("/employee/items");
                 }
             })
-            .catch((err) => {
-                console.log(err);
-                alert(err.response.data.message);
-            });
     };
 
     const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setLogin(e.target.value);
+        setLoginInput(e.target.value);
     }
 
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {

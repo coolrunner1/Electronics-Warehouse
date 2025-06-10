@@ -1,5 +1,4 @@
-import {setUser} from "../slices/userSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {ChangeEvent, useEffect, useState} from "react";
 import {BlueButton} from "../components/Global/BlueButton";
@@ -10,8 +9,11 @@ import {validateEmail} from "../utils/validateEmail";
 import {validatePhoneNumber} from "../utils/validatePhoneNumber";
 import {validatePassport} from "../utils/validatePassport";
 import {RedButton} from "../components/Global/RedButton";
-import {RootState} from "../state/store";
 import {useTranslation} from "react-i18next";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import {User} from "../types/User.ts";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
 
 /*
 ToDo: Refactor
@@ -26,19 +28,29 @@ export const AccountPage = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [passport, setPassport] = useState(0);
-    const user = useSelector((state: RootState) => state.user.userInfo);
+
+    const user = useAuthUser<User>();
+    const isAuthenticated = useIsAuthenticated();
+    const signOut = useSignOut();
 
     useEffect(() => {
+        if (!user) {
+            return;
+        }
         setLogin(user.login);
         setName(user.full_name);
         setEmail(user.email);
-        setPhone('+7'+user.phone_number);
+        setPhone(user.phone_number);
         setPassport(user.passport);
     }, [user]);
 
     const onSubmit = async () => {
         if (!validateEmail(email)) {
             alert("Please enter a valid email");
+            return;
+        }
+
+        if (!user) {
             return;
         }
 
@@ -55,6 +67,8 @@ export const AccountPage = () => {
             passport: passport,
         }
 
+        alert("Soon to be refactored. Currently does not work.")
+        /*
         await axios.put("http://localhost:8000/users/"+user.user_id, requestBody)
             .then((res) => {
                 console.log(res);
@@ -74,7 +88,7 @@ export const AccountPage = () => {
                     alert("User has been updated successfully.");
                 }
             })
-            .catch((err) => {console.log(err)});
+            .catch((err) => {console.log(err)});*/
     }
 
     const onLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -107,44 +121,55 @@ export const AccountPage = () => {
 
     return (
         <>
-            <section className="py-1">
-                <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
-                    <div
-                        className="bg-light-default dark:bg-dark-default relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
-                        <div className="rounded-t mb-0 px-6 py-6">
-                            <div className="text-center flex justify-between">
-                                <h6 className="text-blueGray-700 text-xl font-bold">
-                                    {t('my-account')}
-                                </h6>
-                                <div>
-                                    <BlueButton name={t('save')} onClick={onSubmit} />
-                                    <RedButton name={t('log-out')} onClick={() => {dispatch(setUser(null)); navigate("/login")}} />
+            {isAuthenticated && user &&
+                <section className="py-1">
+                    <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
+                        <div
+                            className="bg-light-default dark:bg-dark-default relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+                            <div className="rounded-t mb-0 px-6 py-6">
+                                <div className="text-center flex justify-between">
+                                    <h6 className="text-blueGray-700 text-xl font-bold">
+                                        {t('my-account')}
+                                    </h6>
+                                    <div>
+                                        <BlueButton name={t('save')} onClick={onSubmit} />
+                                        <RedButton name={t('log-out')} onClick={() => {signOut(); navigate('/login')}} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                            <form>
-                                <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                                    {t('user-info')}
-                                </h6>
-                                <div className="flex flex-wrap">
-                                    <AccountInput name={t('login')} placeholder={t('enter-new-login')} value={login} onChange={onLoginChange} />
-                                    <AccountInput name={t('new-password')} placeholder={t('enter-new-password')} value={password} onChange={onPasswordChange} />
-                                    <AccountInput name={t('full-name')} placeholder={t('enter-full-name')} value={name} onChange={onNameChange} />
-                                    <AccountInput name={"Email"} placeholder={t('enter-email')} value={email} onChange={onEmailChange} />
-                                    <AccountInput name={t('phone-number')} placeholder={t('enter-number')} value={phone} onChange={onPhoneChange} />
-                                    <AccountInput name={t('passport')} placeholder={t('enter-passport')} value={passport.toString()} onChange={onPassportChange} />
-                                </div>
+                            <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+                                <form>
+                                    <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                                        {t('user-info')}
+                                    </h6>
+                                    <div className="flex flex-wrap">
+                                        <AccountInput name={t('login')} placeholder={t('enter-new-login')} value={login} onChange={onLoginChange} />
+                                        <AccountInput name={t('new-password')} placeholder={t('enter-new-password')} value={password} onChange={onPasswordChange} />
+                                        <AccountInput name={t('full-name')} placeholder={t('enter-full-name')} value={name} onChange={onNameChange} />
+                                        <AccountInput name={"Email"} placeholder={t('enter-email')} value={email} onChange={onEmailChange} />
+                                        <AccountInput name={t('phone-number')} placeholder={t('enter-number')} value={phone} onChange={onPhoneChange} />
+                                        <AccountInput name={t('passport')} placeholder={t('enter-passport')} value={passport.toString()} onChange={onPassportChange} />
+                                    </div>
 
-                                {user.client_id !== null &&
-                                    <ClientForm/>
-                                }
+                                    {user.client_id !== null &&
+                                        <ClientForm/>
+                                    }
 
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                </section>
+            }
+            {!isAuthenticated &&
+                <div className="flex flex-col gap-5 items-center justify-center">
+                    <div className="mt-10 text-center text-2xl">{t('only-for-authed-users')}</div>
+                    <div>
+                        <BlueButton name={t('log-in')} onClick={() => navigate('/login')}/>
+                        <RedButton name={t('register')} onClick={() => navigate('/register')}/>
+                    </div>
                 </div>
-            </section>
+            }
         </>
     )
 }

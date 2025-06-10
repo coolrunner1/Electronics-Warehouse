@@ -4,9 +4,11 @@ import axios from "axios";
 import {RootState} from "../../state/store";
 import {useTranslation} from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import {User} from "../../types/User.ts";
 
 export const CartInformationContainer = () => {
-    const user = useSelector((state: RootState) => state.user);
+    const user = useAuthUser<User>();
     const {t} = useTranslation();
     const navigate = useNavigate();
 

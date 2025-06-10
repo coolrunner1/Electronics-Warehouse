@@ -1,6 +1,4 @@
 import {ChangeEvent, useEffect, useState} from "react";
-import {useSelector} from "react-redux";
-import {RootState} from "../../state/store";
 import {AccountInput} from "./AccountInput";
 import {BlueButton} from "../Global/BlueButton";
 import {validateEmail} from "../../utils/validateEmail";
@@ -11,10 +9,11 @@ import {getClient, updateClient} from "../../api/clients.ts";
 import {useQuery} from "@tanstack/react-query";
 import {queryClient} from "../../api/queryClient.ts";
 import {useTranslation} from "react-i18next";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 export const ClientForm = () => {
     const {t} = useTranslation();
-    const user = useSelector((state: RootState): User => state.user.userInfo);
+    const user = useAuthUser<User>();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -27,7 +26,7 @@ export const ClientForm = () => {
 
     const {data, refetch} = useQuery({
         queryFn: getClient,
-        queryKey: ['client', user.client_id]
+        queryKey: ['client', user ? user.client_id : undefined],
     })
 
     useEffect(() => {
@@ -52,7 +51,7 @@ export const ClientForm = () => {
 
     const onSaveClick = async () => {
         if (!data) return;
-        if (!user.client_id) return;
+        if (!user || !user.client_id) return;
 
         if (!name || !address || !city || !country || !postalCode) {
             alert("Not all fields are filled!");

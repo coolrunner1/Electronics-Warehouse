@@ -1,6 +1,6 @@
 import {WarehouseLogo} from "./WarehouseLogo";
 import {OrdersButton} from "./OrdersButton";
-import {AccountButton} from "../Global/AccountButton";
+import {AccountButton} from "./AccountButton.tsx";
 import {ClientsButton} from "./ClientsButton";
 import {SuppliersButton} from "./SuppliersButton";
 import {SearchBar} from "../Global/SearchBar";
@@ -17,7 +17,7 @@ export function EmployeeHeader() {
             <ClientsButton/>
             <SuppliersButton/>
             <OrdersButton pathname={"employee/orders"}/>
-            <AccountButton/>
+            <AccountButton location={'/employee/account'}/>
             <LanguageSelector/>
         </header>
     )

@@ -1,27 +1,11 @@
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "../state/store";
 import {MouseEvent} from "react";
 
 export const PageNotFound = () => {
     const navigate = useNavigate();
-    const user = useSelector((state: RootState) => state.user.userInfo);
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-        if (user === null) {
-            navigate("/login");
-            return;
-        }
-        const role = user.role;
-        if (role === 1) {
-            navigate("/store");
-        } else if (role === 2) {
-            navigate("/admin");
-        } else if (role === 3) {
-            navigate("/items");
-        } else {
-            navigate("/login");
-        }
+        navigate("/")
         e.preventDefault();
     };
     return (

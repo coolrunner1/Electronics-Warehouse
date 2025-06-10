@@ -7,6 +7,6 @@ export type User = {
     image_path?: string | null,
     full_name: string,
     email: string,
-    phone_number: number,
+    phone_number: string,
     passport: number,
 }

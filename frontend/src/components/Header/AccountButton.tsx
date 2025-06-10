@@ -1,10 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-export const AccountButton = () => {
+export const AccountButton = (
+    props: {
+        location: string,
+    }
+) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/account');
+        navigate(props.location);
     };
     return (
         <>

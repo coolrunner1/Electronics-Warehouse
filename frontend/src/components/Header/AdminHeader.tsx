@@ -1,5 +1,5 @@
-import {AdminButton} from "../Global/AdminButton";
-import {AccountButton} from "../Global/AccountButton";
+import {AdminButton} from "./AdminButton.tsx";
+import {AccountButton} from "./AccountButton.tsx";
 import {useTranslation} from "react-i18next";
 import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 
@@ -13,7 +13,7 @@ export const AdminHeader = () => {
                 {t('admin-dashboard')}
             </h1>
             <div>
-                <AccountButton/>
+                <AccountButton location={'/admin/account'}/>
                 <LanguageSelector/>
             </div>
         </div>

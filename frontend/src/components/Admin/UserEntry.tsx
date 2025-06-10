@@ -17,12 +17,14 @@ import {User} from "../../types/User";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 
+export type UserEntryProps = {
+    user: User,
+    roles: ValueLabel<number>[],
+    clients: ValueLabel<number>[],
+};
+
 export const UserEntry = (
-    props: {
-        user: User,
-        roles: ValueLabel<number>[],
-        clients: ValueLabel<number>[],
-    }
+    props: UserEntryProps
 ) => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
@@ -42,7 +44,7 @@ export const UserEntry = (
         setLogin(props.user.login);
         setFullName(props.user.full_name);
         setEmail(props.user.email);
-        setNumber('+7' + props.user.phone_number);
+        setNumber(props.user.phone_number);
         setPassport(props.user.passport);
     }, [props.user]);
 

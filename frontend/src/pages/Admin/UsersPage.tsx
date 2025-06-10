@@ -12,6 +12,7 @@ import {Role} from "../../types/Role.ts";
 import {User} from "../../types/User.ts";
 import {Client} from "../../types/Client.ts";
 import {useTranslation} from "react-i18next";
+import {getUserRoles} from "../../api/users.ts";
 
 export const UsersPage = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -29,7 +30,7 @@ export const UsersPage = () => {
                 setUsers([]);
             });
         dispatch(setTableRefresh(false));
-        axios.get("http://localhost:8000/api/v1/roles")
+        getUserRoles()
             .then((response) => setRoles(response.data.rows.map((role: Role) => ({value: role.role_id, label: role.name}))))
             .catch((error) => {
                 console.error('Error fetching roles:', error);
@@ -57,7 +58,7 @@ export const UsersPage = () => {
             image_path: null,
             full_name: 'full name',
             email: 'email@example.com',
-            phone_number: 777777777,
+            phone_number: '+7777777777',
             passport: 0,
         }, ...users]);
     }

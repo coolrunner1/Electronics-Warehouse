@@ -1,13 +1,14 @@
-import express from "express";
+import express, { Application } from 'express';
 import cors from "cors"
 import router from "./routes/router";
 import * as path from "node:path";
 
-const app = express();
+const app: Application = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: "http://localhost:5173",
+    credentials: true
 }));
 app.use("/", router);
 app.use(express.static(path.join(__dirname, 'public')));

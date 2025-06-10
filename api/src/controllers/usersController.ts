@@ -1,23 +1,17 @@
+import { NextFunction, Request, Response } from 'express';
+import usersService from "../services/usersService";
 const db = require("../database");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 class UsersController {
-    async getAllUsers(req, res) {
-        await db.query("SELECT user_id, role_id, client_id, login, image_path, full_name, email, phone_number, passport FROM UserProfile ORDER BY user_id",
-            (err, result) => {
-            try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No users found"});
-                }
-                return res.status(200).json(result);
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching users." })
-            }
-        });
+    async getAllUsers(req: Request, res: Response, next: NextFunction) {
+        try {
+            const users = await usersService.getAllUsers();
+        } catch (error) {
+            next(error);
+        }
     }
 
     async getUser(req, res) {
