@@ -1,10 +1,8 @@
-import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {ChangeEvent, useEffect, useState} from "react";
 import {BlueButton} from "../components/Global/BlueButton";
 import {AccountInput} from "../components/Account/AccountInput";
 import {ClientForm} from "../components/Account/ClientForm";
-import axios from "axios";
 import {validateEmail} from "../utils/validateEmail";
 import {validatePhoneNumber} from "../utils/validatePhoneNumber";
 import {validatePassport} from "../utils/validatePassport";
@@ -14,15 +12,14 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import {User} from "../types/User.ts";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
+import {updateUser} from "../api/users.ts";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
+import {login} from "../api/auth.ts";
 
-/*
-ToDo: Refactor
-*/
 export const AccountPage = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const {t} = useTranslation();
-    const [login, setLogin] = useState('');
+    const [loginInput, setLoginInput] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -31,13 +28,14 @@ export const AccountPage = () => {
 
     const user = useAuthUser<User>();
     const isAuthenticated = useIsAuthenticated();
+    const signIn = useSignIn();
     const signOut = useSignOut();
 
     useEffect(() => {
         if (!user) {
             return;
         }
-        setLogin(user.login);
+        setLoginInput(user.login);
         setName(user.full_name);
         setEmail(user.email);
         setPhone(user.phone_number);
@@ -58,16 +56,43 @@ export const AccountPage = () => {
             user_id: user.user_id,
             role_id: user.role_id,
             client_id: user.client_id,
-            login: login,
+            login: loginInput,
             password: password,
             image_path: user.image_path,
             full_name: name,
             email: email,
-            phone_number: parseInt(phone.slice(2, phone.length)),
+            phone_number: phone,
             passport: passport,
         }
 
-        alert("Soon to be refactored. Currently does not work.")
+        const result = await updateUser(user.user_id, requestBody);
+        if (!result) {
+            return;
+        }
+        signOut();
+        await login({
+            login: loginInput,
+            password: password,
+        })
+            .then((res) => {
+                console.log(res);
+                const success = signIn({
+                    auth: {
+                        token: res.data.token,
+                        type: 'Bearer',
+                    },
+                    refresh: null,
+                    userState: res.data.user,
+                });
+                if (!success) {
+                    return;
+                }
+                alert(t('update-success'))
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("Something went wrong.");
+            });
         /*
         await axios.put("http://localhost:8000/users/"+user.user_id, requestBody)
             .then((res) => {
@@ -92,7 +117,7 @@ export const AccountPage = () => {
     }
 
     const onLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setLogin(e.target.value);
+        setLoginInput(e.target.value);
     }
 
     const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -143,7 +168,7 @@ export const AccountPage = () => {
                                         {t('user-info')}
                                     </h6>
                                     <div className="flex flex-wrap">
-                                        <AccountInput name={t('login')} placeholder={t('enter-new-login')} value={login} onChange={onLoginChange} />
+                                        <AccountInput name={t('login')} placeholder={t('enter-new-login')} value={loginInput} onChange={onLoginChange} />
                                         <AccountInput name={t('new-password')} placeholder={t('enter-new-password')} value={password} onChange={onPasswordChange} />
                                         <AccountInput name={t('full-name')} placeholder={t('enter-full-name')} value={name} onChange={onNameChange} />
                                         <AccountInput name={"Email"} placeholder={t('enter-email')} value={email} onChange={onEmailChange} />

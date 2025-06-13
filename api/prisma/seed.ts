@@ -303,13 +303,13 @@ async function main() {
                 description: "Administrator role with full access'",
             },
             {
+                name: 'Employee',
+                description: 'Has access to the information about available items'
+            },
+            {
                 name:'Client',
                 description: 'Standard user role with limited access'
             },
-            {
-                name: 'Employee',
-                description: 'Has access to the information about available items'
-            }
         ]
     });
 

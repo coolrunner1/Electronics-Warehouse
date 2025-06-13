@@ -9,7 +9,7 @@ export const ProtectedUserRoutes = () => {
 
     return user
         ?
-        user.user_id === USER_ROLE
+        user.role_id === USER_ROLE
             ?
             <>
                 <UserHeader />

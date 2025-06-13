@@ -9,7 +9,7 @@ export const ProtectedAdminRoutes = () => {
 
     return user
         ?
-        user.user_id === ADMIN_ROLE ?
+        user.role_id === ADMIN_ROLE ?
             <>
                 <AdminHeader />
                 <Outlet />

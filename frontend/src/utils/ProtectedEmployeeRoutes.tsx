@@ -9,7 +9,7 @@ export const ProtectedEmployeeRoutes = () => {
 
     return user
         ?
-        user.user_id === EMPLOYEE_ROLE ?
+        user.role_id === EMPLOYEE_ROLE ?
             <>
                 <EmployeeHeader />
                 <Outlet />

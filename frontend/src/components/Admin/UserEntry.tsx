@@ -1,6 +1,5 @@
 import {ChangeEvent, useEffect, useState} from "react";
 import Select, {SingleValue} from "react-select";
-import axios from "axios";
 import {useDispatch} from "react-redux";
 import {setTableRefresh} from "../../slices/tableSlice";
 import {BlueButton} from "../Global/BlueButton";
@@ -16,6 +15,8 @@ import {validatePassport} from "../../utils/validatePassport";
 import {User} from "../../types/User";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
+import {USER_ROLE} from "../../constants/roles.ts";
+import {createUser, deleteUser, updateUser} from "../../api/users.ts";
 
 export type UserEntryProps = {
     user: User,
@@ -30,7 +31,7 @@ export const UserEntry = (
     const [password, setPassword] = useState("");
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
-    const [number, setNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [passport, setPassport] = useState(0);
     const [defaultRole, setDefaultRole] = useState(-1);
     const [defaultClient, setDefaultClient] = useState(-1);
@@ -44,7 +45,7 @@ export const UserEntry = (
         setLogin(props.user.login);
         setFullName(props.user.full_name);
         setEmail(props.user.email);
-        setNumber(props.user.phone_number);
+        setPhoneNumber(props.user.phone_number);
         setPassport(props.user.passport);
     }, [props.user]);
 
@@ -89,7 +90,7 @@ export const UserEntry = (
 
     const onNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (validatePhoneNumber(e.target.value)) {
-            setNumber(e.target.value);
+            setPhoneNumber(e.target.value);
         }
     }
 
@@ -115,11 +116,9 @@ export const UserEntry = (
 
     const onClickDelete = async () => {
         if (props.user.user_id !== 99999) {
-            await axios.delete("http://localhost:8000/users/"+props.user.user_id)
-                .then((res) => console.log(res))
-                .catch((err) => console.error(err));
+            await deleteUser(props.user.user_id)
+                .then(() => dispatch(setTableRefresh(true)));
         }
-        await dispatch(setTableRefresh(true));
     }
 
     const onClickEdit = async () => {
@@ -138,32 +137,15 @@ export const UserEntry = (
             image_path: props.user.image_path,
             full_name: fullName,
             email: email,
-            phone_number: parseInt(number.slice(2, number.length)),
+            phone_number: phoneNumber,
             passport: passport,
         }
         if (props.user.user_id === 99999) {
-            await axios.post("http://localhost:8000/users", requestBody)
-                .then((res) => console.log(res))
-                .catch((err) => {
-                    console.error(err);
-                    if (err.response.status === 409) {
-                        alert(err.response.data.message);
-                    }
-                });
-            await dispatch(setTableRefresh(true))
+            await createUser(requestBody)
+                .then(() => dispatch(setTableRefresh(true)));
         } else {
-            await axios.put("http://localhost:8000/users/"+props.user.user_id, requestBody)
-                .then((res) => {
-                    console.log(res);
-                    setPassword('');
-                })
-                .catch((err) => {
-                    console.error(err);
-                    if (err.response.status === 409) {
-                        alert(err.response.data.message);
-                    }
-                });
-            await dispatch(setTableRefresh(true));
+            await updateUser(props.user.user_id, requestBody)
+                .then(() => dispatch(setTableRefresh(true)));
         }
     }
 
@@ -183,7 +165,7 @@ export const UserEntry = (
                     <TableTextInput value={email} onChange={onEmailChange}/>
                 </Td>
                 <Td className="p-3">
-                    <TableTextInput value={number} onChange={onNumberChange}/>
+                    <TableTextInput value={phoneNumber} onChange={onNumberChange}/>
                 </Td>
                 <Td className="p-3">
                     <TableTextInput value={passport.toString()} onChange={onPassportChange}/>
@@ -200,7 +182,7 @@ export const UserEntry = (
                     }
                 </Td>
                 <Td className="p-3 px-5">
-                    { (role === 2 || defaultClient !== -1) && (
+                    { (role === USER_ROLE || defaultClient !== -1) && (
                         <Select
                             options={props.clients}
                             onChange={onClientChange}

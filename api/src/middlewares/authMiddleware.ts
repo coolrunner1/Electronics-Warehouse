@@ -1,10 +1,13 @@
 import {Request, Response, NextFunction} from "express";
 import * as jwt from 'jsonwebtoken';
 import {JwtPayload} from "jsonwebtoken";
+import {ADMIN_ROLE} from "../constants/roles";
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
+
+    console.log(token);
 
     if (!token) {
         res.status(401).json({message: 'No token provided'});
@@ -22,6 +25,7 @@ export const checkAuthWithRole = (roleId: number) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
+        console.log(token);
 
         if (!token) {
             res.status(401).json({message: 'No token provided'});
@@ -30,6 +34,7 @@ export const checkAuthWithRole = (roleId: number) => {
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
+            console.log(decoded.role)
             if (roleId !== Number(decoded.role)) {
                 res.status(403).json({message: 'Unauthorized'});
                 return;
@@ -42,12 +47,12 @@ export const checkAuthWithRole = (roleId: number) => {
     }
 }
 
-/*Has not been tested.*/
-export const checkAuthWithRoleAndUserId = (roleId: number) => {
+/*Allows operation for user with provided user id param and for admins.*/
+export const checkAuthWithUserId = () => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
-        const userId = req.body.id;
+        const userId = parseInt(req.params.id);
 
         if (!token) {
             res.status(401).json({message: 'No token provided'});
@@ -56,7 +61,9 @@ export const checkAuthWithRoleAndUserId = (roleId: number) => {
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
-            if (roleId === 3 && userId !== Number(decoded.userId)) {
+            console.log(userId)
+            console.log(decoded.userId)
+            if (Number(decoded.id) !== ADMIN_ROLE && userId !== Number(decoded.id)) {
                 res.status(403).json({message: 'Unauthorized'});
                 return;
             }

@@ -6,8 +6,9 @@ import itemsRouter from "./itemsRouter";
 import rolesRouter from "./rolesRouter";
 import enumsRouter from "./enumsRouter";
 import authRouter from "./authRouter";
+import usersRouter from "./usersRouter";
+import usersController from "../controllers/usersController";
 const ordersController = require("../controllers/ordersController");
-const usersController = require("../controllers/usersController");
 const orderReturnsController = require("../controllers/orderReturnsController");
 
 const router = Router();
@@ -27,12 +28,7 @@ router.post("/orders/:orderId/returns", orderReturnsController.addOrderReturn);
 router.patch("/orders/returns/:returnId", orderReturnsController.updateReturnStatus);
 router.patch("/orders/:orderId", ordersController.updateOrderStatus)
 
-/*users router*/
-router.get("/users", usersController.getAllUsers);
-router.get("/users/:userId", usersController.getUser);
-router.post("/users", usersController.addUser);
-router.put("/users/:userId", usersController.updateUser);
-router.delete("/users/:userId", usersController.deleteUserById);
+router.use("/api/v1/users", usersRouter);
 
 router.use("/api/v1/roles", rolesRouter);
 
@@ -41,9 +37,6 @@ router.use("/api/v1/clients", clientsRouter);
 router.use("/api/v1/suppliers", suppliersRouter);
 
 router.use("/api/v1/enums", enumsRouter);
-
-/*login router*/
-router.post("/login", usersController.login);
 
 router.use("/api/v1/auth", authRouter)
 

@@ -1,148 +1,86 @@
 import { NextFunction, Request, Response } from 'express';
 import usersService from "../services/usersService";
-const db = require("../database");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import { Prisma } from '@prisma/client';
 require("dotenv").config();
 
 class UsersController {
     async getAllUsers(req: Request, res: Response, next: NextFunction) {
         try {
-            const users = await usersService.getAllUsers();
+            const {page, limit} = req.query;
+            const users = await usersService.getAllUsers(Number(page), Number(limit));
+            if (!users) {
+                return res.status(404).json({message: "No users found"});
+            }
+            return res.status(200).json(users);
         } catch (error) {
             next(error);
         }
     }
 
-    async getUser(req, res) {
-        const id = req.params.userId;
-        await db.query("SELECT * FROM UserProfile WHERE user_id = $1", [id], (err, result) => {
+    async getUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = parseInt(req.params.id);
+            if (!id) {
+                return res.status(400).json({ status: "error", message: "Bad request" });
+            }
+            const user = await usersService.getUserById(id);
+            if (!user) {
+                return res.status(404).json({ status: "error", message: `No user with id ${id} found` });
+            }
+            return res.status(200).json(user);
+        } catch (error) {
+            console.error(error);
+            next(error);
+        }
+        return
+    }
+
+    async addUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            const user = await usersService.createUser(req.body);
+            if (!user) {
+                return res.status(400).json({ status: "error", message: "Bad request" });
+            }
+            return res.status(200).json(user);
+        } catch (error) {
+            if (error.code === 'P2002') {
+                return res.status(400).json({ status: "error", message: "Unique constraint violation!\nLogin, email, passport and phone number must be unique!" });
+            }
+            next(error);
+        }
+    }
+
+    async updateUser(req: Request, res: Response, next: NextFunction){
+        try {
+            const result = await usersService.updateUser(req.body, parseInt(req.params.id));
+            if (!result) {
+                return res.status(404).json({ status: "error", message: "User was not found." });
+            }
+            return res.status(200).json(result);
+        } catch (error) {
+            if (error.code === 'P2002') {
+                return res.status(400).json({ status: "error", message: "Unique constraint violation!\nLogin, email, passport and phone number must be unique!" });
+            }
+            next(error);
+        }
+    }
+
+    async deleteUserById(req: Request, res: Response, next: NextFunction){
             try {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "No users found"});
+                const {id} = req.params;
+                if (!parseInt(id)) {
+                    return res.status(400).json({ status: "error", message: "Bad request" });
                 }
-                if (result) {
-                    return res.status(200).json(result);
+                const result = await usersService.deleteUserById(Number(id));
+                if (!result) {
+                    return res.status(404).json({ status: "error", message: "User was not found." });
                 }
-            } catch (err) {
-                console.error(err);
-                return res.status(500).json({ status: "error", message: "Error fetching users." });
-            }
-        });
-    }
-
-    async addUser(req, res) {
-            const body = req.body;
-
-            if (body.client_id === 0) {
-                body.client_id = null;
+                return res.status(204).json(result);
+            } catch (error) {
+                next(error);
             }
 
-            const salt = await bcrypt.genSalt(10);
-            const hashPassword = await bcrypt.hash(body.password, salt);
-
-            await db.query("INSERT INTO UserProfile (login, password, full_name, email, phone_number, passport, role_id, client_id) VALUES " +
-                "($1, $2, $3, $4, $5, $6, $7, $8)",
-                [body.login, hashPassword, body.full_name, body.email, body.phone_number, body.passport, body.role_id, body.client_id],
-                (err, result) => {
-                try {
-                    if (err) throw err;
-                    return res.status(200).json(result);
-                } catch (error) {
-                    console.error(error);
-                    if (error.code === '23505') {
-                        return res.status(409).json({ status: "error", message: "User with this login or email already exists." });
-                    }
-                    return res.status(500).json({ status: "error", message: "Server error." });
-                }
-            })
-
-    }
-
-    async updateUser(req, res){
-            const id = req.params.userId;
-            const body = req.body;
-
-            if (body.client_id === 0) {
-                body.client_id = null;
-            }
-
-            let queryString;
-            let queryParams;
-
-            const salt = await bcrypt.genSalt(10);
-            const hashPassword = await bcrypt.hash(body.password, salt);
-
-
-        if (body.password !== "") {
-                queryString = "UPDATE UserProfile SET login = $2, password = $3, full_name = $4, email = $5, phone_number = $6, " +
-                    "passport = $7, role_id = $8, client_id = $9 WHERE user_id = $1";
-                queryParams = [id, body.login, hashPassword, body.full_name, body.email, body.phone_number, body.passport, body.role_id, body.client_id];
-            } else {
-                queryString = "UPDATE UserProfile SET login = $2, full_name = $3, email = $4, phone_number = $5, " +
-                    "passport = $6, role_id = $7, client_id = $8 WHERE user_id = $1";
-                queryParams = [id, body.login, body.full_name, body.email, body.phone_number, body.passport, body.role_id, body.client_id]
-            }
-
-            await db.query(queryString, queryParams,
-                (err, result) => {
-                    try {
-                        if (err) throw err;
-                        if (result.rowCount === 0) {
-                            return res.status(404).json({NOTFOUND: "No users found"});
-                        }
-                        return res.status(200).json(result);
-                    } catch (error) {
-                        console.error(error);
-                        if (error.code === '23505') {
-                            return res.status(409).json({
-                                status: "error",
-                                message: "User with this login or email already exists."
-                            });
-                        }
-                        return res.status(500).json({status: "error", message: "Server error."});
-                    }
-                });
-    }
-
-    async deleteUserById(req, res){
-            const id = req.params.userId;
-            await db.query(`DELETE FROM UserProfile WHERE user_id = $1`, [id], (err, result) => {
-                try{
-                    if (err) throw err;
-                    if (result.rowCount === 0) {
-                        return res.status(404).json({NOTFOUND: "No users found"});
-                    }
-                    return res.status(202).json(result);
-                } catch (error) {
-                    console.error(error);
-                    return res.status(500).json({ status: "error", message: "Server error." })
-                }
-            });
-    }
-
-    async login(req, res) {
-        const {login, password} = req.body;
-
-        const data = await db.query("SELECT * FROM UserProfile WHERE login = $1", [login])
-            .catch((err) => {console.log(err)});
-
-        if (data.rowCount === 0) {
-            return res.status(400).json({message: "User does not exist!"});
-        }
-
-        const user = data.rows[0];
-
-        if (!bcrypt.compareSync(password, user.password) && user.password !== 'adminpass') {
-            return res.status(400).json({message: "Invalid Password"});
-        }
-
-        const jwtToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET)
-
-        return res.json({user: user, token: jwtToken});
     }
 }
 
-const usersController = new UsersController();
-module.exports = usersController;
+export default new UsersController();

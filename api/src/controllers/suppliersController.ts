@@ -5,11 +5,11 @@ class SuppliersController {
     async getSuppliers(req: Request, res: Response, next: NextFunction) {
         try {
             const {page, limit} = req.query;
-            const clients = await suppliersService.getAllSuppliers(Number(page), Number(limit), limit === 'none');
-            if (!clients.data.length) {
+            const suppliers = await suppliersService.getAllSuppliers(Number(page), Number(limit), limit === 'none');
+            if (!suppliers.data.length) {
                 return res.status(404).json({ status: "error", message: "No suppliers found" });
             }
-            res.status(200).json(clients);
+            res.status(200).json(suppliers);
         } catch (error) {
             next(error);
         }
@@ -30,7 +30,7 @@ class SuppliersController {
         try {
             const result = await suppliersService.updateSupplier(req.body, parseInt(req.params.id));
             if (!result) {
-                return res.status(404).json({NOTFOUND: "Supplier was not found"});
+                return res.status(404).json({ status: "error", message: "Supplier was not found." });
             }
             return res.status(200).json(result);
         } catch (error) {

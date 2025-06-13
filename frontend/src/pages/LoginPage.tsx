@@ -3,13 +3,15 @@ import {useState, KeyboardEvent, ChangeEvent} from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import {useTranslation} from "react-i18next";
 import {login} from "../api/auth"
+import {useAuthInterceptor} from "../hooks/useAuthInterceptor.ts";
 
 export const LoginPage = () => {
     const [loginInput, setLoginInput] = useState("");
     const [password, setPassword] = useState("");
     const { t } = useTranslation();
-
     const signIn = useSignIn();
+
+    useAuthInterceptor();
 
     const keyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -34,17 +36,18 @@ export const LoginPage = () => {
                     },
                     refresh: null,
                     userState: res.data.user,
-                })
+                });
                 if (!success) {
                     return;
                 }
-                if (res.data.user.role_id === 1) {
+                navigate("/");
+                /*if (res.data.user.role_id === 1) {
                     navigate("/admin/users");
                 } else if (res.data.user.role_id === 2) {
                     navigate("/store");
                 } else {
                     navigate("/employee/items");
-                }
+                }*/
             })
     };
 
