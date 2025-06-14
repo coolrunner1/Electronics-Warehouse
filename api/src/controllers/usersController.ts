@@ -79,7 +79,6 @@ class UsersController {
             } catch (error) {
                 next(error);
             }
-
     }
 }
 

@@ -81,28 +81,23 @@ class ItemsController {
     }
 
     async addNewArrival(req: Request, res: Response, next: NextFunction) {
-        return res.status(501).json({NOT_IMPLEMENTED: 'not implemented'});
-        /*try {
-            const body = req.body;
-            const id = req.params.id;
-            await db.query("UPDATE Item SET date_of_arrival = CURRENT_TIMESTAMP, units_in_stock = units_in_stock + $1 WHERE item_id = $2",
-                [body.newQuantity, id], (err, result) => {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "Item was not found"});
-                }
-                });
+        try {
+            if (!parseInt(req.params.id)) {
+                return res.status(400).json({status: 'error', message: "Bad request" });
+            }
 
-            await db.query("INSERT INTO SupplierItem (supplier_id, item_id) VALUES ($1, $2)", [body.supplierId, id], (err, result) => {
-                if (err) throw err;
-            })
+            const {newQuantity, supplierId} = req.body;
+            const id = Number(req.params.id);
+
+            await itemsService.addItemArrival(id, newQuantity, supplierId);
 
             return res.status(201).json({status: "success", message: "Arrival was created successfully"});
         } catch (err) {
-            console.error(err);
+            if (err.message === '404') {
+                return res.status(404).json({ status: "error", message: "Item was not found" });
+            }
             return res.status(500).json({ status: "error", message: "Error updating item" });
-        }*/
-
+        }
     }
 }
 
