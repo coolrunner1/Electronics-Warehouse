@@ -16,10 +16,15 @@ import {useGetMappedSuppliers} from "../../hooks/useGetMappedSuppliers.ts";
 import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {AxiosError} from "axios";
 import {Pagination} from "../../components/Pagination/Pagination.tsx";
+import {Filters} from "../../components/Shop/Filters.tsx";
+import {useLocation} from "react-router-dom";
 
 export const ItemsPage = () => {
+    const {category, manufacturer, sortBy, sortingDirection} = useSelector((state: RootState) => state.filters);
+    const [search, setSearch] = useState('');
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
+    const location = useLocation();
     const [items, setItems] = useState<ItemInShop[]>([
         {
             item_id: 99999,
@@ -35,7 +40,15 @@ export const ItemsPage = () => {
     ]);
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
     const dispatch = useDispatch();
-    const {t} = useTranslation();
+    const {i18n, t} = useTranslation();
+
+    useEffect(() => {
+        if (location.search === null || location.search === "" || location.search === "?") {
+            setSearch('');
+            return;
+        }
+        setSearch(location.search.slice(1));
+    }, [location]);
 
     const {categories} = useGetMappedCategories();
     const {
@@ -45,14 +58,13 @@ export const ItemsPage = () => {
         error,
         refetch
     } = useQuery({
-        queryKey: ['items', page, itemsPerPage, '', 'lastArrival', 'desc'],
+        queryKey: ['items', page, itemsPerPage, search, sortBy+(i18n.language).toUpperCase(), sortingDirection, category, manufacturer],
         queryFn: fetchItems,
     });
 
     const {suppliers} = useGetMappedSuppliers();
 
     useEffect(() => {
-        //queryClient.removeQueries({queryKey: ['items']});
         refetch();
         dispatch(setTableRefresh(false));
     }, [tableRefresh]);
@@ -102,6 +114,7 @@ export const ItemsPage = () => {
                 <h1 className="text-3xl text-center p-4">
                     {t('items')}
                 </h1>
+                <Filters/>
                 <div className="px-4 py-4 flex flex-col overflow-auto items-center">
                     {isLoading &&
                         <LoadingIndicator/>
@@ -116,7 +129,8 @@ export const ItemsPage = () => {
                     }
                     {!isLoading && !isError &&
                         <>
-                            {data &&
+                            {!items.length && <div>{t('no-items')}</div>}
+                            {data && items.length &&
                                 <>
                                     <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4">
                                         <Thead>

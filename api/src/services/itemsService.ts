@@ -51,7 +51,7 @@ class ItemsService {
             sortItemsQuery.push({
                 modelRU: order
             });
-        } else if (sortBy === 'lastArrival') {
+        } else if (sortBy === 'last-arrival') {
             sortItemsQuery.push({
                 date_of_arrival: order
             })
@@ -185,26 +185,6 @@ class ItemsService {
                 },
             });
         });
-        /*try {
-            const body = req.body;
-            const id = req.params.id;
-            await db.query("UPDATE Item SET date_of_arrival = CURRENT_TIMESTAMP, units_in_stock = units_in_stock + $1 WHERE item_id = $2",
-                [body.newQuantity, id], (err, result) => {
-                if (err) throw err;
-                if (result.rowCount === 0) {
-                    return res.status(404).json({NOTFOUND: "Item was not found"});
-                }
-                });
-
-            await db.query("INSERT INTO SupplierItem (supplier_id, item_id) VALUES ($1, $2)", [body.supplierId, id], (err, result) => {
-                if (err) throw err;
-            })
-
-            return res.status(201).json({status: "success", message: "Arrival was created successfully"});
-        } catch (err) {
-            console.error(err);
-            return res.status(500).json({ status: "error", message: "Error updating item" });
-        }*/
     }
 }
 

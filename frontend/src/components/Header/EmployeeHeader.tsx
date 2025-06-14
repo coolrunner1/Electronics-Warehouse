@@ -6,14 +6,30 @@ import {SuppliersButton} from "./SuppliersButton";
 import {SearchBar} from "../Global/SearchBar";
 import { useTranslation } from "react-i18next";
 import {LanguageSelector} from "../Global/LanguageSelector.tsx";
+import {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 
 export function EmployeeHeader() {
     const {t} = useTranslation();
+    const [searchPath, setSearchPath] = useState("employee/items");
+    const [searchPlaceholder, setSearchPlaceholder] = useState(t('search-items'));
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === "/employee/items") {
+            setSearchPath("employee/items");
+            setSearchPlaceholder(t('search-items'))
+        } else if (location.pathname === "/employee/orders") {
+            setSearchPath("employee/orders");
+            setSearchPlaceholder(t('search-orders'))
+        }
+
+    }, [location]);
 
     return (
         <header className="header flex flex-row gap-x-5 p-4 bg-[#ebe9e5] dark:bg-gray-950">
             <WarehouseLogo location={"employee/items"}/>
-            <SearchBar pathname={"employee/orders"} placeholder={t('search-orders')} />
+            <SearchBar pathname={searchPath} placeholder={searchPlaceholder} />
             <ClientsButton/>
             <SuppliersButton/>
             <OrdersButton pathname={"employee/orders"}/>
