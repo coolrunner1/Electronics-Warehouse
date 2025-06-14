@@ -87,33 +87,12 @@ export const AccountPage = () => {
                 if (!success) {
                     return;
                 }
-                alert(t('update-success'))
+                alert(t('user-update-success'))
             })
             .catch((err) => {
                 console.log(err);
-                alert("Something went wrong.");
+                alert(t('something-went-wrong'));
             });
-        /*
-        await axios.put("http://localhost:8000/users/"+user.user_id, requestBody)
-            .then((res) => {
-                console.log(res);
-                setPassword('');
-            })
-            .catch((err) => {
-                console.error(err);
-                if (err.response.status === 409) {
-                    alert(err.response.data.message);
-                }
-            });
-
-        await axios.get("http://localhost:8000/users/"+user.user_id)
-            .then((res) => {
-                dispatch(setUser(res.data.rows[0]));
-                if (res.status === 200) {
-                    alert("User has been updated successfully.");
-                }
-            })
-            .catch((err) => {console.log(err)});*/
     }
 
     const onLoginChange = (e: ChangeEvent<HTMLInputElement>) => {

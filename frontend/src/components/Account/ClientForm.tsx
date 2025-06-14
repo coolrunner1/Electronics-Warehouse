@@ -54,12 +54,12 @@ export const ClientForm = () => {
         if (!user || !user.client_id) return;
 
         if (!name || !address || !city || !country || !postalCode) {
-            alert("Not all fields are filled!");
+            alert(t('not-all-fields-filled'));
             return;
         }
 
         if (!validateEmail(email)) {
-            alert("Please enter a valid email");
+            alert(t('invalid-email'));
             return;
         }
 
@@ -76,7 +76,7 @@ export const ClientForm = () => {
 
         const res = await updateClient(requestBody, user.client_id);
         if (res.status === 200) {
-            alert("Client updated successfully!");
+            alert(t('client-update-success'));
         }
 
         await setRefresh(!refresh);

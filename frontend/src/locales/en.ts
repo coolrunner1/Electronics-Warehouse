@@ -132,4 +132,8 @@ export default {
     'invalid-email': 'Invalid email address provided',
     'password-too-short': 'Password is too short',
     'passwords-no-match': 'Passwords do not match',
+    'user-update-success': 'User updated successfully',
+    'client-update-success': 'Client updated successfully',
+    'something-went-wrong': 'Something went wrong',
+    'not-all-fields-filled': 'Not all fields are filled',
 }

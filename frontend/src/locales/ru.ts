@@ -132,4 +132,9 @@ export default {
     'invalid-email': 'Неверный почтовый адрес',
     'password-too-short': 'Пароль слишком короткий',
     'passwords-no-match': 'Пароли не совпадают',
+    'user-update-success': 'Информация о пользователе успешно обновлена',
+    'client-update-success': 'Информация о клиенте обновлена',
+    'something-went-wrong': 'Что-то пошло не так',
+    'not-all-fields-filled': 'Не все поля заполнены',
+
 }
