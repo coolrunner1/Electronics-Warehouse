@@ -7,7 +7,6 @@ import rolesRouter from "./rolesRouter";
 import enumsRouter from "./enumsRouter";
 import authRouter from "./authRouter";
 import usersRouter from "./usersRouter";
-import usersController from "../controllers/usersController";
 const ordersController = require("../controllers/ordersController");
 const orderReturnsController = require("../controllers/orderReturnsController");
 

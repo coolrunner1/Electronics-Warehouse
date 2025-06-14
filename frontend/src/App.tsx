@@ -23,6 +23,7 @@ import {ProtectedEmployeeRoutes} from "./utils/ProtectedEmployeeRoutes.tsx";
 import {HomePage} from "./pages/HomePage.tsx";
 import {ProtectedUserRoutes} from "./utils/ProtectedUserRoutes.tsx";
 import {useAuthInterceptor} from "./hooks/useAuthInterceptor.ts";
+import {RegistrationPage} from "./pages/RegistrationPage.tsx";
 
 const App = () => {
     useAuthInterceptor();
@@ -51,6 +52,7 @@ const App = () => {
                         <Route path="/employee/account" element={<AccountPage/>}/>
                     </Route>
                     <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/register" element={<RegistrationPage/>}/>
                     <Route path="/404" element={<PageNotFound/>}/>
                     <Route path="*" element={<Navigate to="/404" replace/>}/>
                 </Routes>

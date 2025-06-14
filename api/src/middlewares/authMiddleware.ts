@@ -7,8 +7,6 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
-    console.log(token);
-
     if (!token) {
         res.status(401).json({message: 'No token provided'});
     }
@@ -25,7 +23,6 @@ export const checkAuthWithRole = (roleId: number) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
-        console.log(token);
 
         if (!token) {
             res.status(401).json({message: 'No token provided'});
@@ -34,7 +31,6 @@ export const checkAuthWithRole = (roleId: number) => {
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
-            console.log(decoded.role)
             if (roleId !== Number(decoded.role)) {
                 res.status(403).json({message: 'Unauthorized'});
                 return;
@@ -61,9 +57,33 @@ export const checkAuthWithUserId = () => {
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
-            console.log(userId)
-            console.log(decoded.userId)
-            if (Number(decoded.id) !== ADMIN_ROLE && userId !== Number(decoded.id)) {
+            if (Number(decoded.role) !== ADMIN_ROLE && userId !== Number(decoded.id)) {
+                res.status(403).json({message: 'Unauthorized'});
+                return;
+            }
+            next();
+        } catch (error) {
+            res.status(401).json({message: 'Invalid token'});
+            return;
+        }
+    }
+}
+
+/*Allows operation for user with provided client id param and for admins.*/
+export const checkAuthWithClientId = () => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+        const clientId = parseInt(req.params.id);
+
+        if (!token) {
+            res.status(401).json({message: 'No token provided'});
+            return;
+        }
+
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
+            if (Number(decoded.id) !== ADMIN_ROLE && clientId !== Number(decoded.clientId)) {
                 res.status(403).json({message: 'Unauthorized'});
                 return;
             }

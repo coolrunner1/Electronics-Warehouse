@@ -14,6 +14,18 @@ class AuthController {
             next(e);
         }
     }
+
+    async register(req: Request, res: Response, next: NextFunction) {
+        try {
+            const user = await authService.register(req.body);
+            return res.json(user);
+        } catch (e) {
+            if (e.code === 'P2002') {
+                return res.status(400).json({ status: "error", message: "Unique constraint violation!\nLogin, email, passport and phone number must be unique!" });
+            }
+            next(e);
+        }
+    }
 }
 
 export default new AuthController();
