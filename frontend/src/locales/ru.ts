@@ -146,5 +146,13 @@ export default {
     'client-update-success': 'Информация о клиенте обновлена',
     'something-went-wrong': 'Что-то пошло не так',
     'not-all-fields-filled': 'Не все поля заполнены',
-
+    news: 'Новости',
+    'title-en': 'Заголовок на Английском',
+    'title-ru': 'Заголовок на Русском',
+    'description-en': 'Описание на Английском',
+    'description-ru': 'Описание на Русском',
+    'content-en': 'Содержимое на Английском',
+    'content-ru': 'Содержимое на Русском',
+    'edit-content': 'Редактировать содержимое',
+    close: 'Закрыть'
 }
