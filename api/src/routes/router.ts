@@ -7,6 +7,7 @@ import rolesRouter from "./rolesRouter";
 import enumsRouter from "./enumsRouter";
 import authRouter from "./authRouter";
 import usersRouter from "./usersRouter";
+import articlesRouter from "./articlesRouter";
 const ordersController = require("../controllers/ordersController");
 const orderReturnsController = require("../controllers/orderReturnsController");
 
@@ -37,6 +38,8 @@ router.use("/api/v1/suppliers", suppliersRouter);
 
 router.use("/api/v1/enums", enumsRouter);
 
-router.use("/api/v1/auth", authRouter)
+router.use("/api/v1/articles", articlesRouter);
+
+router.use("/api/v1/auth", authRouter);
 
 export default router;

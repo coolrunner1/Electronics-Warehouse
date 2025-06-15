@@ -31,7 +31,7 @@ class ItemsService {
         if (parseInt(categoryId)) {
             andItemsQuery.push({
                 OR: [
-                    {category_id: parseInt(categoryId),},
+                    { category_id: parseInt(categoryId), },
                     { category: {parent_id: parseInt(categoryId)},}
                 ]
             })

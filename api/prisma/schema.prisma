@@ -9,13 +9,13 @@ datasource db {
 }
 
 model Category {
-  category_id     Int        @id @default(autoincrement())
-  nameEN          String     @unique @db.VarChar(255) @map("name_en")
-  nameRU          String     @unique @db.VarChar(255) @map("name_ru")
-  parent          Category?  @relation("categoryChildren", fields: [parent_id], references: [category_id], onDelete: Cascade, onUpdate: Cascade)
-  parent_id       Int?
-  item            Item[]     @relation("itemCategory")
-  subcategories   Category[] @relation("categoryChildren")
+  category_id   Int        @id @default(autoincrement())
+  nameEN        String     @unique @db.VarChar(255) @map("name_en")
+  nameRU        String     @unique @db.VarChar(255) @map("name_ru")
+  parent        Category?  @relation("categoryChildren", fields: [parent_id], references: [category_id], onDelete: Cascade, onUpdate: Cascade)
+  parent_id     Int?
+  item          Item[]     @relation("itemCategory")
+  subcategories Category[] @relation("categoryChildren")
 
   @@map("category")
 }
@@ -72,13 +72,13 @@ model Item {
 }
 
 model ItemDetails {
-  id             Int    @id @default(autoincrement())
-  item_id        Int    @unique
-  descriptionEN  String @db.Text @map("description_en")
-  descriptionRU  String @db.Text @map("description_ru")
-  specsEN        String @db.Text @map("specs_en")
-  specsRU        String @db.Text @map("specs_ru")
-  item           Item   @relation("itemDetails", fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: Cascade)
+  id            Int    @id @default(autoincrement())
+  item_id       Int    @unique
+  descriptionEN String @db.Text @map("description_en")
+  descriptionRU String @db.Text @map("description_ru")
+  specsEN       String @db.Text @map("specs_en")
+  specsRU       String @db.Text @map("specs_ru")
+  item          Item   @relation("itemDetails", fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("item_details")
 }
@@ -171,6 +171,19 @@ model UserProfile {
   role         Role    @relation("userProfileRole", fields: [role_id], references: [role_id], onDelete: Cascade)
 
   @@map("userprofile")
+}
+
+model Article {
+  id            Int      @id @default(autoincrement())
+  titleEN       String   @db.VarChar(100) @map("title_en")
+  titleRU       String   @db.VarChar(100) @map("title_ru")
+  descriptionEN String   @db.VarChar(255) @map("description_en")
+  descriptionRU String   @db.VarChar(255) @map("description_ru")
+  contentEN     String   @db.Text() @map("content_en")
+  contentRU     String   @db.Text() @map("content_ru")
+  createdAt     DateTime @db.Timestamp(6) @map("created_at")
+
+  @@map("article")
 }
 
 enum order_status {

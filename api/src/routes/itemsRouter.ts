@@ -1,9 +1,8 @@
 import {Router} from "express";
-import categoriesController from '../controllers/categoriesController';
 import itemsController from "../controllers/itemsController";
 import {validateData} from "../middlewares/validationMiddleware";
 import {itemSchema} from "../schemas/itemSchemas";
-import {checkAuth, checkAuthWithRole} from "../middlewares/authMiddleware";
+import {checkAuthWithRole} from "../middlewares/authMiddleware";
 import {EMPLOYEE_ROLE} from "../constants/roles";
 
 const itemsRouter = Router();

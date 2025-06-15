@@ -12,7 +12,7 @@ export const pagination = (page: number, limit: number): {skip: number, take: nu
     }
     return {
         skip: page > 1 ? (page-1) * limit : 0,
-        take: limit,
+        take: Number(limit),
     }
 }
 
