@@ -19,7 +19,7 @@ export const NewsButton = (props: { location: string }) => {
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className='size-6'
+            className="w-6 h-6 fill-black dark:fill-gray-100"
           >
             <path
               strokeLinecap='round'
