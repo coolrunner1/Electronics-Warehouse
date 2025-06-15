@@ -35,7 +35,8 @@ export const ItemsPage = () => {
             unit_price: 0.0,
             date_of_arrival: "",
             units_in_stock: 0,
-            faulty_units: 0
+            faulty_units: 0,
+            score: 0
         }
     ]);
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
@@ -90,7 +91,8 @@ export const ItemsPage = () => {
                 unit_price: 0.0,
                 date_of_arrival: "",
                 units_in_stock: 0,
-                faulty_units: 0
+                faulty_units: 0,
+                score: 0
             }]);
             return;
         }
@@ -151,7 +153,8 @@ export const ItemsPage = () => {
                                                     item={item}
                                                     categories={categories}
                                                     suppliers={suppliers}
-                                                    key={item.item_id}/>
+                                                    key={item.item_id}
+                                                />
                                             ))}
                                         </Tbody>
                                     </Table>

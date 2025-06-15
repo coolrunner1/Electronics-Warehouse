@@ -61,12 +61,26 @@ model Item {
   date_of_arrival DateTime       @db.Timestamp(6)
   units_in_stock  Int            @default(0)
   faulty_units    Int            @default(0)
+  score           Int            @default(0)
   category        Category       @relation("itemCategory", fields: [category_id], references: [category_id], onDelete: Cascade, onUpdate: Cascade)
   orderProduct    OrderProduct[] @relation("orderProductItem")
   supplierItem    SupplierItem[] @relation("itemSupplierItem")
   reviews         Review[]       @relation("itemReview")
+  details         ItemDetails?   @relation("itemDetails")
 
   @@map("item")
+}
+
+model ItemDetails {
+  id             Int    @id @default(autoincrement())
+  item_id        Int    @unique
+  descriptionEN  String @db.Text @map("description_en")
+  descriptionRU  String @db.Text @map("description_ru")
+  specsEN        String @db.Text @map("specs_en")
+  specsRU        String @db.Text @map("specs_ru")
+  item           Item   @relation("itemDetails", fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("item_details")
 }
 
 model Review {
@@ -74,7 +88,7 @@ model Review {
   item_id   Int
   client_id Int
   title     String @db.VarChar(255)
-  content   String
+  content   String @db.Text
   score     Int
   item      Item   @relation("itemReview", fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: Cascade)
   client    Client @relation("clientReview", fields: [client_id], references: [client_id], onDelete: Cascade, onUpdate: Cascade)

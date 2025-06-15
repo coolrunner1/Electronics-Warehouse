@@ -92,11 +92,13 @@ class ItemsService {
     }
 
     async getItemById(id: number) {
-        return prisma.item.findFirst({
+        return prisma.item.findUnique({
             where: {
-                item_id: {
-                    equals: id
-                }
+                item_id: id
+            },
+            include: {
+                category: true,
+                details: true,
             }
         });
     }
@@ -185,6 +187,10 @@ class ItemsService {
                 },
             });
         });
+    }
+
+    async updateImage(id: number, image: File) {
+        //image.mv(__dirname + '/public/' + image.name);
     }
 }
 

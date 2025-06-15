@@ -14,6 +14,8 @@ import {ItemInShop} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 import {addNewArrival, createItem, updateItem} from "../../api/items.ts";
+import {YellowButton} from "../Global/YellowButton.tsx";
+import {useNavigate} from "react-router-dom";
 
 export type ItemsEntryProps = {
     item: ItemInShop,
@@ -33,6 +35,7 @@ export const ItemsEntry = (
     const [newQuantity, setNewQuantity] = useState(1);
     const [supplier, setSupplier] = useState(1);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {t} = useTranslation();
 
     useEffect(() => {
@@ -153,6 +156,7 @@ export const ItemsEntry = (
                 <Td className="p-3">
                     <div className="flex justify-end items-center">
                         <BlueButton onClick={onClickEdit} name={t('save')}/>
+                        <YellowButton name={t('edit-page')} onClick={() => {navigate(`/employee/items/${props.item.item_id}`)}}/>
                         {props.item.modelEN && props.item.modelRU && <RedButton onClick={onClickArrival} name={ !createArrival ? t('add-arrival') : t('remove-arrival')}/>}
                     </div>
                 </Td>

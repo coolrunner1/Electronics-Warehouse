@@ -14,7 +14,6 @@ export const useAuthInterceptor = () => {
 
         axiosClient.interceptors.request.use(
             (config) => {
-                console.log(token);
                 if (token) {
                     config.headers.Authorization = token;
                 }

@@ -93,6 +93,14 @@ async function main() {
                 connect: {
                     nameEN: "Smartphones"
                 }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Latest smartphone from your favourite company</p>",
+                    descriptionRU: "<p>Новинка от компании ABC</p>",
+                    specsEN: "<p>CPU: Mediatek helio P10</p>",
+                    specsRU: "<p>Процессор: Mediatek helio P10</p>"
+                }
             }
         }
     });
@@ -110,6 +118,14 @@ async function main() {
             category: {
                 connect: {
                     nameEN: "Push-button phones"
+                }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Timeless classic</p>",
+                    descriptionRU: "<p>Легендарный телефон от Nokia</p>",
+                    specsEN: "<p>It should work</p>",
+                    specsRU: "<p>Оно должно работать</p>"
                 }
             }
         }
@@ -129,6 +145,14 @@ async function main() {
                 connect: {
                     nameEN: "Laptops",
                 }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
+                }
             }
         }
     });
@@ -146,6 +170,14 @@ async function main() {
             category: {
                 connect: {
                     nameEN: "Laptops",
+                }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
                 }
             }
         }
@@ -165,6 +197,14 @@ async function main() {
                 connect: {
                     nameEN: "CPU",
                 }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
+                }
             }
         }
     });
@@ -182,6 +222,14 @@ async function main() {
             category: {
                 connect: {
                     nameEN: "CPU",
+                }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
                 }
             }
         }
@@ -201,6 +249,14 @@ async function main() {
                 connect: {
                     nameEN: "GPU",
                 }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
+                }
             }
         }
     });
@@ -218,6 +274,14 @@ async function main() {
             category: {
                 connect: {
                     nameEN: "GPU",
+                }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
                 }
             }
         }
@@ -237,6 +301,14 @@ async function main() {
                 connect: {
                     nameEN: "GPU",
                 }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
+                }
             }
         }
     });
@@ -254,6 +326,14 @@ async function main() {
             category: {
                 connect: {
                     nameEN: "Desktops",
+                }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
                 }
             }
         }
@@ -273,6 +353,14 @@ async function main() {
                 connect: {
                     nameEN: "Desktops",
                 }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
+                }
             }
         }
     });
@@ -290,6 +378,14 @@ async function main() {
             category: {
                 connect: {
                     nameEN: "HDD/SSD",
+                }
+            },
+            details: {
+                create: {
+                    descriptionEN: "<p>Placeholder</p>",
+                    descriptionRU: "<p>Placeholder</p>",
+                    specsEN: "<p>Placeholder</p>",
+                    specsRU: "<p>Placeholder</p>"
                 }
             }
         }

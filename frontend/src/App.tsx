@@ -24,6 +24,7 @@ import {HomePage} from "./pages/HomePage.tsx";
 import {ProtectedUserRoutes} from "./utils/ProtectedUserRoutes.tsx";
 import {useAuthInterceptor} from "./hooks/useAuthInterceptor.ts";
 import {RegistrationPage} from "./pages/RegistrationPage.tsx";
+import {ItemEditPage} from "./pages/Employee/ItemEditPage.tsx";
 
 const App = () => {
     useAuthInterceptor();
@@ -46,6 +47,7 @@ const App = () => {
                     </Route>
                     <Route element={<ProtectedEmployeeRoutes/>}>
                         <Route path="/employee/items" element={<ItemsPage/>}/>
+                        <Route path="/employee/items/:id" element={<ItemEditPage/>}/>
                         <Route path="/employee/clients" element={<ClientsPage/>}/>
                         <Route path="/employee/suppliers" element={<SuppliersPage/>}/>
                         <Route path="/employee/orders" element={<OrdersPage/>}/>

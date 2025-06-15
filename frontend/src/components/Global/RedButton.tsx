@@ -1,10 +1,7 @@
-import {MouseEventHandler} from "react";
+import {ButtonComponentProps} from "../../types/ButtonComponentProps.ts";
 
 export const RedButton = (
-    props: {
-        name: string,
-        onClick: MouseEventHandler<HTMLButtonElement>,
-    }
+    props: ButtonComponentProps
 ) => {
     return (
         <>

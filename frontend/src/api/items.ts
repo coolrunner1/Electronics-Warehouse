@@ -21,12 +21,26 @@ export const fetchItems = async({queryKey}: any) => {
     }
 }
 
+export const getItemById = async({queryKey}: any) => {
+    const [_key, id] = queryKey;
+    const data = await axiosClient.get(`/items/${id}`);
+    return data.data;
+}
+
 export const createItem = async(body: any) => {
     return await axiosClient.post("/items", body)
 }
 
 export const updateItem = async(body: any, id: number) => {
     return await axiosClient.put(`/items/${id}`, body)
+}
+
+export const updateItemImage = async(body: any, id: number) => {
+    return await axiosClient.patch(`/items/${id}/image`, body)
+}
+
+export const removeItemImage = async(id: number) => {
+    return await axiosClient.patch(`/items/${id}/image/remove`)
 }
 
 export const addNewArrival = async(body: any, id: number) => {

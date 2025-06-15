@@ -13,6 +13,9 @@ itemsRouter.get("/", itemsController.getAllItems.bind(itemsController));
 itemsRouter.get("/:id", itemsController.getItem.bind(itemsController));
 itemsRouter.post("/", checkAuthWithRole(EMPLOYEE_ROLE), validateData(itemSchema), itemsController.addItem.bind(itemsController));
 itemsRouter.put("/:id", checkAuthWithRole(EMPLOYEE_ROLE),  validateData(itemSchema), itemsController.updateItem.bind(itemsController));
-itemsRouter.post("/:id/new-arrival", checkAuth, itemsController.addNewArrival.bind(itemsController));
+itemsRouter.post("/:id/new-arrival", checkAuthWithRole(EMPLOYEE_ROLE), itemsController.addNewArrival.bind(itemsController));
+itemsRouter.patch("/:id/image", checkAuthWithRole(EMPLOYEE_ROLE), itemsController.updateItemImage.bind(itemsController));
+itemsRouter.patch("/:id/image/remove", checkAuthWithRole(EMPLOYEE_ROLE), itemsController.removeItemImage.bind(itemsController));
+
 
 export default itemsRouter;

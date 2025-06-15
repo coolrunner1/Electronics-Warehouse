@@ -6,7 +6,15 @@ export type Item = {
     image_path?: string;
     manufacturer: string;
     unit_price: number;
+    score: number;
 }
+/*
+export type ItemDetailed = Item & {
+    descriptionEN: string;
+    descriptionRU: string;
+    specsEN: string;
+    specsRU: string;
+}*/
 
 export type ItemInShop = Item & {
     date_of_arrival: string;

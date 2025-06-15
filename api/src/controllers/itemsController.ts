@@ -80,6 +80,23 @@ class ItemsController {
         }
     }
 
+    async updateItemImage(req: Request, res: Response, next: NextFunction) {
+        try {
+            const {image} = req.body;
+            return res.status(501).json()
+        } catch (e) {
+
+        }
+    }
+
+    async removeItemImage(req: Request, res: Response, next: NextFunction) {
+        try {
+            return res.status(501).json()
+        } catch (e) {
+
+        }
+    }
+
     async addNewArrival(req: Request, res: Response, next: NextFunction) {
         try {
             if (!parseInt(req.params.id)) {

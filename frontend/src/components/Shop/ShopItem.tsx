@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux";
 import {useState, MouseEvent} from "react";
 import {ItemInShop} from "../../types/Item";
 import {useTranslation} from "react-i18next";
+import {ItemImage} from "../Global/ItemImage.tsx";
 
 export const ShopItem = (
     props: {
@@ -23,10 +24,7 @@ export const ShopItem = (
         <article className="flex flex-col justify-between h-full bg-light-default dark:bg-dark-default rounded-xl p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
             <div>
                 <div className="relative flex items-end overflow-hidden rounded-xl">
-                    {props.item.image_path == null
-                        ? <img className="aspect-square object-scale-down" src="/placeholder.png" alt="image is missing" />
-                        : <img className="aspect-square object-scale-down" src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`} alt={props.item.modelEN} />
-                    }
+                    <ItemImage imagePath={props.item.image_path} title={props.item.modelEN}/>
                 </div>
                 <div className="mt-2 p-2">
                     <h2>{i18n.language === "ru" ? props.item.modelRU : props.item.modelEN}</h2>

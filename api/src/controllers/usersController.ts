@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import usersService from "../services/usersService";
-import { Prisma } from '@prisma/client';
 require("dotenv").config();
 
 class UsersController {
