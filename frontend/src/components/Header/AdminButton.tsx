@@ -9,13 +9,16 @@ export const AdminButton = () => {
     return (
         <>
             <button
-                className="bg-cart hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow" onClick={handleClick}>
+                className="bg-cart hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow"
+                onClick={handleClick}>
                 <div className="text-gray-600">
-                    <svg className="w-6 h-6 fill-black dark:fill-gray-100" height="800px" width="800px" version="1.1" id="Capa_1"
+                    <svg className="w-6 h-6 fill-black dark:fill-gray-100" height="800px" width="800px" version="1.1"
+                         id="Capa_1"
                          xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 474.565 474.565">
                         <g>
-                            <path d="M255.204,102.3c-0.606-11.321-12.176-9.395-23.465-9.395C240.078,95.126,247.967,98.216,255.204,102.3z"/>
+                            <path
+                                d="M255.204,102.3c-0.606-11.321-12.176-9.395-23.465-9.395C240.078,95.126,247.967,98.216,255.204,102.3z"/>
                             <path d="M134.524,73.928c-43.825,0-63.997,55.471-28.963,83.37c11.943-31.89,35.718-54.788,66.886-63.826
                                 C163.921,81.685,150.146,73.928,134.524,73.928z"/>
                             <path d="M43.987,148.617c1.786,5.731,4.1,11.229,6.849,16.438L36.44,179.459c-3.866,3.866-3.866,10.141,0,14.015l25.375,25.383
@@ -48,7 +51,7 @@ export const AdminButton = () => {
                             <path d="M120.842,206.782c0,60.589,36.883,125.603,82.352,125.603c45.487,0,82.368-65.014,82.368-125.603
                                 C285.563,81.188,120.842,80.939,120.842,206.782z"/>
                         </g>
-                        </svg>
+                    </svg>
                 </div>
             </button>
         </>

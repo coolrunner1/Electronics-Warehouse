@@ -12,14 +12,14 @@ export const NewsButton = (props: { location: string }) => {
         className='bg-cart hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow'
         onClick={handleClick}
       >
-        <div className='text-black'>
+        <div>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className="w-6 h-6 fill-black dark:fill-gray-100"
+            className="w-6 h-6 text-black dark:fill-gray-100"
           >
             <path
               strokeLinecap='round'

@@ -5,8 +5,7 @@ require("dotenv").config();
 class UsersController {
     async getAllUsers(req: Request, res: Response, next: NextFunction) {
         try {
-            const {page, limit} = req.query;
-            const users = await usersService.getAllUsers(Number(page), Number(limit));
+            const users = await usersService.getAllUsers(req.query);
             if (!users) {
                 return res.status(404).json({message: "No users found"});
             }

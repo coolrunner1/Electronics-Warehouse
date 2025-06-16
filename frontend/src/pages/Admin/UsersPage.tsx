@@ -16,14 +16,17 @@ import {useGetMappedRoles} from "../../hooks/useGetMappedRoles.ts";
 import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {AxiosError} from "axios";
 import {Pagination} from "../../components/Pagination/Pagination.tsx";
+import {useLocation} from "react-router-dom";
 
 export const UsersPage = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(15);
+    const [search, setSearch] = useState('');
     const tableRefresh = useSelector((state: RootState) => state.table);
     const dispatch = useDispatch();
     const {t} = useTranslation();
+    const location = useLocation();
 
     const {
         data,
@@ -33,8 +36,16 @@ export const UsersPage = () => {
         refetch
     } = useQuery({
         queryFn: fetchUsers,
-        queryKey: ['users', page, itemsPerPage]
-    })
+        queryKey: ['users', page, itemsPerPage, search]
+    });
+
+    useEffect(() => {
+        if (location.search === null || location.search === "" || location.search === "?") {
+            setSearch('');
+            return;
+        }
+        setSearch(location.search.slice(1));
+    }, [location]);
 
     const {clients} = useGetMappedClients();
     const {roles} = useGetMappedRoles();
@@ -84,6 +95,9 @@ export const UsersPage = () => {
                     }
                     {!isLoading && !isError &&
                         <>
+                            {!users?.length &&
+                                <div className="text-center text-xl">{t('no-users')}</div>
+                            }
                             {users && users.length &&
                                 <>
                                     <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4" role="table">

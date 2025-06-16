@@ -35,7 +35,7 @@ class ArticlesService {
             query.where.OR = orQuery;
         }
 
-        const [clients, count] = await prisma.$transaction([
+        const [articles, count] = await prisma.$transaction([
             prisma.article.findMany(query),
             prisma.article.count()
         ]);
@@ -44,9 +44,8 @@ class ArticlesService {
             pagination: {
                 total: calculateNumberOfPages(count, take),
             },
-            data: clients
+            data: articles
         };
-
     }
 
     async getArticleById(id: number) {

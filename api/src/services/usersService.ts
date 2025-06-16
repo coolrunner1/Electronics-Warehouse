@@ -1,19 +1,44 @@
 import prisma from "../../prisma/prisma-client";
 import {calculateNumberOfPages, pagination} from "../utils/pagination";
 import * as bcrypt from "bcrypt";
+import {Prisma} from "../generated/prisma";
 
 class UsersService {
-    async getAllUsers(page: number, limit: number) {
+    async getAllUsers(reqQuery: any) {
+        const {page, limit, search} = reqQuery;
 
         const {skip, take} = pagination(page, limit);
+
+        const orQuery = []
+        const orderByQuery: Prisma.UserProfileOrderByWithRelationInput = {
+            user_id: 'desc',
+        };
+
+        if (search) {
+            orQuery.push(
+                {login: {contains: search, mode: 'insensitive',}},
+                {email: {contains: search, mode: 'insensitive',}},
+                {full_name: {contains: search, mode: 'insensitive',}},
+                {phone_number: {contains: search, mode: 'insensitive',}},
+                {passport: {equals: Number(search) || 0}},
+            )
+        }
+
+        const query = {
+            where: {
+                OR: undefined
+            },
+            orderBy: orderByQuery,
+            skip,
+            take: take
+        }
+
+        if (orQuery.length > 0) {
+            query.where.OR = orQuery;
+        }
+
         const [users, count] = await prisma.$transaction([
-            prisma.userProfile.findMany({
-                orderBy: {
-                   user_id: 'desc'
-                },
-                skip,
-                take
-            }),
+            prisma.userProfile.findMany(query),
             prisma.userProfile.count()
         ]);
 

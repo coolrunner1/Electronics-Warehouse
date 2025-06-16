@@ -5,9 +5,6 @@ class ArticlesController {
     public async getArticles(req: Request, res: Response, next: NextFunction){
         try {
             const articles = await articlesService.getAllArticles(req.query);
-            if (!articles.data.length) {
-                return res.status(404).json({message: "No articles found"});
-            }
             return res.status(200).json(articles);
         } catch (e) {
             next(e);
