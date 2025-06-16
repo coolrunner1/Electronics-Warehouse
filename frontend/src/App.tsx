@@ -18,14 +18,11 @@ import {CheckoutPage} from './pages/CheckoutPage.tsx'
 import {ProtectedEmployeeRoutes} from './utils/ProtectedEmployeeRoutes.tsx'
 import {HomePage} from './pages/HomePage.tsx'
 import {ProtectedUserRoutes} from './utils/ProtectedUserRoutes.tsx'
-import {useAuthInterceptor} from './hooks/useAuthInterceptor.ts'
 import {RegistrationPage} from './pages/RegistrationPage.tsx'
 import {ItemEditPage} from './pages/Employee/ItemEditPage.tsx'
 import {ArticlePage} from './pages/Admin/ArticlesPage.tsx'
 
 const App = () => {
-    useAuthInterceptor()
-
     return (
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>

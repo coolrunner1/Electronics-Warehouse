@@ -3,7 +3,6 @@ import {useState, KeyboardEvent, ChangeEvent} from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import {useTranslation} from "react-i18next";
 import {login} from "../api/auth"
-import {useAuthInterceptor} from "../hooks/useAuthInterceptor.ts";
 import {AuthInput} from "../components/Auth/AuthInput.tsx";
 import {AuthButton} from "../components/Auth/AuthButton.tsx";
 import {LanguageSelector} from "../components/Global/LanguageSelector.tsx";
@@ -13,8 +12,6 @@ export const LoginPage = () => {
     const [password, setPassword] = useState("");
     const { t } = useTranslation();
     const signIn = useSignIn();
-
-    useAuthInterceptor();
 
     const keyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
