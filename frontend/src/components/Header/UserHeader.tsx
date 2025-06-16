@@ -6,6 +6,7 @@ import {AccountButton} from "./AccountButton.tsx";
 import { useTranslation } from "react-i18next";
 import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 import {Header} from "./Header.tsx";
+import {ArticlesButton} from "./ArticlesButton.tsx";
 
 export function UserHeader() {
     const {t} = useTranslation();
@@ -22,6 +23,7 @@ export function UserHeader() {
                 <div className="flex gap-x-5">
                     <CartButton/>
                     <OrdersButton pathname={'orderhistory'}/>
+                    <ArticlesButton location={'articles'}/>
                     <AccountButton location={'/account'}/>
                 </div>
                 <LanguageSelector/>

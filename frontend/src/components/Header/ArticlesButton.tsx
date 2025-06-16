@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-export const NewsButton = (props: { location: string }) => {
+export const ArticlesButton = (props: { location: string }) => {
   const navigate = useNavigate()
 
   const handleClick = () => {

@@ -20,7 +20,8 @@ import {HomePage} from './pages/HomePage.tsx'
 import {ProtectedUserRoutes} from './utils/ProtectedUserRoutes.tsx'
 import {RegistrationPage} from './pages/RegistrationPage.tsx'
 import {ItemEditPage} from './pages/Employee/ItemEditPage.tsx'
-import {ArticlePage} from './pages/Admin/ArticlesPage.tsx'
+import {ArticlePage} from './pages/Admin/ArticlesEditPage.tsx'
+import {ArticlesPage} from "./pages/ArticlesPage.tsx";
 
 const App = () => {
     return (
@@ -51,6 +52,10 @@ const App = () => {
                         <Route
                             path='/orderhistory'
                             element={<OrderUserHistory/>}
+                        />
+                        <Route
+                            path='/articles'
+                            element={<ArticlesPage/>}
                         />
                     </Route>
                     <Route element={<ProtectedAdminRoutes/>}>

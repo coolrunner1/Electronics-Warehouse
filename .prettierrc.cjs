@@ -6,9 +6,10 @@ module.exports = {
   useTabs: false,
   trailingComma: 'all',
   jsxSingleQuote: true,
-  bracketSpacing: true,
+  bracketSpacing: false,
   bracketSameLine: false,
   singleAttributePerLine: true,
+  singleQuote: false,
   endOfLine: "lf",
   insertFinalNewline: true
 }
