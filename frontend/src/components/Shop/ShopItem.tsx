@@ -4,6 +4,8 @@ import {useState, MouseEvent} from "react";
 import {ItemInShop} from "../../types/Item";
 import {useTranslation} from "react-i18next";
 import {ItemImage} from "../Global/ItemImage.tsx";
+// @ts-ignore
+import StarRatings from 'react-star-ratings';
 
 export const ShopItem = (
     props: {
@@ -35,6 +37,15 @@ export const ShopItem = (
                             : t('out-of-stock')
                         }
                     </p>
+                    <p className="mt-1 text-sm text-slate-400">{t('rating')}</p>
+                    <StarRatings
+                        rating={props.item.score/2}
+                        starRatedColor="#ffcf00"
+                        numberOfStars={5}
+                        name='rating'
+                        starDimension="28px"
+                        starSpacing="5px"
+                    />
                 </div>
             </div>
             <div className="mt-3 p-2 flex items-end justify-between">

@@ -99,6 +99,7 @@ export default {
     'discard-image': 'Удалить загруженное изображение',
     'save-changes': 'Сохранить изменения',
     'item-specs': 'Характеристики',
+    'rating': 'Рейтинг',
     'reviews': 'Отзывы',
     'my-account': 'Мой аккаунт',
     'user-info': 'Информация о пользователе',

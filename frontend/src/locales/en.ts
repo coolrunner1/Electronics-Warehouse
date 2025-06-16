@@ -99,6 +99,7 @@ export default {
     'discard-image': 'Discard uploaded image',
     'save-changes': 'Save changes',
     'item-specs': 'Specifications',
+    'rating': 'Rating',
     'reviews': 'Reviews',
     'my-account': 'My account',
     'user-info': 'User information',
