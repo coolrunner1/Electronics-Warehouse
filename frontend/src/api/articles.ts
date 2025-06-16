@@ -1,6 +1,7 @@
+import { Article } from "../types/Article.ts";
 import axiosClient from "./axiosClient.ts";
 
-export const fetchArticles = async ({queryKey}: any) => {
+export const fetchArticles = async ({queryKey}: any): Promise<{articles: Article[], pagination: number}> => {
     const [_key, page, itemsPerPage, search] = queryKey;
     const data = await axiosClient.get(`/articles/?page=${page}&limit=${itemsPerPage}${search ? `&search=${search}` : ""}`);
     return {
