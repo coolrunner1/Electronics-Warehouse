@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
+import { Header } from "./Header.tsx";
 
 export function EmployeeHeader() {
     const {t} = useTranslation();
@@ -27,14 +28,26 @@ export function EmployeeHeader() {
     }, [location]);
 
     return (
-        <header className="header flex flex-row gap-x-5 p-4 bg-[#ebe9e5] dark:bg-gray-950">
-            <WarehouseLogo location={"employee/items"}/>
-            <SearchBar pathname={searchPath} placeholder={searchPlaceholder} />
-            <ClientsButton/>
-            <SuppliersButton/>
-            <OrdersButton pathname={"employee/orders"}/>
-            <AccountButton location={'/employee/account'}/>
-            <LanguageSelector/>
-        </header>
+        <>
+            <Header>
+                <WarehouseLogo location={"employee/items"}/>
+                <SearchBar
+                    customClassName={"hidden sm:flex"}
+                    pathname={searchPath}
+                    placeholder={searchPlaceholder}
+                />
+                <ClientsButton/>
+                <SuppliersButton/>
+                <OrdersButton pathname={"employee/orders"}/>
+                <AccountButton location={'/employee/account'}/>
+                <LanguageSelector/>
+            </Header>
+            <div className='sm:hidden p-4 bg-[#ebe9e5] dark:bg-gray-950'>
+                <SearchBar
+                    pathname={searchPath}
+                    placeholder={searchPlaceholder}
+                />
+            </div>
+        </>
     )
 }

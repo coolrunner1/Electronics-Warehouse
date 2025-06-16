@@ -7,6 +7,7 @@ export function SearchBar(
     props: {
         pathname: string,
         placeholder: string,
+        customClassName?: string
     }
 ) {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ export function SearchBar(
 
     return (
         <>
-            <div className="w-full">
+            <div className={"w-full "+props.customClassName || ''}>
                 <div
                     className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg overflow-hidden bg-search">
                     <div className="grid place-items-center h-full w-12 text-gray-300 bg-search">
