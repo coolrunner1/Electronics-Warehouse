@@ -1,10 +1,10 @@
 import {AxiosError} from 'axios'
-import {LoadingIndicator} from '../components/Global/LoadingIndicator'
-import {Pagination} from '../components/Pagination/Pagination'
+import {LoadingIndicator} from '../../components/Global/LoadingIndicator.tsx'
+import {Pagination} from '../../components/Pagination/Pagination.tsx'
 import {useTranslation} from 'react-i18next'
-import {Article} from '../types/Article'
+import {Article} from '../../types/Article.ts'
 import {useQuery} from '@tanstack/react-query'
-import {fetchArticles} from '../api/articles'
+import {fetchArticles} from '../../api/articles.ts'
 import {useState} from 'react'
 
 export const ArticlesPage = () => {

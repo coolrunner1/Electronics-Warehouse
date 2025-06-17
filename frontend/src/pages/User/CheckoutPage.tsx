@@ -1,9 +1,9 @@
 import {useSelector} from "react-redux";
-import {RootState} from "../state/store.ts";
-import {ItemInCart} from "../types/Item.ts";
+import {RootState} from "../../state/store.ts";
+import {ItemInCart} from "../../types/Item.ts";
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import {CheckoutItem} from "../components/Checkout/CheckoutItem.tsx";
+import {CheckoutItem} from "../../components/Checkout/CheckoutItem.tsx";
 import {useTranslation} from "react-i18next";
 
 export const CheckoutPage = () => {

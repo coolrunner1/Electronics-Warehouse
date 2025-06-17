@@ -1,10 +1,10 @@
-import {CartPage} from './pages/CartPage.tsx'
+import {CartPage} from './pages/User/CartPage.tsx'
 import {Route, Routes, BrowserRouter, Navigate} from 'react-router-dom'
-import {ShopPage} from './pages/ShopPage.tsx'
+import {ShopPage} from './pages/User/ShopPage.tsx'
 import {AccountPage} from './pages/AccountPage'
 import {PageNotFound} from './pages/PageNotFound'
 import {LoginPage} from './pages/LoginPage'
-import {OrderUserHistory} from './pages/OrderUserHistory'
+import {OrderUserHistory} from './pages/User/OrderUserHistory.tsx'
 import {UsersPage} from './pages/Admin/UsersPage.tsx'
 import {ProtectedAdminRoutes} from './utils/ProtectedAdminRoutes.tsx'
 import {ItemsPage} from './pages/Employee/ItemsPage.tsx'
@@ -14,18 +14,19 @@ import {OrdersPage} from './pages/Employee/OrdersPage.tsx'
 import {QueryClientProvider} from '@tanstack/react-query'
 import {queryClient} from './api/queryClient'
 import './i18n'
-import {CheckoutPage} from './pages/CheckoutPage.tsx'
+import {CheckoutPage} from './pages/User/CheckoutPage.tsx'
 import {ProtectedEmployeeRoutes} from './utils/ProtectedEmployeeRoutes.tsx'
-import {HomePage} from './pages/HomePage.tsx'
+import {MainPage} from './pages/MainPage.tsx'
 import {ProtectedUserRoutes} from './utils/ProtectedUserRoutes.tsx'
 import {RegistrationPage} from './pages/RegistrationPage.tsx'
 import {ItemEditPage} from './pages/Employee/ItemEditPage.tsx'
 import {ArticlePage} from './pages/Admin/ArticlesEditPage.tsx'
-import {ArticlesPage} from "./pages/ArticlesPage.tsx";
-import {ShopItemPage} from "./pages/ShopItemPage.tsx";
+import {ArticlesPage} from "./pages/User/ArticlesPage.tsx";
+import {ShopItemPage} from "./pages/User/ShopItemPage.tsx";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {setFlagsFromLocalStorage} from "./slices/flagsSlice.ts";
+import {HomePage} from "./pages/User/HomePage.tsx";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -40,9 +41,13 @@ const App = () => {
                 <Routes>
                     <Route
                         path='/'
-                        element={<HomePage/>}
+                        element={<MainPage/>}
                     />
                     <Route element={<ProtectedUserRoutes/>}>
+                        <Route
+                            path='/home'
+                            element={<HomePage/>}
+                        />
                         <Route
                             path='/store'
                             element={<ShopPage/>}

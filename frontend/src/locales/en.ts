@@ -161,5 +161,11 @@ export default {
     'content-en': 'Content in English',
     'content-ru': 'Content in Russian',
     'edit-content': "Edit content",
-    close: 'Close'
+    close: 'Close',
+    'main-page-title': 'Welcome to Electronics Warehouse!',
+    'main-page-subtitle': 'We\'re thrilled to have you here. Whether you\'re upgrading your setup, searching for the latest tech, or just exploring, we’re here to help you find exactly what you need.\n' +
+        'Enjoy great deals, expert advice, and top-quality electronics—all in one place.',
+    'browse-shop': 'Browse shop',
+    'new-arrivals': 'Latest arrivals',
+    'new-articles': 'Latest news and promotions',
 }

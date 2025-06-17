@@ -1,10 +1,10 @@
-import {OrderHistoryEntry} from "../components/OrderHistory/OrderHistoryEntry";
+import {OrderHistoryEntry} from "../../components/OrderHistory/OrderHistoryEntry.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import { Order } from "../types/Order";
+import { Order } from "../../types/Order.ts";
 import {useTranslation} from "react-i18next";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import {User} from "../types/User.ts";
+import {User} from "../../types/User.ts";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
 export const OrderUserHistory = () => {

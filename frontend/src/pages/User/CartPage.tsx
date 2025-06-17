@@ -1,5 +1,5 @@
-import {CartItemsContainer} from "../components/Cart/CartItemsContainer.tsx";
-import {CartInformationContainer} from "../components/Cart/CartInformationContainer.tsx";
+import {CartItemsContainer} from "../../components/Cart/CartItemsContainer.tsx";
+import {CartInformationContainer} from "../../components/Cart/CartInformationContainer.tsx";
 import {useTranslation} from "react-i18next";
 
 export const CartPage = () => {

@@ -1,17 +1,19 @@
 import {useQuery} from "@tanstack/react-query";
-import {getItemById} from "../api/items.ts";
+import {getItemById} from "../../api/items.ts";
 import {useNavigate, useParams} from "react-router-dom";
-import {LoadingIndicator} from "../components/Global/LoadingIndicator.tsx";
+import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {useTranslation} from "react-i18next";
-import {ItemImage} from "../components/Global/ItemImage.tsx";
+import {ItemImage} from "../../components/Global/ItemImage.tsx";
 // @ts-ignore
 import StarRatings from 'react-star-ratings';
 import {MouseEvent, useState} from "react";
 import {useDispatch} from "react-redux";
-import {setManufacturer} from "../slices/filtersSlice.ts";
-import {addToCart} from "../slices/cartSlice.ts";
-import {ItemInShop} from "../types/Item.ts";
-import {ImageModal} from "../components/ShopItemPage/ImageModal.tsx";
+import {setManufacturer} from "../../slices/filtersSlice.ts";
+import {addToCart} from "../../slices/cartSlice.ts";
+import {ItemInShop} from "../../types/Item.ts";
+import {ImageModal} from "../../components/ShopItemPage/ImageModal.tsx";
+import {BlueItemButton} from "../../components/Global/BlueItemButton.tsx";
+import {RedItemButton} from "../../components/Global/RedItemButton.tsx";
 
 export const ShopItemPage = () => {
     const navigate = useNavigate();
@@ -107,18 +109,14 @@ export const ShopItemPage = () => {
                                 <p className="mb-1.5 text-xl font-bold text-blue-500">${data.unit_price}</p>
                                 {data.units_in_stock > 0 &&
                                     <>
-                                        <button
-                                            className="text-sm text-white font-bold py-2 px-3 bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-900 rounded-md transition-all duration-300 ease-in-out"
+                                        <BlueItemButton
                                             onClick={onAddToCartClick}
-                                        >
-                                            {!clicked ? t('add-to-cart') : t('added-to-cart')}
-                                        </button>
-                                        <button
-                                            className="text-sm text-white font-bold py-2 px-3 bg-red-500 hover:bg-red-700 focus:ring-2 focus:ring-red-900 rounded-md transition-all duration-300 ease-in-out"
+                                            text={!clicked ? t('add-to-cart') : t('added-to-cart')}
+                                        />
+                                        <RedItemButton
                                             onClick={onBuyNowClick}
-                                        >
-                                            {t('buy-now')}
-                                        </button>
+                                            text={t('buy-now')}
+                                        />
                                     </>
                                 }
                             </div>

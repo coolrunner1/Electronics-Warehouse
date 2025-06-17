@@ -7,6 +7,7 @@ import {ItemImage} from "../Global/ItemImage.tsx";
 // @ts-ignore
 import StarRatings from 'react-star-ratings';
 import {useNavigate} from "react-router-dom";
+import {BlueItemButton} from "../Global/BlueItemButton.tsx";
 
 export const ShopItem = (
     props: {
@@ -64,13 +65,11 @@ export const ShopItem = (
                 <p className="mb-1.5 text-xl font-bold text-blue-500">${props.item.unit_price}</p>
                 {props.item.units_in_stock > 0 &&
                     <>
-                        <button
-                            className="text-sm text-white font-bold py-2 px-3 bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-900 rounded-md transition-all duration-300 ease-in-out"
+                        <BlueItemButton
                             onClick={onAddToCartClick}
                             value={props.item.item_id}
-                        >
-                            {!clicked ? t('add-to-cart') : t('added-to-cart')}
-                        </button>
+                            text={!clicked ? t('add-to-cart') : t('added-to-cart')}
+                        />
                     </>
                 }
             </div>

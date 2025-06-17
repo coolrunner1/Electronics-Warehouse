@@ -1,5 +1,5 @@
-import {ItemsContainer} from "../components/Shop/ItemsContainer";
-import {Filters} from "../components/Shop/Filters";
+import {ItemsContainer} from "../../components/Shop/ItemsContainer.tsx";
+import {Filters} from "../../components/Shop/Filters.tsx";
 
 export const ShopPage = () => {
 

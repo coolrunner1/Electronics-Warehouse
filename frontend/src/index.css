@@ -45,10 +45,10 @@ button:focus-visible {
 body.dark {
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-  /*:root {
+  :root {
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
-  }*/
+  }
   /*a:hover {
     color: #747bff;
   }*/
