@@ -23,8 +23,17 @@ import {ItemEditPage} from './pages/Employee/ItemEditPage.tsx'
 import {ArticlePage} from './pages/Admin/ArticlesEditPage.tsx'
 import {ArticlesPage} from "./pages/ArticlesPage.tsx";
 import {ShopItemPage} from "./pages/ShopItemPage.tsx";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {setFlagsFromLocalStorage} from "./slices/flagsSlice.ts";
 
 const App = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setFlagsFromLocalStorage());
+    }, [])
+
     return (
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>

@@ -1,7 +1,6 @@
 import {AdminButton} from './AdminButton.tsx'
 import {AccountButton} from './AccountButton.tsx'
 import {useTranslation} from 'react-i18next'
-import {LanguageSelector} from '../Global/LanguageSelector.tsx'
 import {ArticlesButton} from './ArticlesButton.tsx'
 import {SearchBar} from "../Global/SearchBar.tsx";
 import {useLocation} from "react-router-dom";
@@ -36,7 +35,6 @@ export const AdminHeader = () => {
                 />
                 <ArticlesButton location='/admin/articles'/>
                 <AccountButton location={'/admin/account'}/>
-                <LanguageSelector/>
             </Header>
             <div className='sm:hidden p-4 bg-[#ebe9e5] dark:bg-gray-950'>
                 <SearchBar

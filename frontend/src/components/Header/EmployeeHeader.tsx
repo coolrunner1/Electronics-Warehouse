@@ -5,7 +5,6 @@ import {ClientsButton} from "./ClientsButton";
 import {SuppliersButton} from "./SuppliersButton";
 import {SearchBar} from "../Global/SearchBar";
 import { useTranslation } from "react-i18next";
-import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import { Header } from "./Header.tsx";
@@ -40,7 +39,6 @@ export function EmployeeHeader() {
                 <SuppliersButton/>
                 <OrdersButton pathname={"employee/orders"}/>
                 <AccountButton location={'/employee/account'}/>
-                <LanguageSelector/>
             </Header>
             <div className='sm:hidden p-4 bg-[#ebe9e5] dark:bg-gray-950'>
                 <SearchBar

@@ -4,7 +4,6 @@ import {CartButton} from "./CartButton";
 import {OrdersButton} from "./OrdersButton";
 import {AccountButton} from "./AccountButton.tsx";
 import { useTranslation } from "react-i18next";
-import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 import {Header} from "./Header.tsx";
 import {ArticlesButton} from "./ArticlesButton.tsx";
 
@@ -26,7 +25,6 @@ export function UserHeader() {
                     <ArticlesButton location={'articles'}/>
                     <AccountButton location={'/account'}/>
                 </div>
-                <LanguageSelector/>
             </Header>
             <div className='sm:hidden p-4 bg-[#ebe9e5] dark:bg-gray-950'>
                 <SearchBar
