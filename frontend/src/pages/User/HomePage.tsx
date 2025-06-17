@@ -7,9 +7,11 @@ import {fetchArticles} from "../../api/articles.ts";
 import { TopArticleEntry } from "../../components/Home/TopArticleEntry.tsx";
 import {Article} from "../../types/Article.ts";
 import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
+import {useNavigate} from "react-router-dom";
 
 export const HomePage = () => {
     const {t} = useTranslation();
+    const navigate = useNavigate();
 
     const {data: topItems, isLoading: isItemsLoading} = useQuery({
         queryFn: fetchItems,
@@ -25,11 +27,12 @@ export const HomePage = () => {
 
     return (
         <>
-            <div className="flex flex-col md:flex-row justify-between lg:px-20 bg-light-default dark:bg-[#2b2a33]">
+            <div className="flex flex-col-reverse md:flex-row justify-between lg:px-20 bg-light-default dark:bg-[#2b2a33]">
                 <div className="p-10">
                     <div className="text-2xl sm:text-4xl font-bold">{t('main-page-title')}</div>
                     <div className="my-2 font-light">{t('main-page-subtitle')}</div>
                     <button
+                        onClick={() => navigate('/store')}
                         type="button"
                         className="my-5 text-md text-white font-bold py-2 px-10 bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-900 rounded-md transition-all duration-300 ease-in-out"
                     >
@@ -37,12 +40,12 @@ export const HomePage = () => {
                     </button>
                 </div>
                 <img
-                    className='m-5'
+                    className='p-10 object-cover object-center'
                     src="/shop-image.png"
-                    title="Churchill"
-                    alt="Churchill"
-                    width="640"
-                    height="400"
+                    title="Shop Image"
+                    alt="shop-image"
+                    height={"500px"}
+                    width={"500px"}
                 />
             </div>
             <div className="flex flex-col lg:grid lg:grid-cols-2 lg:grid-rows-1 gap-5 m-auto max-w-6xl justify-center">

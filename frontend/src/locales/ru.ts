@@ -167,4 +167,5 @@ export default {
     'browse-shop': 'Открыть магазин',
     'new-arrivals': 'Свежие поступления',
     'new-articles': 'Последние новости и акции',
+    'show-item': 'Открыть',
 }

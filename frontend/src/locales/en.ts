@@ -168,4 +168,5 @@ export default {
     'browse-shop': 'Browse shop',
     'new-arrivals': 'Latest arrivals',
     'new-articles': 'Latest news and promotions',
+    'show-item': 'Show item',
 }
