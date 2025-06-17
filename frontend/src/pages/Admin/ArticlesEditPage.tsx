@@ -31,6 +31,7 @@ export const ArticlePage = () => {
     });
 
     useEffect(() => {
+        if (!data) return;
         setArticles(data?.articles);
     }, [data]);
 
@@ -84,7 +85,7 @@ export const ArticlePage = () => {
                         {!articles?.length &&
                             <div className="text-center text-xl">{t('no-articles')}</div>
                         }
-                        {articles && articles.length &&
+                        {data && articles && articles.length &&
                             <>
                                 <Table
                                     className='bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4'
@@ -122,7 +123,7 @@ export const ArticlePage = () => {
                                 <Pagination
                                     currentPage={page}
                                     setCurrentPage={setPage}
-                                    pageCount={data?.pagination}
+                                    pageCount={data.pagination}
                                     itemsPerPage={itemsPerPage}
                                     setItemsPerPage={setItemsPerPage}
                                 />

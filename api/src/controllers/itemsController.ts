@@ -89,7 +89,8 @@ class ItemsController {
 
     async updateItemImage(req: Request, res: Response, next: NextFunction) {
         try {
-            console.log(req)
+            return res.status(501).json()
+            /*console.log(req)
             const image = req.files['image'];
             const id = parseInt(req.params.id);
             if (!image) {
@@ -119,7 +120,7 @@ class ItemsController {
 
             return res.status(200).json({message: 'Image updated.', item});
 
-            return res.status(501).json()
+            return res.status(501).json()*/
         } catch (e) {
             next(e);
         }

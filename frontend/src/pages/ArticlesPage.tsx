@@ -42,7 +42,7 @@ export const ArticlesPage = () => {
                                 {data?.articles.length ? (
                                     <>
                                         <div className='flex flex-col items-center gap-4 mt-4'>
-                                            {data?.articles.map((article: Article) => (
+                                            {data?.articles.map((article: Article, index: number) => (
                                                 <>
                                                     <div
                                                         className='w-1/2 py-5 text-left px-4 rounded-xl shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300'>
@@ -57,7 +57,7 @@ export const ArticlesPage = () => {
                                                                 : article.descriptionEN}
                                                         </p>
                                                     </div>
-                                                    <hr className='h-px w-1/2'></hr>
+                                                    {index < data.articles.length-1 && <hr className='h-px w-1/2'></hr>}
                                                 </>
                                             ))}
                                         </div>

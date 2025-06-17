@@ -1,3 +1,5 @@
+import {Category} from "./Category.ts";
+
 export type Item = {
     item_id: number;
     category_id: number;
@@ -8,18 +10,24 @@ export type Item = {
     unit_price: number;
     score: number;
 }
-/*
-export type ItemDetailed = Item & {
+
+export type ItemDetails = {
     descriptionEN: string;
     descriptionRU: string;
     specsEN: string;
     specsRU: string;
-}*/
+}
+
+export type ItemDetailed = ItemInShop & {
+    details: ItemDetails;
+    category: Category;
+}
 
 export type ItemInShop = Item & {
     date_of_arrival: string;
     units_in_stock: number;
     faulty_units: number;
+    review_count: number;
 }
 
 export type ItemInCart = ItemInShop & {

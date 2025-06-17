@@ -1,7 +1,7 @@
 import {ItemsContainer} from "../components/Shop/ItemsContainer";
 import {Filters} from "../components/Shop/Filters";
 
-export const StorePage = () => {
+export const ShopPage = () => {
 
     return (
         <div className="flex flex-col w-full">

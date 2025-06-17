@@ -1,4 +1,5 @@
 import axiosClient from "./axiosClient";
+import {ItemDetailed} from "../types/Item.ts";
 
 export const fetchItems = async({queryKey}: any) => {
     const [_key, page, itemsPerPage, search, sortBy, sortingDirection, category, manufacturer] = queryKey;
@@ -21,7 +22,7 @@ export const fetchItems = async({queryKey}: any) => {
     }
 }
 
-export const getItemById = async({queryKey}: any) => {
+export const getItemById = async({queryKey}: any): Promise<ItemDetailed> => {
     const [_key, id] = queryKey;
     const data = await axiosClient.get(`/items/${id}`);
     return data.data;

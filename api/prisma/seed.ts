@@ -254,8 +254,126 @@ async function main() {
                 create: {
                     descriptionEN: "<p>Placeholder</p>",
                     descriptionRU: "<p>Placeholder</p>",
-                    specsEN: "<p>Placeholder</p>",
-                    specsRU: "<p>Placeholder</p>"
+                    specsEN: "<h1>NVIDIA GeForce 210 - Specifications</h1>\n" +
+                        "\n" +
+                        "    <h2>General Information</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Release Date: October 2009</li>\n" +
+                        "        <li>GPU Architecture: Tesla</li>\n" +
+                        "        <li>Process Size: 40 nm</li>\n" +
+                        "        <li>Transistors: 260 million</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>GPU</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>CUDA Cores: 16</li>\n" +
+                        "        <li>Core Clock: ~589 MHz</li>\n" +
+                        "        <li>Shader Clock: ~1402 MHz</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Memory</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Memory Size: 512 MB – 1 GB</li>\n" +
+                        "        <li>Memory Type: DDR2 / DDR3</li>\n" +
+                        "        <li>Memory Clock: ~500 MHz (DDR2) / ~800 MHz (DDR3)</li>\n" +
+                        "        <li>Memory Bus Width: 64-bit</li>\n" +
+                        "        <li>Bandwidth: ~8 GB/s</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Display Support</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Max Resolution: 2560x1600 (Digital)</li>\n" +
+                        "        <li>Outputs: VGA, DVI, HDMI (varies by model)</li>\n" +
+                        "        <li>Multi-Monitor Support: Yes</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Features</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>DirectX: 10.1</li>\n" +
+                        "        <li>OpenGL: 3.1</li>\n" +
+                        "        <li>PureVideo HD: Yes</li>\n" +
+                        "        <li>PhysX: No</li>\n" +
+                        "        <li>SLI Support: No</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Power & Thermal</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Power Consumption: ~30 Watts</li>\n" +
+                        "        <li>Recommended PSU: 300 Watts</li>\n" +
+                        "        <li>Cooling: Passive or Single-fan (varies by model)</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Bus Interface</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Interface: PCI Express 2.0 x16</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Target Market</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Entry-level Desktop Graphics</li>\n" +
+                        "        <li>Basic HD Video Playback</li>\n" +
+                        "        <li>Low Power & Silent PCs</li>\n" +
+                        "    </ul>",
+                    specsRU: "<h1>NVIDIA GeForce 210 — Характеристики</h1>\n" +
+                        "\n" +
+                        "    <h2>Общая информация</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Дата выхода: Октябрь 2009</li>\n" +
+                        "        <li>Архитектура GPU: Tesla</li>\n" +
+                        "        <li>Техпроцесс: 40 нм</li>\n" +
+                        "        <li>Количество транзисторов: 260 миллионов</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Графический процессор</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>CUDA-ядер: 16</li>\n" +
+                        "        <li>Частота ядра: ~589 МГц</li>\n" +
+                        "        <li>Частота шейдеров: ~1402 МГц</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Память</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Объём памяти: 512 МБ – 1 ГБ</li>\n" +
+                        "        <li>Тип памяти: DDR2 / DDR3</li>\n" +
+                        "        <li>Частота памяти: ~500 МГц (DDR2) / ~800 МГц (DDR3)</li>\n" +
+                        "        <li>Разрядность шины памяти: 64-бит</li>\n" +
+                        "        <li>Пропускная способность: ~8 ГБ/с</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Поддержка дисплеев</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Максимальное разрешение: 2560x1600 (цифровое)</li>\n" +
+                        "        <li>Выходы: VGA, DVI, HDMI (зависит от модели)</li>\n" +
+                        "        <li>Поддержка нескольких мониторов: Да</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Функции</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>DirectX: 10.1</li>\n" +
+                        "        <li>OpenGL: 3.1</li>\n" +
+                        "        <li>PureVideo HD: Да</li>\n" +
+                        "        <li>PhysX: Нет</li>\n" +
+                        "        <li>Поддержка SLI: Нет</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Питание и охлаждение</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Потребляемая мощность: ~30 Вт</li>\n" +
+                        "        <li>Рекомендуемый блок питания: 300 Вт</li>\n" +
+                        "        <li>Охлаждение: Пассивное или с одним вентилятором (в зависимости от модели)</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Интерфейс</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Интерфейс подключения: PCI Express 2.0 x16</li>\n" +
+                        "    </ul>\n" +
+                        "\n" +
+                        "    <h2>Назначение</h2>\n" +
+                        "    <ul>\n" +
+                        "        <li>Бюджетная графика для настольных ПК</li>\n" +
+                        "        <li>Воспроизведение HD-видео</li>\n" +
+                        "        <li>Малошумящие и энергосберегающие сборки</li>\n" +
+                        "    </ul>"
                 }
             }
         }

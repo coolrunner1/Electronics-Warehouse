@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {ItemImage} from "../Global/ItemImage.tsx";
 // @ts-ignore
 import StarRatings from 'react-star-ratings';
+import {useNavigate} from "react-router-dom";
 
 export const ShopItem = (
     props: {
@@ -14,16 +15,24 @@ export const ShopItem = (
 ) => {
     const [clicked, setClicked] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {i18n, t} = useTranslation();
 
     const onAddToCartClick = (e: MouseEvent<HTMLButtonElement>) => {
-        dispatch(addToCart(props.item));
         e.preventDefault();
+        e.stopPropagation();
+        if (clicked) {
+            return;
+        }
+        dispatch(addToCart(props.item));
         setClicked(true);
     }
 
     return (
-        <article className="flex flex-col justify-between h-full bg-light-default dark:bg-dark-default rounded-xl p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+        <article
+            onClick={() => {navigate(`/store/${props.item.item_id}`)}}
+            className="flex flex-col justify-between h-full bg-light-default dark:bg-dark-default rounded-xl p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
+        >
             <div>
                 <div className="relative flex items-end overflow-hidden rounded-xl">
                     <ItemImage imagePath={props.item.image_path} title={props.item.modelEN}/>
@@ -38,14 +47,17 @@ export const ShopItem = (
                         }
                     </p>
                     <p className="mt-1 text-sm text-slate-400">{t('rating')}</p>
-                    <StarRatings
-                        rating={props.item.score/2}
-                        starRatedColor="#ffcf00"
-                        numberOfStars={5}
-                        name='rating'
-                        starDimension="28px"
-                        starSpacing="5px"
-                    />
+                    <div className="flex gap-1">
+                        <StarRatings
+                            rating={props.item.score/2}
+                            starRatedColor="#ffcf00"
+                            numberOfStars={5}
+                            name='rating'
+                            starDimension="14px"
+                            starSpacing="3px"
+                        />
+                        <div>({props.item.review_count || 0})</div>
+                    </div>
                 </div>
             </div>
             <div className="mt-3 p-2 flex items-end justify-between">
@@ -54,7 +66,7 @@ export const ShopItem = (
                     <>
                         <button
                             className="text-sm text-white font-bold py-2 px-3 bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-900 rounded-md transition-all duration-300 ease-in-out"
-                            onClick={!clicked ? onAddToCartClick : undefined}
+                            onClick={onAddToCartClick}
                             value={props.item.item_id}
                         >
                             {!clicked ? t('add-to-cart') : t('added-to-cart')}

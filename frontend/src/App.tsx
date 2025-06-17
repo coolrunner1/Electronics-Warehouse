@@ -1,6 +1,6 @@
 import {CartPage} from './pages/CartPage.tsx'
 import {Route, Routes, BrowserRouter, Navigate} from 'react-router-dom'
-import {StorePage} from './pages/StorePage'
+import {ShopPage} from './pages/ShopPage.tsx'
 import {AccountPage} from './pages/AccountPage'
 import {PageNotFound} from './pages/PageNotFound'
 import {LoginPage} from './pages/LoginPage'
@@ -22,6 +22,7 @@ import {RegistrationPage} from './pages/RegistrationPage.tsx'
 import {ItemEditPage} from './pages/Employee/ItemEditPage.tsx'
 import {ArticlePage} from './pages/Admin/ArticlesEditPage.tsx'
 import {ArticlesPage} from "./pages/ArticlesPage.tsx";
+import {ShopItemPage} from "./pages/ShopItemPage.tsx";
 
 const App = () => {
     return (
@@ -35,7 +36,11 @@ const App = () => {
                     <Route element={<ProtectedUserRoutes/>}>
                         <Route
                             path='/store'
-                            element={<StorePage/>}
+                            element={<ShopPage/>}
+                        />
+                        <Route
+                            path='/store/:id'
+                            element={<ShopItemPage/>}
                         />
                         <Route
                             path='/cart'

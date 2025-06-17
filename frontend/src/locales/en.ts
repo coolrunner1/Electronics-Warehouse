@@ -33,6 +33,8 @@ export default {
     'item-not-found': 'Item was not found',
     'item-create-success': 'Item created successfully',
     'item-update-success': 'Item updated successfully',
+    'buy-now': 'Buy now',
+    'more-items-by': 'More items by',
     'arrival-success':  'Added arrival successfully',
     orders: 'Orders',
     'order-history': 'Order history',

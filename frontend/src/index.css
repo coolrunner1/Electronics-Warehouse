@@ -1,9 +1,12 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight.css" layer(base);
 @tailwind utilities;
 
 /*
 Todo: remove all vanilla css styles
 */
+
+ol,ul,menu {  list-style: initial;}
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
