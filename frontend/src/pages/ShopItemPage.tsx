@@ -32,7 +32,7 @@ export const ShopItemPage = () => {
 
     const sendToCart = () => {
         if (!data) return;
-        let item: any = data;
+        let item: any = Object.assign({}, data);
         if (item?.details) delete item.details;
         dispatch(addToCart(item as ItemInShop));
     }
