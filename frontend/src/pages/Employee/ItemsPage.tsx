@@ -36,6 +36,7 @@ export const ItemsPage = () => {
             date_of_arrival: "",
             units_in_stock: 0,
             faulty_units: 0,
+            review_count: 0,
             score: 0
         }
     ]);
@@ -92,6 +93,7 @@ export const ItemsPage = () => {
                 date_of_arrival: "",
                 units_in_stock: 0,
                 faulty_units: 0,
+                review_count: 0,
                 score: 0
             }]);
             return;

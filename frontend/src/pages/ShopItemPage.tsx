@@ -11,6 +11,7 @@ import {useDispatch} from "react-redux";
 import {setManufacturer} from "../slices/filtersSlice.ts";
 import {addToCart} from "../slices/cartSlice.ts";
 import {ItemInShop} from "../types/Item.ts";
+import {ImageModal} from "../components/ShopItemPage/ImageModal.tsx";
 
 export const ShopItemPage = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const ShopItemPage = () => {
     const {id} = useParams();
     const {t, i18n} = useTranslation();
     const [clicked, setClicked] = useState(false);
+    const [showImageModal, setShowImageModal] = useState(false);
 
     const {
         data,
@@ -58,10 +60,20 @@ export const ShopItemPage = () => {
             )}
             {data && data?.details &&
                 <div className="min-h-full min-w-full flex flex-col gap-10 justify-center items-center">
+                    {showImageModal &&
+                        <ImageModal
+                            setShowImageModal={setShowImageModal}
+                            imagePath={data.image_path}
+                            title={data.modelEN}
+                        />
+                    }
                     <div
-                        className="flex flex-col sm:flex-row sm:gap-5 m-auto max-w-3xl justify-between bg-light-default dark:bg-dark-default rounded-xl p-3 shadow-lg"
+                        className="flex flex-col sm:flex-row sm:gap-5 m-auto mt-5 max-w-3xl justify-between bg-light-default dark:bg-dark-default rounded-xl p-3 sm:shadow-lg"
                     >
-                        <div className="relative max-w-80 m-auto flex items-end overflow-hidden rounded-xl">
+                        <div
+                            onClick={() => setShowImageModal(true)}
+                            className="relative max-w-80 m-auto flex items-end overflow-hidden rounded-xl"
+                        >
                             <ItemImage imagePath={data.image_path} title={data.modelEN}/>
                         </div>
                         <div className="m-auto p-2">
