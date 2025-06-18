@@ -36,6 +36,7 @@ export const ShopItemPage = () => {
         if (!data) return;
         let item: any = Object.assign({}, data);
         if (item?.details) delete item.details;
+        if (item?.category) delete item.category;
         dispatch(addToCart(item as ItemInShop));
     }
 
@@ -80,7 +81,7 @@ export const ShopItemPage = () => {
                         </div>
                         <div className="m-auto p-2">
                             <span
-                                className="pb-2 font-bold text-blue-500 hover:text-blue-700 transition-all duration-300 ease-in-out"
+                                className="mt-1 pb-2 font-bold text-blue-500 hover:text-blue-700 transition-all duration-300 ease-in-out"
                                 onClick={() => {
                                     dispatch(setManufacturer(data?.manufacturer))
                                     navigate(`/store`);
@@ -88,6 +89,7 @@ export const ShopItemPage = () => {
                             >{t('more-items-by')} {data.manufacturer}</span>
                             <h2 className="my-2 font-bold">{i18n.language === "ru" ? data.modelRU : data.modelEN}</h2>
                             <p className="mt-1 text-sm text-slate-400">{data.manufacturer}</p>
+                            <p className="mt-1 text-sm text-slate-400">{i18n.language === "ru" ? data.category.nameRU : data.category.nameEN}</p>
                             <p className="mt-1 text-sm text-slate-400">
                                 {data.units_in_stock > 0
                                     ? t('units-in-stock')+': '+data.units_in_stock
