@@ -62,7 +62,7 @@ export const HomePage = () => {
                 <div className="bg-light-default dark:bg-dark-default rounded-lg p-6 my-5 sm:shadow-md">
                     <h1 className="text-center font-bold text-2xl sm:m-5">{t('new-articles')}</h1>
                     {isArticlesLoading && <LoadingIndicator/>}
-                    <div>
+                    <div className="flex flex-col gap-2">
                         {topArticles && topArticles.articles.map((article: Article, key: number) => (
                                 <ArticleEntry article={article} key={key}/>
                             )

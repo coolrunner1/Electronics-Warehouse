@@ -14,7 +14,7 @@ export function UserHeader() {
 
     return (
         <>
-            <header className="flex flex-col md:flex-row md:justify-between min-h-screen md:min-h-auto gap-5 p-4 bg-[#ebe9e5] dark:bg-gray-950">
+            <header className="flex flex-col md:flex-row md:justify-between min-h-[92vh] md:min-h-auto gap-5 p-4 bg-[#ebe9e5] dark:bg-gray-950">
                 <WarehouseLogo location={"store"}/>
                 <SearchBar
                     customClassName={"hidden md:flex"}
