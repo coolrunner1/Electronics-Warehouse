@@ -14,9 +14,15 @@ export const LanguageSelector = (
     };
 
     return (
-        <select className={props.className} defaultValue={i18n.language} onChange={onChangeLang}>
-            <option value="en">English</option>
-            <option value="ru">Русский</option>
-        </select>
+        <>
+            <select className={"hidden md:flex "+props.className} defaultValue={i18n.language} onChange={onChangeLang}>
+                <option value="en">English</option>
+                <option value="ru">Русский</option>
+            </select>
+            <select className={"md:hidden "+props.className} defaultValue={i18n.language} onChange={onChangeLang}>
+                <option value="en">en</option>
+                <option value="ru">ru</option>
+            </select>
+        </>
     );
 };

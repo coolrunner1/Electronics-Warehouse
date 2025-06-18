@@ -20,13 +20,14 @@ import {MainPage} from './pages/MainPage.tsx'
 import {ProtectedUserRoutes} from './utils/ProtectedUserRoutes.tsx'
 import {RegistrationPage} from './pages/RegistrationPage.tsx'
 import {ItemEditPage} from './pages/Employee/ItemEditPage.tsx'
-import {ArticlePage} from './pages/Admin/ArticlesEditPage.tsx'
+import {ArticlesEditPage} from './pages/Admin/ArticlesEditPage.tsx'
 import {ArticlesPage} from "./pages/User/ArticlesPage.tsx";
 import {ShopItemPage} from "./pages/User/ShopItemPage.tsx";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {setFlagsFromLocalStorage} from "./slices/flagsSlice.ts";
 import {HomePage} from "./pages/User/HomePage.tsx";
+import {ArticlePage} from "./pages/User/ArticlePage.tsx";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -76,6 +77,10 @@ const App = () => {
                             path='/articles'
                             element={<ArticlesPage/>}
                         />
+                        <Route
+                            path='/articles/:id'
+                            element={<ArticlePage/>}
+                        />
                     </Route>
                     <Route element={<ProtectedAdminRoutes/>}>
                         <Route
@@ -88,7 +93,7 @@ const App = () => {
                         />
                         <Route
                             path='/admin/articles'
-                            element={<ArticlePage/>}
+                            element={<ArticlesEditPage/>}
                         />
                     </Route>
                     <Route element={<ProtectedEmployeeRoutes/>}>

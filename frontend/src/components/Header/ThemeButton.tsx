@@ -1,16 +1,14 @@
 import {toggleDarkMode} from "../../slices/flagsSlice.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../state/store.ts";
+import {HeaderButton} from "./HeaderButton.tsx";
 
 export const ThemeButton = () => {
     const dispatch = useDispatch();
     const darkTheme = useSelector((state: RootState) => state.flags.darkMode);
 
     return (
-        <button
-            onClick={() => dispatch(toggleDarkMode())}
-            className="bg-cart hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow">
-
+        <HeaderButton onClick={() => dispatch(toggleDarkMode())}>
             <div className="text-gray-600">
                 {darkTheme ?
                     <svg className="w-6 h-6 fill-gray-100" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -79,6 +77,6 @@ export const ThemeButton = () => {
                     </svg>
                 }
             </div>
-        </button>
+        </HeaderButton>
     );
 };

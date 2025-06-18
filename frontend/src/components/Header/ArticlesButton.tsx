@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import {HeaderButton} from "./HeaderButton.tsx";
 
 export const ArticlesButton = (props: { location: string }) => {
   const navigate = useNavigate()
@@ -8,10 +9,7 @@ export const ArticlesButton = (props: { location: string }) => {
   }
   return (
     <>
-      <button
-        className='bg-cart hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 font-semibold py-3 px-3 border border-gray-50 dark:border-gray-950 rounded shadow'
-        onClick={handleClick}
-      >
+      <HeaderButton onClick={handleClick}>
         <div>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -28,7 +26,7 @@ export const ArticlesButton = (props: { location: string }) => {
             />
           </svg>
         </div>
-      </button>
+      </HeaderButton>
     </>
   )
 }

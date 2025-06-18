@@ -3,10 +3,10 @@ import {Article} from "../../types/Article.ts";
 import {useNavigate} from "react-router-dom";
 
 export type TopArticleEntryProps = {
-    article: Article
+    article: Article,
 }
 
-export const TopArticleEntry = (props: TopArticleEntryProps) => {
+export const ArticleEntry = (props: TopArticleEntryProps) => {
     const {i18n} = useTranslation();
     const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ export const TopArticleEntry = (props: TopArticleEntryProps) => {
                 onClick={() => navigate(`/articles/${props.article.id}`)}
                 className='bg-light-default dark:bg-dark-default py-5 text-left px-4 rounded-xl shadow-md'
             >
-                <h2 className='text-xl font-bold'>
+                <h2 className='text-xl sm:text-xl font-bold'>
                     {i18n.language === 'ru'
                         ? props.article.titleRU
                         : props.article.titleEN}

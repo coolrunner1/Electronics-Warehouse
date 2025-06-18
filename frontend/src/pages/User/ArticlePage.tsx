@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom'
-import { getArticleById } from '../api/articles'
+import { getArticleById } from '../../api/articles.ts'
 import { useQuery } from '@tanstack/react-query'
-import { LoadingIndicator } from '../components/Global/LoadingIndicator'
+import { LoadingIndicator } from '../../components/Global/LoadingIndicator.tsx'
 import { useTranslation } from 'react-i18next'
 
 export const ArticlePage = () => {
-  const { id } = useParams()
-  const { i18n } = useTranslation()
+  const { id } = useParams();
+  const { i18n } = useTranslation();
 
   const { data, isLoading, error } = useQuery({
     queryFn: () => getArticleById(id!),
@@ -15,12 +15,12 @@ export const ArticlePage = () => {
   })
 
   return (
-    <div>
+    <div className="w-full">
       {isLoading && <LoadingIndicator />}
       {error && <div className='text-center text-xl'>{error.message}</div>}
       {data && (
         <div className='flex justify-center items-center mt-5'>
-          <div className='flex flex-col w-1/2 gap-4'>
+          <div className='flex flex-col max-w-4xl w-full gap-4 p-2 sm:p-5'>
             <h2 className='text-3xl text-center'>
               {i18n.language === 'ru' ? data.titleRU : data.titleEN}
             </h2>

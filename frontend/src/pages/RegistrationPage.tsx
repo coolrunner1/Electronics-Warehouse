@@ -10,6 +10,7 @@ import {validatePassport} from "../utils/validatePassport.ts";
 import {validateEmail} from "../utils/validateEmail.ts";
 import {register} from "../api/auth.ts";
 import {validatePostalCode} from "../utils/validatePostalCode.ts";
+import {TransparentButton} from "../components/Auth/TransparentButton.tsx";
 
 export const RegistrationPage = () => {
     const [loginInput, setLoginInput] = useState("");
@@ -244,15 +245,13 @@ export const RegistrationPage = () => {
 
     return (
         <div className="text-white min-h-screen flex flex-col justify-center sm:py-12" style={{backgroundImage: `url('login-bg.png')`}}>
-            <div className='absolute top-0 left-0 m-5'>
-                <button
-                    className="p-2 rounded-lg shadow backdrop-blur-xl bg-[#0000001f] hover:bg-[#0000003f] transition duration-200"
+            <div className='absolute z-99 top-0 left-0 m-1 sm:m-5'>
+                <TransparentButton
+                    name={t('home')}
                     onClick={() => navigate("/")}
-                >
-                    {t('home')}
-                </button>
+                />
             </div>
-            <div className='absolute top-0 right-0 m-5'>
+            <div className='absolute z-99 top-0 right-0 m-1 sm:m-5'>
                 <LanguageSelector
                     className={"p-2 rounded-lg shadow backdrop-blur-xl bg-[#0000001f] hover:bg-[#0000003f] transition duration-200"}
                 />
@@ -261,13 +260,12 @@ export const RegistrationPage = () => {
                 <h1 className="font-bold text-center text-2xl mb-5">{t('shop-title')}</h1>
                 <div className="w-full">
                     <h3 className='font-bold text-center'>{t('have-account')}
-                        <a
-                            href=''
+                        <span
                             onClick={() => navigate("/login")}
                             className='text-blue-200 hover:text-blue-400 transition duration-200'
                         >
                             {' '+t('login-now')}
-                        </a>
+                        </span>
                     </h3>
                     {page === 0 &&
                         <div className="px-5 py-7">

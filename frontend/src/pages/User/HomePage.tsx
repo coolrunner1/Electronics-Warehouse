@@ -4,7 +4,7 @@ import {fetchItems} from "../../api/items.ts";
 import {ItemInShop} from "../../types/Item.ts";
 import {TopItemEntry} from "../../components/Home/TopItemEntry.tsx";
 import {fetchArticles} from "../../api/articles.ts";
-import { TopArticleEntry } from "../../components/Home/TopArticleEntry.tsx";
+import { ArticleEntry } from "../../components/Global/ArticleEntry.tsx";
 import {Article} from "../../types/Article.ts";
 import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {useNavigate} from "react-router-dom";
@@ -26,7 +26,7 @@ export const HomePage = () => {
     });
 
     return (
-        <>
+        <div className={"flex flex-col"}>
             <div className="flex flex-col-reverse md:flex-row justify-between lg:px-20 bg-light-default dark:bg-[#2b2a33]">
                 <div className="p-10">
                     <div className="text-2xl sm:text-4xl font-bold">{t('main-page-title')}</div>
@@ -64,13 +64,13 @@ export const HomePage = () => {
                     {isArticlesLoading && <LoadingIndicator/>}
                     <div>
                         {topArticles && topArticles.articles.map((article: Article, key: number) => (
-                                <TopArticleEntry article={article} key={key}/>
+                                <ArticleEntry article={article} key={key}/>
                             )
                         )
                         }
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };

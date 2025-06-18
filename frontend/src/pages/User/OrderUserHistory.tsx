@@ -24,7 +24,7 @@ export const OrderUserHistory = () => {
             });
     }, [user])
     return (
-        <div className="flex flex-col px-4 py-4">
+        <div className="flex flex-col px-4 py-4 mx-auto">
             <h1 className="mb-10 text-center text-2xl font-bold">{t('order-history')}</h1>
             {isAuthenticated && user && (
                 <>

@@ -8,14 +8,14 @@ import {NewRemoveButtons} from '../../components/Global/NewRemoveButtons.tsx'
 import {RootState} from '../../state/store.ts'
 import {useTranslation} from 'react-i18next'
 import {useQuery} from '@tanstack/react-query'
-import {ArticleEntry} from '../../components/Admin/ArticleEntry.tsx'
+import {ArticleTableEntry} from '../../components/Admin/ArticleTableEntry.tsx'
 import {Pagination} from '../../components/Pagination/Pagination.tsx'
 import {LoadingIndicator} from '../../components/Global/LoadingIndicator.tsx'
 import {fetchArticles} from '../../api/articles.ts'
 import {Article} from '../../types/Article.ts'
 import {useLocation} from 'react-router-dom'
 
-export const ArticlePage = () => {
+export const ArticlesEditPage = () => {
     const [articles, setArticles] = useState<Article[]>([]);
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(15);
@@ -116,7 +116,7 @@ export const ArticlePage = () => {
                                     </Thead>
                                     <Tbody>
                                         {articles.map((article) => (
-                                            <ArticleEntry key={article.id} article={article}/>
+                                            <ArticleTableEntry key={article.id} article={article}/>
                                         ))}
                                     </Tbody>
                                 </Table>

@@ -16,7 +16,7 @@ export type ArticleEntryProps = {
     article: Article
 }
 
-export const ArticleEntry = ({article}: ArticleEntryProps) => {
+export const ArticleTableEntry = ({article}: ArticleEntryProps) => {
     const {t} = useTranslation()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [titleEN, setTitleEN] = useState(article.titleEN)

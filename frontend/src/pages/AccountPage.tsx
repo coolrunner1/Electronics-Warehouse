@@ -166,7 +166,7 @@ export const AccountPage = () => {
                 </section>
             }
             {!isAuthenticated &&
-                <div className="flex flex-col gap-5 items-center justify-center">
+                <div className="flex flex-col gap-5 items-center mx-auto">
                     <div className="mt-10 text-center text-2xl">{t('only-for-authed-users')}</div>
                     <div>
                         <BlueButton name={t('log-in')} onClick={() => navigate('/login')}/>
