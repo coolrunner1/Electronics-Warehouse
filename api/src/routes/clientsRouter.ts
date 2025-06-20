@@ -2,12 +2,14 @@ import {Router} from "express";
 import clientsController from '../controllers/clientsController';
 import {validateData} from "../middlewares/validationMiddleware";
 import {organizationSchema} from "../schemas/organizationSchemas";
+import {checkAuthWithClientId, checkAuthWithClientIdOrRoleId, checkAuthWithRole} from "../middlewares/authMiddleware";
+import {EMPLOYEE_ROLE} from "../constants/roles";
 
 const clientsRouter = Router();
 
-clientsRouter.get("/", clientsController.getAllClients.bind(clientsController));
-clientsRouter.get("/:id", clientsController.getClient.bind(clientsController));
-clientsRouter.post("/", validateData(organizationSchema), clientsController.addClient.bind(clientsController));
-clientsRouter.put("/:id", validateData(organizationSchema), clientsController.updateClient.bind(clientsController))
+clientsRouter.get("/", checkAuthWithRole(EMPLOYEE_ROLE), clientsController.getAllClients.bind(clientsController));
+clientsRouter.get("/:id", checkAuthWithClientIdOrRoleId(EMPLOYEE_ROLE), clientsController.getClient.bind(clientsController));
+clientsRouter.post("/", checkAuthWithRole(EMPLOYEE_ROLE), validateData(organizationSchema), clientsController.addClient.bind(clientsController));
+clientsRouter.put("/:id", checkAuthWithClientIdOrRoleId(EMPLOYEE_ROLE), validateData(organizationSchema), clientsController.updateClient.bind(clientsController))
 
 export default clientsRouter;

@@ -30,7 +30,7 @@ export const checkAuthWithRole = (roleId: number) => {
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
-            if (roleId !== Number(decoded.role)) {
+            if (roleId !== Number(decoded.role) && roleId !== ADMIN_ROLE) {
                 res.status(403).json({message: 'Unauthorized'});
                 return;
             }
@@ -81,6 +81,31 @@ export const checkAuthWithClientId = () => {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
             if (Number(decoded.id) !== ADMIN_ROLE && clientId !== Number(decoded.clientId)) {
+                res.status(403).json({message: 'Unauthorized'});
+                return;
+            }
+            next();
+        } catch (error) {
+            res.status(401).json({message: 'Invalid token'});
+            return;
+        }
+    }
+}
+
+/*Allows operation for user with provided client id param or role id param and for admins.*/
+export const checkAuthWithClientIdOrRoleId = (roleId: number) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+        const token = cookieToJSON(req.headers['cookie'])._auth;
+        const clientId = parseInt(req.params.id);
+
+        if (!token) {
+            res.status(401).json({message: 'No token provided'});
+            return;
+        }
+
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
+            if (Number(decoded.id) !== ADMIN_ROLE && clientId !== Number(decoded.clientId) && roleId !== Number(decoded.role)) {
                 res.status(403).json({message: 'Unauthorized'});
                 return;
             }
