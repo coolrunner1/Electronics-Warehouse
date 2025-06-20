@@ -1,7 +1,7 @@
 import {Router} from "express";
 import itemsController from "../controllers/itemsController";
 import {validateData} from "../middlewares/validationMiddleware";
-import {itemSchema} from "../schemas/itemSchemas";
+import {itemDetailsDescription, itemDetailsSpecs, itemSchema} from "../schemas/itemSchemas";
 import {checkAuthWithRole} from "../middlewares/authMiddleware";
 import {EMPLOYEE_ROLE} from "../constants/roles";
 import multer from 'multer';
@@ -17,6 +17,7 @@ itemsRouter.put("/:id", checkAuthWithRole(EMPLOYEE_ROLE),  validateData(itemSche
 itemsRouter.post("/:id/new-arrival", checkAuthWithRole(EMPLOYEE_ROLE), itemsController.addNewArrival.bind(itemsController));
 itemsRouter.patch("/:id/image", checkAuthWithRole(EMPLOYEE_ROLE), upload.single('image'), itemsController.updateItemImage.bind(itemsController));
 itemsRouter.patch("/:id/image/remove", checkAuthWithRole(EMPLOYEE_ROLE), itemsController.removeItemImage.bind(itemsController));
-
+itemsRouter.patch("/:id/description", checkAuthWithRole(EMPLOYEE_ROLE), validateData(itemDetailsDescription), itemsController.updateItemDetailsDescription.bind(itemsController));
+itemsRouter.patch("/:id/specs", checkAuthWithRole(EMPLOYEE_ROLE), validateData(itemDetailsSpecs), itemsController.updateItemDetailsSpecs.bind(itemsController));
 
 export default itemsRouter;

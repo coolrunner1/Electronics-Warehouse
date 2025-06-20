@@ -87,6 +87,32 @@ class ItemsController {
         }
     }
 
+    async updateItemDetailsDescription(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = parseInt(req.params.id);
+            const item = await itemsService.updateItemDescription(req.body, id);
+            if (!item) {
+                return res.status(404).json({status: "error", message: "Item was not found"});
+            }
+            return res.status(200).json(item)
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async updateItemDetailsSpecs(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = parseInt(req.params.id);
+            const item = await itemsService.updateItemSpecs(req.body, id);
+            if (!item) {
+                return res.status(404).json({status: "error", message: "Item was not found"});
+            }
+            return res.status(200).json(item)
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async updateItemImage(req: Request, res: Response, next: NextFunction) {
         try {
             return res.status(501).json()

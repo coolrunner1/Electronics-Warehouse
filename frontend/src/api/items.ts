@@ -52,3 +52,11 @@ export const getItemManufacturers = async() => {
     const data = await axiosClient.get("/items/manufacturers");
     return data.data;
 }
+
+export const updateItemDescription = async(body: any, id: number) => {
+    return await axiosClient.patch(`/items/${id}/description`, body)
+}
+
+export const updateItemSpecs = async(body: any, id: number) => {
+    return await axiosClient.patch(`/items/${id}/specs`, body)
+}

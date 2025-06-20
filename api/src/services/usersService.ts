@@ -2,6 +2,7 @@ import prisma from "../../prisma/prisma-client";
 import {calculateNumberOfPages, pagination} from "../utils/pagination";
 import * as bcrypt from "bcrypt";
 import {Prisma} from "../generated/prisma";
+import {USER_ROLE} from "../constants/roles";
 
 class UsersService {
     async getAllUsers(reqQuery: any) {
@@ -65,6 +66,14 @@ class UsersService {
             client_id = null;
         }
 
+        if (role_id !== USER_ROLE) {
+            client_id = null;
+        }
+
+        if (role_id === USER_ROLE && !client_id) {
+            client_id = 1;
+        }
+
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
 
@@ -87,6 +96,14 @@ class UsersService {
 
         if (client_id === 0) {
             client_id = null;
+        }
+
+        if (role_id !== USER_ROLE) {
+            client_id = null;
+        }
+
+        if (role_id === USER_ROLE && !client_id) {
+            client_id = 1;
         }
 
         const salt = await bcrypt.genSalt(10);

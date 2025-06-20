@@ -73,7 +73,7 @@ export const ArticleEditModal = (props: ArticleEditModal) => {
                         {t('title-en')}
                     </h2>
                     <input
-                        className="border rounded-lg p-2"
+                        className="border rounded-lg p-2 w-full max-w-96"
                         value={titleEN}
                         onChange={(e) => setTitleEN(e.target.value)}
                     />
@@ -81,7 +81,7 @@ export const ArticleEditModal = (props: ArticleEditModal) => {
                         {t('title-ru')}
                     </h2>
                     <input
-                        className="border rounded-lg p-2"
+                        className="border rounded-lg p-2 w-full max-w-96"
                         value={titleRU}
                         onChange={(e) => setTitleRU(e.target.value)}
                     />
@@ -89,7 +89,7 @@ export const ArticleEditModal = (props: ArticleEditModal) => {
                         {t('description-en')}
                     </h2>
                     <textarea
-                        className="border rounded-lg p-2"
+                        className="border rounded-lg p-2 w-full max-w-96"
                         value={descriptionEN}
                         onChange={(e) => setDescriptionEN(e.target.value)}
                     />
@@ -97,7 +97,7 @@ export const ArticleEditModal = (props: ArticleEditModal) => {
                         {t('description-ru')}
                     </h2>
                     <textarea
-                        className="border rounded-lg p-2"
+                        className="border rounded-lg p-2 w-full max-w-96"
                         value={descriptionRU}
                         onChange={(e) => setDescriptionRU(e.target.value)}
                     />

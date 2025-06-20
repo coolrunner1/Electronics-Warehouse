@@ -5,7 +5,13 @@ import {useNavigate, useParams} from "react-router-dom";
 import {BlueEditPageButton} from "../../components/EditPage/BlueEditPageButton.tsx";
 import { RedEditPageButton } from "../../components/EditPage/RedEditPageButton.tsx";
 import {useQuery} from "@tanstack/react-query";
-import {getItemById, removeItemImage, updateItemImage} from "../../api/items.ts";
+import {
+    getItemById,
+    removeItemImage,
+    updateItemDescription,
+    updateItemImage,
+    updateItemSpecs
+} from "../../api/items.ts";
 import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {EditPageNavButton} from "../../components/EditPage/EditPageNavButton.tsx";
 import {ItemImage} from "../../components/Global/ItemImage.tsx";
@@ -91,11 +97,23 @@ export const ItemEditPage = () => {
     }
 
     const handleDescriptionSave = async () => {
-        alert('Not implemented')
+        const requestBody = {
+            descriptionEN: enDescription,
+            descriptionRU: ruDescription,
+        }
+        await updateItemDescription(requestBody, Number(id))
+            .then((res) => {res.status === 200 && alert(t('item-update-success'))});
+        refetch();
     }
 
     const handleSpecsSave = async () => {
-        alert('Not implemented')
+        const requestBody = {
+            specsEN: enSpecs,
+            specsRU: ruSpecs,
+        }
+        await updateItemSpecs(requestBody, Number(id))
+            .then((res) => {res.status === 200 && alert(t('item-update-success'))});;
+        refetch();
     }
 
     return (

@@ -1,6 +1,7 @@
 import prisma from "../../prisma/prisma-client";
 import {calculateNumberOfPages, pagination} from "../utils/pagination";
 import {Item} from "../generated/prisma";
+import {ItemDetailsDescription, ItemDetailsSpecs} from "../types/ItemDetails";
 
 class ItemsService {
     async getAllItems(query: any) {
@@ -146,6 +147,24 @@ class ItemsService {
                 item_id: id
             }
         })
+    }
+
+    async updateItemDescription(body: ItemDetailsDescription, id: number) {
+        return prisma.itemDetails.update({
+            data: body,
+            where: {
+                item_id: id
+            }
+        });
+    }
+
+    async updateItemSpecs(body: ItemDetailsSpecs, id: number) {
+        return prisma.itemDetails.update({
+            data: body,
+            where: {
+                item_id: id
+            }
+        });
     }
 
     async getItemManufacturers() {
