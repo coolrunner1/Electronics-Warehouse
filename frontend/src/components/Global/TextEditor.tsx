@@ -21,7 +21,7 @@ export const TextEditor = (props: TextEditorProps) => {
                     'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
                 ],
                 toolbar: 'undo redo | blocks | ' +
-                    'bold italic | alignleft aligncenter ' +
+                    'bold italic forecolor | alignleft aligncenter ' +
                     'alignright alignjustify | bullist numlist outdent indent | ' +
                     'removeformat | help',
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
