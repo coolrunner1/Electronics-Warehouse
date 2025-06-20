@@ -134,7 +134,7 @@ export const UserEntry = (
             role_id: role,
             client_id: client,
             login: login,
-            password: password,
+            password: password || undefined,
             image_path: props.user.image_path,
             full_name: fullName,
             email: email,

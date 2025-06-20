@@ -106,13 +106,17 @@ class UsersService {
             client_id = 1;
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash(password, salt);
+        let hashPassword = '';
+
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            hashPassword = await bcrypt.hash(password, salt);
+        }
 
         return prisma.userProfile.update({
             data: {
                 login,
-                password: hashPassword,
+                password: hashPassword || undefined,
                 full_name,
                 email,
                 phone_number,

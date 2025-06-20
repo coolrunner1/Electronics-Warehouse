@@ -50,7 +50,7 @@ export const ShopItem = (
                     <p className="mt-1 text-sm text-slate-400">{t('rating')}</p>
                     <div className="flex gap-1">
                         <StarRatings
-                            rating={props.item.score/2}
+                            rating={props.item.score}
                             starRatedColor="#ffcf00"
                             numberOfStars={5}
                             name='rating'

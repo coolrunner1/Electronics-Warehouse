@@ -98,7 +98,7 @@ export const ShopItemPage = () => {
                             </p>
                             <div className="flex gap-1">
                                 <StarRatings
-                                    rating={data.score/2}
+                                    rating={data.score}
                                     starRatedColor="#ffcf00"
                                     numberOfStars={5}
                                     name='rating'

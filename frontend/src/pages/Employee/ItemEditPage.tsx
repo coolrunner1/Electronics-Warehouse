@@ -15,6 +15,8 @@ import {
 import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {EditPageNavButton} from "../../components/EditPage/EditPageNavButton.tsx";
 import {ItemImage} from "../../components/Global/ItemImage.tsx";
+// @ts-ignore
+import StarRatings from 'react-star-ratings';
 
 export const ItemEditPage = () => {
     const [enDescription, setEnDescription] = useState("");
@@ -129,6 +131,17 @@ export const ItemEditPage = () => {
                     <h1 className="text-2xl mt-5">{t('model')}</h1>
                     <h2 className="text-xl">English: {item.modelEN}</h2>
                     <h2 className="text-xl">Русский: {item.modelRU}</h2>
+                    <div className="flex gap-1">
+                        <StarRatings
+                            rating={item.score}
+                            starRatedColor="#ffcf00"
+                            numberOfStars={5}
+                            name='rating'
+                            starDimension="17px"
+                            starSpacing="3px"
+                        />
+                        <div>({item.review_count || 0})</div>
+                    </div>
                     <div className="flex flex-col sm:flex-row gap-10 my-5 p-2 border bg-light-default dark:bg-dark-default rounded-lg">
                         <EditPageNavButton
                             name={t('image')}

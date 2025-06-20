@@ -28,7 +28,7 @@ export const TopItemEntry = (
                         <p className="text-sm">{props.item.manufacturer}</p>
                         <div className="flex gap-1">
                             <StarRatings
-                                rating={props.item.score/2}
+                                rating={props.item.score}
                                 starRatedColor="#ffcf00"
                                 numberOfStars={5}
                                 name='rating'
