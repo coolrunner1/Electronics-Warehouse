@@ -87,7 +87,7 @@ export const UsersPage = () => {
                         {t('users')}
                     </h6>
                 </div>
-                <div className="flex flex-col items-center justify-center px-4 py-4 overflow-auto">
+                <div className="flex flex-col items-center justify-center sm:px-4 py-4 overflow-auto">
                     {isLoading &&
                         <LoadingIndicator/>
                     }
@@ -101,24 +101,26 @@ export const UsersPage = () => {
                             }
                             {users && users.length &&
                                 <>
-                                    <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4" role="table">
-                                        <Thead>
-                                            <Tr className="border-b">
-                                                {
-                                                    [t('login'), t('new-password'), t('full-name'), 'Email', t('phone-number'), t('passport'), t('role'), t('company')]
-                                                        .map((item, index) => (<Th key={index} role="columnheader">{item}</Th>))
-                                                }
-                                                <Th>
-                                                    <NewRemoveButtons id={users[0].user_id} onNewClick={onNewClick}/>
-                                                </Th>
-                                            </Tr>
-                                        </Thead>
-                                        <Tbody>
-                                            {users.map((user) => (
-                                                <UserEntry user={user} key={user.user_id} roles={roles} clients={clients}/>
-                                            ))}
-                                        </Tbody>
-                                    </Table>
+                                    <div className="w-full max-w-screen overflow-x-scroll">
+                                        <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4" role="table">
+                                            <Thead>
+                                                <Tr className="border-b">
+                                                    {
+                                                        [t('login'), t('new-password'), t('full-name'), 'Email', t('phone-number'), t('passport'), t('role'), t('company')]
+                                                            .map((item, index) => (<Th key={index} role="columnheader">{item}</Th>))
+                                                    }
+                                                    <Th>
+                                                        <NewRemoveButtons id={users[0].user_id} onNewClick={onNewClick}/>
+                                                    </Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody>
+                                                {users.map((user) => (
+                                                    <UserEntry user={user} key={user.user_id} roles={roles} clients={clients}/>
+                                                ))}
+                                            </Tbody>
+                                        </Table>
+                                    </div>
                                     <Pagination
                                         currentPage={page}
                                         setCurrentPage={setPage}

@@ -47,7 +47,7 @@ export const ClientsPage = () => {
     return (
         <div>
             <h1 className="text-3xl text-center p-4">{t('clients')}</h1>
-            <div className="px-4 py-4 flex flex-col overflow-auto items-center">
+            <div className="sm:px-4 py-4 flex flex-col items-center">
                 {isLoading &&
                     <LoadingIndicator/>
                 }
@@ -64,7 +64,9 @@ export const ClientsPage = () => {
                     <>
                     {data &&
                         <>
-                            <OrganizationsTable organizations={data.clients} organizations_type="clients" />
+                            <div className="w-full max-w-screen overflow-x-scroll">
+                                <OrganizationsTable organizations={data.clients} organizations_type="clients" />
+                            </div>
                             <Pagination
                                 currentPage={page}
                                 setCurrentPage={setPage}

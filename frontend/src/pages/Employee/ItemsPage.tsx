@@ -125,7 +125,7 @@ export const ItemsPage = () => {
                     {t('items')}
                 </h1>
                 <Filters/>
-                <div className="px-4 py-4 flex flex-col overflow-auto items-center">
+                <div className="sm:px-4 py-4 flex flex-col items-center">
                     {isLoading &&
                         <LoadingIndicator/>
                     }
@@ -139,30 +139,32 @@ export const ItemsPage = () => {
                     }
                     {data && items.length &&
                         <>
-                            <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4">
-                                <Thead>
-                                    <Tr className="border-b">
-                                        {
-                                            [t('model-en'), t('model-ru'), t('manufacturer'), t('category'), t('price'), t('units-in-stock'), t('faulty-units'), t('last-arrival')]
-                                                .map((item, index) => (<Th key={index}>{item}</Th>))
-                                        }
-                                        <Th>
-                                            <NewRemoveButtons id={items[0].item_id} onNewClick={onNewClick} />
-                                        </Th>
-                                        <Th></Th>
-                                    </Tr>
-                                </Thead>
-                                <Tbody>
-                                    {categories && items.map((item) => (
-                                        <ItemsEntry
-                                            item={item}
-                                            categories={categories}
-                                            suppliers={suppliers}
-                                            key={item.item_id}
-                                        />
-                                    ))}
-                                </Tbody>
-                            </Table>
+                            <div className="w-full max-w-screen overflow-x-scroll">
+                                <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4">
+                                    <Thead>
+                                        <Tr className="border-b">
+                                            {
+                                                [t('model-en'), t('model-ru'), t('manufacturer'), t('category'), t('price'), t('units-in-stock'), t('faulty-units'), t('last-arrival')]
+                                                    .map((item, index) => (<Th key={index}>{item}</Th>))
+                                            }
+                                            <Th>
+                                                <NewRemoveButtons id={items[0].item_id} onNewClick={onNewClick} />
+                                            </Th>
+                                            <Th></Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                        {categories && items.map((item) => (
+                                            <ItemsEntry
+                                                item={item}
+                                                categories={categories}
+                                                suppliers={suppliers}
+                                                key={item.item_id}
+                                            />
+                                        ))}
+                                    </Tbody>
+                                </Table>
+                            </div>
                             <Pagination
                                 currentPage={page}
                                 setCurrentPage={setPage}
