@@ -30,6 +30,14 @@ export const SuppliersPage = () => {
     });
 
     useEffect(() => {
+        if (!data) return;
+        if (data?.pagination < page && !data?.suppliers.length) {
+            setPage(1);
+            return;
+        }
+    }, [data]);
+
+    useEffect(() => {
         queryClient.removeQueries({queryKey: ['suppliers', page]});
         refetch()
         dispatch(setTableRefresh(false));

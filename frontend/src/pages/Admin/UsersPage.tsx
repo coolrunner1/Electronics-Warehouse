@@ -17,6 +17,7 @@ import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {AxiosError} from "axios";
 import {Pagination} from "../../components/Pagination/Pagination.tsx";
 import {useLocation} from "react-router-dom";
+import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export const UsersPage = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -60,12 +61,12 @@ export const UsersPage = () => {
     }, [tableRefresh]);
 
     const onNewClick = () => {
-        if (users[0].user_id === 99999) {
+        if (users[0].user_id === NEW_ENTRY) {
             setUsers(users.splice(1));
             return;
         }
         setUsers([{
-            user_id: 99999,
+            user_id: NEW_ENTRY,
             role_id: 1,
             client_id: null,
             login: 'login',

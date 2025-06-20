@@ -83,9 +83,12 @@ class ItemsService {
 
         const data = await prisma.item.findMany(finalItemsQuery);
 
+        delete finalItemsQuery.skip;
+        delete finalItemsQuery.take;
+
         return {
             pagination: {
-                total: calculateNumberOfPages(await prisma.item.count(), take),
+                total: calculateNumberOfPages(await prisma.item.count(finalItemsQuery), take),
             },
             data
         };
@@ -115,6 +118,14 @@ class ItemsService {
                 faulty_units: 0,
                 category: {
                     connect: { category_id: body.category_id }
+                },
+                details: {
+                    create: {
+                        descriptionEN: "<p>Empty</p>",
+                        descriptionRU: "<p>Пусто</p>",
+                        specsEN: "<p>Empty</p>",
+                        specsRU: "<p>Пусто</p>",
+                    }
                 }
             }
         });

@@ -5,8 +5,8 @@ import {useTranslation} from 'react-i18next'
 import {Article} from '../../types/Article.ts'
 import {useQuery} from '@tanstack/react-query'
 import {fetchArticles} from '../../api/articles.ts'
-import {useState} from 'react'
-import {ArticleEntry} from "../../components/Global/ArticleEntry.tsx";
+import {useEffect, useState} from 'react'
+import {ArticleEntry} from "../../components/Articles/ArticleEntry.tsx";
 
 export const ArticlesPage = () => {
     const [page, setPage] = useState(1);
@@ -20,7 +20,15 @@ export const ArticlesPage = () => {
     }>({
         queryFn: fetchArticles,
         queryKey: ['articles', page, itemsPerPage],
-    })
+    });
+
+    useEffect(() => {
+        if (!data) return;
+        if (data?.pagination < page && !data?.articles.length) {
+            setPage(1);
+            return;
+        }
+    }, [data]);
 
     return (
         <div className='flex flex-col w-full p-4'>

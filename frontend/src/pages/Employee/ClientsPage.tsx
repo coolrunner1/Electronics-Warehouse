@@ -31,6 +31,14 @@ export const ClientsPage = () => {
     });
 
     useEffect(() => {
+        if (!data) return;
+        if (data?.pagination < page && !data?.clients.length) {
+            setPage(1);
+            return;
+        }
+    }, [data]);
+
+    useEffect(() => {
         queryClient.removeQueries({queryKey: ['clients', page, itemsPerPage]});
         refetch()
         dispatch(setTableRefresh(false));

@@ -16,6 +16,7 @@ import {useTranslation} from "react-i18next";
 import {addNewArrival, createItem, updateItem} from "../../api/items.ts";
 import {YellowButton} from "../Global/YellowButton.tsx";
 import {useNavigate} from "react-router-dom";
+import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export type ItemsEntryProps = {
     item: ItemInShop,
@@ -102,7 +103,7 @@ export const ItemsEntry = (
             unit_price: parseFloat(price.slice(1)),
         }
 
-        if (props.item.item_id === 99999) {
+        if (props.item.item_id === NEW_ENTRY) {
             await createItem(requestBody)
                 .then(() => alert(t('item-create-success')));
         } else {
@@ -156,7 +157,7 @@ export const ItemsEntry = (
                 <Td className="p-3">
                     <div className="flex justify-end items-center">
                         <BlueButton onClick={onClickEdit} name={t('save')}/>
-                        <YellowButton name={t('edit-page')} onClick={() => {navigate(`/employee/items/${props.item.item_id}`)}}/>
+                        {props.item.item_id !== NEW_ENTRY && <YellowButton name={t('edit-page')} onClick={() => {navigate(`/employee/items/${props.item.item_id}`)}}/>}
                         {props.item.modelEN && props.item.modelRU && <RedButton onClick={onClickArrival} name={ !createArrival ? t('add-arrival') : t('remove-arrival')}/>}
                     </div>
                 </Td>

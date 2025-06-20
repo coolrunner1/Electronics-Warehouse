@@ -1,10 +1,11 @@
 @import "tailwindcss";
 @import "tailwindcss/preflight.css" layer(base);
 @tailwind utilities;
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-ol,ul,menu {  list-style: initial;}
+/*ol,ul,menu {  list-style: initial;}*/
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -1,8 +1,8 @@
-import {MouseEvent} from "react";
+import {MouseEvent, ReactNode} from "react";
 
 export type HeaderButtonProps = {
     onClick: (e: MouseEvent<HTMLButtonElement>) => void;
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 export const HeaderButton = (props: HeaderButtonProps) => {

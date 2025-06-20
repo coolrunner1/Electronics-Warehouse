@@ -124,11 +124,11 @@ export const ShopItemPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col w-full max-w-3xl bg-light-default dark:bg-dark-default rounded-xl p-10 shadow-lg">
-                        <h1 className="mb-5 text-center text-2xl font-bold">{t('description')}</h1>
-                        <div className="sm:px-10" dangerouslySetInnerHTML={{__html: i18n.language === 'ru' ? data.details.descriptionRU : data.details.descriptionEN}}></div>
-                        <h1 className="mt-10 mb-5 text-center text-2xl font-bold">{t('item-specs')}</h1>
-                        <div className="sm:px-10" dangerouslySetInnerHTML={{__html: i18n.language === 'ru' ? data.details.specsRU : data.details.specsEN}}></div>
+                    <div className="prose lg:prose-md dark:prose-invert flex flex-col w-full max-w-3xl bg-light-default dark:bg-dark-default rounded-xl p-10 shadow-lg">
+                        <h2 className="mb-5 text-center font-bold">{t('description')}</h2>
+                        <article className="sm:px-10" dangerouslySetInnerHTML={{__html: i18n.language === 'ru' ? data.details.descriptionRU : data.details.descriptionEN}}></article>
+                        <h2 className="mt-10 mb-5 text-center font-bold">{t('item-specs')}</h2>
+                        <article className="sm:px-10" dangerouslySetInnerHTML={{__html: i18n.language === 'ru' ? data.details.specsRU : data.details.specsEN}}></article>
                     </div>
                     <div className="flex flex-col w-full max-w-3xl bg-light-default dark:bg-dark-default rounded-xl p-10 shadow-lg">
                         <h1 className="mb-5 text-center text-2xl font-bold">{t('reviews')}</h1>

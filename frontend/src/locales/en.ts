@@ -154,6 +154,7 @@ export default {
     'something-went-wrong': 'Something went wrong',
     'not-all-fields-filled': 'Not all fields are filled',
     news: 'News and promotions',
+    'new-article': 'New article',
     'title-en': 'Title in English',
     'title-ru': 'Title in Russian',
     'description-en': 'Description in English',

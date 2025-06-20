@@ -19,19 +19,25 @@ export const ArticlePage = () => {
       {isLoading && <LoadingIndicator />}
       {error && <div className='text-center text-xl'>{error.message}</div>}
       {data && (
-        <div className='flex justify-center items-center mt-5'>
+        <div className='flex justify-center items-center my-5'>
           <div className='flex flex-col max-w-4xl w-full gap-4 p-2 sm:p-5'>
             <h2 className='text-3xl text-center'>
               {i18n.language === 'ru' ? data.titleRU : data.titleEN}
             </h2>
+            <span className="text-center font-light text-md">
+              {i18n.language === 'ru' ? data.descriptionRU : data.descriptionEN}
+            </span>
+            <span className="text-center font-light text-md">
+              {data.createdAt && new Date(data.createdAt).toLocaleString()}
+            </span>
             <hr className='w-full' />
-            <p
-              className='text-left text-xl w-full'
+            <article
+              className='prose lg:prose-md dark:prose-invert text-left text-xl w-full'
               dangerouslySetInnerHTML={{
                 __html:
                   i18n.language === 'ru' ? data.contentRU : data.contentEN,
               }}
-            ></p>
+            ></article>
           </div>
         </div>
       )}

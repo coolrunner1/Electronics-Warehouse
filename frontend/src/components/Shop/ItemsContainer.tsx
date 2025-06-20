@@ -40,6 +40,14 @@ export const ItemsContainer = () => {
         queryKey: ['items', page, itemsPerPage, search, sortBy+(i18n.language).toUpperCase(), sortingDirection, category, manufacturer],
     })
 
+    useEffect(() => {
+        if (!data) return;
+        if (data?.pagination < page && !data?.items.length) {
+            setPage(1);
+            return;
+        }
+    }, [data]);
+
     return (
         <>
             <section className="light:bg-gray-200">

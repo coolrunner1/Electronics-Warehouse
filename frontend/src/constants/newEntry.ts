@@ -1,0 +1,1 @@
+export const NEW_ENTRY = 99999;

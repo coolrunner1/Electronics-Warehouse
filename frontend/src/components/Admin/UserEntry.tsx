@@ -17,6 +17,7 @@ import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 import {USER_ROLE} from "../../constants/roles.ts";
 import {createUser, deleteUser, updateUser} from "../../api/users.ts";
+import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export type UserEntryProps = {
     user: User,
@@ -115,7 +116,7 @@ export const UserEntry = (
     }
 
     const onClickDelete = async () => {
-        if (props.user.user_id !== 99999) {
+        if (props.user.user_id !== NEW_ENTRY) {
             await deleteUser(props.user.user_id)
                 .then(() => dispatch(setTableRefresh(true)));
         }
@@ -140,7 +141,7 @@ export const UserEntry = (
             phone_number: phoneNumber,
             passport: passport,
         }
-        if (props.user.user_id === 99999) {
+        if (props.user.user_id === NEW_ENTRY) {
             await createUser(requestBody)
                 .then(() => dispatch(setTableRefresh(true)));
         } else {

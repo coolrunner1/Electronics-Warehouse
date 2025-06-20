@@ -12,6 +12,7 @@ import {Organization} from "../../types/Organization";
 import {createClient, updateClient} from "../../api/clients.ts";
 import {createSupplier, updateSupplier} from "../../api/suppliers.ts";
 import {useTranslation} from "react-i18next";
+import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export const OrganizationsEntry = (
     props: {
@@ -97,7 +98,7 @@ export const OrganizationsEntry = (
             country: country,
             postal_code: postalCode
         }
-        if (props.organization_id === 99999) {
+        if (props.organization_id === NEW_ENTRY) {
             if (props.organization_type === 'clients') {
                 await createClient(requestBody);
             } else {
@@ -142,7 +143,7 @@ export const OrganizationsEntry = (
                 </Td>
                 <Td className="p-3 px-5 flex justify-end">
                     <BlueButton onClick={onClickEdit} name={t('save')}/>
-                    {props.organization_id === 99999 &&
+                    {props.organization_id === NEW_ENTRY &&
                         <RedButton onClick={onClickDelete} name={t('delete')}/>
                     }
                 </Td>

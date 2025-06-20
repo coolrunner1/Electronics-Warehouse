@@ -18,6 +18,7 @@ import {AxiosError} from "axios";
 import {Pagination} from "../../components/Pagination/Pagination.tsx";
 import {Filters} from "../../components/Shop/Filters.tsx";
 import {useLocation} from "react-router-dom";
+import { NEW_ENTRY } from "../../constants/newEntry.ts";
 
 export const ItemsPage = () => {
     const {category, manufacturer, sortBy, sortingDirection} = useSelector((state: RootState) => state.filters);
@@ -27,7 +28,7 @@ export const ItemsPage = () => {
     const location = useLocation();
     const [items, setItems] = useState<ItemInShop[]>([
         {
-            item_id: 99999,
+            item_id: NEW_ENTRY,
             modelEN: '',
             modelRU: '',
             manufacturer: '',
@@ -72,19 +73,24 @@ export const ItemsPage = () => {
     }, [tableRefresh]);
 
     useEffect(() => {
+        if (!data) return;
+        if (data?.pagination < page && !data?.items.length) {
+            setPage(1);
+            return;
+        }
         if (!data?.items) return;
         setItems(data.items);
-    }, [data?.items]);
+    }, [data]);
 
     const onNewClick = () => {
-        if (items[0].item_id === 99999) {
+        if (items[0].item_id === NEW_ENTRY) {
             setItems(items.splice(1))
             return;
         }
 
         if (!data || !data.items) {
             setItems([{
-                item_id: 99999,
+                item_id: NEW_ENTRY,
                 modelEN: '',
                 modelRU: '',
                 manufacturer: '',
@@ -100,7 +106,7 @@ export const ItemsPage = () => {
         }
 
         setItems([{
-            item_id: 99999,
+            item_id: NEW_ENTRY,
             modelEN: '',
             modelRU: '',
             manufacturer: '',
@@ -131,46 +137,42 @@ export const ItemsPage = () => {
                     {error && (error as AxiosError).status !== 404 &&
                         <div className="text-center text-xl">{error.message}</div>
                     }
-                    {!isLoading && !isError &&
+                    {data && items.length &&
                         <>
-                            {!items.length && <div>{t('no-items')}</div>}
-                            {data && items.length &&
-                                <>
-                                    <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4">
-                                        <Thead>
-                                            <Tr className="border-b">
-                                                {
-                                                    [t('model-en'), t('model-ru'), t('manufacturer'), t('category'), t('price'), t('units-in-stock'), t('faulty-units'), t('last-arrival')]
-                                                        .map((item, index) => (<Th key={index}>{item}</Th>))
-                                                }
-                                                <Th>
-                                                    <NewRemoveButtons id={items[0].item_id} onNewClick={onNewClick} />
-                                                </Th>
-                                                <Th></Th>
-                                            </Tr>
-                                        </Thead>
-                                        <Tbody>
-                                            {categories && items.map((item) => (
-                                                <ItemsEntry
-                                                    item={item}
-                                                    categories={categories}
-                                                    suppliers={suppliers}
-                                                    key={item.item_id}
-                                                />
-                                            ))}
-                                        </Tbody>
-                                    </Table>
-                                    <Pagination
-                                        currentPage={page}
-                                        setCurrentPage={setPage}
-                                        pageCount={data.pagination}
-                                        itemsPerPage={itemsPerPage}
-                                        setItemsPerPage={setItemsPerPage}
-                                    />
-                                </>
-                            }
+                            <Table className="bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4">
+                                <Thead>
+                                    <Tr className="border-b">
+                                        {
+                                            [t('model-en'), t('model-ru'), t('manufacturer'), t('category'), t('price'), t('units-in-stock'), t('faulty-units'), t('last-arrival')]
+                                                .map((item, index) => (<Th key={index}>{item}</Th>))
+                                        }
+                                        <Th>
+                                            <NewRemoveButtons id={items[0].item_id} onNewClick={onNewClick} />
+                                        </Th>
+                                        <Th></Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {categories && items.map((item) => (
+                                        <ItemsEntry
+                                            item={item}
+                                            categories={categories}
+                                            suppliers={suppliers}
+                                            key={item.item_id}
+                                        />
+                                    ))}
+                                </Tbody>
+                            </Table>
+                            <Pagination
+                                currentPage={page}
+                                setCurrentPage={setPage}
+                                pageCount={data.pagination}
+                                itemsPerPage={itemsPerPage}
+                                setItemsPerPage={setItemsPerPage}
+                            />
                         </>
                     }
+                    {!isLoading && !isError && !items.length && <div>{t('no-items')}</div>}
                 </div>
             </div>
         </>

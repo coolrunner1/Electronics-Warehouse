@@ -14,7 +14,8 @@ export function UserHeader() {
 
     return (
         <>
-            <header className="flex flex-col md:flex-row md:justify-between min-h-[92vh] md:min-h-auto gap-5 p-4 bg-[#ebe9e5] dark:bg-gray-950">
+            <div className="md:hidden min-h-screen h-full px-10"></div>
+            <header className="flex flex-col md:flex-row md:justify-between fixed md:relative top-0 left-0 min-h-screen md:min-h-auto gap-5 p-4 bg-[#ebe9e5] dark:bg-gray-950">
                 <WarehouseLogo location={"store"}/>
                 <SearchBar
                     customClassName={"hidden md:flex"}
@@ -22,9 +23,9 @@ export function UserHeader() {
                     placeholder={t('search-items')}
                 />
                 <HomeButton/>
+                <ArticlesButton location={'articles'}/>
                 <CartButton/>
                 <OrdersButton pathname={'orderhistory'}/>
-                <ArticlesButton location={'articles'}/>
                 <AccountButton location={'/account'}/>
                 <ThemeButton/>
                 <LanguageSelector/>

@@ -1,19 +1,17 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {setTableRefresh} from '../../slices/tableSlice.ts'
-import {Table, Tbody, Th, Thead, Tr} from 'react-super-responsive-table'
-// @ts-ignore
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import {NewRemoveButtons} from '../../components/Global/NewRemoveButtons.tsx'
 import {RootState} from '../../state/store.ts'
 import {useTranslation} from 'react-i18next'
 import {useQuery} from '@tanstack/react-query'
-import {ArticleTableEntry} from '../../components/Admin/ArticleTableEntry.tsx'
+import {ArticleEditEntry} from '../../components/Articles/ArticleEditEntry.tsx'
 import {Pagination} from '../../components/Pagination/Pagination.tsx'
 import {LoadingIndicator} from '../../components/Global/LoadingIndicator.tsx'
 import {fetchArticles} from '../../api/articles.ts'
 import {Article} from '../../types/Article.ts'
 import {useLocation} from 'react-router-dom'
+import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export const ArticlesEditPage = () => {
     const [articles, setArticles] = useState<Article[]>([]);
@@ -32,6 +30,25 @@ export const ArticlesEditPage = () => {
 
     useEffect(() => {
         if (!data) return;
+        if (data?.pagination < page && !data?.articles.length) {
+            setPage(1);
+            return;
+        }
+        if (!data?.articles.length && !search) {
+            setArticles([
+                {
+                    id: NEW_ENTRY,
+                    titleEN: 'test',
+                    titleRU: '',
+                    descriptionEN: '',
+                    descriptionRU: '',
+                    contentEN: '',
+                    contentRU: '',
+                    createdAt: '',
+                },
+            ]);
+            return;
+        }
         setArticles(data?.articles);
     }, [data]);
 
@@ -49,15 +66,15 @@ export const ArticlesEditPage = () => {
     }, [location]);
 
     const onNewClick = () => {
-        if (articles[0].id === 99999) {
+        if (articles[0].id === NEW_ENTRY) {
             setArticles(articles.splice(1));
             return;
         }
 
         setArticles([
             {
-                id: 99999,
-                titleEN: 'test',
+                id: NEW_ENTRY,
+                titleEN: '',
                 titleRU: '',
                 descriptionEN: '',
                 descriptionRU: '',
@@ -87,39 +104,13 @@ export const ArticlesEditPage = () => {
                         }
                         {data && articles && articles.length &&
                             <>
-                                <Table
-                                    className='bg-light-default dark:bg-dark-default w-full text-md shadow-md rounded mb-4'
-                                    role='table'
-                                >
-                                    <Thead>
-                                        <Tr className='border-b'>
-                                            {[
-                                                t('title-en'),
-                                                t('title-ru'),
-                                                t('description-en'),
-                                                t('description-ru'),
-                                            ].map((item, index) => (
-                                                <Th
-                                                    key={index}
-                                                    role='columnheader'
-                                                >
-                                                    {item}
-                                                </Th>
-                                            ))}
-                                            <Th>
-                                                <NewRemoveButtons
-                                                    id={articles[0].id}
-                                                    onNewClick={onNewClick}
-                                                />
-                                            </Th>
-                                        </Tr>
-                                    </Thead>
-                                    <Tbody>
-                                        {articles.map((article) => (
-                                            <ArticleTableEntry key={article.id} article={article}/>
-                                        ))}
-                                    </Tbody>
-                                </Table>
+                                <NewRemoveButtons
+                                    id={articles[0].id}
+                                    onNewClick={onNewClick}
+                                />
+                                {articles.map((article) => (
+                                    <ArticleEditEntry key={article.id} article={article}/>
+                                ))}
                                 <Pagination
                                     currentPage={page}
                                     setCurrentPage={setPage}

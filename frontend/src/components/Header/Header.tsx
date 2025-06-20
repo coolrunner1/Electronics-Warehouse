@@ -1,8 +1,9 @@
 import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 import {ThemeButton} from "./ThemeButton.tsx";
+import {ReactNode} from "react";
 
 export type HeaderProps = {
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
 
 export const Header = (props: HeaderProps) => {

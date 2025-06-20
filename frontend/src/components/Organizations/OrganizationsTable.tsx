@@ -4,6 +4,7 @@ import {OrganizationsEntry} from "./OrganizationsEntry";
 import {useEffect, useState} from "react";
 import {Organization} from "../../types/Organization";
 import {useTranslation} from "react-i18next";
+import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export const OrganizationsTable = (
     props: {
@@ -13,7 +14,7 @@ export const OrganizationsTable = (
 ) => {
     const [organizations, setOrganizations] = useState<Organization[]>([
         {
-            organization_id: 99999,
+            organization_id: NEW_ENTRY,
             name: "New organization name",
             phone_number: 777777777,
             address: "123 Example St",
@@ -32,12 +33,12 @@ export const OrganizationsTable = (
     }, [props.organizations]);
 
     const onNewClick = () => {
-        if (organizations[0].organization_id === 99999) {
+        if (organizations[0].organization_id === NEW_ENTRY) {
             setOrganizations(organizations.splice(1))
             return;
         }
         setOrganizations([{
-            organization_id: 99999,
+            organization_id: NEW_ENTRY,
             name: "New organization name",
             phone_number: 777777777,
             address: "123 Example St",

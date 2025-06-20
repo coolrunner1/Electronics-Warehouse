@@ -1,0 +1,1 @@
+export default (description: string) => description.substring(0, 90)+(description.length > 90 ? "..." : "");

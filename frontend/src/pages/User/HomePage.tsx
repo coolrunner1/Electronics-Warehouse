@@ -4,7 +4,7 @@ import {fetchItems} from "../../api/items.ts";
 import {ItemInShop} from "../../types/Item.ts";
 import {TopItemEntry} from "../../components/Home/TopItemEntry.tsx";
 import {fetchArticles} from "../../api/articles.ts";
-import { ArticleEntry } from "../../components/Global/ArticleEntry.tsx";
+import { ArticleEntry } from "../../components/Articles/ArticleEntry.tsx";
 import {Article} from "../../types/Article.ts";
 import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {useNavigate} from "react-router-dom";
