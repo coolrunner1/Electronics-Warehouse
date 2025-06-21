@@ -1,5 +1,6 @@
 export default {
     'shop-title': 'Склад компьютерной техники',
+    shop: 'Магазин',
     'admin-dashboard': 'Страница администратора',
     login: 'Логин',
     password: 'Пароль',
@@ -172,5 +173,9 @@ export default {
     'new-articles': 'Последние новости и акции',
     'show-item': 'Открыть',
     true: 'Есть',
-    false: 'Нет'
+    false: 'Нет',
+    'home-page': 'Домашняя страница',
+    'contact-us': 'Связаться с нами',
+    'toggle-theme': 'Переключить тему',
+    'view-larger-map': 'Открыть на карте',
 }

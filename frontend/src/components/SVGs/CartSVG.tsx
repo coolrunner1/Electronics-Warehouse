@@ -3,7 +3,7 @@ export const CartSVG = () => {
         <>
             <svg className="w-6 h-6 fill-black dark:fill-gray-100" fill="none" version="1.1" id="Capa_1"
                  xmlns="http://www.w3.org/2000/svg"
-                 stroke="currentColor" viewBox="0 0 902.86 902.86"><title>Cart</title>
+                 stroke="currentColor" viewBox="0 0 902.86 902.86">
                 <g>
                     <g>
                         <path d="M671.504,577.829l110.485-432.609H902.86v-68H729.174L703.128,179.2L0,178.697l74.753,399.129h596.751V577.829z

@@ -1,5 +1,6 @@
 export default {
     'shop-title': 'Electronics warehouse',
+    shop: 'Shop',
     'admin-dashboard': 'Admin Dashboard',
     login: 'Login',
     password: 'Password',
@@ -173,5 +174,9 @@ export default {
     'new-articles': 'Latest news and promotions',
     'show-item': 'Show item',
     true: 'True',
-    false: 'False'
+    false: 'False',
+    'home-page': 'Home page',
+    'contact-us': 'Contact us',
+    'toggle-theme': 'Toggle theme',
+    'view-larger-map': 'View larger map',
 }

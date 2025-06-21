@@ -31,25 +31,32 @@ export function EmployeeHeader() {
     return (
         <>
             <Header>
-                <WarehouseLogo location={"employee/items"}/>
+                <WarehouseLogo
+                    title={t('items')}
+                    location={"employee/items"}
+                />
                 <SearchBar
                     customClassName={"hidden sm:flex"}
                     pathname={searchPath}
                     placeholder={searchPlaceholder}
                 />
                 <HeaderButton
+                    title={t('clients')}
                     onClick={() => navigate("/employee/clients")}
                     logo={<ClientsSVG/>}
                 />
                 <HeaderButton
+                    title={t('suppliers')}
                     onClick={() => navigate("/employee/suppliers")}
                     logo={<SuppliersSVG/>}
                 />
                 <HeaderButton
+                    title={t('orders')}
                     onClick={() => navigate("/employee/orders")}
                     logo={<OrdersSVG/>}
                 />
                 <HeaderButton
+                    title={t('my-account')}
                     onClick={() => navigate("/employee/account")}
                     logo={<AccountSVG/>}
                 />

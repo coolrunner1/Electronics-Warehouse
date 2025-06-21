@@ -28,6 +28,7 @@ import {useDispatch} from "react-redux";
 import {setFlagsFromLocalStorage} from "./slices/flagsSlice.ts";
 import {HomePage} from "./pages/User/HomePage.tsx";
 import {ArticlePage} from "./pages/User/ArticlePage.tsx";
+import {ContactUsPage} from "./pages/User/ContactUsPage.tsx";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -48,6 +49,10 @@ const App = () => {
                         <Route
                             path='/home'
                             element={<HomePage/>}
+                        />
+                        <Route
+                            path='/contact-us'
+                            element={<ContactUsPage/>}
                         />
                         <Route
                             path='/store'

@@ -20,7 +20,7 @@ export const ArticlePage = () => {
       {error && <div className='text-center text-xl'>{error.message}</div>}
       {data && (
         <div className='flex justify-center items-center my-5'>
-          <div className='flex flex-col max-w-4xl w-full gap-4 p-2 sm:p-5'>
+          <div className='bg-light-default dark:bg-dark-default rounded-xl shadow-md flex flex-col max-w-4xl w-full gap-4 p-2 sm:p-5'>
             <h2 className='text-3xl text-center'>
               {i18n.language === 'ru' ? data.titleRU : data.titleEN}
             </h2>

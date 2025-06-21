@@ -24,7 +24,7 @@ export const TopItemEntry = (
                     ? <img src="/placeholder.png" alt="image is missing" className="w-full rounded-lg sm:w-30" />
                     : <img src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`} alt={props.item.modelEN} className="w-full h-1/2 max-w-sm rounded-lg lg:w-30"  />}
                 <div className="my-auto lg:ml-4 lg:flex lg:w-full lg:justify-between lg:gap-3">
-                    <div className="mt-5 lg:mt-0">
+                    <div className="mt-5 lg:mt-0 max-w-36">
                         <h2 className="text-lg font-bold light:text-gray-900">{shortenItemTitle(i18n.language === 'ru' ? props.item.modelRU : props.item.modelEN)}</h2>
                         <p className="text-sm">{props.item.manufacturer}</p>
                         <div className="flex gap-1">
@@ -39,7 +39,7 @@ export const TopItemEntry = (
                             <div>({props.item.review_count || 0})</div>
                         </div>
                     </div>
-                    <div className="mt-5 lg:mt-0">
+                    <div className="mt-5 lg:mt-0 max-w-36">
                         <p className="text-sm">{t('price-per-unit')}: ${props.item.unit_price}</p>
                         <p className="text-sm mb-2">{t('units-in-stock')}: {props.item.units_in_stock}</p>
                         <BlueItemButton

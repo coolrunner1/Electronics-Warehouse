@@ -30,6 +30,7 @@ export const AdminHeader = () => {
         <>
             <Header>
                 <HeaderButton
+                    title={t('users')}
                     onClick={() => navigate("/admin/users")}
                     logo={<AdminSVG/>}
                 />
@@ -39,10 +40,12 @@ export const AdminHeader = () => {
                     placeholder={searchPlaceholder}
                 />
                 <HeaderButton
+                    title={t('news')}
                     onClick={() => navigate("/admin/articles")}
                     logo={<ArticlesSVG/>}
                 />
                 <HeaderButton
+                    title={t('my-account')}
                     onClick={() => navigate("/admin/account")}
                     logo={<AccountSVG/>}
                 />
