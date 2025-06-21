@@ -1,16 +1,19 @@
 import {SearchBar} from "../Global/SearchBar";
 import {WarehouseLogo} from "./WarehouseLogo";
-import {CartButton} from "./CartButton";
-import {OrdersButton} from "./OrdersButton";
-import {AccountButton} from "./AccountButton.tsx";
 import { useTranslation } from "react-i18next";
-import {ArticlesButton} from "./ArticlesButton.tsx";
 import {ThemeButton} from "./ThemeButton.tsx";
 import {LanguageSelector} from "../Global/LanguageSelector.tsx";
-import {HomeButton} from "./HomeButton.tsx";
+import {HeaderButton} from "./HeaderButton.tsx";
+import {OrdersSVG} from "../SVGs/OrdersSVG.tsx";
+import {AccountSVG} from "../SVGs/AccountSVG.tsx";
+import {useNavigate} from "react-router-dom";
+import {CartSVG} from "../SVGs/CartSVG.tsx";
+import {ArticlesSVG} from "../SVGs/ArticlesSVG.tsx";
+import { HomeSVG } from "../SVGs/HomeSVG.tsx";
 
 export function UserHeader() {
     const {t} = useTranslation();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -22,11 +25,26 @@ export function UserHeader() {
                     pathname={'store'}
                     placeholder={t('search-items')}
                 />
-                <HomeButton/>
-                <ArticlesButton location={'articles'}/>
-                <CartButton/>
-                <OrdersButton pathname={'orderhistory'}/>
-                <AccountButton location={'/account'}/>
+                <HeaderButton
+                    onClick={() => navigate("/home")}
+                    logo={<HomeSVG/>}
+                />
+                <HeaderButton
+                    onClick={() => navigate("/articles")}
+                    logo={<ArticlesSVG/>}
+                />
+                <HeaderButton
+                    onClick={() => navigate("/cart")}
+                    logo={<CartSVG/>}
+                />
+                <HeaderButton
+                    onClick={() => navigate("/orders")}
+                    logo={<OrdersSVG/>}
+                />
+                <HeaderButton
+                    onClick={() => navigate("/account")}
+                    logo={<AccountSVG/>}
+                />
                 <ThemeButton/>
                 <LanguageSelector/>
             </header>
