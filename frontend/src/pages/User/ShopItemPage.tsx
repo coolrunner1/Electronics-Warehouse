@@ -36,7 +36,6 @@ export const ShopItemPage = () => {
         if (!data) return;
         let item: any = Object.assign({}, data);
         if (item?.details) delete item.details;
-        if (item?.category) delete item.category;
         dispatch(addToCart(item as ItemInShop));
     }
 

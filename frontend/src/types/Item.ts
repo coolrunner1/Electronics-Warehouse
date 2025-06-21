@@ -20,14 +20,17 @@ export type ItemDetails = {
 
 export type ItemDetailed = ItemInShop & {
     details: ItemDetails;
-    category: Category;
 }
 
-export type ItemInShop = Item & {
+export type ItemWithStats = Item & {
     date_of_arrival: string;
     units_in_stock: number;
     faulty_units: number;
     review_count: number;
+}
+
+export type ItemInShop = ItemWithStats & {
+    category: Category;
 }
 
 export type ItemInCart = ItemInShop & {

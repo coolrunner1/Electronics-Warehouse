@@ -5,7 +5,7 @@ import {ItemDetailsDescription, ItemDetailsSpecs} from "../types/ItemDetails";
 
 class ItemsService {
     async getAllItems(query: any) {
-        const {page, limit, search, categoryName, categoryId, manufacturer, sortBy, sortOrder} = query;
+        const {page, limit, search, categoryName, categoryId, manufacturer, sortBy, sortOrder, inStock} = query;
         const orItemsQuery = [];
         const andItemsQuery = [];
         const sortItemsQuery = [];
@@ -62,12 +62,29 @@ class ItemsService {
             });
         }
 
+        if (inStock === 'true') {
+            andItemsQuery.push({
+                units_in_stock: {
+                    gt: 0
+                }
+            })
+        } else if (inStock === 'false') {
+            andItemsQuery.push({
+                units_in_stock: {
+                    lt: 1
+                }
+            })
+        }
+
         const {skip, take} = pagination(parseInt(page), parseInt(limit));
 
         const finalItemsQuery = {
             where: {
                 OR: undefined,
                 AND: undefined
+            },
+            include: {
+                category: true
             },
             orderBy: sortItemsQuery,
             skip,
@@ -84,12 +101,13 @@ class ItemsService {
 
         const data = await prisma.item.findMany(finalItemsQuery);
 
-        delete finalItemsQuery.skip;
-        delete finalItemsQuery.take;
+        const countQuery = {
+            where: finalItemsQuery.where
+        }
 
         return {
             pagination: {
-                total: calculateNumberOfPages(await prisma.item.count(finalItemsQuery), take),
+                total: calculateNumberOfPages(await prisma.item.count(countQuery), take),
             },
             data
         };

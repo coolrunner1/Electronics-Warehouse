@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 import {ItemDetailed} from "../types/Item.ts";
 
 export const fetchItems = async({queryKey}: any) => {
-    const [_key, page, itemsPerPage, search, sortBy, sortingDirection, category, manufacturer] = queryKey;
+    const [_key, page, itemsPerPage, search, sortBy, sortingDirection, category, manufacturer, inStock] = queryKey;
     const data = await axiosClient.get(
         `/items?page=${page}&limit=${itemsPerPage}${
             search ? `&search=${search}` : ""
@@ -14,6 +14,8 @@ export const fetchItems = async({queryKey}: any) => {
             sortBy ? `&sortBy=${sortBy}` : ""
         }${
             sortingDirection ? `&sortOrder=${sortingDirection}` : ""
+        }${
+            inStock ? `&inStock=${inStock}` : ""
         }`
     );
     return {

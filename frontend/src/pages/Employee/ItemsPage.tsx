@@ -7,7 +7,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {setTableRefresh} from "../../slices/tableSlice.ts";
 import {NewRemoveButtons} from "../../components/Global/NewRemoveButtons.tsx";
 import {RootState} from "../../state/store.ts";
-import {ItemInShop} from "../../types/Item.ts";
+import {ItemWithStats} from "../../types/Item.ts";
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@tanstack/react-query";
 import {useGetMappedCategories} from "../../hooks/useGetMappedCategories.ts";
@@ -21,12 +21,12 @@ import {useLocation} from "react-router-dom";
 import { NEW_ENTRY } from "../../constants/newEntry.ts";
 
 export const ItemsPage = () => {
-    const {category, manufacturer, sortBy, sortingDirection} = useSelector((state: RootState) => state.filters);
+    const {category, manufacturer, sortBy, sortingDirection, inStock} = useSelector((state: RootState) => state.filters);
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const location = useLocation();
-    const [items, setItems] = useState<ItemInShop[]>([
+    const [items, setItems] = useState<ItemWithStats[]>([
         {
             item_id: NEW_ENTRY,
             modelEN: '',
@@ -61,7 +61,7 @@ export const ItemsPage = () => {
         error,
         refetch
     } = useQuery({
-        queryKey: ['items', page, itemsPerPage, search, sortBy+(i18n.language).toUpperCase(), sortingDirection, category, manufacturer],
+        queryKey: ['items', page, itemsPerPage, search, sortBy+(i18n.language).toUpperCase(), sortingDirection, category, manufacturer, inStock],
         queryFn: fetchItems,
     });
 

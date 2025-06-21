@@ -171,4 +171,6 @@ export default {
     'new-arrivals': 'Свежие поступления',
     'new-articles': 'Последние новости и акции',
     'show-item': 'Открыть',
+    true: 'Есть',
+    false: 'Нет'
 }

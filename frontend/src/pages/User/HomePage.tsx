@@ -15,7 +15,7 @@ export const HomePage = () => {
 
     const {data: topItems, isLoading: isItemsLoading} = useQuery({
         queryFn: fetchItems,
-        queryKey: ['items', 1, 6, undefined, 'last-arrival', 'desc'],
+        queryKey: ['items', 1, 6, undefined, 'last-arrival', 'desc', undefined, undefined, 'true'],
         refetchInterval: 300000,
     });
 

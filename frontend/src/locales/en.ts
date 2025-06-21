@@ -172,4 +172,6 @@ export default {
     'new-arrivals': 'Latest arrivals',
     'new-articles': 'Latest news and promotions',
     'show-item': 'Show item',
+    true: 'True',
+    false: 'False'
 }

@@ -10,7 +10,7 @@ import {Td, Tr} from "react-super-responsive-table";
 import {setTableRefresh} from "../../slices/tableSlice";
 import {TableTextInput} from "../Global/TableTextInput";
 import {dateToString} from "../../utils/dateToString";
-import {ItemInShop} from "../../types/Item";
+import {ItemWithStats} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 import {addNewArrival, createItem, updateItem} from "../../api/items.ts";
@@ -19,7 +19,7 @@ import {useNavigate} from "react-router-dom";
 import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export type ItemsEntryProps = {
-    item: ItemInShop,
+    item: ItemWithStats,
     categories: ValueLabel<number>[],
     suppliers: ValueLabel<number>[],
 }

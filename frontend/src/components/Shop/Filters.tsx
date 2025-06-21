@@ -1,15 +1,18 @@
 import {SelectFilter} from "./SelectFilter";
 import {ChangeEvent} from "react";
-import {useDispatch} from "react-redux";
-import {setCategory, setManufacturer, setSortBy, setSortingDirection} from "../../slices/filtersSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {setCategory, setInStock, setManufacturer, setSortBy, setSortingDirection} from "../../slices/filtersSlice";
 import {CategoryFilter} from "./CategoryFilter";
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@tanstack/react-query";
 import {getCategories} from "../../api/categories.ts";
 import {getItemManufacturers} from "../../api/items.ts";
+import {RootState} from "../../state/store.ts";
 
 export const Filters = () => {
     const {t} = useTranslation();
+
+    const manufacturer = useSelector((state: RootState) => state.filters.manufacturer)
 
     const {data: categories} = useQuery({
         queryKey: ['categories'],
@@ -39,13 +42,18 @@ export const Filters = () => {
         dispatch(setSortingDirection(e.target.value));
     };
 
+    const onInStockChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setInStock(e.target.value));
+    };
+
     return (
         <>
             <div className="flex flex-col min-[900px]:flex-row pl-4 pr-4 w-full gap-2 justify-center">
                 {categories && <CategoryFilter label={t('category')} onChange={onCategoryChange} options={categories}/>}
-                {manufacturers && <SelectFilter label={t('manufacturer')} onChange={onManufacturerChange} options={['all', ...manufacturers]}/>}
+                {manufacturers && <SelectFilter defaultValue={manufacturer} label={t('manufacturer')} onChange={onManufacturerChange} options={['all', ...manufacturers]}/>}
                 <SelectFilter label={t('sort-by')} onChange={onSortByChange} options={['name', 'price', 'last-arrival']}/>
                 <SelectFilter label={t('sort-order')} onChange={onSortingDirectionChange} options={['asc', 'desc']} />
+                <SelectFilter label={t('in-stock')} onChange={onInStockChange} options={['all', 'true', 'false']} />
             </div>
         </>
     )

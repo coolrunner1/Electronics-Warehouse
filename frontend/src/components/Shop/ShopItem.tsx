@@ -41,13 +41,13 @@ export const ShopItem = (
                 <div className="mt-2 p-2">
                     <h2>{i18n.language === "ru" ? props.item.modelRU : props.item.modelEN}</h2>
                     <p className="mt-1 text-sm text-slate-400">{props.item.manufacturer}</p>
+                    <p className="mt-1 text-sm text-slate-400">{i18n.language === "ru" ? props.item.category.nameRU : props.item.category.nameEN}</p>
                     <p className="mt-1 text-sm text-slate-400">
                         {props.item.units_in_stock > 0
                             ? t('units-in-stock')+': '+props.item.units_in_stock
                             : t('out-of-stock')
                         }
                     </p>
-                    <p className="mt-1 text-sm text-slate-400">{t('rating')}</p>
                     <div className="flex gap-1">
                         <StarRatings
                             rating={props.item.score}

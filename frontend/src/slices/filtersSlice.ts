@@ -7,6 +7,7 @@ const filtersSlice = createSlice({
         manufacturer: "all",
         sortBy: "Price",
         sortingDirection: "Ascending",
+        inStock: "all",
     },
     reducers: {
         setCategory: (state, action) => {
@@ -20,10 +21,13 @@ const filtersSlice = createSlice({
         },
         setSortingDirection: (state, action) => {
             state.sortingDirection = action.payload;
+        },
+        setInStock: (state, action) => {
+            state.inStock = action.payload;
         }
     }
 })
 
-export const {setCategory, setManufacturer, setSortBy, setSortingDirection} = filtersSlice.actions;
+export const {setCategory, setManufacturer, setSortBy, setSortingDirection, setInStock} = filtersSlice.actions;
 
 export default filtersSlice.reducer;

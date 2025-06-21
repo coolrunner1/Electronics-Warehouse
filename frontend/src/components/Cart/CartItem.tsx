@@ -29,14 +29,15 @@ export const CartItem = (
     return (
         <>
             <div
-                className="justify-between mb-6 rounded-lg p-6 shadow-md sm:flex sm:justify-start">
+                className="bg-light-default dark:bg-dark-default justify-between mb-6 rounded-lg p-6 shadow-md sm:flex sm:justify-start">
                 {props.item.image_path == null
                     ? <img src="/placeholder.png" alt="image is missing" className="w-full rounded-lg sm:w-40" />
                     : <img src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`} alt={props.item.modelEN} className="w-full rounded-lg sm:w-40"  />}
                 <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                     <div className="mt-5 sm:mt-0">
                         <h2 className="text-lg font-bold light:text-gray-900">{i18n.language === 'ru' ? props.item.modelRU : props.item.modelEN}</h2>
-                        <p className="mt-1 text-xs light:text-gray-700">{props.item.manufacturer}</p>
+                        <p className="mt-1 text-xs text-gray-700">{props.item.manufacturer}</p>
+                        <p className="mt-1 text-xs text-gray-700">{i18n.language === "ru" ? props.item.category.nameRU : props.item.category.nameEN}</p>
                     </div>
                     <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <NumberToggle increment={increment} decrement={decrement} value={props.item.numberInCart}/>
