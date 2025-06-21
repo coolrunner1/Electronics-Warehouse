@@ -108,9 +108,11 @@ export const ArticlesEditPage = () => {
                                     id={articles[0].id}
                                     onNewClick={onNewClick}
                                 />
-                                {articles.map((article) => (
-                                    <ArticleEditEntry key={article.id} article={article}/>
-                                ))}
+                                <div className="flex flex-col gap-2 mt-2">
+                                    {articles.map((article) => (
+                                        <ArticleEditEntry key={article.id} article={article}/>
+                                    ))}
+                                </div>
                                 <Pagination
                                     currentPage={page}
                                     setCurrentPage={setPage}

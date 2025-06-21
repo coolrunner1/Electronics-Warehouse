@@ -15,7 +15,16 @@ export const ProtectedUserRoutes = () => {
         user.role_id === USER_ROLE
             ?
             <>
-                <div className="flex flex-row md:flex-col">
+                <div className="md:hidden flex ">
+                    <div className="p-10"></div>
+                    <div className='md:hidden p-4 bg-[#ebe9e5] dark:bg-gray-950 w-full'>
+                        <SearchBar
+                            pathname={'store'}
+                            placeholder={t('search-items')}
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-row md:flex-col justify-center">
                     <UserHeader />
                     <Outlet />
                 </div>

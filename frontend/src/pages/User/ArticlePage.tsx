@@ -32,7 +32,7 @@ export const ArticlePage = () => {
             </span>
             <hr className='w-full' />
             <article
-              className='prose lg:prose-md dark:prose-invert text-left text-xl w-full'
+              className='prose lg:prose-md dark:prose-invert text-left text-xl w-full mx-auto'
               dangerouslySetInnerHTML={{
                 __html:
                   i18n.language === 'ru' ? data.contentRU : data.contentEN,

@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import StarRatings from 'react-star-ratings';
 import {BlueItemButton} from "../Global/BlueItemButton.tsx";
 import {useNavigate} from "react-router-dom";
+import shortenItemTitle from "../../utils/shortenItemTitle.ts";
 
 export type TopItemEntryProps = {
     item: ItemInShop
@@ -24,7 +25,7 @@ export const TopItemEntry = (
                     : <img src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`} alt={props.item.modelEN} className="w-full h-1/2 max-w-sm rounded-lg lg:w-30"  />}
                 <div className="my-auto lg:ml-4 lg:flex lg:w-full lg:justify-between lg:gap-3">
                     <div className="mt-5 lg:mt-0">
-                        <h2 className="text-lg font-bold light:text-gray-900">{i18n.language === 'ru' ? props.item.modelRU : props.item.modelEN}</h2>
+                        <h2 className="text-lg font-bold light:text-gray-900">{shortenItemTitle(i18n.language === 'ru' ? props.item.modelRU : props.item.modelEN)}</h2>
                         <p className="text-sm">{props.item.manufacturer}</p>
                         <div className="flex gap-1">
                             <StarRatings

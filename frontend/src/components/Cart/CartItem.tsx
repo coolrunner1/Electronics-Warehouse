@@ -36,8 +36,8 @@ export const CartItem = (
                 <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                     <div className="mt-5 sm:mt-0">
                         <h2 className="text-lg font-bold light:text-gray-900">{i18n.language === 'ru' ? props.item.modelRU : props.item.modelEN}</h2>
-                        <p className="mt-1 text-xs text-gray-700">{props.item.manufacturer}</p>
-                        <p className="mt-1 text-xs text-gray-700">{i18n.language === "ru" ? props.item.category.nameRU : props.item.category.nameEN}</p>
+                        <p className="mt-1 text-xs">{props.item.manufacturer}</p>
+                        <p className="mt-1 text-xs">{i18n.language === "ru" ? props.item.category.nameRU : props.item.category.nameEN}</p>
                     </div>
                     <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <NumberToggle increment={increment} decrement={decrement} value={props.item.numberInCart}/>

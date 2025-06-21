@@ -21,6 +21,7 @@ export const CheckoutItem = (
                     <div className="mt-5 sm:mt-0">
                         <h2 className="text-lg font-bold light:text-gray-900">{i18n.language === 'ru' ? props.item.modelRU : props.item.modelEN}</h2>
                         <p className="text-sm">{props.item.manufacturer}</p>
+                        <p className="text-sm">{i18n.language === "ru" ? props.item.category.nameRU : props.item.category.nameEN}</p>
                     </div>
                     <div className="mt-5 sm:mt-0">
                         <p className="text-sm">{t('price-per-unit')}: ${props.item.unit_price}</p>

@@ -1,5 +1,5 @@
 import {ChangeEvent, useEffect, useState} from "react";
-import {AccountInput} from "./AccountInput";
+import {FormInput} from "../Global/FormInput.tsx";
 import {BlueButton} from "../Global/BlueButton";
 import {validateEmail} from "../../utils/validateEmail";
 import {validatePhoneNumber} from "../../utils/validatePhoneNumber";
@@ -133,14 +133,14 @@ export const ClientForm = () => {
             </div>
 
             <div className="flex flex-wrap mt-6">
-                <AccountInput name={t('organization-name')} placeholder={t('enter-name')} value={name} onChange={onNameChange} />
-                <AccountInput name={"Email"} placeholder={t('enter-email')} value={email} onChange={onEmailChange} />
-                <AccountInput name={t('phone-number')} placeholder={t('enter-phone')} value={phone} onChange={onPhoneChange} />
-                <AccountInput name={t('address')} placeholder={t('enter-address')} value={address} onChange={onAddressChange} />
-                <AccountInput name={t('city')} placeholder={t('enter-city')} value={city} onChange={onCityChange} />
-                <AccountInput name={t('region')} placeholder={t('enter-region')} value={region} onChange={onRegionChange} />
-                <AccountInput name={t('country')} placeholder={t('enter-country')} value={country} onChange={onCountryChange} />
-                <AccountInput name={t('postal-code')} placeholder={t('enter-zipcode')} value={postalCode.toString()} onChange={onPostalCodeChange} />
+                <FormInput name={t('organization-name')} placeholder={t('enter-name')} value={name} onChange={onNameChange} />
+                <FormInput name={"Email"} placeholder={t('enter-email')} value={email} onChange={onEmailChange} />
+                <FormInput name={t('phone-number')} placeholder={t('enter-phone')} value={phone} onChange={onPhoneChange} />
+                <FormInput name={t('address')} placeholder={t('enter-address')} value={address} onChange={onAddressChange} />
+                <FormInput name={t('city')} placeholder={t('enter-city')} value={city} onChange={onCityChange} />
+                <FormInput name={t('region')} placeholder={t('enter-region')} value={region} onChange={onRegionChange} />
+                <FormInput name={t('country')} placeholder={t('enter-country')} value={country} onChange={onCountryChange} />
+                <FormInput name={t('postal-code')} placeholder={t('enter-zipcode')} value={postalCode.toString()} onChange={onPostalCodeChange} />
             </div>
         </>
     )

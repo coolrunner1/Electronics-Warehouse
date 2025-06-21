@@ -48,12 +48,12 @@ export const Filters = () => {
 
     return (
         <>
-            <div className="flex flex-col min-[900px]:flex-row pl-4 pr-4 w-full gap-2 justify-center">
+            <div className="flex flex-col min-[1080px]:flex-row pl-4 pr-4 w-full gap-2 justify-center">
                 {categories && <CategoryFilter label={t('category')} onChange={onCategoryChange} options={categories}/>}
                 {manufacturers && <SelectFilter defaultValue={manufacturer} label={t('manufacturer')} onChange={onManufacturerChange} options={['all', ...manufacturers]}/>}
+                <SelectFilter label={t('in-stock')} onChange={onInStockChange} options={['all', 'true', 'false']} />
                 <SelectFilter label={t('sort-by')} onChange={onSortByChange} options={['name', 'price', 'last-arrival']}/>
                 <SelectFilter label={t('sort-order')} onChange={onSortingDirectionChange} options={['asc', 'desc']} />
-                <SelectFilter label={t('in-stock')} onChange={onInStockChange} options={['all', 'true', 'false']} />
             </div>
         </>
     )
