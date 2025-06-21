@@ -17,7 +17,7 @@ export const OrderHistoryTable = (
     const {t} = useTranslation();
 
     return (
-        <>
+        <div className="max-w-screen overflow-x-scroll">
             <Table className="w-full text-md shadow-md rounded mb-4">
                 <Thead className="border-b">
                 <Tr>
@@ -37,6 +37,6 @@ export const OrderHistoryTable = (
                 ))}
                 </Tbody>
             </Table>
-        </>
+        </div>
     )
 }

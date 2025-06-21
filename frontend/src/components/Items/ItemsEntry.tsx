@@ -155,7 +155,7 @@ export const ItemsEntry = (
                     {props.item.date_of_arrival && dateToString(props.item.date_of_arrival)}
                 </Td>
                 <Td className="p-3">
-                    <div className="flex justify-end items-center">
+                    <div className="flex flex-col sm:flex-row gap-y-2 justify-end items-center">
                         <BlueButton onClick={onClickEdit} name={t('save')}/>
                         {props.item.item_id !== NEW_ENTRY && <YellowButton name={t('edit-page')} onClick={() => {navigate(`/employee/items/${props.item.item_id}`)}}/>}
                         {props.item.modelEN && props.item.modelRU && <RedButton onClick={onClickArrival} name={ !createArrival ? t('add-arrival') : t('remove-arrival')}/>}
@@ -172,9 +172,17 @@ export const ItemsEntry = (
                                     styles={customStyles}
                                     maxMenuHeight={250}
                                 />
-                                <input type="number" min={1} value={newQuantity} onChange={onQuantityChange}
-                                       className="bg-transparent m-3"/>
-                                <BlueButton onClick={onClickPostArrival} name={t('create')}/>
+                                <input
+                                    type="number"
+                                    min={1}
+                                    value={newQuantity}
+                                    onChange={onQuantityChange}
+                                    className="bg-transparent m-3"
+                                />
+                                <BlueButton
+                                    onClick={onClickPostArrival}
+                                    name={t('create')}
+                                />
                             </div>
                         </>
                     )}

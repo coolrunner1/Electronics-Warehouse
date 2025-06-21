@@ -24,7 +24,7 @@ export const ArticleEditEntry = (props: ArticleEntryProps) => {
             await deleteArticle(props.article.id).then((res) => {
                 dispatch(setTableRefresh(true));
                 if (res.status === 204) {
-                    alert(t('deleted-article'))
+                    alert(t('article-delete-success'))
                 }
             })
         }

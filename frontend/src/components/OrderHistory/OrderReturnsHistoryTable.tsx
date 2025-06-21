@@ -31,7 +31,7 @@ export const OrderReturnsHistoryTable = (
     }, [props.items]);
 
     return (
-        <>
+        <div className="max-w-screen overflow-x-scroll">
             <Table className="w-full text-md shadow-md rounded mb-4">
                 <Thead className="border-b">
                 <Tr>
@@ -47,14 +47,17 @@ export const OrderReturnsHistoryTable = (
                 </Thead>
                 <Tbody>
                 {props.items.map((item: ItemInReturn, index: number) => (
-                    <OrderReturnHistoryTableItem key={index} item={item} userRole={props.userRole}
-                                                 returnStatuses={props.returnStatuses}/>
+                    <OrderReturnHistoryTableItem
+                        key={index}
+                        item={item}
+                        userRole={props.userRole}
+                        returnStatuses={props.returnStatuses}/>
                 ))}
                 {(itemReturn !== null && props.userRole === 2 && props.items && props.orderId === orderId) && (
                     <NewOrderReturn/>
                 )}
                 </Tbody>
             </Table>
-        </>
+        </div>
     )
 }

@@ -57,7 +57,7 @@ export const OrdersPage = () => {
     return (
         <>
             {userRole === 2 &&
-                <div className="flex flex-col px-4 py-4">
+                <div className="flex flex-col sm:px-4 py-4">
                     <h1 className="text-3xl text-center p-4">{t('orders')}</h1>
                     {orders.length === 0
                         ? <div className="text-center text-xl">{t('no-orders')}</div>

@@ -119,7 +119,7 @@ export const ItemEditPage = () => {
     }
 
     return (
-        <div className="flex flex-col p-10 items-center">
+        <div className="flex flex-col sm:p-10 items-center">
             {isLoading && <LoadingIndicator/>}
             {isError && error && <div>{error.message}</div>}
             {!isLoading && item &&
@@ -142,7 +142,7 @@ export const ItemEditPage = () => {
                         />
                         <div>({item.review_count || 0})</div>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-10 my-5 p-2 border bg-light-default dark:bg-dark-default rounded-lg">
+                    <div className="flex md:gap-10 my-5 sm:p-2 border bg-light-default dark:bg-dark-default rounded-lg">
                         <EditPageNavButton
                             name={t('image')}
                             onClick={() => setCurrentTab(0)}
@@ -194,8 +194,8 @@ export const ItemEditPage = () => {
                         </div>
                     }
                     {currentTab === 1 &&
-                        <>
-                            <h1 className="text-xl">{t('description')}</h1>
+                        <div className='flex flex-col w-full max-w-3xl'>
+                            <h1 className="text-xl text-center">{t('description')}</h1>
                             <div className="flex flex-col gap-2 text-center mb-5">
                                 <h3>English</h3>
                                 <TextEditor value={enDescription} setValue={setEnDescription} />
@@ -206,11 +206,11 @@ export const ItemEditPage = () => {
                                 name={t('save-changes')}
                                 onClick={handleDescriptionSave}
                             />
-                        </>
+                        </div>
                     }
                     {currentTab === 2 &&
-                        <>
-                            <h1 className="text-xl">{t('item-specs')}</h1>
+                        <div className='flex flex-col w-full max-w-3xl'>
+                            <h1 className="text-xl text-center">{t('item-specs')}</h1>
                             <div className="flex flex-col gap-2 text-center mb-5">
                                 <h3>English</h3>
                                 <TextEditor value={enSpecs} setValue={setEnSpecs} />
@@ -221,7 +221,7 @@ export const ItemEditPage = () => {
                                 name={t('save-changes')}
                                 onClick={handleSpecsSave}
                             />
-                        </>
+                        </div>
                     }
                     {currentTab === 3 &&
                         <>NOT IMPLEMENTED</>

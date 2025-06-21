@@ -14,7 +14,18 @@ import {useLocation} from 'react-router-dom'
 import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export const ArticlesEditPage = () => {
-    const [articles, setArticles] = useState<Article[]>([]);
+    const [articles, setArticles] = useState<Article[]>([
+        {
+            id: NEW_ENTRY,
+            titleEN: 'test',
+            titleRU: '',
+            descriptionEN: '',
+            descriptionRU: '',
+            contentEN: '',
+            contentRU: '',
+            createdAt: '',
+        },
+    ]);
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(15);
     const [search, setSearch] = useState('');
@@ -34,23 +45,13 @@ export const ArticlesEditPage = () => {
             setPage(1);
             return;
         }
-        if (!data?.articles.length && !search) {
-            setArticles([
-                {
-                    id: NEW_ENTRY,
-                    titleEN: 'test',
-                    titleRU: '',
-                    descriptionEN: '',
-                    descriptionRU: '',
-                    contentEN: '',
-                    contentRU: '',
-                    createdAt: '',
-                },
-            ]);
-            return;
-        }
+
         setArticles(data?.articles);
     }, [data]);
+
+    useEffect(() => {
+        console.log(articles)
+    }, [articles]);
 
     useEffect(() => {
         refetch();

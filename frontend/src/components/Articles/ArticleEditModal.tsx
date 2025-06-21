@@ -1,4 +1,3 @@
-import {t} from 'i18next'
 import {useState} from "react";
 import {NEW_ENTRY} from "../../constants/newEntry.ts";
 import {createArticle, updateArticle} from "../../api/articles.ts";
@@ -7,6 +6,7 @@ import {Article} from "../../types/Article.ts";
 import { useDispatch } from 'react-redux';
 import {TextEditor} from "../Global/TextEditor.tsx";
 import {BlueEditPageButton} from "../EditPage/BlueEditPageButton.tsx";
+import {useTranslation} from "react-i18next";
 
 export type ArticleEditModal = {
     article: Article;
@@ -20,6 +20,7 @@ export const ArticleEditModal = (props: ArticleEditModal) => {
     const [descriptionRU, setDescriptionRU] = useState(props.article.descriptionRU);
     const [contentEN, setContentEN] = useState(props.article.contentEN);
     const [contentRU, setContentRU] = useState(props.article.contentRU);
+    const {t} = useTranslation();
 
     const dispatch = useDispatch();
 
@@ -33,14 +34,16 @@ export const ArticleEditModal = (props: ArticleEditModal) => {
             contentRU,
         }
         if (props.article.id === NEW_ENTRY) {
-            await createArticle(requestBody).then(() =>
-                dispatch(setTableRefresh(true)),
-            )
+            await createArticle(requestBody).then(() => {
+                dispatch(setTableRefresh(true));
+                alert(t('article-create-success'));
+            });
             props.onClose();
         } else {
-            await updateArticle(props.article.id, requestBody).then(() =>
-                dispatch(setTableRefresh(true)),
-            )
+            await updateArticle(props.article.id, requestBody).then(() => {
+                dispatch(setTableRefresh(true));
+                alert(t('article-update-success'));
+            });
             props.onClose();
         }
     }
