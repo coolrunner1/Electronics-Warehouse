@@ -63,6 +63,36 @@ class UsersController {
         }
     }
 
+    async patchUser(req: Request, res: Response, next: NextFunction){
+        try {
+            const result = await usersService.patchUser(req.body, parseInt(req.params.id));
+            if (!result) {
+                return res.status(404).json({ status: "error", message: "User was not found." });
+            }
+            return res.status(200).json(result);
+        } catch (error) {
+            if (error.code === 'P2002') {
+                return res.status(400).json({ status: "error", message: "Unique constraint violation!\nLogin, email, passport and phone number must be unique!" });
+            }
+            next(error);
+        }
+    }
+
+    async updateUserPassword(req: Request, res: Response, next: NextFunction){
+        try {
+            const result = await usersService.updateUserPassword(req.body, parseInt(req.params.id));
+            if (!result) {
+                return res.status(404).json({ status: "error", message: "User was not found." });
+            }
+            return res.status(200).json(result);
+        } catch (error) {
+            if (error.code === 'P2002') {
+                return res.status(400).json({ status: "error", message: "Unique constraint violation!\nLogin, email, passport and phone number must be unique!" });
+            }
+            next(error);
+        }
+    }
+
     async deleteUserById(req: Request, res: Response, next: NextFunction){
             try {
                 const {id} = req.params;

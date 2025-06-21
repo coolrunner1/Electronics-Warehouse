@@ -21,6 +21,14 @@ export const updateUser = async (id: number, body: any) => {
     return await axiosClient.put(`/users/${id}`, body);
 }
 
+export const patchUser = async (id: number, body: any) => {
+    return await axiosClient.patch(`/users/${id}`, body);
+}
+
+export const updateUserPassword = async (id: number, body: any) => {
+    return await axiosClient.patch(`/users/${id}/password`, body);
+}
+
 export const deleteUser = async (id: number) => {
     return await axiosClient.delete(`/users/${id}`);
 }

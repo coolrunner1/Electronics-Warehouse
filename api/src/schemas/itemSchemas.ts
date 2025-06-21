@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-export const itemSchema = z.object({
+export const ItemSchema = z.object({
     category_id: z.coerce.number().positive(),
     manufacturer: z.string(),
     modelEN: z.string(),
@@ -8,12 +8,12 @@ export const itemSchema = z.object({
     unit_price: z.number().nonnegative(),
 });
 
-export const itemDetailsSpecs = z.object({
-    specsEN: z.string().min(10),
-    specsRU: z.string().min(10),
+export const ItemDetailsSpecs = z.object({
+    specsEN: z.string().min(10).optional(),
+    specsRU: z.string().min(10).optional(),
 });
 
-export const itemDetailsDescription = z.object({
-    descriptionEN: z.string().min(10),
-    descriptionRU: z.string().min(10),
+export const ItemDetailsDescription = z.object({
+    descriptionEN: z.string().min(10).optional(),
+    descriptionRU: z.string().min(10).optional(),
 });

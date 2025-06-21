@@ -1,11 +1,11 @@
 import {z} from "zod";
 
-export const loginSchema = z.object({
+export const LoginSchema = z.object({
     login: z.string().min(3),
     password: z.string(),
 });
 
-export const registerSchema = z.object({
+export const RegisterSchema = z.object({
     login: z.string().min(3),
     full_name: z.string(),
     email: z.string().email(),

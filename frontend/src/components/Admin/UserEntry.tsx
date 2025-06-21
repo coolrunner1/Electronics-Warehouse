@@ -16,7 +16,7 @@ import {User} from "../../types/User";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
 import {USER_ROLE} from "../../constants/roles.ts";
-import {createUser, deleteUser, updateUser} from "../../api/users.ts";
+import {createUser, deleteUser, updateUser, updateUserPassword} from "../../api/users.ts";
 import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
 export type UserEntryProps = {
@@ -134,7 +134,6 @@ export const UserEntry = (
             role_id: role,
             client_id: client,
             login: login,
-            password: password || undefined,
             image_path: props.user.image_path,
             full_name: fullName,
             email: email,
@@ -143,10 +142,25 @@ export const UserEntry = (
         }
         if (props.user.user_id === NEW_ENTRY) {
             await createUser(requestBody)
-                .then(() => dispatch(setTableRefresh(true)));
+                .then(() => {
+                    dispatch(setTableRefresh(true));
+                    alert(t('user-create-success'))
+                });
         } else {
             await updateUser(props.user.user_id, requestBody)
-                .then(() => dispatch(setTableRefresh(true)));
+                .then(() => {
+                    if (!password) {
+                        dispatch(setTableRefresh(true));
+                        alert(t('user-update-success'))
+                    }
+                });
+            if (password) {
+                await updateUserPassword(props.user.user_id, {password})
+                    .then(() => {
+                        dispatch(setTableRefresh(true));
+                        alert(t('user-update-success'))
+                    });
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-export const organizationSchema = z.object({
+export const OrganizationSchema = z.object({
     name: z.string(),
     phone_number: z.coerce.number().gt(99999999).lt(10000000000),
     address: z.string(),

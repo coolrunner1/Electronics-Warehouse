@@ -3,6 +3,7 @@ import * as jsonwebtoken from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import {USER_ROLE} from "../constants/roles";
 import {RegistrationBody} from "../types/RegistrationBody";
+import {generateJWT} from "../utils/generateJWT";
 
 class AuthService {
     async login(login: string, password: string) {
@@ -22,20 +23,9 @@ class AuthService {
             throw new Error("Invalid credentials");
         }
 
-        const jwtToken = jsonwebtoken.sign(
-            {
-                id: user.user_id,
-                email: user.email,
-                role: user.role_id.toString(),
-                clientId: (user.client_id ? user.client_id : false).toString(),
-            },
-            process.env.JWT_SECRET,
-            { expiresIn: 3600 }
-        );
-
         delete user.password;
 
-        return {user: user, token: jwtToken};
+        return {user: user, token: generateJWT(user)};
     }
 
     async register(body: RegistrationBody) {
@@ -72,21 +62,9 @@ class AuthService {
             },
         });
 
-        const jwtToken = jsonwebtoken.sign(
-            {
-                id: user.user_id,
-                email: user.email,
-                role: user.role_id.toString(),
-                clientId: (user.client_id ? user.client_id : false).toString(),
-            },
-            process.env.JWT_SECRET,
-            { expiresIn: 3600 }
-        );
-
         delete user.password;
 
-        return {user: user, token: jwtToken};
-
+        return {user: user, token: generateJWT(user)};
     }
 }
 

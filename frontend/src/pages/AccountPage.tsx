@@ -12,9 +12,8 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import {User} from "../types/User.ts";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
-import {updateUser} from "../api/users.ts";
+import {patchUser} from "../api/users.ts";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
-import {login} from "../api/auth.ts";
 
 export const AccountPage = () => {
     const navigate = useNavigate();
@@ -53,46 +52,36 @@ export const AccountPage = () => {
         }
 
         const requestBody = {
-            user_id: user.user_id,
-            role_id: user.role_id,
-            client_id: user.client_id,
             login: loginInput,
-            password: password,
-            image_path: user.image_path,
+            password: password || undefined,
             full_name: name,
             email: email,
             phone_number: phone,
             passport: passport,
         }
 
-        const result = await updateUser(user.user_id, requestBody);
+        const result = await patchUser(user.user_id, requestBody);
         if (!result) {
+            alert(t('something-went-wrong'));
             return;
         }
         signOut();
-        await login({
-            login: loginInput,
-            password: password,
-        })
-            .then((res) => {
-                console.log(res);
-                const success = signIn({
-                    auth: {
-                        token: res.data.token,
-                        type: 'Bearer',
-                    },
-                    refresh: null,
-                    userState: res.data.user,
-                });
-                if (!success) {
-                    return;
-                }
-                alert(t('user-update-success'))
-            })
-            .catch((err) => {
-                console.log(err);
-                alert(t('something-went-wrong'));
-            });
+
+        const success = signIn({
+            auth: {
+                token: result.data.token,
+                type: 'Bearer',
+            },
+            refresh: null,
+            userState: result.data.user,
+        });
+
+        if (!success) {
+            alert(t('something-went-wrong'));
+            return;
+        }
+
+        alert(t('user-update-success'));
     }
 
     const onLoginChange = (e: ChangeEvent<HTMLInputElement>) => {

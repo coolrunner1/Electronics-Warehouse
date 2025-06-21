@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-export const articleSchema = z.object({
+export const ArticleSchema = z.object({
     titleEN: z.string().min(3).max(100),
     titleRU: z.string().min(3).max(100),
     descriptionEN: z.string().min(3).max(255),

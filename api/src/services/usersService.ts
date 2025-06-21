@@ -3,6 +3,7 @@ import {calculateNumberOfPages, pagination} from "../utils/pagination";
 import * as bcrypt from "bcrypt";
 import {Prisma} from "../generated/prisma";
 import {USER_ROLE} from "../constants/roles";
+import {generateJWT} from "../utils/generateJWT";
 
 class UsersService {
     async getAllUsers(reqQuery: any) {
@@ -92,7 +93,7 @@ class UsersService {
     }
 
     async updateUser(body: any, id: number) {
-        let {login, password, full_name, email, phone_number, passport, role_id, client_id} = body;
+        let {login, full_name, email, phone_number, passport, role_id, client_id} = body;
 
         if (client_id === 0) {
             client_id = null;
@@ -106,17 +107,9 @@ class UsersService {
             client_id = 1;
         }
 
-        let hashPassword = '';
-
-        if (password) {
-            const salt = await bcrypt.genSalt(10);
-            hashPassword = await bcrypt.hash(password, salt);
-        }
-
         return prisma.userProfile.update({
             data: {
                 login,
-                password: hashPassword || undefined,
                 full_name,
                 email,
                 phone_number,
@@ -128,6 +121,55 @@ class UsersService {
                 user_id: id
             }
         });
+    }
+
+    async patchUser(body: any, id: number) {
+        let {login, full_name, password, email, phone_number, passport} = body;
+
+        let hashPassword = '';
+
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            hashPassword = await bcrypt.hash(password, salt);
+        }
+
+        const user = await prisma.userProfile.update({
+            data: {
+                login: login || undefined,
+                full_name: full_name || undefined,
+                password: hashPassword || undefined,
+                email: email || undefined,
+                phone_number: phone_number || undefined,
+                passport: passport || undefined,
+            },
+            where: {
+                user_id: id
+            }
+        });
+
+        delete user.password;
+
+        return {user: user, token: generateJWT(user)};
+    }
+
+    async updateUserPassword(body: any, id: number) {
+        let {password} = body;
+
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
+
+        const user = await prisma.userProfile.update({
+            data: {
+                password: hashPassword,
+            },
+            where: {
+                user_id: id
+            }
+        });
+
+        delete user.password;
+
+        return {user: user, token: generateJWT(user)};
     }
 
     async deleteUserById(id: number){

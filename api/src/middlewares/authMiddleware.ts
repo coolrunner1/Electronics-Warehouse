@@ -119,6 +119,7 @@ export const checkAuthWithClientIdOrRoleId = (roleId: number) => {
     }
 }
 
+/*ToDo: remove*/
 export const checkClientIdAuthenticityInBody = () => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const token = cookieToJSON(req.headers['cookie'])._auth;
