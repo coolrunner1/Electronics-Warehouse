@@ -2,8 +2,8 @@ import axiosClient from "./axiosClient";
 import {clientsToOrganizations} from "../utils/clientsToOrganizations.ts";
 
 export const fetchClients = async({queryKey}: any) => {
-    const [_key, page, itemsPerPage] = queryKey;
-    const res = await axiosClient.get(`/clients?page=${page}&limit=${itemsPerPage}`);
+    const [_key, page, itemsPerPage, search] = queryKey;
+    const res = await axiosClient.get(`/clients?page=${page}&limit=${itemsPerPage}${search ? `&search=${search}` : ''}`);
     return {
         pagination: parseInt(res.data.pagination.total),
         clients: clientsToOrganizations(res.data.data)

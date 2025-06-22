@@ -9,14 +9,24 @@ import {fetchSuppliers} from "../../api/suppliers.ts";
 import {LoadingIndicator} from "../../components/Global/LoadingIndicator.tsx";
 import {Pagination} from "../../components/Pagination/Pagination.tsx";
 import {useTranslation} from "react-i18next";
-import {AxiosError} from "axios";
+import {useLocation} from "react-router-dom";
 
 export const SuppliersPage = () => {
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
+    const location = useLocation();
+    const [search, setSearch] = useState("");
     const {t} = useTranslation();
+
+    useEffect(() => {
+        if (location.search === null || location.search === "" || location.search === "?") {
+            setSearch('');
+            return;
+        }
+        setSearch(location.search.slice(1));
+    }, [location]);
 
     const {
         data,
@@ -26,7 +36,7 @@ export const SuppliersPage = () => {
         refetch
     } = useQuery({
         queryFn: fetchSuppliers,
-        queryKey: ['suppliers', page]
+        queryKey: ['suppliers', page, itemsPerPage, search],
     });
 
     useEffect(() => {
@@ -50,18 +60,12 @@ export const SuppliersPage = () => {
                 {isLoading &&
                     <LoadingIndicator/>
                 }
-                {!data && error && (error as AxiosError).status === 404 &&
-                    <>
-                        <div className="text-center text-xl">{t('no-suppliers')}</div>
-                        <OrganizationsTable organizations={[]} organizations_type="suppliers" />
-                    </>
-                }
-                {error && (error as AxiosError).status !== 404 &&
+                {error &&
                     <div className="text-center text-xl">{error.message}</div>
                 }
                 {!isLoading && !isError &&
                     <>
-                        {data &&
+                        {data && data.suppliers.length > 0 ?
                             <>
                                 <div className="w-full max-w-screen overflow-x-scroll">
                                     <OrganizationsTable organizations={data.suppliers} organizations_type="suppliers" />
@@ -73,6 +77,10 @@ export const SuppliersPage = () => {
                                     itemsPerPage={itemsPerPage}
                                     setItemsPerPage={setItemsPerPage}
                                 />
+                            </> :
+                            <>
+                                <div className="text-center text-xl">{t('no-suppliers')}</div>
+                                {!search && <OrganizationsTable organizations={[]} organizations_type="suppliers" />}
                             </>
                         }
                     </>

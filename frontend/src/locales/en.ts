@@ -24,6 +24,8 @@ export default {
     'search-orders': 'Search orders',
     'search-articles': 'Search articles',
     'search-users': 'Search users',
+    'search-clients': 'Search clients',
+    'search-suppliers': 'Search suppliers',
     items: 'Items',
     model: 'Model',
     'model-en': 'Model in English',

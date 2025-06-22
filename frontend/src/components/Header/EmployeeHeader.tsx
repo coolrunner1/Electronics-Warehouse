@@ -20,12 +20,17 @@ export function EmployeeHeader() {
     useEffect(() => {
         if (location.pathname === "/employee/items") {
             setSearchPath("employee/items");
-            setSearchPlaceholder(t('search-items'))
+            setSearchPlaceholder('search-items');
         } else if (location.pathname === "/employee/orders") {
             setSearchPath("employee/orders");
-            setSearchPlaceholder(t('search-orders'))
+            setSearchPlaceholder('search-orders');
+        } else if (location.pathname === "/employee/clients") {
+            setSearchPath("employee/clients");
+            setSearchPlaceholder('search-clients');
+        } else if (location.pathname === "/employee/suppliers") {
+            setSearchPath("employee/suppliers");
+            setSearchPlaceholder('search-suppliers');
         }
-
     }, [location]);
 
     return (

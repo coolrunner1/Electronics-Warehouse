@@ -50,10 +50,6 @@ export const ArticlesEditPage = () => {
     }, [data]);
 
     useEffect(() => {
-        console.log(articles)
-    }, [articles]);
-
-    useEffect(() => {
         refetch();
         dispatch(setTableRefresh(false));
     }, [tableRefresh]);

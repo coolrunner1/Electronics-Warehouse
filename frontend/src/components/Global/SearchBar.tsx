@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import './SearchBar.css'
 import {KeyboardEvent, useState} from "react";
 import {useLocation} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export function SearchBar(
     props: {
@@ -12,6 +13,7 @@ export function SearchBar(
 ) {
     const navigate = useNavigate();
     const location = useLocation();
+    const {t} = useTranslation();
 
     const [search, setSearch] = useState('');
 
@@ -44,7 +46,7 @@ export function SearchBar(
                         className="peer h-full w-full outline-none text-sm pr-2 bg-search"
                         type="text"
                         id="search"
-                        placeholder={props.placeholder}
+                        placeholder={t(props.placeholder)}
                         onChange={event => setSearch(event.target.value)}
                         onKeyUp={keyUpHandler}
                         onKeyDown={keyDownHandler}

@@ -24,6 +24,8 @@ export default {
     'search-orders': 'Поиск по заказам',
     'search-articles': 'Поиск по статьям',
     'search-users': 'Поиск пользователей',
+    'search-clients': 'Поиск по клиентам',
+    'search-suppliers': 'Поиск по поставщикам',
     items: 'Товары',
     model: 'Модель',
     'model-en': 'Модель на английском',

@@ -2,7 +2,7 @@ export const LightThemeSVG = () => {
     return (
         <>
             <svg className="w-6 h-6 fill-black" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 64 64" enable-background="new 0 0 64 64">
+                 viewBox="0 0 64 64" enableBackground="new 0 0 64 64">
                 <g id="Sum">
                     <path d="M17,31.9727993c0,8.295599,6.7157001,15.0206013,15,15.0206013s15-6.7250023,15-15.0206013
                                 c0-8.2957001-6.7157021-15.0206985-15-15.0206985S17,23.6770992,17,31.9727993z M45,31.9727993

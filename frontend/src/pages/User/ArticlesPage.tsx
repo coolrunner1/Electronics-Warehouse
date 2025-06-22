@@ -7,19 +7,30 @@ import {useQuery} from '@tanstack/react-query'
 import {fetchArticles} from '../../api/articles.ts'
 import {useEffect, useState} from 'react'
 import {ArticleEntry} from "../../components/Articles/ArticleEntry.tsx";
+import {useLocation} from "react-router-dom";
 
 export const ArticlesPage = () => {
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(15);
+    const [search, setSearch] = useState('');
 
-    const {t} = useTranslation()
+    const {t} = useTranslation();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.search === null || location.search === "" || location.search === "?") {
+            setSearch('');
+            return;
+        }
+        setSearch(location.search.slice(1));
+    }, [location]);
 
     const {data, isLoading, isError, error} = useQuery<{
         articles: Article[]
         pagination: number
     }>({
         queryFn: fetchArticles,
-        queryKey: ['articles', page, itemsPerPage],
+        queryKey: ['articles', page, itemsPerPage, search],
     });
 
     useEffect(() => {
@@ -37,7 +48,7 @@ export const ArticlesPage = () => {
                 {isError && (
                     <>
                         {(error as AxiosError).status === 404 ? (
-                            <div className='text-center text-xl'>{t('no-items')}</div>
+                            <div className='text-center text-xl'>{t('no-articles')}</div>
                         ) : (
                             <div className='text-center text-xl'>{error.message}</div>
                         )}
@@ -67,7 +78,7 @@ export const ArticlesPage = () => {
                                     </div>
                                 ) : (
                                     <div className='text-center text-xl'>
-                                        {t('no-articles-found')}
+                                        {t('no-articles')}
                                     </div>
                                 )}
                             </>

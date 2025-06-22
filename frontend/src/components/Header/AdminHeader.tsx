@@ -18,10 +18,10 @@ export const AdminHeader = () => {
     useEffect(() => {
         if (location.pathname === "/admin/users") {
             setSearchPath("admin/users");
-            setSearchPlaceholder(t('search-users'))
+            setSearchPlaceholder('search-users')
         } else if (location.pathname === "/admin/articles") {
             setSearchPath("admin/articles");
-            setSearchPlaceholder(t('search-articles'))
+            setSearchPlaceholder('search-articles')
         }
 
     }, [location]);

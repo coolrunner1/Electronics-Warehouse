@@ -6,15 +6,29 @@ import {LanguageSelector} from "../Global/LanguageSelector.tsx";
 import {HeaderButton} from "./HeaderButton.tsx";
 import {OrdersSVG} from "../SVGs/OrdersSVG.tsx";
 import {AccountSVG} from "../SVGs/AccountSVG.tsx";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {CartSVG} from "../SVGs/CartSVG.tsx";
 import {ArticlesSVG} from "../SVGs/ArticlesSVG.tsx";
 import { HomeSVG } from "../SVGs/HomeSVG.tsx";
 import {LocationSVG} from "../SVGs/LocationSVG.tsx";
+import {useEffect, useState} from "react";
 
 export function UserHeader() {
     const {t} = useTranslation();
     const navigate = useNavigate();
+    const [searchPath, setSearchPath] = useState("store");
+    const [searchPlaceholder, setSearchPlaceholder] = useState(t('search-items'));
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === "/store") {
+            setSearchPath("store");
+            setSearchPlaceholder('search-items');
+        } else if (location.pathname === "/articles") {
+            setSearchPath("articles");
+            setSearchPlaceholder('search-articles');
+        }
+    }, [location]);
 
     return (
         <>
@@ -26,8 +40,8 @@ export function UserHeader() {
                 />
                 <SearchBar
                     customClassName={"hidden md:flex"}
-                    pathname={'store'}
-                    placeholder={t('search-items')}
+                    pathname={searchPath}
+                    placeholder={searchPlaceholder}
                 />
                 <HeaderButton
                     title={t('home-page')}

@@ -10,13 +10,24 @@ import {Pagination} from "../../components/Pagination/Pagination.tsx";
 import {queryClient} from "../../api/queryClient.ts";
 import {useTranslation} from "react-i18next";
 import {AxiosError} from "axios";
+import {useLocation} from "react-router-dom";
 
 export const ClientsPage = () => {
     const tableRefresh = useSelector((state: RootState) => state.table.tableRefresh);
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [search, setSearch] = useState("");
+    const location = useLocation();
     const {t} = useTranslation();
+
+    useEffect(() => {
+        if (location.search === null || location.search === "" || location.search === "?") {
+            setSearch('');
+            return;
+        }
+        setSearch(location.search.slice(1));
+    }, [location]);
 
     const {
         data,
@@ -26,7 +37,7 @@ export const ClientsPage = () => {
         refetch
     } = useQuery({
         queryFn: fetchClients,
-        queryKey: ['clients', page, itemsPerPage],
+        queryKey: ['clients', page, itemsPerPage, search],
 
     });
 
@@ -57,25 +68,29 @@ export const ClientsPage = () => {
                         <OrganizationsTable organizations={[]} organizations_type="clients" />
                     </>
                 }
-                {error && (error as AxiosError).status !== 404 &&
+                {error &&
                     <div className="text-center text-xl">{error.message}</div>
                 }
                 {!isLoading && !isError &&
                     <>
-                    {data &&
-                        <>
-                            <div className="w-full max-w-screen overflow-x-scroll">
-                                <OrganizationsTable organizations={data.clients} organizations_type="clients" />
-                            </div>
-                            <Pagination
-                                currentPage={page}
-                                setCurrentPage={setPage}
-                                pageCount={data.pagination}
-                                itemsPerPage={itemsPerPage}
-                                setItemsPerPage={setItemsPerPage}
-                            />
-                        </>
-                    }
+                        {data && data.clients.length > 0 ?
+                            <>
+                                <div className="w-full max-w-screen overflow-x-scroll">
+                                    <OrganizationsTable organizations={data.clients} organizations_type="clients" />
+                                </div>
+                                <Pagination
+                                    currentPage={page}
+                                    setCurrentPage={setPage}
+                                    pageCount={data.pagination}
+                                    itemsPerPage={itemsPerPage}
+                                    setItemsPerPage={setItemsPerPage}
+                                />
+                            </> :
+                            <>
+                                <div className="text-center text-xl">{t('no-clients')}</div>
+                                {!search && <OrganizationsTable organizations={[]} organizations_type="clients" />}
+                            </>
+                        }
                     </>
                 }
             </div>

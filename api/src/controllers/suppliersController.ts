@@ -4,11 +4,10 @@ import suppliersService from "../services/suppliersService";
 class SuppliersController {
     async getSuppliers(req: Request, res: Response, next: NextFunction) {
         try {
-            const {page, limit} = req.query;
-            const suppliers = await suppliersService.getAllSuppliers(Number(page), Number(limit), limit === 'none');
-            if (!suppliers.data.length) {
+            const suppliers = await suppliersService.getAllSuppliers(req.query);
+            /*if (!suppliers.data.length) {
                 return res.status(404).json({ status: "error", message: "No suppliers found" });
-            }
+            }*/
             res.status(200).json(suppliers);
         } catch (error) {
             next(error);

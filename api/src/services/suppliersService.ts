@@ -3,8 +3,23 @@ import {Organization} from "../types/Organizaton";
 import {calculateNumberOfPages, pagination} from "../utils/pagination";
 
 class SuppliersService {
-    async getAllSuppliers(page: number, limit: number, ignorePagination: boolean) {
-        if (ignorePagination) {
+    async getAllSuppliers(query: any) {
+        const {page, limit, search} = query;
+
+        const searchQuery = [];
+
+        if (search) {
+            searchQuery.push(
+                { name: { contains: search, mode: 'insensitive', } },
+                { email: { contains: search, mode: 'insensitive', } },
+                { address: { contains: search, mode: 'insensitive', } },
+                { city: { contains: search, mode: 'insensitive', } },
+                { region: { contains: search, mode: 'insensitive', } },
+                { country: { contains: search, mode: 'insensitive', } },
+            )
+        }
+
+        if (limit === 'none') {
             const data = await prisma.supplier.findMany({
                 orderBy: {
                     supplier_id: 'desc'
@@ -13,6 +28,9 @@ class SuppliersService {
 
             return {
                 data,
+                where: {
+                    OR: searchQuery.length ? searchQuery : undefined,
+                },
                 pagination: {
                     total: 1
                 }
@@ -24,6 +42,9 @@ class SuppliersService {
             prisma.supplier.findMany({
                 orderBy: {
                     supplier_id: 'desc'
+                },
+                where: {
+                    OR: searchQuery.length ? searchQuery : undefined,
                 },
                 skip,
                 take
