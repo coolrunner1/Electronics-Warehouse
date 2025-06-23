@@ -6,7 +6,7 @@ class CategoriesController {
         try {
             const categories = await categoriesService.getAllCategories();
             if (!categories.length) {
-                return res.status(404).json({ status: "error", message: "No categories found" });
+                res.status(404).json({ status: "error", message: "No categories found" });
             }
             res.status(200).json(categories);
         } catch (error) {

@@ -89,6 +89,12 @@ export const CheckoutPage = () => {
                 <div className="rounded-lg">
                     {items.map((item: ItemInCart) => <CheckoutItem key={item.item_id} item={item} />)}
                 </div>
+                <button
+                    className="mt-6 w-full max-w-md rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+                    onClick={() => alert('Not implemented')}
+                >
+                    {t('place-order')}
+                </button>
             </div>
         </div>
     )

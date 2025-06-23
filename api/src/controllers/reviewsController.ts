@@ -3,7 +3,7 @@ import {NextFunction, Request, Response} from "express";
 class ReviewsController {
     async getReviews(req: Request, res: Response, next: NextFunction) {
         try {
-            return res.status(502).json()
+            res.status(502).json()
         } catch (e) {
             next(e)
         }
@@ -11,7 +11,7 @@ class ReviewsController {
 
     async getReview(req: Request, res: Response, next: NextFunction) {
         try {
-            return res.status(502).json()
+            res.status(502).json()
         } catch (e) {
             next(e)
         }
@@ -19,7 +19,7 @@ class ReviewsController {
 
     async createReview(req: Request, res: Response, next: NextFunction) {
         try {
-            return res.status(502).json()
+            res.status(502).json()
         } catch (e) {
             next(e)
         }
@@ -27,7 +27,7 @@ class ReviewsController {
 
     async deleteReview(req: Request, res: Response, next: NextFunction) {
         try {
-            return res.status(502).json()
+            res.status(502).json()
         } catch (e) {
             next(e)
         }

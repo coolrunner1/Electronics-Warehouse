@@ -3,8 +3,8 @@ import enumsController from '../controllers/enumsController';
 
 const enumsRouter = Router();
 
-enumsRouter.get("/return-statuses", enumsController.getReturnStatuses.bind(enumsController));
-enumsRouter.get("/return-reasons", enumsController.getReturnReasons.bind(enumsController));
-enumsRouter.get("/order-statuses", enumsController.getOrderStatuses.bind(enumsController));
+enumsRouter.get("/return-statuses", enumsController.getReturnStatuses);
+enumsRouter.get("/return-reasons", enumsController.getReturnReasons);
+enumsRouter.get("/order-statuses", enumsController.getOrderStatuses);
 
 export default enumsRouter;

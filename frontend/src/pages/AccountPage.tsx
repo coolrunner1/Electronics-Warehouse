@@ -12,7 +12,7 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import {User} from "../types/User.ts";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
-import {patchUser} from "../api/users.ts";
+import {patchMyUser} from "../api/users.ts";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 export const AccountPage = () => {
@@ -60,7 +60,7 @@ export const AccountPage = () => {
             passport: passport,
         }
 
-        const result = await patchUser(user.user_id, requestBody);
+        const result = await patchMyUser(requestBody);
         if (!result) {
             alert(t('something-went-wrong'));
             return;

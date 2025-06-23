@@ -16,10 +16,19 @@ export const getClient = async({queryKey}: any) => {
     return res.data;
 }
 
+export const getMyClient = async() => {
+    const res = await axiosClient.get(`/clients/my`);
+    return res.data;
+}
+
 export const createClient = async(body: any) => {
     return await axiosClient.post(`/clients`, body);
 }
 
 export const updateClient = async(body: any, id: number) => {
     return await axiosClient.put(`/clients/${id}`, body);
+}
+
+export const updateMyClient = async(body: any) => {
+    return await axiosClient.put(`/clients/my`, body);
 }

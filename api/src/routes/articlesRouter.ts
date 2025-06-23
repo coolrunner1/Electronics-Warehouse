@@ -7,10 +7,10 @@ import {ArticleSchema} from "../schemas/articleSchemas";
 
 const articlesRouter = Router();
 
-articlesRouter.get('/', articlesController.getArticles.bind(articlesController));
-articlesRouter.get('/:id', articlesController.getArticleById.bind(articlesController));
-articlesRouter.post('/', checkAuthWithRole(ADMIN_ROLE), validateData(ArticleSchema), articlesController.addArticle.bind(articlesController));
-articlesRouter.put('/:id', checkAuthWithRole(ADMIN_ROLE), validateData(ArticleSchema), articlesController.updateArticle.bind(articlesController));
-articlesRouter.delete('/:id', checkAuthWithRole(ADMIN_ROLE), articlesController.deleteArticle.bind(articlesController));
+articlesRouter.get('/', articlesController.getArticles);
+articlesRouter.get('/:id', articlesController.getArticleById);
+articlesRouter.post('/', checkAuthWithRole(ADMIN_ROLE), validateData(ArticleSchema), articlesController.addArticle);
+articlesRouter.put('/:id', checkAuthWithRole(ADMIN_ROLE), validateData(ArticleSchema), articlesController.updateArticle);
+articlesRouter.delete('/:id', checkAuthWithRole(ADMIN_ROLE), articlesController.deleteArticle);
 
 export default articlesRouter;

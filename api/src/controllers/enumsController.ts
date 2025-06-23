@@ -6,7 +6,7 @@ class EnumsController {
         try {
             const statuses = await enumsService.getReturnStatuses();
             if (!statuses) {
-                return res.status(404).json({ status: "error", message: "Error fetching statuses." });
+                res.status(404).json({ status: "error", message: "Error fetching statuses." });
             }
             res.status(200).json(statuses);
         } catch (error) {
@@ -18,7 +18,7 @@ class EnumsController {
         try {
             const reasons = await enumsService.getReturnReasons();
             if (!reasons) {
-                return res.status(404).json({ status: "error", message: "Error fetching reasons." });
+                res.status(404).json({ status: "error", message: "Error fetching reasons." });
             }
             res.status(200).json(reasons);
         } catch (error) {
@@ -30,7 +30,7 @@ class EnumsController {
         try {
             const statuses = await enumsService.getOrderStatuses();
             if (!statuses) {
-                return res.status(404).json({ status: "error", message: "Error fetching statuses." });
+                res.status(404).json({ status: "error", message: "Error fetching statuses." });
             }
             res.status(200).json(statuses);
         } catch (error) {

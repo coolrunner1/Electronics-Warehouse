@@ -5,6 +5,6 @@ import {ADMIN_ROLE} from "../constants/roles";
 
 const rolesRouter = Router();
 
-rolesRouter.get("/", checkAuthWithRole(ADMIN_ROLE), rolesController.getAllRoles.bind(rolesController));
+rolesRouter.get("/", checkAuthWithRole(ADMIN_ROLE), rolesController.getAllRoles);
 
 export default rolesRouter;

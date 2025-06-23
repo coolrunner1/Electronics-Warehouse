@@ -15,11 +15,27 @@ class ClientsController {
         try {
             const id = parseInt(req.params.id);
             if (!id) {
-                return res.status(400).json({ status: "error", message: "Invalid client id" });
+                res.status(400).json({ status: "error", message: "Invalid client id" });
             }
             const client = await clientsService.getClient(id);
             if (!client) {
-                return res.status(404).json({status: "error", message: "Client was not found"});
+                res.status(404).json({status: "error", message: "Client was not found"});
+            }
+            res.status(200).json(client);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getMyClient(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = parseInt((req.user as any).clientId);
+            if (!id) {
+                res.status(400).json({ status: "error", message: "Invalid client id" });
+            }
+            const client = await clientsService.getClient(id);
+            if (!client) {
+                res.status(404).json({status: "error", message: "Client was not found"});
             }
             res.status(200).json(client);
         } catch (error) {
@@ -31,9 +47,8 @@ class ClientsController {
         try {
             const result = await clientsService.addClient(req.body);
             if (!result) throw new Error('Error adding client');
-            return res.status(201).json(result);
+            res.status(201).json(result);
         } catch (error) {
-            console.error(error);
             next(error);
         }
     }
@@ -42,11 +57,22 @@ class ClientsController {
         try {
             const result = await clientsService.updateClient(req.body, parseInt(req.params.id));
             if (!result) {
-                return res.status(404).json({NOTFOUND: "Client was not found"});
+                res.status(404).json({NOTFOUND: "Client was not found"});
             }
-            return res.status(200).json(result);
+            res.status(200).json(result);
         } catch (error) {
-            console.error(error);
+            next(error);
+        }
+    }
+
+    async updateMyClient(req: Request, res: Response, next: NextFunction) {
+        try {
+            const result = await clientsService.updateClient(req.body, parseInt((req.user as any).clientId));
+            if (!result) {
+                res.status(404).json({NOTFOUND: "Client was not found"});
+            }
+            res.status(200).json(result);
+        } catch (error) {
             next(error);
         }
     }

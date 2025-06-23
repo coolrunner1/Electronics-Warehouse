@@ -5,7 +5,7 @@ import {validateEmail} from "../../utils/validateEmail";
 import {validatePhoneNumber} from "../../utils/validatePhoneNumber";
 import {validatePostalCode} from "../../utils/validatePostalCode";
 import {User} from "../../types/User.ts";
-import {getClient, updateClient} from "../../api/clients.ts";
+import {getMyClient, updateMyClient} from "../../api/clients.ts";
 import {useQuery} from "@tanstack/react-query";
 import {queryClient} from "../../api/queryClient.ts";
 import {useTranslation} from "react-i18next";
@@ -25,8 +25,8 @@ export const ClientForm = () => {
     const [refresh, setRefresh] = useState(false);
 
     const {data, refetch} = useQuery({
-        queryFn: getClient,
-        queryKey: ['client', user ? user.client_id : undefined],
+        queryFn: getMyClient,
+        queryKey: ['my-client'],
     })
 
     useEffect(() => {
@@ -74,7 +74,7 @@ export const ClientForm = () => {
             postal_code: postalCode
         }
 
-        const res = await updateClient(requestBody, user.client_id);
+        const res = await updateMyClient(requestBody);
         if (res.status === 200) {
             alert(t('client-update-success'));
         }
