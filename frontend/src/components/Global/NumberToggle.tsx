@@ -1,9 +1,11 @@
+export type NumberToggleProps = {
+    decrement: () => void,
+    increment: () => void,
+    value: number,
+};
+
 export const NumberToggle = (
-    props: {
-        decrement: () => void,
-        increment: () => void,
-        value: number,
-    }
+    props: NumberToggleProps
 ) => {
     return (
         <>

@@ -12,8 +12,6 @@ export const useGetMappedEnums = (queryFn: () => Promise<AxiosResponse>, queryKe
         queryKey
     });
 
-    console.log(data);
-
     const mappedEnum: ValueLabel<string>[] = data?.data.map((item: EnumFromDB): ValueLabel<string> => ({
         value: item.unnest,
         label: t(item.unnest),

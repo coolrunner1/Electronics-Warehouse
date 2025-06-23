@@ -1,5 +1,6 @@
 const db = require("../database");
 
+//ToDo: REFACTOR!!!
 class OrdersController {
     async getAllOrders(req, res) {
         await db.query("SELECT * FROM ClientOrder ORDER BY order_id DESC", (err, result) => {

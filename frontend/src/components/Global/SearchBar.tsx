@@ -1,15 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import './SearchBar.css'
 import {KeyboardEvent, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
+export type SearchBarProps = {
+    pathname: string,
+    placeholder: string,
+    customClassName?: string
+};
+
 export function SearchBar(
-    props: {
-        pathname: string,
-        placeholder: string,
-        customClassName?: string
-    }
+    props: SearchBarProps
 ) {
     const navigate = useNavigate();
     const location = useLocation();
@@ -33,7 +34,7 @@ export function SearchBar(
         <>
             <div className={"w-full "+props.customClassName || ''}>
                 <div
-                    className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg overflow-hidden bg-search">
+                    className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg overflow-hidden bg-white dark:bg-[#2b2a33]">
                     <div className="grid place-items-center h-full w-12 text-gray-300 bg-search">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">

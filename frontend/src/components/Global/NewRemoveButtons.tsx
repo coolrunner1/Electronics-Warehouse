@@ -4,11 +4,13 @@ import {MouseEventHandler} from "react";
 import {useTranslation} from "react-i18next";
 import {NEW_ENTRY} from "../../constants/newEntry.ts";
 
+export type NewRemoveButtonsProps = {
+    id: number,
+    onNewClick: MouseEventHandler<HTMLButtonElement>,
+};
+
 export const NewRemoveButtons = (
-    props: {
-        id: number,
-        onNewClick: MouseEventHandler<HTMLButtonElement>,
-    }
+    props: NewRemoveButtonsProps
 ) => {
     const {t} = useTranslation();
 

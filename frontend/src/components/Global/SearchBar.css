@@ -1,9 +1,0 @@
-.bg-search {
-    background-color: #ffffff;
-}
-
-body.dark {
-    .bg-search {
-        background-color: #2b2a33;
-    }
-}

@@ -1,11 +1,13 @@
 import {MouseEventHandler} from "react";
 
+export type PageButtonProps = {
+    page: number,
+    selected?: boolean,
+    onClick: MouseEventHandler<HTMLButtonElement>,
+}
+
 export const PageButton = (
-    props: {
-        page: number,
-        selected?: boolean,
-        onClick: MouseEventHandler<HTMLButtonElement>,
-    }
+    props: PageButtonProps
 ) => {
     return (
         <>
