@@ -23,9 +23,13 @@ class AuthService {
             throw new Error("Invalid credentials");
         }
 
-        delete user.password;
+        if (!user) {
+            return null;
+        }
 
-        return {user: user, token: generateJWT(user)};
+        const { password: pw, ...safeUser } = user;
+
+        return {user: safeUser, token: generateJWT(user)};
     }
 
     async register(body: RegistrationBody) {
@@ -62,9 +66,13 @@ class AuthService {
             },
         });
 
-        delete user.password;
+        if (!user) {
+            return null;
+        }
 
-        return {user: user, token: generateJWT(user)};
+        const { password: pw, ...safeUser } = user;
+
+        return {user: safeUser, token: generateJWT(user)};
     }
 }
 

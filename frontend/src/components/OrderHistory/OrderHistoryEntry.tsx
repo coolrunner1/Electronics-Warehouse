@@ -13,6 +13,7 @@ import {RootState} from "../../state/store";
 import {ValueLabel} from "../../types/ValueLabel";
 import {Order} from "../../types/Order";
 import {useTranslation} from "react-i18next";
+import {EMPLOYEE_ROLE, USER_ROLE} from "../../constants/roles.ts";
 
 export type OrderHistoryEntryProps = {
     order: Order,
@@ -89,7 +90,7 @@ export const OrderHistoryEntry = (
                             <div className="text-center">{t('number-of-items')}: {props.order.total_items}</div>
                             <div className="text-center">{t('total-amount')}: ${props.order.total_amount}</div>
                             <div className="text-center">{t('status')}: {t(currentStatus)}</div>
-                            {(props.userRole === 3 && currentStatus !== "Delivered" && currentStatus !== "Canceled") &&
+                            {(props.userRole === EMPLOYEE_ROLE && currentStatus !== "Delivered" && currentStatus !== "Canceled") &&
                                 <div className="text-center flex align-center justify-center gap-4">{t('new-status')}:
                                     <Select
                                         options={props.orderStatuses}
@@ -101,11 +102,11 @@ export const OrderHistoryEntry = (
                                 </div>
                             }
 
-                            {props.userRole === 3 &&
+                            {props.userRole === EMPLOYEE_ROLE &&
                                 <OrderClientInfo clientId={props.order.client_id}/>
                             }
 
-                            {(props.userRole === 2 && currentStatus !== "Canceled" && currentStatus !== "Delivered") &&
+                            {(props.userRole === USER_ROLE && currentStatus !== "Canceled" && currentStatus !== "Delivered") &&
                                 <div className={"max-w-44 m-auto"}>
                                     <RedButton name={t('cancel')} onClick={onCancelClick}/>
                                 </div>

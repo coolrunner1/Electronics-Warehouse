@@ -32,7 +32,7 @@ class ArticlesService {
         }
 
         if (orQuery.length > 0) {
-            query.where.OR = orQuery;
+            (query.where.OR as any) = orQuery;
         }
 
         const [articles, count] = await prisma.$transaction([

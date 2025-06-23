@@ -116,15 +116,15 @@ export const AccountPage = () => {
         <>
             {isAuthenticated && user &&
                 <section className="py-1">
-                    <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
+                    <div className="w-full lg:w-8/12 sm:px-4 mx-auto sm:mt-6">
                         <div
-                            className="bg-light-default dark:bg-dark-default relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+                            className="bg-light-default dark:bg-dark-default flex flex-col min-w-0 break-words w-full mb-6 sm:shadow-lg sm:rounded-lg bg-blueGray-100 border-0">
                             <div className="rounded-t mb-0 px-6 py-6">
                                 <div className="text-center flex justify-between">
                                     <h6 className="text-blueGray-700 text-xl font-bold">
                                         {t('my-account')}
                                     </h6>
-                                    <div>
+                                    <div className="flex flex-col sm:flex-row gap-y-2">
                                         <BlueButton name={t('save')} onClick={onSubmit} />
                                         <RedButton name={t('log-out')} onClick={() => {signOut(); navigate('/login')}} />
                                     </div>

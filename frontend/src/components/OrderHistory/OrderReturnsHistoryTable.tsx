@@ -9,6 +9,7 @@ import {RootState} from "../../state/store";
 import {ItemInReturn} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
+import {USER_ROLE} from "../../constants/roles.ts";
 
 export type OrderReturnHistoryTableItemProps = {
     items: ItemInReturn[],
@@ -39,7 +40,7 @@ export const OrderReturnsHistoryTable = (
                         .map((item, index) => (
                             <Th key={index} className="text-left p-3 px-4">{item}</Th>
                         ))}
-                    {props.userRole !== 2 &&
+                    {props.userRole !== USER_ROLE &&
                         <Th className="text-left p-3 px-4">{t('new-status')}</Th>
                     }
                     <Th></Th>
@@ -53,7 +54,7 @@ export const OrderReturnsHistoryTable = (
                         userRole={props.userRole}
                         returnStatuses={props.returnStatuses}/>
                 ))}
-                {(itemReturn !== null && props.userRole === 2 && props.items && props.orderId === orderId) && (
+                {(itemReturn !== null && props.userRole === USER_ROLE && props.items && props.orderId === orderId) && (
                     <NewOrderReturn/>
                 )}
                 </Tbody>

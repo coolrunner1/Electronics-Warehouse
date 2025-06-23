@@ -1,12 +1,13 @@
-import prisma from "../../prisma/prisma-client";
+import prisma, {SupplierWhereInput} from "../../prisma/prisma-client";
 import {Organization} from "../types/Organizaton";
 import {calculateNumberOfPages, pagination} from "../utils/pagination";
+
 
 class SuppliersService {
     async getAllSuppliers(query: any) {
         const {page, limit, search} = query;
 
-        const searchQuery = [];
+        const searchQuery: SupplierWhereInput[] = [];
 
         if (search) {
             searchQuery.push(
@@ -49,7 +50,11 @@ class SuppliersService {
                 skip,
                 take
             }),
-            prisma.supplier.count()
+            prisma.supplier.count({
+                where: {
+                    OR: searchQuery.length ? searchQuery : undefined,
+                },
+            })
         ]);
 
         return {

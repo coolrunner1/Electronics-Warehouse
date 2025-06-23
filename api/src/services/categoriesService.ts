@@ -13,7 +13,7 @@ class CategoriesService {
         });
     }
 
-    async getCategoryById(categoryId: number): Promise<Category> {
+    async getCategoryById(categoryId: number): Promise<Category | null> {
         return prisma.category.findUnique({
             where: {
                 category_id: categoryId,

@@ -6,6 +6,7 @@ import {Td, Tr} from "react-super-responsive-table";
 import {RootState} from "../../state/store";
 import {ItemInOrder} from "../../types/Item";
 import {useTranslation} from "react-i18next";
+import {USER_ROLE} from "../../constants/roles.ts";
 
 export type OrderHistoryTableItemProps = {
     item: ItemInOrder,
@@ -54,7 +55,7 @@ export const OrderHistoryTableItem = (
                 {[props.item.manufacturer, '$'+props.item.unit_price, props.item.quantity,
                     '$'+(props.item.unit_price * props.item.quantity).toFixed(2)]
                     .map((item, index) => (<Td className="p-3" key={index}>{item}</Td>))}
-                {(props.status === 'Delivered' && props.userRole === 2) && (
+                {(props.status === 'Delivered' && props.userRole === USER_ROLE) && (
                     <Td className="p-3">
                         <BlueButton onClick={onReturnClick} name={t('return-button')}/>
                     </Td>

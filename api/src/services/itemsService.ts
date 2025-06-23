@@ -92,11 +92,11 @@ class ItemsService {
         };
 
         if (orItemsQuery.length) {
-            finalItemsQuery.where.OR = orItemsQuery;
+            (finalItemsQuery.where.OR as any) = orItemsQuery;
         }
 
         if (andItemsQuery.length) {
-            finalItemsQuery.where.AND = andItemsQuery;
+            (finalItemsQuery.where.AND as any) = andItemsQuery;
         }
 
         const data = await prisma.item.findMany(finalItemsQuery);

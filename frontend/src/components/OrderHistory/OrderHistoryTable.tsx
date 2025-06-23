@@ -4,6 +4,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {Table, Tbody, Th, Thead, Tr} from "react-super-responsive-table";
 import {ItemInOrder} from "../../types/Item";
 import {useTranslation} from "react-i18next";
+import {USER_ROLE} from "../../constants/roles.ts";
 
 export type OrderHistoryTableProps = {
     items: ItemInOrder[],
@@ -24,7 +25,7 @@ export const OrderHistoryTable = (
                     {[t('product'), t("manufacturer"), t('price-per-unit'), t('quantity'), t('total-price')].map((item, index) => (
                         <Th key={index} className="text-left p-3 px-4">{item}</Th>
                     ))}
-                    {(props.status === 'Delivered' && props.userRole === 2) && (
+                    {(props.status === 'Delivered' && props.userRole === USER_ROLE) && (
                         <Th className="text-left p-3 px-4">{t('return')}</Th>
                     )
                     }

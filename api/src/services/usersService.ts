@@ -4,6 +4,8 @@ import * as bcrypt from "bcrypt";
 import {Prisma} from "../generated/prisma";
 import {USER_ROLE} from "../constants/roles";
 import {generateJWT} from "../utils/generateJWT";
+import UserProfileOrderByWithRelationInput = Prisma.UserProfileOrderByWithRelationInput;
+import UserProfileWhereInput = Prisma.UserProfileWhereInput;
 
 class UsersService {
     async getAllUsers(reqQuery: any) {
@@ -11,8 +13,8 @@ class UsersService {
 
         const {skip, take} = pagination(page, limit);
 
-        const orQuery = []
-        const orderByQuery: Prisma.UserProfileOrderByWithRelationInput = {
+        const orQuery: UserProfileWhereInput[] = []
+        const orderByQuery: UserProfileOrderByWithRelationInput = {
             user_id: 'desc',
         };
 
@@ -28,36 +30,56 @@ class UsersService {
 
         const query = {
             where: {
-                OR: undefined
+                OR: orQuery || undefined,
+            },
+            select: {
+                user_id: true,
+                role_id: true,
+                client_id: true,
+                login: true,
+                password: false,
+                image_path: true,
+                full_name: true,
+                email: true,
+                phone_number: true,
+                passport: true
             },
             orderBy: orderByQuery,
             skip,
             take: take
         }
 
-        if (orQuery.length > 0) {
-            query.where.OR = orQuery;
-        }
-
         const [users, count] = await prisma.$transaction([
             prisma.userProfile.findMany(query),
-            prisma.userProfile.count()
+            prisma.userProfile.count({
+                where: {
+                    OR: orQuery || undefined,
+                }
+            })
         ]);
 
         return {
             pagination: {
-                total: calculateNumberOfPages(count, limit),
+                total: calculateNumberOfPages(count, take),
             },
             data: users
         };
     }
 
     async getUserById(id: number) {
-        return prisma.userProfile.findUnique({
+        const user = await prisma.userProfile.findUnique({
             where: {
                 user_id: id,
             }
-        })
+        });
+
+        if (!user) {
+            return null;
+        }
+
+        const { password, ...safeUser } = user;
+
+        return safeUser;
     }
 
     async createUser(body: any) {
@@ -78,7 +100,7 @@ class UsersService {
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
 
-        return prisma.userProfile.create({
+        const user = await prisma.userProfile.create({
             data: {
                 login,
                 password: hashPassword,
@@ -90,6 +112,14 @@ class UsersService {
                 client_id: client_id,
             }
         });
+
+        if (!user) {
+            return null;
+        }
+
+        const { password: pw, ...safeUser } = user;
+
+        return safeUser;
     }
 
     async updateUser(body: any, id: number) {
@@ -107,7 +137,7 @@ class UsersService {
             client_id = 1;
         }
 
-        return prisma.userProfile.update({
+        const user = await prisma.userProfile.update({
             data: {
                 login,
                 full_name,
@@ -121,6 +151,14 @@ class UsersService {
                 user_id: id
             }
         });
+
+        if (!user) {
+            return null;
+        }
+
+        const { password: pw, ...safeUser } = user;
+
+        return safeUser;
     }
 
     async patchUser(body: any, id: number) {
@@ -147,9 +185,13 @@ class UsersService {
             }
         });
 
-        delete user.password;
+        if (!user) {
+            return null;
+        }
 
-        return {user: user, token: generateJWT(user)};
+        const { password: pw, ...safeUser } = user;
+
+        return {user: safeUser, token: generateJWT(user)};
     }
 
     async updateUserPassword(body: any, id: number) {
@@ -167,9 +209,13 @@ class UsersService {
             }
         });
 
-        delete user.password;
+        if (!user) {
+            return null;
+        }
 
-        return {user: user, token: generateJWT(user)};
+        const { password: pw, ...safeUser } = user;
+
+        return {user: safeUser, token: generateJWT(user)};
     }
 
     async deleteUserById(id: number){

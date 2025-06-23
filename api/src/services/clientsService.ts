@@ -1,12 +1,14 @@
 import prisma from "../../prisma/prisma-client";
 import {Organization} from "../types/Organizaton";
 import {calculateNumberOfPages, pagination} from "../utils/pagination";
+import {Prisma} from "../generated/prisma";
+import ClientWhereInput = Prisma.ClientWhereInput;
 
 class ClientsService {
     async getAllClients(query: any) {
         const {page, limit, search} = query;
 
-        const searchQuery = [];
+        const searchQuery: ClientWhereInput[] = [];
 
         if (search) {
             searchQuery.push(
@@ -50,7 +52,11 @@ class ClientsService {
                 skip,
                 take
             }),
-            prisma.client.count()
+            prisma.client.count({
+                where: {
+                    OR: searchQuery.length ? searchQuery : undefined,
+                }
+            })
         ]);
 
         return {

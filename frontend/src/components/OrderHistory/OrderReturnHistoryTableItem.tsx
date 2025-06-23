@@ -9,6 +9,7 @@ import axios from "axios";
 import {ItemInReturn} from "../../types/Item";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
+import {USER_ROLE} from "../../constants/roles.ts";
 
 export type OrderReturnHistoryTableItemProps = {
     item: ItemInReturn,
@@ -63,7 +64,7 @@ export const OrderReturnHistoryTableItem = (
                 {props.item.reason && <Td>{t(props.item.reason)}</Td>}
                 {currentStatus && <Td>{t(currentStatus)}</Td>}
                 <Td className="p-3">
-                    {(props.userRole !== 2 && currentStatus !== "Refunded" && currentStatus !== "Rejected") &&
+                    {(props.userRole !== USER_ROLE && currentStatus !== "Refunded" && currentStatus !== "Rejected") &&
                         <div className="flex justify-center m-auto gap-3">
                             <Select
                                 options={props.returnStatuses}
