@@ -75,7 +75,6 @@ export const UsersPage = () => {
             full_name: 'full name',
             email: 'email@example.com',
             phone_number: '+7777777777',
-            passport: 0,
         }, ...users]);
     }
 
@@ -106,7 +105,7 @@ export const UsersPage = () => {
                                             <Thead>
                                                 <Tr className="border-b">
                                                     {
-                                                        [t('login'), t('new-password'), t('full-name'), 'Email', t('phone-number'), t('passport'), t('role'), t('company')]
+                                                        [t('login'), t('new-password'), t('full-name'), 'Email', t('phone-number'), t('role'), t('company')]
                                                             .map((item, index) => (<Th key={index} role="columnheader">{item}</Th>))
                                                     }
                                                     <Th>

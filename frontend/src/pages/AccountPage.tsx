@@ -5,7 +5,6 @@ import {FormInput} from "../components/Global/FormInput.tsx";
 import {ClientForm} from "../components/Account/ClientForm";
 import {validateEmail} from "../utils/validateEmail";
 import {validatePhoneNumber} from "../utils/validatePhoneNumber";
-import {validatePassport} from "../utils/validatePassport";
 import {RedButton} from "../components/Global/RedButton";
 import {useTranslation} from "react-i18next";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
@@ -23,7 +22,6 @@ export const AccountPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [passport, setPassport] = useState(0);
 
     const user = useAuthUser<User>();
     const isAuthenticated = useIsAuthenticated();
@@ -38,7 +36,6 @@ export const AccountPage = () => {
         setName(user.full_name);
         setEmail(user.email);
         setPhone(user.phone_number);
-        setPassport(user.passport);
     }, [user]);
 
     const onSubmit = async () => {
@@ -57,7 +54,6 @@ export const AccountPage = () => {
             full_name: name,
             email: email,
             phone_number: phone,
-            passport: passport,
         }
 
         const result = await patchMyUser(requestBody);
@@ -106,12 +102,6 @@ export const AccountPage = () => {
         }
     }
 
-    const onPassportChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (validatePassport(e.target.value)) {
-            setPassport(parseInt(e.target.value));
-        }
-    }
-
     return (
         <>
             {isAuthenticated && user &&
@@ -136,12 +126,35 @@ export const AccountPage = () => {
                                         {t('user-info')}
                                     </h6>
                                     <div className="flex flex-wrap">
-                                        <FormInput name={t('login')} placeholder={t('enter-new-login')} value={loginInput} onChange={onLoginChange} />
-                                        <FormInput name={t('new-password')} placeholder={t('enter-new-password')} value={password} onChange={onPasswordChange} />
-                                        <FormInput name={t('full-name')} placeholder={t('enter-full-name')} value={name} onChange={onNameChange} />
-                                        <FormInput name={"Email"} placeholder={t('enter-email')} value={email} onChange={onEmailChange} />
-                                        <FormInput name={t('phone-number')} placeholder={t('enter-number')} value={phone} onChange={onPhoneChange} />
-                                        <FormInput name={t('passport')} placeholder={t('enter-passport')} value={passport.toString()} onChange={onPassportChange} />
+                                        <FormInput
+                                            name={t('login')}
+                                            placeholder={t('enter-new-login')}
+                                            value={loginInput}
+                                            onChange={onLoginChange}
+                                        />
+                                        <FormInput
+                                            name={t('new-password')}
+                                            placeholder={t('enter-new-password')}
+                                            value={password} onChange={onPasswordChange}
+                                        />
+                                        <FormInput
+                                            name={t('full-name')}
+                                            placeholder={t('enter-full-name')}
+                                            value={name}
+                                            onChange={onNameChange}
+                                        />
+                                        <FormInput
+                                            name={"Email"}
+                                            placeholder={t('enter-email')}
+                                            value={email}
+                                            onChange={onEmailChange}
+                                        />
+                                        <FormInput
+                                            name={t('phone-number')}
+                                            placeholder={t('enter-number')}
+                                            value={phone}
+                                            onChange={onPhoneChange}
+                                        />
                                     </div>
 
                                     {user.client_id !== null &&

@@ -21,7 +21,7 @@ export const TopItemEntry = (
             <div
                 className="bg-light-default dark:bg-dark-default justify-between m-auto mb-2 rounded-lg p-6 shadow-md lg:flex lg:justify-center">
                 {props.item.image_path == null
-                    ? <img src="/placeholder.png" alt="image is missing" className="w-full rounded-lg sm:w-30" />
+                    ? <img src="/placeholder.png" alt="image is missing" className="w-full h-1/2 max-w-sm rounded-lg lg:w-30" />
                     : <img src={`${import.meta.env.VITE_BASE_URL}/${props.item.image_path}`} alt={props.item.modelEN} className="w-full h-1/2 max-w-sm rounded-lg lg:w-30"  />}
                 <div className="my-auto lg:ml-4 lg:flex lg:w-full lg:justify-between lg:gap-3">
                     <div className="mt-5 lg:mt-0 max-w-36">

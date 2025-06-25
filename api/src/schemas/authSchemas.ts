@@ -10,7 +10,6 @@ export const RegisterSchema = z.object({
     full_name: z.string(),
     email: z.string().email(),
     phone_number: z.coerce.number().gt(99999999).lt(10000000000),
-    passport: z.number().lt(1000000000),
     password: z.string().min(8),
     city: z.string(),
     region: z.string(),

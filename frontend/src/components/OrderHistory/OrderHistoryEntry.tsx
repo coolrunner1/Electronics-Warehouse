@@ -81,7 +81,7 @@ export const OrderHistoryEntry = (
         <>
             <section>
                 <div
-                    className="sm:px-4 py-4 lg:m-6 flex flex-col justify-center overflow-x-scroll font-bold text-xl text-center">
+                    className="sm:px-4 py-4 lg:m-6 flex flex-col justify-center overflow-x-scroll font-bold sm:text-xl text-center">
                     <div className="bg-light-default dark:bg-dark-default justify-between sm:mb-6 rounded-lg sm:p-6 shadow-md ">
                         <dl className="flex flex-col gap-4 justify-center text-center">
                             <h3 className="i">{t('order-placed-on')} {date}

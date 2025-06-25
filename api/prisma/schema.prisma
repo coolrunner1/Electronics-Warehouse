@@ -168,7 +168,6 @@ model UserProfile {
   full_name    String  @db.VarChar(255)
   email        String  @unique @db.VarChar(255)
   phone_number String  @unique @db.VarChar(255)
-  passport     Int
   client       Client? @relation("userProfileClient", fields: [client_id], references: [client_id], onDelete: Cascade)
   role         Role    @relation("userProfileRole", fields: [role_id], references: [role_id], onDelete: Cascade)
 

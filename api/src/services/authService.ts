@@ -33,7 +33,7 @@ class AuthService {
     }
 
     async register(body: RegistrationBody) {
-        const { login, full_name, phone_number, email, password, passport, city, region, country, address, postal_code } = body;
+        const { login, full_name, phone_number, email, password, city, region, country, address, postal_code } = body;
 
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
@@ -45,7 +45,6 @@ class AuthService {
                 full_name,
                 email,
                 phone_number,
-                passport,
                 role: {
                     connect: {
                         role_id: USER_ROLE

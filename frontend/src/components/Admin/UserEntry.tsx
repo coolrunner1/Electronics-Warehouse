@@ -11,7 +11,6 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import {TableTextInput} from "../Global/TableTextInput";
 import {validateEmail} from "../../utils/validateEmail";
 import {validatePhoneNumber} from "../../utils/validatePhoneNumber";
-import {validatePassport} from "../../utils/validatePassport";
 import {User} from "../../types/User";
 import {ValueLabel} from "../../types/ValueLabel";
 import {useTranslation} from "react-i18next";
@@ -33,7 +32,6 @@ export const UserEntry = (
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [passport, setPassport] = useState(0);
     const [defaultRole, setDefaultRole] = useState(-1);
     const [defaultClient, setDefaultClient] = useState(-1);
     const [role, setRole] = useState(-1);
@@ -47,7 +45,6 @@ export const UserEntry = (
         setFullName(props.user.full_name);
         setEmail(props.user.email);
         setPhoneNumber(props.user.phone_number);
-        setPassport(props.user.passport);
     }, [props.user]);
 
     useEffect(() => {
@@ -95,16 +92,6 @@ export const UserEntry = (
         }
     }
 
-    const onPassportChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (validatePassport(e.target.value)) {
-            if (isNaN(parseInt(e.target.value))) {
-                setPassport(0);
-                return;
-            }
-            setPassport(parseInt(e.target.value));
-        }
-    }
-
     const onRoleChange = (e: SingleValue<ValueLabel<number>> ) => {
         if (!e) return;
         setRole(e.value);
@@ -138,7 +125,6 @@ export const UserEntry = (
             full_name: fullName,
             email: email,
             phone_number: phoneNumber,
-            passport: passport,
         }
         if (props.user.user_id === NEW_ENTRY) {
             await createUser(requestBody)
@@ -181,9 +167,6 @@ export const UserEntry = (
                 </Td>
                 <Td className="p-3">
                     <TableTextInput value={phoneNumber} onChange={onNumberChange}/>
-                </Td>
-                <Td className="p-3">
-                    <TableTextInput value={passport.toString()} onChange={onPassportChange}/>
                 </Td>
                 <Td className="p-3">
                     { defaultRole !== -1 &&

@@ -24,13 +24,12 @@ class UsersService {
                 {email: {contains: search, mode: 'insensitive',}},
                 {full_name: {contains: search, mode: 'insensitive',}},
                 {phone_number: {contains: search, mode: 'insensitive',}},
-                {passport: {equals: Number(search) || 0}},
             )
         }
 
         const query = {
             where: {
-                OR: orQuery || undefined,
+                OR: orQuery.length ? orQuery : undefined,
             },
             select: {
                 user_id: true,
@@ -42,7 +41,6 @@ class UsersService {
                 full_name: true,
                 email: true,
                 phone_number: true,
-                passport: true
             },
             orderBy: orderByQuery,
             skip,
@@ -53,7 +51,7 @@ class UsersService {
             prisma.userProfile.findMany(query),
             prisma.userProfile.count({
                 where: {
-                    OR: orQuery || undefined,
+                    OR: orQuery.length ? orQuery : undefined,
                 }
             })
         ]);
@@ -83,7 +81,7 @@ class UsersService {
     }
 
     async createUser(body: any) {
-        let {login, password, full_name, email, phone_number, passport, role_id, client_id} = body;
+        let {login, password, full_name, email, phone_number, role_id, client_id} = body;
 
         if (client_id === 0) {
             client_id = null;
@@ -107,7 +105,6 @@ class UsersService {
                 full_name,
                 email,
                 phone_number,
-                passport,
                 role_id,
                 client_id: client_id,
             }
@@ -123,7 +120,7 @@ class UsersService {
     }
 
     async updateUser(body: any, id: number) {
-        let {login, full_name, email, phone_number, passport, role_id, client_id} = body;
+        let {login, full_name, email, phone_number, role_id, client_id} = body;
 
         if (client_id === 0) {
             client_id = null;
@@ -143,7 +140,6 @@ class UsersService {
                 full_name,
                 email,
                 phone_number,
-                passport,
                 role_id,
                 client_id: client_id,
             },
@@ -162,7 +158,7 @@ class UsersService {
     }
 
     async patchUser(body: any, id: number) {
-        let {login, full_name, password, email, phone_number, passport} = body;
+        let {login, full_name, password, email, phone_number} = body;
 
         let hashPassword = '';
 
@@ -178,7 +174,6 @@ class UsersService {
                 password: hashPassword || undefined,
                 email: email || undefined,
                 phone_number: phone_number || undefined,
-                passport: passport || undefined,
             },
             where: {
                 user_id: id

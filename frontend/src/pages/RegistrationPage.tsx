@@ -6,7 +6,6 @@ import {AuthInput} from "../components/Auth/AuthInput.tsx";
 import {AuthButton} from "../components/Auth/AuthButton.tsx";
 import {LanguageSelector} from "../components/Global/LanguageSelector.tsx";
 import {validatePhoneNumber} from "../utils/validatePhoneNumber.ts";
-import {validatePassport} from "../utils/validatePassport.ts";
 import {validateEmail} from "../utils/validateEmail.ts";
 import {register} from "../api/auth.ts";
 import {validatePostalCode} from "../utils/validatePostalCode.ts";
@@ -17,7 +16,6 @@ export const RegistrationPage = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("+7");
-    const [passport, setPassport] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [country, setCountry] = useState("");
@@ -29,7 +27,6 @@ export const RegistrationPage = () => {
     const [loginIsInvalid, setLoginIsInvalid] = useState(false);
     const [nameIsInvalid, setNameIsInvalid] = useState(false);
     const [phoneIsInvalid, setPhoneIsInvalid] = useState(false);
-    const [passportIsInvalid, setPassportIsInvalid] = useState(false);
     const [emailIsInvalid, setEmailIsInvalid] = useState(false);
     const [passwordIsInvalid, setPasswordIsInvalid] = useState(false);
     const [countryIsInvalid, setCountryIsInvalid] = useState(false);
@@ -60,12 +57,6 @@ export const RegistrationPage = () => {
         }
     }
 
-    const handlePassportChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (validatePassport(e.target.value)) {
-            setPassport(e.target.value);
-        }
-    }
-
     const handlePostalCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (validatePostalCode(e.target.value)) {
             setPostalCode(e.target.value);
@@ -93,15 +84,6 @@ export const RegistrationPage = () => {
             setTimeout(() => {
                 setName("");
                 setNameIsInvalid(false);
-            }, validTimeout);
-            valid = false;
-        }
-
-        if (!passport) {
-            setPassport(t('empty-field'));
-            setPassportIsInvalid(true);setTimeout(() => {
-                setPassport("");
-                setPassportIsInvalid(false);
             }, validTimeout);
             valid = false;
         }
@@ -218,7 +200,6 @@ export const RegistrationPage = () => {
             full_name: name,
             email: email,
             phone_number: phone,
-            passport: Number(passport),
             password: password,
             city: city,
             region: region,
@@ -299,14 +280,6 @@ export const RegistrationPage = () => {
                                 value={email}
                                 type={'email'}
                                 onChange={(e) => setEmail(e.target.value)}
-                                onKeyDown={keyPressHandler}
-                            />
-                            <AuthInput
-                                invalid={passportIsInvalid}
-                                label={t('passport')}
-                                value={passport}
-                                type={'text'}
-                                onChange={handlePassportChange}
                                 onKeyDown={keyPressHandler}
                             />
                             <AuthInput

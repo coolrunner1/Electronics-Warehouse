@@ -534,8 +534,7 @@ async function main() {
             password: 'admin',
             full_name: 'Admin User',
             email: 'admin@example.com',
-            phone_number: '+7978440304',
-            passport: 978440307,
+            phone_number: '+7008000004',
             role: {
                 connect: {
                     name: 'Admin',

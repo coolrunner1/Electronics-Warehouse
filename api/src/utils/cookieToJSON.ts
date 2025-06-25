@@ -3,7 +3,7 @@ export const cookieToJSON = (cookieString: string) => {
         return {}
     }
     let cookies = cookieString.split("; ");
-    let newCookies = [];
+    let newCookies: string[] = [];
     cookies.forEach(cookie => {
         const cookieArr = cookie.split("=");
         cookieArr[0] = '"' + cookieArr[0] + '"';

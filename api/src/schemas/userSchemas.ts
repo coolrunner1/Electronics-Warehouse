@@ -6,7 +6,6 @@ export const UserSchema = z.object({
     full_name: z.string(),
     email: z.string().email(),
     phone_number: z.coerce.number().gt(99999999).lt(10000000000),
-    passport: z.number().lt(1000000000),
     role_id: z.number(),
     client_id: z.number().nullable()
 });
@@ -16,7 +15,6 @@ export const UserUpdateSchema = z.object({
     full_name: z.string(),
     email: z.string().email(),
     phone_number: z.coerce.number().gt(99999999).lt(10000000000),
-    passport: z.number().lt(1000000000),
     role_id: z.number(),
     client_id: z.number().nullable()
 });
@@ -27,7 +25,6 @@ export const UserPatchSchema = z.object({
     full_name: z.string().optional(),
     email: z.string().email().optional(),
     phone_number: z.coerce.number().gt(99999999).lt(10000000000).optional(),
-    passport: z.number().lt(1000000000).optional(),
 });
 
 export const UserUpdatePasswordSchema = z.object({
